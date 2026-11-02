@@ -292,7 +292,7 @@
   <div class="list-head">
     <div>
       <h2 class="page-title">学者名录</h2>
-      <p class="page-desc">收录北京师范大学中文系（文学院）在录与离退休学者，另含 1 位跨院标明的新闻传播学院教授；可按关键词、学科、职称、机构筛选；点击卡片进入详情。</p>
+      <p class="page-desc">收录北京师范大学中文系（文学院）在录与离退休学者，另含 2 位跨院标明的教授（新闻传播学院、国际中文教育学院）；可按关键词、学科、职称、机构筛选；点击卡片进入详情。</p>
     </div>
   </div>
 
@@ -353,14 +353,14 @@
 
   // 封面统计板：大数字 + 一行注解
   document.getElementById("hero-stats").innerHTML = [
-    [real.length, "收录学者", "文学院 12 个研究所 + 跨院 1 人（珠海授课）"],
+    [real.length, "收录学者", "文学院 12 个研究所、离退休与珠海中文系；另含跨院 2 人"],
     [data.masters.length, "先贤名师", "官网「先贤名师」栏目"],
     [edges.length, "师承关系", "每条附证据原文"],
     [relatedIds.size, "涉及学者", "有师承记录者"],
   ].map(([n, l, s]) => `<div class="hs"><div class="n">${n}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join("");
 
   // 学科数按中文系口径统计，跨院标明者不计入
-  const discRoster = real.filter(s => s.org !== "新闻传播学院（跨院）");
+  const discRoster = real.filter(s => !/（跨院）$/.test(s.org || ""));
   document.getElementById("stat-strip").innerHTML = [
     [real.length, "收录学者"],
     [new Set(discRoster.map(s => s.discipline).filter(Boolean)).size, "二级学科"],

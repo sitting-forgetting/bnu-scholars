@@ -138,8 +138,20 @@
 
   <div class="chart-box">
     <h2>覆盖情况一览</h2>
-    <p class="chart-desc">各字段的实际填充情况，如实反映数据完整度。</p>
-    <div id="fill-chart" class="chart" style="height:380px"></div>
+    <p class="chart-desc">口径为 190 位在录学者（6 条外源条目与 38 位先贤不计入本图）。末三项（履历、个人主页、代表作）是本库最空的字段——官网并未系统著录，我们没有替学者补写，覆盖率低就是低。</p>
+    <div id="fill-chart" class="chart" style="height:460px"></div>
+  </div>
+
+  <div class="chart-box">
+    <h2>同类作品对照</h2>
+    <p style="font-size:14px;line-height:1.95;margin:0 0 10px">
+      国际上最接近的作品是 <a href="https://mathgenealogy.org/" target="_blank" rel="noopener">Mathematics Genealogy Project</a>（数学谱系项目，1997 年由 Harry B. Coonce 发起，现由北达科他州立大学主办、美国数学学会赞助）：
+      它按「谁在谁名下获得博士学位」记录数学家谱系，已收录三十余万条，每条含毕业年份、论文题目、母校、导师与门下。
+    </p>
+    <p style="font-size:14px;line-height:1.95;margin:0">
+      本库体量小得多（235 条边），走的是同一条路，补的是它没有的那一层：<strong>每条边都带证据原文与来源链接</strong>，年份冲突、同名干扰、学位类型误标逐条留痕。
+      换句话说，MGP 证明「学术谱系可以被做成公共数据库」，本库要证明的是「这样一张图能不能被逐条核对」。
+    </p>
   </div>
 
   <div class="chart-box">
@@ -155,6 +167,7 @@
 
 <script src="vendor/echarts.min.js"></script>
 <script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
@@ -162,17 +175,22 @@
   document.getElementById("site-header").innerHTML = BNU.header("data-sources.html");
   document.getElementById("site-footer").innerHTML = BNU.footer(data);
 
-  const total = data.scholars.length;
+  // 口径：190 位在录学者（不含 6 条外源条目与 38 位先贤），与「数据说明」第七节一致
+  const pop = data.scholars.filter(s => !s.external);
+  const total = pop.length;
   const pct = n => total ? Math.round(n / total * 100) : 0;
   const fields = [
-    ["姓名", data.scholars.filter(s => s.name).length],
-    ["职称", data.scholars.filter(s => s.title).length],
-    ["二级学科", data.scholars.filter(s => s.discipline).length],
-    ["所属机构", data.scholars.filter(s => s.org).length],
-    ["研究方向", data.scholars.filter(s => (s.interests || []).length).length],
-    ["出生年份", data.scholars.filter(s => s.birth).length],
-    ["籍贯", data.scholars.filter(s => s.birthplace).length],
-    ["来源URL", data.scholars.filter(s => s.source).length],
+    ["姓名", pop.filter(s => s.name).length],
+    ["职称", pop.filter(s => s.title).length],
+    ["二级学科", pop.filter(s => s.discipline).length],
+    ["所属机构", pop.filter(s => s.org).length],
+    ["研究方向", pop.filter(s => (s.interests || []).length).length],
+    ["出生年份", pop.filter(s => s.birth).length],
+    ["籍贯", pop.filter(s => s.birthplace).length],
+    ["来源URL", pop.filter(s => s.source).length],
+    ["个人主页", pop.filter(s => s.homepage).length],
+    ["履历", pop.filter(s => (s.career || []).length).length],
+    ["代表作", pop.filter(s => (s.works || []).length).length],
   ].sort((a, b) => a[1] - b[1]);
 
   BNU.mount("fill-chart", {

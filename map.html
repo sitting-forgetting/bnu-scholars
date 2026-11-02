@@ -23,6 +23,11 @@
     font-size: 12.5px; line-height: 1.6; padding: 5px 9px;
   }
   .tdt-tip::before { display: none; }
+  /* 放大视图里的省会圆点与人数标号 */
+  .bubble-num {
+    color: #fff; font: 600 11px/18px var(--f-sans); text-align: center;
+    text-shadow: 0 1px 2px rgba(60, 10, 8, .45); pointer-events: none;
+  }
   .side-stack { display: grid; gap: 18px; }
 
   .prov-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
@@ -84,7 +89,6 @@
       <option value="birthplace">按籍贯分布</option>
       <option value="studyProv" disabled>按主要求学地分布（数据尚未采集）</option>
     </select>
-    <label class="check"><input type="checkbox" id="only-real" checked> 仅统计真实数据（不含示例）</label>
     <span class="count" id="count"></span>
   </div>
 
@@ -123,6 +127,7 @@
           <li><b>底图</b>：国界、省界与地名取自天地图；着色为按籍贯统计的学人人数。</li>
           <li><b>按籍贯</b>：看出身地。「主要求学地」这一口径的公开简历尚未逐条采集，故暂未开放。</li>
           <li><b>颜色即人数</b>：同一色阶，越深人越多；未着色省份为公开资料未载，不代表无人。</li>
+          <li><b>放大看点位</b>：放大到 5 级以上，色块收成省会圆点（圆点标在省会，只表示该省人数），数字即人数——省界是统计用简化边界，与底图精细海岸线不作精确配准，故放大后不再填色。</li>
           <li><b>不做推断</b>：只统计简历里写明的省份，缺失者不进分母以外的任何计算。</li>
           <li><b>先贤另计</b>：先贤名师的籍贯来自官网生平介绍，在名单中以浅金底标出。</li>
         </ul>
@@ -136,6 +141,7 @@
 <script src="vendor/leaflet/leaflet.js"></script>
 <script src="vendor/china.js"></script>
 <script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
 <script src="data/geo-centers.js"></script>
 <script src="js/common.js"></script>
 <script>
@@ -155,24 +161,23 @@
   Promise.resolve(window.CHINA_GEO).then(geoJson => {
     if (!geoJson) { failTip("地图数据缺失：vendor/china.js 没有载入。"); return; }
     const modeSel = document.getElementById("mode");
-    const onlyReal = document.getElementById("only-real");
     const countEl = document.getElementById("count");
 
     // 学人 = 在职/离退休学者 + 先贤名师（先贤的籍贯来自文学院官网生平）
     const allPeople = () => {
-      const a = data.scholars.map(s => ({ ...s, _kind: "scholar" }));
+      const a = data.scholars.filter(s => !s.external).map(s => ({ ...s, _kind: "scholar" }));
       (data.masters || []).forEach(m => {
         if (m.birthplace) a.push({ ...m, _kind: "master", studyProv: "" });
       });
       return a;
     };
-    const TOTAL = data.scholars.length + (data.masters || []).length;  // 分母是全部学人，含籍贯未载者
+    // 分母 = 190 位在录学者 + 38 位先贤；6 条外源条目非中文系师资名录，不计入
+    const TOTAL = data.scholars.filter(s => !s.external).length + (data.masters || []).length;
 
     function stats() {
       const counts = {};
       let used = 0;
       allPeople().forEach(s => {
-        if (onlyReal.checked && s.demo) return;
         const prov = s[modeSel.value];
         if (prov) { counts[prov] = (counts[prov] || 0) + 1; used++; }
       });
@@ -181,6 +186,12 @@
 
     let rankChart;
     let counts = {}, maxV = 1, geoLayer = null;
+
+    // 省界来自简化后的统计边界（山东一省仅 600 个顶点），放大后会与天地图的精细海岸线错位。
+    // 因此 5 级以上不再填色，改用省会圆点表示人数，避免两套边界叠在一起。
+    const HIGH_ZOOM = 5;
+    const centers = window.BNU_GEO_CENTERS || {};
+    const bubbleGroup = L.layerGroup();
 
     // ===== 天地图底图（Leaflet + WMTS）=====
     // tk 是浏览器端 Key，只在页面里使用
@@ -222,8 +233,9 @@
         if (!name) return;
         layer.bindTooltip("", { sticky: true, direction: "top", opacity: 1, className: "tdt-tip" });
         layer.on({
-          mouseover: () => layer.setStyle({ stroke: true, weight: 1.6, color: "#a31f18", opacity: .95 }),
-          mouseout: () => geoLayer.resetStyle(layer),
+          // 放大后色块已隐去，悬停不能再描出省界——那正是与底图对不上的那道线
+          mouseover: () => { if (map.getZoom() < HIGH_ZOOM) layer.setStyle({ stroke: true, weight: 1.6, color: "#a31f18", opacity: .95 }); },
+          mouseout: () => { if (map.getZoom() < HIGH_ZOOM) geoLayer.resetStyle(layer); },
           click: () => showProvince(name),
         });
       },
@@ -269,6 +281,45 @@
     window.__showProvince = showProvince;   // 便于调试与自动化测试
     window.__map = map;
     window.__geoLayer = geoLayer;
+    window.__bubbleGroup = bubbleGroup;
+
+    function renderBubbles() {
+      bubbleGroup.clearLayers();
+      const z = map.getZoom();
+      Object.keys(counts).forEach(name => {
+        const c = centers[name];
+        const v = counts[name];
+        if (!c || !v) return;
+        // 圆点上移 20px，避开底图上省会的城市名（数字与圆点一起移）
+        const ll = map.unproject(map.project([c[1], c[0]], z).subtract([0, 20]), z);
+        L.circleMarker(ll, {
+          radius: 5 + 13 * Math.sqrt(v / maxV),
+          color: "#fff", weight: 1.6, opacity: .9,
+          fillColor: "#b5493f", fillOpacity: .9,
+        })
+          .bindTooltip(`<b>${BNU.esc(name)}</b><br/>学人 ${v} 人`, { direction: "top", opacity: 1, className: "tdt-tip" })
+          .on("click", () => showProvince(name))
+          .addTo(bubbleGroup);
+        L.marker(ll, {
+          icon: L.divIcon({ className: "bubble-num", html: String(v), iconSize: [24, 18], iconAnchor: [12, 9] }),
+          interactive: false, keyboard: false,
+        }).addTo(bubbleGroup);
+      });
+    }
+
+    function applyZoomMode() {
+      const high = map.getZoom() >= HIGH_ZOOM;
+      geoLayer.eachLayer(l => {
+        if (!l.feature) return;
+        const v = counts[l.feature.properties.name] || 0;
+        l.setStyle({ fillColor: shade(v), fillOpacity: high ? 0 : (v ? .68 : 0) });
+      });
+      document.getElementById("legend-mode").textContent = high ? "圆点大小 = 人数（放大视图）" : "按籍贯着色";
+      document.querySelector(".legend-mini .bar").style.display = high ? "none" : "";
+      if (high) { renderBubbles(); bubbleGroup.addTo(map); }
+      else { map.removeLayer(bubbleGroup); }
+    }
+    map.on("zoomend", applyZoomMode);
 
     function render() {
       const s = stats();
@@ -281,14 +332,11 @@
         const name = layer.feature && layer.feature.properties ? layer.feature.properties.name : "";
         if (!name) return;
         const v = counts[name] || 0;
-        layer.setStyle({ fillColor: shade(v), fillOpacity: v ? .68 : 0 });
         layer.setTooltipContent(
           v ? `<b>${BNU.esc(name)}</b><br/>学人 ${v} 人` : `<b>${BNU.esc(name)}</b><br/>无记录`
         );
       });
-      const key = modeSel.value;
-      const label = key === "birthplace" ? "籍贯" : "主要求学地";
-      document.getElementById("legend-mode").textContent = `按${label}着色`;
+      applyZoomMode();
 
       const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 15);
       const rankOption = {
@@ -315,7 +363,6 @@
       }
     }
     modeSel.addEventListener("change", render);
-    onlyReal.addEventListener("change", render);
     render();
 
     // 首屏先替用户选好人数最多的省份，避免右栏一开始是空的

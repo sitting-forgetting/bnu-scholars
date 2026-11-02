@@ -78,7 +78,7 @@
   <div class="grid-2">
     <div class="chart-box">
       <h2>二级学科结构</h2>
-      <p class="chart-desc">在录学者 <span id="n-disc-total">189</span> 人的学科归属。灰色为官网未标注二级学科者，按原样保留、不做推断。</p>
+      <p class="chart-desc">在录学者 <span id="n-disc-total">188</span> 人的学科归属（跨院标明者不计入）。灰色为官网未标注二级学科者，按原样保留、不做推断。</p>
       <div id="disc-chart" class="chart" style="height:420px"></div>
     </div>
     <div class="chart-box">
@@ -207,7 +207,7 @@
   /* ---------- 2. 学科结构 ---------- */
   (function discChart() {
     // 学科结构按中文系口径统计：外源导师与跨院标明者不计入
-    const roster = data.scholars.filter(s => !s.demo && !s.external && s.org !== "新闻传播学院（跨院）");
+    const roster = data.scholars.filter(s => !s.demo && !s.external && !/（跨院）$/.test(s.org || ""));
     document.getElementById("n-disc-total").textContent = roster.length;
     const counts = {};
     roster.forEach(s => {

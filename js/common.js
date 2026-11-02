@@ -92,7 +92,9 @@
         </header>`;
     },
     footer(data) {
-      const n = data && data.scholars ? data.scholars.filter(s => !s.demo).length : 0;
+      const all = data && data.scholars ? data.scholars : [];
+      const n = all.filter(s => !s.demo && !s.external).length;  // 与首页「收录学者」同一口径
+      const hasDemo = all.some(s => s.demo);
       const ld = window.LINEAGE_DATA;
       const stamp = ld && ld.generatedAt ? String(ld.generatedAt).slice(0, 10) : "";
       return `
@@ -111,7 +113,7 @@
               <div style="margin-top:8px">
                 ${n === 0
                   ? '<span class="demo-note">当前展示的全部为虚构示例数据（标有“示例数据”角标）。</span>'
-                  : `已收录真实数据 ${n} 条；标有“示例数据”角标的条目为演示用虚构数据。`}
+                  : `已收录 ${n} 位在录学者${hasDemo ? "；标有“示例数据”角标的条目为演示用虚构数据" : ""}。`}
               </div>
             </div>
           </div>

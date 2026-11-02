@@ -1,6 +1,6 @@
 /* 由 scripts/build_lineage_data.py 自动生成，请勿手改 */
 window.LINEAGE_DATA = {
- "generatedAt": "2026-10-28",
+ "generatedAt": "2026-11-02",
  "nodes": [
   {
    "id": "bnu-001",
