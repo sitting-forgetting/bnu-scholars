@@ -185,7 +185,7 @@
       </p>
       <div class="rule"></div>
       <p class="tagline">
-        以官网师资页与学位论文题录为依据，把散落在各处的「谁师从谁」整理成 235 条<span class="nowrap">可溯源</span>的师承关系，
+        以官网师资页与学位论文题录为依据，把散落在各处的「谁师从谁」整理成 237 条<span class="nowrap">可溯源</span>的师承关系，
         并呈现为一张可按年代、按家族展开的世表。
       </p>
       <div class="cta">
@@ -324,7 +324,7 @@
   const real = data.scholars.filter(s => !s.demo && !s.external);  // 外源导师只在谱系中出现，不进名录
   const realIds = new Set(real.map(s => s.id));
 
-  // 师承边有两处来源：scholars.js（采集表 83 条）与 lineage.js（世表 235 条，含检索/直录）。
+  // 师承边有两处来源：scholars.js（采集表 85 条）与 lineage.js（世表 237 条，含检索/直录）。
   // 首页统计必须与「师承世表」页口径一致，否则同一份数据在两个页面显示不同数字。
   const edges = (() => {
     const seen = new Set(), out = [];
