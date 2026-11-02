@@ -859,7 +859,7 @@
           ? "门下学生兼师从多人、挂在主导师树下——点击前往其位置"
           : (expanded.has(n.id) ? "收起门下学生" : "展开门下学生");
       }
-      if (kw && n.name.indexOf(kw) >= 0) {
+      if (kw && hitName(n, kw)) {
         // 高亮框要连弟子区一起框住，否则看起来「只高亮了卡片、下面没高亮」
         el("rect", { x: -4.5, y: -4.5, width: CW + 9, height: h + 9 + foldRows, rx: 3,
                      fill: "none", stroke: "#c9a227", "stroke-width": 2 }, g);
@@ -914,7 +914,7 @@
 
     // 搜索定位：命中后视图飞到第一个命中卡片
     if (kw) {
-      const first = data.nodes.find(n => effCard[n.id] && n.name.indexOf(kw) >= 0 && X[n.id] != null);
+      const first = data.nodes.find(n => effCard[n.id] && hitName(n, kw) && X[n.id] != null);
       if (first) {
         const w = stage.clientWidth, h = stage.clientHeight;
         view.x = w / 2 - (X[first.id] + CW / 2) * view.k;
@@ -1174,13 +1174,22 @@
       document.getElementById("path-result").innerHTML = "";
     }
   }
-  // 按姓名找人（支持模糊：取最短的完全包含匹配）
+  // 姓名/拼音命中：汉字原名、拼音全拼（py）、拼音首字母（ab，至少 2 个字母且须从头匹配，避免单字母噪声）
+  function hitName(n, kw) {
+    if (n.name.indexOf(kw) >= 0) return true;
+    if (n.py && n.py.indexOf(kw) >= 0) return true;
+    return kw.length >= 2 && !!n.ab && n.ab.indexOf(kw) === 0;
+  }
+
+  // 按姓名找人（支持模糊：取最短的完全包含匹配；拼音全拼/首字母亦可）
   function findName(kw) {
     kw = kw.trim();
     if (!kw) return null;
     const pool = data.nodes.filter(n => nodeById[n.id]);
     return pool.find(n => n.name === kw)
-        || pool.filter(n => n.name.indexOf(kw) >= 0).sort((x, y) => x.name.length - y.name.length)[0]
+        || pool.filter(n => hitName(n, kw)).sort((x, y) => x.name.length - y.name.length)[0]
+        || pool.find(n => n.py && n.py.indexOf(kw) >= 0)
+        || (kw.length >= 2 ? pool.find(n => n.ab && n.ab.indexOf(kw) === 0) : null)
         || null;
   }
 
@@ -1238,7 +1247,7 @@
     const kw = q.value.trim();
     if (!kw) { searchPop.style.display = "none"; popHits = []; popIdx = -1; return; }
     popHits = data.nodes
-      .filter(n => n.name.indexOf(kw) >= 0)
+      .filter(n => hitName(n, kw))
       .sort((a, b) => (b.asMentor + b.asStudent) - (a.asMentor + a.asStudent))
       .slice(0, 8);
     popIdx = popHits.length ? 0 : -1;
@@ -1248,7 +1257,7 @@
         <span class="sp-name">${esc(n.name)}</span>
         <span class="sp-meta">${esc(meta)}</span>
       </div>`;
-    }).join("") || '<div class="sp-empty">无匹配（可试「王宁」「钟敬文」）</div>';
+    }).join("") || '<div class="sp-empty">无匹配（可试「王宁」，或拼音 wang / wn）</div>';
     searchPop.style.display = "block";   // 必须显式赋值：CSS 默认 display:none，置空会回退到 none
   }
   function choosePop(i) {

@@ -13,7 +13,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 1961
+   "year": 1961,
+   "py": "wangning",
+   "ab": "wn"
   },
   {
    "id": "bnu-002",
@@ -26,7 +28,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": 1965,
    "death": null,
-   "year": 2000
+   "year": 2000,
+   "py": "wanglijun",
+   "ab": "wlj"
   },
   {
    "id": "bnu-003",
@@ -39,7 +43,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 1995
+   "year": 1995,
+   "py": "liuli",
+   "ab": "ll"
   },
   {
    "id": "bnu-004",
@@ -52,7 +58,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "qiyuantao",
+   "ab": "qyt"
   },
   {
    "id": "bnu-005",
@@ -65,7 +73,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": 1974,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "boshixia",
+   "ab": "bsx"
   },
   {
    "id": "bnu-006",
@@ -78,7 +88,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "liuliqun",
+   "ab": "llq"
   },
   {
    "id": "bnu-007",
@@ -91,7 +103,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "linglijun",
+   "ab": "llj"
   },
   {
    "id": "bnu-008",
@@ -104,7 +118,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2011
+   "year": 2011,
+   "py": "mengzuo",
+   "ab": "mz"
   },
   {
    "id": "bnu-009",
@@ -117,7 +133,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2006
+   "year": 2006,
+   "py": "hujiajia",
+   "ab": "hjj"
   },
   {
    "id": "bnu-010",
@@ -130,7 +148,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "dongjingchen",
+   "ab": "djc"
   },
   {
    "id": "bnu-011",
@@ -143,7 +163,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2011
+   "year": 2011,
+   "py": "keyonghong",
+   "ab": "kyh"
   },
   {
    "id": "bnu-012",
@@ -156,7 +178,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "mengyuelong",
+   "ab": "myl"
   },
   {
    "id": "bnu-013",
@@ -169,7 +193,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2018
+   "year": 2018,
+   "py": "bairu",
+   "ab": "br"
   },
   {
    "id": "bnu-014",
@@ -182,7 +208,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2024
+   "year": 2024,
+   "py": "zhangyiyun",
+   "ab": "zyy"
   },
   {
    "id": "bnu-015",
@@ -195,7 +223,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2018
+   "year": 2018,
+   "py": "licong",
+   "ab": "lc"
   },
   {
    "id": "bnu-016",
@@ -208,7 +238,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "sunyinxin",
+   "ab": "syx"
   },
   {
    "id": "bnu-017",
@@ -221,7 +253,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "lijinxia",
+   "ab": "ljx"
   },
   {
    "id": "bnu-018",
@@ -234,7 +268,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "hongshuang",
+   "ab": "hs"
   },
   {
    "id": "bnu-019",
@@ -247,7 +283,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "niedaxin",
+   "ab": "ndx"
   },
   {
    "id": "bnu-020",
@@ -260,7 +298,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "zengjinghan",
+   "ab": "zjh"
   },
   {
    "id": "bnu-021",
@@ -273,7 +313,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "liuliyuan",
+   "ab": "lly"
   },
   {
    "id": "bnu-022",
@@ -286,7 +328,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 1996
+   "year": 1996,
+   "py": "zhangweijia",
+   "ab": "zwj"
   },
   {
    "id": "bnu-023",
@@ -299,7 +343,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 2001
+   "year": 2001,
+   "py": "zhangheyou",
+   "ab": "zhy"
   },
   {
    "id": "bnu-024",
@@ -312,7 +358,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "xuxiaoying",
+   "ab": "xxy"
   },
   {
    "id": "bnu-025",
@@ -325,7 +373,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 2005
+   "year": 2005,
+   "py": "zhoushihong",
+   "ab": "zsh"
   },
   {
    "id": "bnu-026",
@@ -338,7 +388,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "wangqing",
+   "ab": "wq"
   },
   {
    "id": "bnu-027",
@@ -351,7 +403,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "wanggaowu",
+   "ab": "wgw"
   },
   {
    "id": "bnu-028",
@@ -364,7 +418,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhongweiping",
+   "ab": "zwp"
   },
   {
    "id": "bnu-029",
@@ -377,7 +433,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "yudejiang",
+   "ab": "ydj"
   },
   {
    "id": "bnu-030",
@@ -390,7 +448,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "wanglining",
+   "ab": "wln"
   },
   {
    "id": "bnu-031",
@@ -403,7 +463,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "hurenfen",
+   "ab": "hrf"
   },
   {
    "id": "bnu-032",
@@ -416,7 +478,9 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhanggaoyuan",
+   "ab": "zgy"
   },
   {
    "id": "bnu-033",
@@ -429,7 +493,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "zhaoyong",
+   "ab": "zy"
   },
   {
    "id": "bnu-034",
@@ -442,7 +508,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "chenxuehu",
+   "ab": "cxh"
   },
   {
    "id": "bnu-035",
@@ -455,7 +523,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "chentaisheng",
+   "ab": "cts"
   },
   {
    "id": "bnu-036",
@@ -468,7 +538,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "yaoaibin",
+   "ab": "yab"
   },
   {
    "id": "bnu-037",
@@ -481,7 +553,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2006
+   "year": 2006,
+   "py": "qianhan",
+   "ab": "qh"
   },
   {
    "id": "bnu-038",
@@ -494,7 +568,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "wangyaochong",
+   "ab": "wyc"
   },
   {
    "id": "bnu-039",
@@ -507,7 +583,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "lvli",
+   "ab": "ll"
   },
   {
    "id": "bnu-040",
@@ -520,7 +598,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "liusiyu",
+   "ab": "lsy"
   },
   {
    "id": "bnu-041",
@@ -533,7 +613,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "lisha",
+   "ab": "ls"
   },
   {
    "id": "bnu-042",
@@ -546,7 +628,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "fupeng",
+   "ab": "fp"
   },
   {
    "id": "bnu-043",
@@ -559,7 +643,9 @@ window.LINEAGE_DATA = {
    "discipline": "文艺学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "taoran",
+   "ab": "tr"
   },
   {
    "id": "bnu-044",
@@ -572,7 +658,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 1992
+   "year": 1992,
+   "py": "liuhongtao",
+   "ab": "lht"
   },
   {
    "id": "bnu-045",
@@ -585,7 +673,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 1980
+   "year": 1980,
+   "py": "caoshunqing",
+   "ab": "csq"
   },
   {
    "id": "bnu-046",
@@ -598,7 +688,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 2001
+   "year": 2001,
+   "py": "yaojianbin",
+   "ab": "yjb"
   },
   {
    "id": "bnu-047",
@@ -611,7 +703,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhangyuan",
+   "ab": "zy"
   },
   {
    "id": "bnu-048",
@@ -624,7 +718,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": 1978,
    "death": null,
-   "year": 2006
+   "year": 2006,
+   "py": "yangjunjie",
+   "ab": "yjj"
   },
   {
    "id": "bnu-049",
@@ -637,7 +733,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "zhangxin",
+   "ab": "zx"
   },
   {
    "id": "bnu-050",
@@ -650,7 +748,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "yangmingchen",
+   "ab": "ymc"
   },
   {
    "id": "bnu-051",
@@ -663,7 +763,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "yuequ",
+   "ab": "yq"
   },
   {
    "id": "bnu-052",
@@ -676,7 +778,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": 2019
+   "year": 2019,
+   "py": "lijiahua",
+   "ab": "ljh"
   },
   {
    "id": "bnu-053",
@@ -689,7 +793,9 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "fuyaliang",
+   "ab": "fyl"
   },
   {
    "id": "bnu-054",
@@ -702,7 +808,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2000
+   "year": 2000,
+   "py": "kangzhen",
+   "ab": "kz"
   },
   {
    "id": "bnu-055",
@@ -715,7 +823,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "duguiping",
+   "ab": "dgp"
   },
   {
    "id": "bnu-056",
@@ -728,7 +838,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "madongyao",
+   "ab": "mdy"
   },
   {
    "id": "bnu-057",
@@ -741,7 +853,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "sharina",
+   "ab": "srn"
   },
   {
    "id": "bnu-058",
@@ -754,7 +868,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2008
+   "year": 2008,
+   "py": "lixiaolong",
+   "ab": "lxl"
   },
   {
    "id": "bnu-059",
@@ -767,7 +883,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2013
+   "year": 2013,
+   "py": "zhoujianzhi",
+   "ab": "zjz"
   },
   {
    "id": "bnu-060",
@@ -780,7 +898,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "xieyan",
+   "ab": "xy"
   },
   {
    "id": "bnu-061",
@@ -793,7 +913,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "liuquanzhi",
+   "ab": "lqz"
   },
   {
    "id": "bnu-062",
@@ -806,7 +928,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "sunyujin",
+   "ab": "syj"
   },
   {
    "id": "bnu-063",
@@ -819,7 +943,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": 1982,
    "death": null,
-   "year": 2011
+   "year": 2011,
+   "py": "yanzinan",
+   "ab": "yzn"
   },
   {
    "id": "bnu-064",
@@ -832,7 +958,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "wuyiyun",
+   "ab": "wyy"
   },
   {
    "id": "bnu-065",
@@ -845,7 +973,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": 1988,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "zhuyuchen",
+   "ab": "zyc"
   },
   {
    "id": "bnu-066",
@@ -858,7 +988,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2022
+   "year": 2022,
+   "py": "yudan",
+   "ab": "yd"
   },
   {
    "id": "bnu-067",
@@ -871,7 +1003,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "rengang",
+   "ab": "rg"
   },
   {
    "id": "bnu-068",
@@ -884,7 +1018,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2023
+   "year": 2023,
+   "py": "cuizhenpeng",
+   "ab": "czp"
   },
   {
    "id": "bnu-069",
@@ -897,7 +1033,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 1986
+   "year": 1986,
+   "py": "liuyong",
+   "ab": "ly"
   },
   {
    "id": "bnu-070",
@@ -910,7 +1048,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "zhangqinghua",
+   "ab": "zqh"
   },
   {
    "id": "bnu-071",
@@ -923,7 +1063,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 1990
+   "year": 1990,
+   "py": "chenhui",
+   "ab": "ch"
   },
   {
    "id": "bnu-072",
@@ -936,7 +1078,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "zhangli",
+   "ab": "zl"
   },
   {
    "id": "bnu-073",
@@ -949,7 +1093,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 1999
+   "year": 1999,
+   "py": "shenqingli",
+   "ab": "sql"
   },
   {
    "id": "bnu-074",
@@ -962,7 +1108,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2005
+   "year": 2005,
+   "py": "liangzhenhua",
+   "ab": "lzh"
   },
   {
    "id": "bnu-075",
@@ -975,7 +1123,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 1999
+   "year": 1999,
+   "py": "zhangguolong",
+   "ab": "zgl"
   },
   {
    "id": "bnu-076",
@@ -988,7 +1138,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "xiongxiuyu",
+   "ab": "xxy"
   },
   {
    "id": "bnu-077",
@@ -1001,7 +1153,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "tanwuchang",
+   "ab": "twc"
   },
   {
    "id": "bnu-078",
@@ -1014,7 +1168,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2008
+   "year": 2008,
+   "py": "linfenfen",
+   "ab": "lff"
   },
   {
    "id": "bnu-079",
@@ -1027,7 +1183,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "sunhaiyan",
+   "ab": "shy"
   },
   {
    "id": "bnu-080",
@@ -1040,7 +1198,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2016
+   "year": 2016,
+   "py": "baihuiyuan",
+   "ab": "bhy"
   },
   {
    "id": "bnu-081",
@@ -1053,7 +1213,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2019
+   "year": 2019,
+   "py": "jiangxiao",
+   "ab": "jx"
   },
   {
    "id": "bnu-082",
@@ -1066,7 +1228,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": 1991,
    "death": null,
-   "year": 2019
+   "year": 2019,
+   "py": "xiaohan",
+   "ab": "xh"
   },
   {
    "id": "bnu-083",
@@ -1079,7 +1243,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2021
+   "year": 2021,
+   "py": "liyuyang",
+   "ab": "lyy"
   },
   {
    "id": "bnu-084",
@@ -1092,7 +1258,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2021
+   "year": 2021,
+   "py": "taomengzhen",
+   "ab": "tmz"
   },
   {
    "id": "bnu-085",
@@ -1105,7 +1273,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国现当代文学",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "liuyixin",
+   "ab": "lyx"
   },
   {
    "id": "bnu-086",
@@ -1118,7 +1288,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 1995
+   "year": 1995,
+   "py": "lishan",
+   "ab": "ls"
   },
   {
    "id": "bnu-087",
@@ -1131,7 +1303,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "weichongwu",
+   "ab": "wcw"
   },
   {
    "id": "bnu-088",
@@ -1144,7 +1318,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "yuxuetang",
+   "ab": "yxt"
   },
   {
    "id": "bnu-089",
@@ -1157,7 +1333,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "wangyuan",
+   "ab": "wy"
   },
   {
    "id": "bnu-090",
@@ -1170,7 +1348,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "fangtao",
+   "ab": "ft"
   },
   {
    "id": "bnu-091",
@@ -1183,7 +1363,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2014
+   "year": 2014,
+   "py": "tianshengli",
+   "ab": "tsl"
   },
   {
    "id": "bnu-092",
@@ -1196,7 +1378,9 @@ window.LINEAGE_DATA = {
    "discipline": "文献学",
    "birth": null,
    "death": null,
-   "year": 2024
+   "year": 2024,
+   "py": "yangshengxiang",
+   "ab": "ysx"
   },
   {
    "id": "bnu-093",
@@ -1209,7 +1393,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": null,
    "death": null,
-   "year": 1991
+   "year": 1991,
+   "py": "moyan",
+   "ab": "my"
   },
   {
    "id": "bnu-094",
@@ -1222,7 +1408,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": null,
    "death": null,
-   "year": 1984
+   "year": 1984,
+   "py": "sutong",
+   "ab": "st"
   },
   {
    "id": "bnu-095",
@@ -1235,7 +1423,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": null,
    "death": null,
-   "year": 1991
+   "year": 1991,
+   "py": "yuhua",
+   "ab": "yh"
   },
   {
    "id": "bnu-096",
@@ -1248,7 +1438,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": 1963,
    "death": null,
-   "year": 1984
+   "year": 1984,
+   "py": "xichuan",
+   "ab": "xc"
   },
   {
    "id": "bnu-097",
@@ -1261,7 +1453,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": null,
    "death": null,
-   "year": 2012
+   "year": 2012,
+   "py": "zhaiwencheng",
+   "ab": "zwc"
   },
   {
    "id": "bnu-098",
@@ -1274,7 +1468,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（创意写作）",
    "birth": null,
    "death": null,
-   "year": 2015
+   "year": 2015,
+   "py": "liuting",
+   "ab": "lt"
   },
   {
    "id": "bnu-099",
@@ -1287,7 +1483,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 1999
+   "year": 1999,
+   "py": "wanjianzhong",
+   "ab": "wjz"
   },
   {
    "id": "bnu-100",
@@ -1300,7 +1498,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 1991
+   "year": 1991,
+   "py": "yanglihui",
+   "ab": "ylh"
   },
   {
    "id": "bnu-101",
@@ -1313,7 +1513,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "kangli",
+   "ab": "kl"
   },
   {
    "id": "bnu-102",
@@ -1326,7 +1528,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 1997
+   "year": 1997,
+   "py": "pengmu",
+   "ab": "pm"
   },
   {
    "id": "bnu-103",
@@ -1339,7 +1543,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 2001
+   "year": 2001,
+   "py": "dubosi",
+   "ab": "dbs"
   },
   {
    "id": "bnu-104",
@@ -1352,7 +1558,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "tanglulu",
+   "ab": "tll"
   },
   {
    "id": "bnu-105",
@@ -1365,7 +1573,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "shilingling",
+   "ab": "sll"
   },
   {
    "id": "bnu-106",
@@ -1378,7 +1588,9 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": 2006
+   "year": 2006,
+   "py": "laiyanbin",
+   "ab": "lyb"
   },
   {
    "id": "bnu-107",
@@ -1391,7 +1603,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "renxiang",
+   "ab": "rx"
   },
   {
    "id": "bnu-108",
@@ -1404,7 +1618,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "zhengguomin",
+   "ab": "zgm"
   },
   {
    "id": "bnu-109",
@@ -1417,7 +1633,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "zhangqiuling",
+   "ab": "zql"
   },
   {
    "id": "bnu-110",
@@ -1430,7 +1648,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "zhaoningning",
+   "ab": "znn"
   },
   {
    "id": "bnu-111",
@@ -1443,7 +1663,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 2013
+   "year": 2013,
+   "py": "liyuhui",
+   "ab": "lyh"
   },
   {
    "id": "bnu-112",
@@ -1456,7 +1678,9 @@ window.LINEAGE_DATA = {
    "discipline": "其他（语文教育）",
    "birth": null,
    "death": null,
-   "year": 2011
+   "year": 2011,
+   "py": "wuxinxin",
+   "ab": "wxx"
   },
   {
    "id": "bnu-113",
@@ -1469,7 +1693,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1985
+   "year": 1985,
+   "py": "huangkaifa",
+   "ab": "hkf"
   },
   {
    "id": "bnu-114",
@@ -1482,7 +1708,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1993
+   "year": 1993,
+   "py": "maofeng",
+   "ab": "mf"
   },
   {
    "id": "bnu-115",
@@ -1495,7 +1723,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2005
+   "year": 2005,
+   "py": "liming",
+   "ab": "lm"
   },
   {
    "id": "bnu-116",
@@ -1508,7 +1738,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1986
+   "year": 1986,
+   "py": "diaoyanbin",
+   "ab": "dyb"
   },
   {
    "id": "bnu-117",
@@ -1521,7 +1753,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "lichunqing",
+   "ab": "lcq"
   },
   {
    "id": "bnu-118",
@@ -1534,7 +1768,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1987
+   "year": 1987,
+   "py": "lizhengrong",
+   "ab": "lzr"
   },
   {
    "id": "bnu-119",
@@ -1547,7 +1783,9 @@ window.LINEAGE_DATA = {
    "discipline": "汉语言文字学",
    "birth": null,
    "death": null,
-   "year": 1987
+   "year": 1987,
+   "py": "liguoying",
+   "ab": "lgy"
   },
   {
    "id": "bnu-120",
@@ -1560,7 +1798,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1989
+   "year": 1989,
+   "py": "dongxiaoping",
+   "ab": "dxp"
   },
   {
    "id": "bnu-121",
@@ -1573,7 +1813,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "zhangzhejun",
+   "ab": "zzj"
   },
   {
    "id": "bnu-122",
@@ -1586,7 +1828,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1995
+   "year": 1995,
+   "py": "zhangyanling",
+   "ab": "zyl"
   },
   {
    "id": "bnu-123",
@@ -1599,7 +1843,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2001
+   "year": 2001,
+   "py": "zhangdejian",
+   "ab": "zdj"
   },
   {
    "id": "bnu-124",
@@ -1612,7 +1858,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1996
+   "year": 1996,
+   "py": "wangxiangyuan",
+   "ab": "wxy"
   },
   {
    "id": "bnu-125",
@@ -1625,7 +1873,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1991
+   "year": 1991,
+   "py": "zhangning",
+   "ab": "zn"
   },
   {
    "id": "bnu-126",
@@ -1638,7 +1888,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2007
+   "year": 2007,
+   "py": "zhouxiaowen",
+   "ab": "zxw"
   },
   {
    "id": "bnu-127",
@@ -1651,7 +1903,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1997
+   "year": 1997,
+   "py": "jiguangmao",
+   "ab": "jgm"
   },
   {
    "id": "bnu-128",
@@ -1664,7 +1918,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "zouhong",
+   "ab": "zh"
   },
   {
    "id": "bnu-129",
@@ -1677,7 +1933,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2011
+   "year": 2011,
+   "py": "sunwei",
+   "ab": "sw"
   },
   {
    "id": "bnu-130",
@@ -1690,7 +1948,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1991
+   "year": 1991,
+   "py": "fangweigui",
+   "ab": "fwg"
   },
   {
    "id": "bnu-131",
@@ -1703,7 +1963,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1997
+   "year": 1997,
+   "py": "rongjing",
+   "ab": "rj"
   },
   {
    "id": "bnu-132",
@@ -1716,7 +1978,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1985
+   "year": 1985,
+   "py": "guoyingde",
+   "ab": "gyd"
   },
   {
    "id": "bnu-133",
@@ -1729,7 +1993,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1997
+   "year": 1997,
+   "py": "chenhuiqin",
+   "ab": "chq"
   },
   {
    "id": "bnu-134",
@@ -1742,7 +2008,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "lizhenyu",
+   "ab": "lzy"
   },
   {
    "id": "bnu-135",
@@ -1755,7 +2023,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1996
+   "year": 1996,
+   "py": "liyunfu",
+   "ab": "lyf"
   },
   {
    "id": "bnu-136",
@@ -1768,7 +2038,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2004
+   "year": 2004,
+   "py": "yucuiling",
+   "ab": "ycl"
   },
   {
    "id": "bnu-137",
@@ -1781,7 +2053,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1985
+   "year": 1985,
+   "py": "zhuxiaojian",
+   "ab": "zxj"
   },
   {
    "id": "bnu-138",
@@ -1794,7 +2068,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1986
+   "year": 1986,
+   "py": "shangxuefeng",
+   "ab": "sxf"
   },
   {
    "id": "bnu-141",
@@ -1807,7 +2083,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1997
+   "year": 1997,
+   "py": "huangyiqing",
+   "ab": "hyq"
   },
   {
    "id": "bnu-142",
@@ -1820,7 +2098,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1996
+   "year": 1996,
+   "py": "wangquangen",
+   "ab": "wqg"
   },
   {
    "id": "bnu-143",
@@ -1833,7 +2113,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2002
+   "year": 2002,
+   "py": "zhangjian",
+   "ab": "zj"
   },
   {
    "id": "bnu-146",
@@ -1846,7 +2128,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "jiangyuanlun",
+   "ab": "jyl"
   },
   {
    "id": "bnu-147",
@@ -1859,7 +2143,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2001
+   "year": 2001,
+   "py": "gaojianwei",
+   "ab": "gjw"
   },
   {
    "id": "bnu-148",
@@ -1872,7 +2158,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1985
+   "year": 1985,
+   "py": "qianzhengang",
+   "ab": "qzg"
   },
   {
    "id": "bnu-149",
@@ -1885,7 +2173,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2003
+   "year": 2003,
+   "py": "yimin",
+   "ab": "ym"
   },
   {
    "id": "bnu-151",
@@ -1898,7 +2188,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1982
+   "year": 1982,
+   "py": "xiejifeng",
+   "ab": "xjf"
   },
   {
    "id": "bnu-153",
@@ -1911,7 +2203,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "henaiying",
+   "ab": "hny"
   },
   {
    "id": "bnu-155",
@@ -1924,7 +2218,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "hanzhaoqi",
+   "ab": "hzq"
   },
   {
    "id": "bnu-157",
@@ -1937,7 +2233,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "yutianchi",
+   "ab": "ytc"
   },
   {
    "id": "bnu-159",
@@ -1950,7 +2248,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1982
+   "year": 1982,
+   "py": "yangrunlu",
+   "ab": "yrl"
   },
   {
    "id": "bnu-160",
@@ -1963,7 +2263,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1994
+   "year": 1994,
+   "py": "cuishuhua",
+   "ab": "csh"
   },
   {
    "id": "bnu-162",
@@ -1976,7 +2278,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1998
+   "year": 1998,
+   "py": "wuzelin",
+   "ab": "wzl"
   },
   {
    "id": "bnu-163",
@@ -1989,7 +2293,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "liuxiangyu",
+   "ab": "lxy"
   },
   {
    "id": "bnu-164",
@@ -2002,7 +2308,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "liutieliang",
+   "ab": "ltl"
   },
   {
    "id": "bnu-165",
@@ -2015,7 +2323,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhaorengui",
+   "ab": "zrg"
   },
   {
    "id": "bnu-167",
@@ -2028,7 +2338,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 1986
+   "year": 1986,
+   "py": "zhouyimin",
+   "ab": "zym"
   },
   {
    "id": "bnu-168",
@@ -2041,7 +2353,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2012
+   "year": 2012,
+   "py": "panjiarong",
+   "ab": "pjr"
   },
   {
    "id": "bnu-169",
@@ -2054,7 +2368,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhoujian",
+   "ab": "zj"
   },
   {
    "id": "bnu-170",
@@ -2067,7 +2383,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "fengxiansi",
+   "ab": "fxs"
   },
   {
    "id": "bnu-171",
@@ -2080,7 +2398,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "guochengyu",
+   "ab": "gcy"
   },
   {
    "id": "bnu-172",
@@ -2093,7 +2413,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2008
+   "year": 2008,
+   "py": "liudongmei",
+   "ab": "ldm"
   },
   {
    "id": "bnu-173",
@@ -2106,7 +2428,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2014
+   "year": 2014,
+   "py": "luxiaoyu",
+   "ab": "lxy"
   },
   {
    "id": "bnu-174",
@@ -2119,7 +2443,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2006
+   "year": 2006,
+   "py": "likun",
+   "ab": "lk"
   },
   {
    "id": "bnu-175",
@@ -2132,7 +2458,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2009
+   "year": 2009,
+   "py": "lixiaojin",
+   "ab": "lxj"
   },
   {
    "id": "bnu-176",
@@ -2145,7 +2473,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "lizhe",
+   "ab": "lz"
   },
   {
    "id": "bnu-177",
@@ -2158,7 +2488,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2021
+   "year": 2021,
+   "py": "linjia",
+   "ab": "lj"
   },
   {
    "id": "bnu-178",
@@ -2171,7 +2503,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "wangxiaoyan",
+   "ab": "wxy"
   },
   {
    "id": "bnu-179",
@@ -2184,7 +2518,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "wengmingpeng",
+   "ab": "wmp"
   },
   {
    "id": "bnu-180",
@@ -2197,7 +2533,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2010
+   "year": 2010,
+   "py": "zhaoxin",
+   "ab": "zx"
   },
   {
    "id": "bnu-181",
@@ -2210,7 +2548,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "zhangning",
+   "ab": "zn"
   },
   {
    "id": "bnu-182",
@@ -2223,7 +2563,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2020
+   "year": 2020,
+   "py": "gaoliang",
+   "ab": "gl"
   },
   {
    "id": "bnu-183",
@@ -2236,7 +2578,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "liurui",
+   "ab": "lr"
   },
   {
    "id": "bnu-184",
@@ -2249,7 +2593,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2012
+   "year": 2012,
+   "py": "linyingzheng",
+   "ab": "lyz"
   },
   {
    "id": "bnu-185",
@@ -2262,7 +2608,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null
+   "year": null,
+   "py": "wanglu",
+   "ab": "wl"
   },
   {
    "id": "bnu-186",
@@ -2275,7 +2623,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2022
+   "year": 2022,
+   "py": "zhangqianke",
+   "ab": "zqk"
   },
   {
    "id": "bnu-187",
@@ -2288,7 +2638,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "zhaofangyuan",
+   "ab": "zfy"
   },
   {
    "id": "bnu-189",
@@ -2301,7 +2653,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": 1964,
    "death": null,
-   "year": 1992
+   "year": 1992,
+   "py": "guochangbao",
+   "ab": "gcb"
   },
   {
    "id": "bnu-190",
@@ -2314,7 +2668,9 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": 2017
+   "year": 2017,
+   "py": "guochenguang",
+   "ab": "gcg"
   },
   {
    "id": "ext-001",
@@ -2329,7 +2685,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系语言学教研室教授、博士生导师（1951— ），曾任语言学教研室主任、中国语言学研究中心主任，中国语言学会副会长，研究音系学、历史语言学与汉语方言比较",
    "field": "理论语言学/音系学",
    "bioConfidence": "高",
-   "bioSource": "http://jpk.pku.edu.cn/course/llyyx/teacher/whj.pdf"
+   "bioSource": "http://jpk.pku.edu.cn/course/llyyx/teacher/whj.pdf",
+   "py": "wanghongjun",
+   "ab": "whj"
   },
   {
    "id": "ext-002",
@@ -2344,7 +2702,9 @@ window.LINEAGE_DATA = {
    "identity": "哲学家（1946— ），陕西虢镇人，中国人民大学国学院教授（荣誉一级教授、博士生导师），研究先秦思想史、魏晋玄学、当代新儒学与中西哲学比较",
    "field": "哲学",
    "bioConfidence": "高",
-   "bioSource": "https://guoxue.ruc.edu.cn/wzsy/xsjz/1b30af1c085347368e749c35edaaa2a9.htm"
+   "bioSource": "https://guoxue.ruc.edu.cn/wzsy/xsjz/1b30af1c085347368e749c35edaaa2a9.htm",
+   "py": "huangkejian",
+   "ab": "hkj"
   },
   {
    "id": "ext-003",
@@ -2494,7 +2854,9 @@ window.LINEAGE_DATA = {
    "identity": "著名历史社会学家（1940年10月1日—），普林斯顿大学学士、华盛顿大学博士（1966，师从萧公权），加州大学洛杉矶分校（UCLA）历史系教授（1966—2004，1991年晋升'超级教授'），创办UCLA中国研究中心（1986—1995）与《近代中国》（Modern China）季刊（1975），后任中国人民大学讲座教授、历史与社会高等研究所所长（2009），倡导'实践社会科学'，研究明清以来社会史、经济史与法律史，著《华北的小农经济与社会变迁》《清代的法律、社会与文化》",
    "field": "中国研究（社会史/经济史/法律史）",
    "bioConfidence": "高",
-   "bioSource": "https://baike.sogou.com/v7843846.htm"
+   "bioSource": "https://baike.sogou.com/v7843846.htm",
+   "py": "huangzongzhi",
+   "ab": "hzz"
   },
   {
    "id": "ext-013",
@@ -2539,7 +2901,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学教育学部教授、博士生导师（1954— ），课程与教学论学者，曾任课程与教学系副主任",
    "field": "课程与教学论",
    "bioConfidence": "高",
-   "bioSource": "https://jyjsy.bnu.edu.cn/syxw/ttgz/5bcec63242034c90b826335ef1db4580.htm"
+   "bioSource": "https://jyjsy.bnu.edu.cn/syxw/ttgz/5bcec63242034c90b826335ef1db4580.htm",
+   "py": "conglixin",
+   "ab": "clx"
   },
   {
    "id": "ext-016",
@@ -2554,7 +2918,9 @@ window.LINEAGE_DATA = {
    "identity": "阜阳师范学院中文系教授、系主任，从事中国现当代文学教学与研究，长于鲁迅研究",
    "field": "中国现当代文学",
    "bioConfidence": "中",
-   "bioSource": "https://mp.weixin.qq.com/s?__biz=MzU1OTMwNTA2OA==&mid=2247484145&idx=1&sn=096b74ad3d1832cb17cfb7944a49a7e2&chksm=fd92235b5027c8261428945131df04b8f2c9e9a4963fbcacbe5a20262d5db4aa500a1ac0c212#rd"
+   "bioSource": "https://mp.weixin.qq.com/s?__biz=MzU1OTMwNTA2OA==&mid=2247484145&idx=1&sn=096b74ad3d1832cb17cfb7944a49a7e2&chksm=fd92235b5027c8261428945131df04b8f2c9e9a4963fbcacbe5a20262d5db4aa500a1ac0c212#rd",
+   "py": "yanentu",
+   "ab": "yet"
   },
   {
    "id": "ext-017",
@@ -2569,7 +2935,9 @@ window.LINEAGE_DATA = {
    "identity": "比较文学家、古典文献学家、日本学家（1940—2022），北京大学中文系教授、博士生导师，曾任北京大学比较文学与比较文化研究所所长、中国比较文学学会副会长",
    "field": "比较文学",
    "bioConfidence": "高",
-   "bioSource": "https://epaper.gmw.cn/zhdsb/html/2022-12/21/nw.D110000zhdsb_20221221_1-06.htm"
+   "bioSource": "https://epaper.gmw.cn/zhdsb/html/2022-12/21/nw.D110000zhdsb_20221221_1-06.htm",
+   "py": "yanshaodang",
+   "ab": "ysd"
   },
   {
    "id": "ext-018",
@@ -2584,7 +2952,9 @@ window.LINEAGE_DATA = {
    "identity": "民俗学家、民间文艺学家（1929—2018），蒙古族，辽宁大学民俗研究中心原主任、教授，中国民俗学会荣誉会长，国家非物质文化遗产保护工作专家委员会副主任",
    "field": "民俗学",
    "bioConfidence": "高",
-   "bioSource": "https://www.chinesefolklore.org.cn/expert/index.php?ExpertID=31"
+   "bioSource": "https://www.chinesefolklore.org.cn/expert/index.php?ExpertID=31",
+   "py": "wubingan",
+   "ab": "wba"
   },
   {
    "id": "ext-019",
@@ -2599,7 +2969,9 @@ window.LINEAGE_DATA = {
    "identity": "中国新时期比较文学学科主要奠基人（1931—2024），北京大学中文系教授，曾任北京大学比较文学研究所首任所长、中国比较文学学会会长、国际比较文学学会副主席",
    "field": "比较文学",
    "bioConfidence": "高",
-   "bioSource": "https://news.pku.edu.cn/xwzh/cb473baa1ab04e7ab3ab64cb28fa403b.htm"
+   "bioSource": "https://news.pku.edu.cn/xwzh/cb473baa1ab04e7ab3ab64cb28fa403b.htm",
+   "py": "yuedaiyun",
+   "ab": "ydy"
   },
   {
    "id": "ext-020",
@@ -2614,7 +2986,9 @@ window.LINEAGE_DATA = {
    "identity": "美国文学理论家、比较文学学者（1925年10月17日—2015年9月10日），生于埃及开罗，1946年移居美国，宾夕法尼亚大学英语文学博士（1953），威斯康星大学密尔沃基分校（UWM）Vilas研究教授（1970—1999荣休），以推广'后现代主义'概念闻名，代表作《俄耳甫斯被肢解：走向一种后现代文学》（1971），两获古根海姆奖",
    "field": "比较文学与文学理论（后现代主义）",
    "bioConfidence": "高",
-   "bioSource": "https://www.wikiwand.com/en/articles/Ihab_Habib_Hassan"
+   "bioSource": "https://www.wikiwand.com/en/articles/Ihab_Habib_Hassan",
+   "py": "yihabuhasang",
+   "ab": "yhbhs"
   },
   {
    "id": "ext-021",
@@ -2629,7 +3003,9 @@ window.LINEAGE_DATA = {
    "identity": "美国学者、诗人（1930—），长期执教于印第安纳州沃巴什学院（Wabash College），英文系Milligan荣誉教授，1984—1985年任北京大学英文系访问教授，讲授英语文学与写作，其间与温德（Robert Winter）结为忘年交并为其作传《温德先生》（Winter in China，北京大学出版社2016年中译本），西川称其为'最好的老师'、'精神上的引路人'",
    "field": "英美文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.tsinghua.org.cn/info/1952/17252.htm"
+   "bioSource": "https://www.tsinghua.org.cn/info/1952/17252.htm",
+   "py": "botesiteen",
+   "ab": "btste"
   },
   {
    "id": "ext-022",
@@ -2644,7 +3020,9 @@ window.LINEAGE_DATA = {
    "identity": "现象学哲学家，浙江大学文科资深教授、博士生导师、现象学与心性思想研究中心主任，曾任中山大学哲学系教授，教育部“长江学者”特聘教授，研究现象学与意识哲学",
    "field": "现象学/西方哲学",
    "bioConfidence": "高",
-   "bioSource": "https://philosophy.sysu.edu.cn/node/4610"
+   "bioSource": "https://philosophy.sysu.edu.cn/node/4610",
+   "py": "niliangkang",
+   "ab": "nlk"
   },
   {
    "id": "ext-023",
@@ -2659,7 +3037,9 @@ window.LINEAGE_DATA = {
    "identity": "俄罗斯文学学者、托尔斯泰研究专家（1931— ），浙江宁波人，华东师范大学中文系教授、学科带头人，中国比较文学学会理事，中俄文学研究会副会长",
    "field": "俄罗斯文学/比较文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.ecnu.edu.cn/info/1095/1940.htm"
+   "bioSource": "https://www.ecnu.edu.cn/info/1095/1940.htm",
+   "py": "niruiqin",
+   "ab": "nrq"
   },
   {
    "id": "ext-024",
@@ -2674,7 +3054,9 @@ window.LINEAGE_DATA = {
    "identity": "东北师范大学文学院教授、博士生导师（1954— ），曾任文学院副院长，现任长春光华学院文学与新闻传播学院院长，研究古代汉语词汇学、训诂学与中国古代诸子文献",
    "field": "训诂学/古典文献",
    "bioConfidence": "高",
-   "bioSource": "https://www.ghu.edu.cn/info/1107/2204.htm"
+   "bioSource": "https://www.ghu.edu.cn/info/1107/2204.htm",
+   "py": "fuyashu",
+   "ab": "fys"
   },
   {
    "id": "ext-025",
@@ -2689,7 +3071,9 @@ window.LINEAGE_DATA = {
    "identity": "语言学与应用语言学家，北京师范大学文学院教授、博士生导师，曾任中央民族大学教授、北师大珠海分校常务副校长，现任广州南方学院副校长，曾获王力语言学奖",
    "field": "语言学/应用语言学",
    "bioConfidence": "高",
-   "bioSource": "https://www.nfu.edu.cn/jyx/_t219/1174/list.htm"
+   "bioSource": "https://www.nfu.edu.cn/jyx/_t219/1174/list.htm",
+   "py": "fuailan",
+   "ab": "fal"
   },
   {
    "id": "ext-026",
@@ -2704,7 +3088,9 @@ window.LINEAGE_DATA = {
    "identity": "中国科学院深圳先进技术研究院研究员，曾任天津大学计算机学院院长、日本北陆先端科学技术大学院大学教授，语音识别与合成、言语认知与人工智能",
    "field": "语音技术/人工智能",
    "bioConfidence": "高",
-   "bioSource": "https://www.ofweek.com/ai/2024-08/ART-201721-8610-30642800.html"
+   "bioSource": "https://www.ofweek.com/ai/2024-08/ART-201721-8610-30642800.html",
+   "py": "dangjianwu",
+   "ab": "djw"
   },
   {
    "id": "ext-027",
@@ -2719,7 +3105,9 @@ window.LINEAGE_DATA = {
    "identity": "汉语史专家（1917—2000），重庆万州人，四川师范学院（今四川师范大学）教授、副院长、中文系主任，《汉语大字典》副主编，曾任四川省语言学会会长",
    "field": "汉语史/语言学",
    "bioConfidence": "高",
-   "bioSource": "https://news.sicnu.edu.cn/p/10/?StId=st_app_news_i_xYV8bvpHeVT96wZhxLB"
+   "bioSource": "https://news.sicnu.edu.cn/p/10/?StId=st_app_news_i_xYV8bvpHeVT96wZhxLB",
+   "py": "ranyouqiao",
+   "ab": "ryq"
   },
   {
    "id": "ext-028",
@@ -2734,7 +3122,9 @@ window.LINEAGE_DATA = {
    "identity": "词汇学家、语言学家（1934—2016），祖籍广东惠州，南开大学文学院教授、博士生导师，曾任天津市语言学会会长、中国语言学会理事，代表作《汉语描写词汇学》",
    "field": "词汇学/语言学",
    "bioConfidence": "高",
-   "bioSource": "https://news.nankai.edu.cn/nkrw/system/2016/10/06/000298276.shtml"
+   "bioSource": "https://news.nankai.edu.cn/nkrw/system/2016/10/06/000298276.shtml",
+   "py": "liushuxin",
+   "ab": "lsx"
   },
   {
    "id": "ext-029",
@@ -2749,7 +3139,9 @@ window.LINEAGE_DATA = {
    "identity": "训诂学家（1912—1999），四川成都人，四川师范大学中文系教授、汉语教研室主任，《汉语大字典》编委，中国训诂学会理事，研究训诂与词汇、中国文化史",
    "field": "训诂学",
    "bioConfidence": "高",
-   "bioSource": "https://news.sicnu.edu.cn/p/10/?StId=st_app_news_i_x5KCbrGtmm8ID9o9eqt"
+   "bioSource": "https://news.sicnu.edu.cn/p/10/?StId=st_app_news_i_x5KCbrGtmm8ID9o9eqt",
+   "py": "liujunhui",
+   "ab": "ljh"
   },
   {
    "id": "ext-030",
@@ -2764,7 +3156,9 @@ window.LINEAGE_DATA = {
    "identity": "历史学家、史学理论家（1928— ），江苏省南京市人；1952 年辅仁大学历史系毕业，自 1952 年起任教北京师范大学，1983 年起任教授、博士生导师；研究古希腊史、古印度史、中国先秦秦汉史、中外古史比较与史学理论，培养博硕研究生三十名",
    "field": "史学史 / 中外古史比较",
    "bioConfidence": "高",
-   "bioSource": "https://www.bnu.edu.cn/xxgk/zmxz/zsjs/86597.htm"
+   "bioSource": "https://www.bnu.edu.cn/xxgk/zmxz/zsjs/86597.htm",
+   "py": "liujiahe",
+   "ab": "ljh"
   },
   {
    "id": "ext-031",
@@ -2779,7 +3173,9 @@ window.LINEAGE_DATA = {
    "identity": "伦敦大学亚非学院（SOAS）中文教授，曾任东亚系主任（1994—1997）及中文暨内亚系主任，1981年获普林斯顿大学东亚研究博士，1981年起任教SOAS，研究中国古典文学、传统文人文化、游艺史（叶子戏与牌戏）及清代外销画，主编《大英图书馆特藏中国清代外销画精华》（8册）",
    "field": "中国古代文学与文化（兼艺术史）",
    "bioConfidence": "高",
-   "bioSource": "https://book.kongfz.com/512120/3883268478/"
+   "bioSource": "https://book.kongfz.com/512120/3883268478/",
+   "py": "luqingbin",
+   "ab": "lqb"
   },
   {
    "id": "ext-032",
@@ -2794,7 +3190,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学文理学院教授，科幻文学理论与创意教育研究者，曾任北师大教育学部科幻与创意教育研究中心主任",
    "field": "科幻文学/语文教育",
    "bioConfidence": "高",
-   "bioSource": "https://fas.bnu.edu.cn/sztd/jsdw/rkjs/zwx/175cc3e4435f4e6d86cac186fdb0d54a.htm"
+   "bioSource": "https://fas.bnu.edu.cn/sztd/jsdw/rkjs/zwx/175cc3e4435f4e6d86cac186fdb0d54a.htm",
+   "py": "wuyan",
+   "ab": "wy"
   },
   {
    "id": "ext-033",
@@ -2809,7 +3207,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授（1935—2010，又名周兆新），中国古代文学，以《三国演义》研究著称",
    "field": "中国古代文学",
    "bioConfidence": "高",
-   "bioSource": "https://chinese.pku.edu.cn/xwgg/xwdt/2f9d2c590d5c4b4d8d9f0a9e6c2170ee.htm"
+   "bioSource": "https://chinese.pku.edu.cn/xwgg/xwdt/2f9d2c590d5c4b4d8d9f0a9e6c2170ee.htm",
+   "py": "zhouqiang",
+   "ab": "zq"
   },
   {
    "id": "ext-034",
@@ -2824,7 +3224,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学外国语言文学学院教授、博士生导师（1946—），香港大学名誉教授，语言学（英汉比较语法、音系学、语用学）兼世界语推广",
    "field": "语言学",
    "bioConfidence": "高",
-   "bioSource": "https://baike.baidu.com/item/%E5%91%A8%E6%B5%81%E6%BA%AA"
+   "bioSource": "https://baike.baidu.com/item/%E5%91%A8%E6%B5%81%E6%BA%AA",
+   "py": "zhouliuxi",
+   "ab": "zlx"
   },
   {
    "id": "ext-035",
@@ -2839,7 +3241,9 @@ window.LINEAGE_DATA = {
    "identity": "语言学家、文献学家（1914—1995），北京大学中文系教授、首批语言学博导，曾任教辅仁大学国文系",
    "field": "语言学",
    "bioConfidence": "高",
-   "bioSource": "https://wenku.bnu.edu.cn/xrinfo.action?num=bnuzhouzm1914"
+   "bioSource": "https://wenku.bnu.edu.cn/xrinfo.action?num=bnuzhouzm1914",
+   "py": "zhouzumo",
+   "ab": "zzm"
   },
   {
    "id": "ext-036",
@@ -2854,7 +3258,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授、博士生导师（1957—），北京大学语言学实验室主任，中国语言学会语音学分会主任，实验语音学",
    "field": "实验语音学/语言学",
    "bioConfidence": "高",
-   "bioSource": "http://bdjcjd.pku.edu.cn/web/letter/organize_teacher_detail.php?id=54"
+   "bioSource": "http://bdjcjd.pku.edu.cn/web/letter/organize_teacher_detail.php?id=54",
+   "py": "kongjiangping",
+   "ab": "kjp"
   },
   {
    "id": "ext-037",
@@ -2869,7 +3275,9 @@ window.LINEAGE_DATA = {
    "identity": "山东大学中文系教授（1914—1998，笔名钟咸），中国现代文学、鲁迅研究与文艺理论家",
    "field": "中国现代文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.lit.sdu.edu.cn/info/1145/1966.htm"
+   "bioSource": "https://www.lit.sdu.edu.cn/info/1145/1966.htm",
+   "py": "sunchangxi",
+   "ab": "scx"
   },
   {
    "id": "ext-038",
@@ -2884,7 +3292,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学信息科学与技术学院教授；研究语言信息处理（古籍整理、国际汉语推广）、计算机教育应用、知识工程与软件工程；主持国家社科基金《古今汉语平行语料库的构建》，著有《说文解字》知识库与数字化研究系列论文",
    "field": "中文信息处理 / 计算语言学",
    "bioConfidence": "高",
-   "bioSource": "https://mdw.bnu.edu.cn/zxgk/zxcy/yywzx/3694e3133d794faebe74969a6801f783.htm"
+   "bioSource": "https://mdw.bnu.edu.cn/zxgk/zxcy/yywzx/3694e3133d794faebe74969a6801f783.htm",
+   "py": "songjihua",
+   "ab": "sjh"
   },
   {
    "id": "ext-039",
@@ -2899,7 +3309,9 @@ window.LINEAGE_DATA = {
    "identity": "台湾中央大学中国文学系教授（1952—，2017年退休），香港新亚研究所博士，研究经学、小学、文学理论、当代西洋哲学（含语言哲学与逻辑）",
    "field": "中国哲学/经学",
    "bioConfidence": "高",
-   "bioSource": "https://www.chinese.ncu.edu.tw/zh_tw/About2/Faculty2/Retired_Contribution?page_no=2&locale=zh_tw"
+   "bioSource": "https://www.chinese.ncu.edu.tw/zh_tw/About2/Faculty2/Retired_Contribution?page_no=2&locale=zh_tw",
+   "py": "cenyicheng",
+   "ab": "cyc"
   },
   {
    "id": "ext-040",
@@ -2914,7 +3326,9 @@ window.LINEAGE_DATA = {
    "identity": "四川大学中文系教授（已退休），四川省语言学会副会长、全国汉语方言学会理事，现代汉语与汉语方言研究，《四川方言词典》主编之一",
    "field": "汉语方言/现代汉语",
    "bioConfidence": "高",
-   "bioSource": "https://www.chinanews.com/sh/2014/03-13/5944859.shtml"
+   "bioSource": "https://www.chinanews.com/sh/2014/03-13/5944859.shtml",
+   "py": "zhangyizhou",
+   "ab": "zyz"
   },
   {
    "id": "ext-041",
@@ -2929,7 +3343,9 @@ window.LINEAGE_DATA = {
    "identity": "中国社会科学院语言研究所句法语义研究室研究员、中国社会科学院研究生院语言学系教授、博士生导师（1954—），现代汉语语法",
    "field": "现代汉语语法",
    "bioConfidence": "高",
-   "bioSource": "http://ling.cass.cn/keyan/xueshuchengguo/cgtj/202112/t20211209_5380422.html"
+   "bioSource": "http://ling.cass.cn/keyan/xueshuchengguo/cgtj/202112/t20211209_5380422.html",
+   "py": "zhangguoxian",
+   "ab": "zgx"
   },
   {
    "id": "ext-042",
@@ -2944,7 +3360,9 @@ window.LINEAGE_DATA = {
    "identity": "汉语史学者，四川泸州人，四川师范大学汉语研究所教授、硕士研究生导师，曾任川师大中文系主任、语言研究所所长、四川省语言学会会长，师从张世禄",
    "field": "汉语史/语言学",
    "bioConfidence": "高",
-   "bioSource": "https://www.sccm.edu.cn/jx_xjxy/show-90.html"
+   "bioSource": "https://www.sccm.edu.cn/jx_xjxy/show-90.html",
+   "py": "zhangzhende",
+   "ab": "zzd"
   },
   {
    "id": "ext-043",
@@ -2959,7 +3377,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学对外汉语教育学院教授、博士生/硕士生导师（离退休），汉语作为第二语言教学研究，兼及中国古代文学",
    "field": "汉语国际教育/对外汉语",
    "bioConfidence": "高",
-   "bioSource": "https://hanyu.pku.edu.cn/xyjs/szdw/ltxry/50176hyxycs364733.htm"
+   "bioSource": "https://hanyu.pku.edu.cn/xyjs/szdw/ltxry/50176hyxycs364733.htm",
+   "py": "zhangying",
+   "ab": "zy"
   },
   {
    "id": "ext-044",
@@ -2974,7 +3394,9 @@ window.LINEAGE_DATA = {
    "identity": "历史学家（1973— ），河北藁城人；2001 年武汉大学博士，2003 年北京师范大学历史学博士后出站，2003—2021 年历任北师大历史学院讲师、副教授、教授，曾任历史学院副院长、古籍与传统文化研究院院长，2021 年调入南开大学；研究秦汉魏晋南北朝隋唐史、简牍学、敦煌吐鲁番学",
    "field": "中国古代史 / 简牍学",
    "bioConfidence": "高",
-   "bioSource": "https://history.nankai.edu.cn/2022/0209/c16087a430228/page.htm"
+   "bioSource": "https://history.nankai.edu.cn/2022/0209/c16087a430228/page.htm",
+   "py": "zhangrongqiang",
+   "ab": "zrq"
   },
   {
    "id": "ext-045",
@@ -2989,7 +3411,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授、博士生导师（1954—，已退休），曾任古代文学教研室主任、中文系副主任，中国古代文学（宋诗、宋词、苏轼研究）",
    "field": "中国古代文学（宋）",
    "bioConfidence": "高",
-   "bioSource": "https://yuanpei.pku.edu.cn/ypds/dsfc/93yuanpei499273.htm"
+   "bioSource": "https://yuanpei.pku.edu.cn/ypds/dsfc/93yuanpei499273.htm",
+   "py": "zhangming",
+   "ab": "zm"
   },
   {
    "id": "ext-046",
@@ -3004,7 +3428,9 @@ window.LINEAGE_DATA = {
    "identity": "澳门大学人文学院院长、中国语言文学系特聘教授（1963—），曾任新加坡国立大学中文系副教授，长江学者讲座教授，生成语法（句法学、语义学）",
    "field": "语言学（生成语法）",
    "bioConfidence": "高",
-   "bioSource": "http://ling.cass.cn/xshd/jiaoliu/202407/t20240723_5766320.html"
+   "bioSource": "http://ling.cass.cn/xshd/jiaoliu/202407/t20240723_5766320.html",
+   "py": "xujie",
+   "ab": "xj"
   },
   {
    "id": "ext-047",
@@ -3019,7 +3445,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授、博士生导师（1931—2006），曾任语言学教研室主任，著名语言学家，以“字本位”理论著称",
    "field": "语言学",
    "bioConfidence": "高",
-   "bioSource": "https://news.pku.edu.cn/xwzh/129-110757.htm"
+   "bioSource": "https://news.pku.edu.cn/xwzh/129-110757.htm",
+   "py": "xutongqiang",
+   "ab": "xtq"
   },
   {
    "id": "ext-048",
@@ -3034,7 +3462,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学中文信息处理研究所教授、博士生导师（1973—），主要研究数据挖掘、信息抽取与自然语言处理",
    "field": "中文信息处理",
    "bioConfidence": "高",
-   "bioSource": "https://icip.bnu.edu.cn/xwgg/xwdt/11cdb89de2d747b9a1d10fb28724cd73.htm"
+   "bioSource": "https://icip.bnu.edu.cn/xwgg/xwdt/11cdb89de2d747b9a1d10fb28724cd73.htm",
+   "py": "jinyaohong",
+   "ab": "jyh"
   },
   {
    "id": "ext-049",
@@ -3049,7 +3479,9 @@ window.LINEAGE_DATA = {
    "identity": "北京语言大学文学院教授，曾任北京语言大学副校长、语言研究所所长，全国汉语方言学会副会长，汉语方言学、地理语言学与语言资源保护",
    "field": "汉语方言学",
    "bioConfidence": "高",
-   "bioSource": "https://yjsy.blcu.edu.cn/info/1096/4598.htm"
+   "bioSource": "https://yjsy.blcu.edu.cn/info/1096/4598.htm",
+   "py": "caozhiyun",
+   "ab": "czy"
   },
   {
    "id": "ext-050",
@@ -3064,7 +3496,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授、博士生导师（1954—），著名儿童文学作家，2016年国际安徒生奖首位中国得主",
    "field": "儿童文学/中国现当代文学",
    "bioConfidence": "高",
-   "bioSource": "https://chinese.pku.edu.cn/xwgg/xwdt/7594c464c4c94f87a4a10ac2d8067bd4.htm"
+   "bioSource": "https://chinese.pku.edu.cn/xwgg/xwdt/7594c464c4c94f87a4a10ac2d8067bd4.htm",
+   "py": "caowenxuan",
+   "ab": "cwx"
   },
   {
    "id": "ext-051",
@@ -3079,7 +3513,9 @@ window.LINEAGE_DATA = {
    "identity": "中山大学中国语言文学系（珠海）教授、系主任（1975—），新加坡国立大学博士，20世纪中国文学（鲁迅研究）与华语语系文学",
    "field": "中国现当代文学/华语文学",
    "bioConfidence": "高",
-   "bioSource": "https://chinesezh.sysu.edu.cn/zh-hans/node/632"
+   "bioSource": "https://chinesezh.sysu.edu.cn/zh-hans/node/632",
+   "py": "zhuchongke",
+   "ab": "zck"
   },
   {
    "id": "ext-052",
@@ -3094,7 +3530,9 @@ window.LINEAGE_DATA = {
    "identity": "南开大学中文系教授，现当代文学与诗歌批评（主编《朦胧诗·新生代诗百首点评》）",
    "field": "中国现当代文学",
    "bioConfidence": "中",
-   "bioSource": "https://www.baike.com/wikiid/2753357096703797941"
+   "bioSource": "https://www.baike.com/wikiid/2753357096703797941",
+   "py": "lilizhong",
+   "ab": "llz"
   },
   {
    "id": "ext-053",
@@ -3109,7 +3547,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学苏联文学研究所/外文系教授、博士生导师，俄苏文学教学与研究，译有巴赫金《拉伯雷研究》（与夏忠宪等合译）、《钢铁是怎样炼成的》等，生卒年不详",
    "field": "俄罗斯文学/俄苏文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.crggcn.com/skwx_crgg/initDatabaseDetail?contentId=8816926&siteId=25"
+   "bioSource": "https://www.crggcn.com/skwx_crgg/initDatabaseDetail?contentId=8816926&siteId=25",
+   "py": "lizhaolin",
+   "ab": "lzl"
   },
   {
    "id": "ext-054",
@@ -3124,7 +3564,9 @@ window.LINEAGE_DATA = {
    "identity": "北京语言大学教授、博士生导师（1955— ），曾任国家语委副主任、教育部语言文字信息管理司司长、北京语言大学党委书记，研究理论语言学、语法学、儿童语言学与语言规划学",
    "field": "语言学",
    "bioConfidence": "高",
-   "bioSource": "https://www.blcu.edu.cn/info/3472/23813.htm"
+   "bioSource": "https://www.blcu.edu.cn/info/3472/23813.htm",
+   "py": "liyuming",
+   "ab": "lym"
   },
   {
    "id": "ext-055",
@@ -3139,7 +3581,9 @@ window.LINEAGE_DATA = {
    "identity": "中国人民大学文学院教授、博士生导师（1946— ），吉林龙井人，原东北师范大学中文系主任，2002年调入人大、2013年退休，研究先秦两汉文学与部族文化",
    "field": "中国古代文学（先秦两汉文学）",
    "bioConfidence": "高",
-   "bioSource": "https://wenxueyuan.ruc.edu.cn/sztd/rxjlrjs/rt_gdwxjys/gdwxjys_rx/7a5e06416f94419a9bc2b6183bb034ad.htm"
+   "bioSource": "https://wenxueyuan.ruc.edu.cn/sztd/rxjlrjs/rt_gdwxjys/gdwxjys_rx/7a5e06416f94419a9bc2b6183bb034ad.htm",
+   "py": "libinghai",
+   "ab": "lbh"
   },
   {
    "id": "ext-056",
@@ -3154,7 +3598,9 @@ window.LINEAGE_DATA = {
    "identity": "中国艺术研究院音乐研究所研究员、博士生导师（1960.10— ），《中国音乐年鉴》主编，兼中国音乐学院中国音乐史研究中心特约研究员，研究民族音乐学、乐律学与中国古代音乐史",
    "field": "音乐学（民族音乐学/乐律学）",
    "bioConfidence": "高",
-   "bioSource": "https://yyxy.wzu.edu.cn/info/1132/12911.htm"
+   "bioSource": "https://yyxy.wzu.edu.cn/info/1132/12911.htm",
+   "py": "limei",
+   "ab": "lm"
   },
   {
    "id": "ext-057",
@@ -3169,7 +3615,9 @@ window.LINEAGE_DATA = {
    "identity": "山东大学儒学高等研究院/文学院讲席教授、博士生导师（1963— ），山东滕州人，《文史哲》主编，古典文献学专家，主持《永乐大典》存卷综合整理研究，著有《文献学概要》《四库存目标注》",
    "field": "古典文献学",
    "bioConfidence": "高",
-   "bioSource": "http://www.zhmd.sdu.edu.cn/info/1010/1058.htm"
+   "bioSource": "http://www.zhmd.sdu.edu.cn/info/1010/1058.htm",
+   "py": "duzexun",
+   "ab": "dzx"
   },
   {
    "id": "ext-058",
@@ -3184,7 +3632,9 @@ window.LINEAGE_DATA = {
    "identity": "语言文字学家（1912—2013），四川乐山人，四川师范大学文学院（原中文系）教授，精通文字学、音韵学，《汉语大字典》编委，师承胡适、钱穆、马一浮等，被誉为“汉字守护人”",
    "field": "文字学/音韵学",
    "bioConfidence": "高",
-   "bioSource": "https://ltc.sicnu.edu.cn/p/0/?stid=st_app_news_i_x635144948424991094"
+   "bioSource": "https://ltc.sicnu.edu.cn/p/0/?stid=st_app_news_i_x635144948424991094",
+   "py": "dudaosheng",
+   "ab": "dds"
   },
   {
    "id": "ext-059",
@@ -3199,7 +3649,9 @@ window.LINEAGE_DATA = {
    "identity": "四川大学终身教授（1909.10.23—2003.12.6），字韬甫，重庆大足人，中国古代文论与文献学家，以《文心雕龙》校注释著享誉学界，被誉为“龙学泰斗”，曾任中国古代文论学会会长、川大中文系主任",
    "field": "中国古代文论/《文心雕龙》研究",
    "bioConfidence": "高",
-   "bioSource": "https://www.scu.edu.cn/info/1207/12952.htm"
+   "bioSource": "https://www.scu.edu.cn/info/1207/12952.htm",
+   "py": "yangmingzhao",
+   "ab": "ymz"
   },
   {
    "id": "ext-060",
@@ -3214,7 +3666,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授（1934.1.6— ），江苏扬州人，民间文学、民俗学家，曾任中国民俗学会副理事长、北京大学民俗学会会长，提出“立体文学论”，获国际人类学“彼得奖”",
    "field": "民间文学/民俗学",
    "bioConfidence": "高",
-   "bioSource": "https://scholar.pku.edu.cn/blduan/home?month=2026-02"
+   "bioSource": "https://scholar.pku.edu.cn/blduan/home?month=2026-02",
+   "py": "duanbaolin",
+   "ab": "dbl"
   },
   {
    "id": "ext-061",
@@ -3229,7 +3683,9 @@ window.LINEAGE_DATA = {
    "identity": "山东大学中文系教授（1908.4—1988.12），字石臞，四川郫县人，语言学家、古典文学专家，师从章太炎、黄侃，曾任古汉语教研室主任、中国训诂学会第一副会长，精于训诂学、音韵学、文字学",
    "field": "汉语言文字学（训诂学/音韵学）",
    "bioConfidence": "高",
-   "bioSource": "https://www.view.sdu.edu.cn/info/1018/159405.htm"
+   "bioSource": "https://www.view.sdu.edu.cn/info/1018/159405.htm",
+   "py": "yinmenglun",
+   "ab": "yml"
   },
   {
    "id": "ext-062",
@@ -3244,7 +3700,9 @@ window.LINEAGE_DATA = {
    "identity": "中国社会科学院民族学与人类学研究所研究员、博士生导师（1954— ），湖南长沙人，曾任语音学与计算语言学重点实验室主任、中国民族语言学会副会长，现兼江苏师范大学特聘教授，研究汉藏语言学、计算语言学",
    "field": "计算语言学/汉藏语言学",
    "bioConfidence": "高",
-   "bioSource": "http://www.cneling.com/scholardetail-148.htm"
+   "bioSource": "http://www.cneling.com/scholardetail-148.htm",
+   "py": "jiangdi",
+   "ab": "jd"
   },
   {
    "id": "ext-063",
@@ -3259,7 +3717,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授（1933.9.4—2006.2.27），河北河间人，相声理论家、曲艺研究家，曾任中文系编辑教研室、民间文学教研室主任，著有《中国相声史》《相声艺术论》《曲艺概论》等",
    "field": "曲艺学/民间文学",
    "bioConfidence": "高",
-   "bioSource": "https://baike.baidu.com/item/%E6%B1%AA%E6%99%AF%E5%AF%BF/8752642"
+   "bioSource": "https://baike.baidu.com/item/%E6%B1%AA%E6%99%AF%E5%AF%BF/8752642",
+   "py": "wangjingshou",
+   "ab": "wjs"
   },
   {
    "id": "ext-064",
@@ -3274,7 +3734,9 @@ window.LINEAGE_DATA = {
    "identity": "武汉大学文学院教授、比较文学与世界文学专业博士生导师（1968— ），湖北石首人，曾任文学院副院长（2007—2012）、院长（2012—2020），中国外国文学学会教学研究分会会长，近年从事外国文学与哲学跨学科研究",
    "field": "比较文学与世界文学",
    "bioConfidence": "高",
-   "bioSource": "https://chinese.whu.edu.cn/info/1045/1900.htm"
+   "bioSource": "https://chinese.whu.edu.cn/info/1045/1900.htm",
+   "py": "tuxianfeng",
+   "ab": "txf"
   },
   {
    "id": "ext-065",
@@ -3289,7 +3751,9 @@ window.LINEAGE_DATA = {
    "identity": "上海师范大学教授、博士生导师（1943— ），浙江瑞安人，汉语音韵学专家，上海高校比较语言学E-研究院原首席研究员，现兼复旦大学双聘教授，研究汉语历史音韵学、方言学与东亚语言历史比较",
    "field": "音韵学/历史语言学",
    "bioConfidence": "高",
-   "bioSource": "https://xw.shnu.edu.cn/68/53/c16368a813139/page.htm"
+   "bioSource": "https://xw.shnu.edu.cn/68/53/c16368a813139/page.htm",
+   "py": "panwuyun",
+   "ab": "pwy"
   },
   {
    "id": "ext-066",
@@ -3304,7 +3768,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学艺术学院教授、博士生导师（1959.2— ），四川沐川人，曾任北大艺术学院院长、北师大艺术与传媒学院院长，教育部“长江学者”特聘教授，研究文艺美学、艺术理论与文化现代性",
    "field": "文艺学/艺术理论",
    "bioConfidence": "高",
-   "bioSource": "https://www.art.pku.edu.cn/old/szdw/zzjs/jsjs/yzxllx/wyc_20171218203429371211/index.htm"
+   "bioSource": "https://www.art.pku.edu.cn/old/szdw/zzjs/jsjs/yzxllx/wyc_20171218203429371211/index.htm",
+   "py": "wangyichuan",
+   "ab": "wyc"
   },
   {
    "id": "ext-067",
@@ -3319,7 +3785,9 @@ window.LINEAGE_DATA = {
    "identity": "山东大学儒学高等研究院教授、博士生导师（1966— ），山东诸城人，古典文献研究所所长，师从王绍曾、董治安，研究先秦两汉文史、目录版本校勘学、中国经学史与海外汉籍",
    "field": "古典文献学",
    "bioConfidence": "高",
-   "bioSource": "https://rxgdyjy.sdu.edu.cn/info/1145/3363.htm"
+   "bioSource": "https://rxgdyjy.sdu.edu.cn/info/1145/3363.htm",
+   "py": "wangchenglve",
+   "ab": "wcl"
   },
   {
    "id": "ext-068",
@@ -3334,7 +3802,9 @@ window.LINEAGE_DATA = {
    "identity": "德国汉学家鲁道夫·瓦格纳（Rudolf G. Wagner，1941年11月3日—2019年10月25日），生于威斯巴登，海德堡大学汉学系教授（1987—），早年任柏林自由大学助教（1972—1979；注：线索所记'东德柏林洪堡大学'有误，应为西柏林自由大学），1993年获德国莱布尼茨奖，1996—1998年任欧洲汉学学会会长，研究中国思想史（王弼与魏晋玄学）、晚清报刊与公共领域、中国现当代文学",
    "field": "汉学（中国思想史/比较文化）",
    "bioConfidence": "高",
-   "bioSource": "https://www.encyclopedia.com/arts/educational-magazines/wagner-rudolf-g-1941"
+   "bioSource": "https://www.encyclopedia.com/arts/educational-magazines/wagner-rudolf-g-1941",
+   "py": "wagenadongdebolinhongbaodaxue",
+   "ab": "wgnddblhbdx"
   },
   {
    "id": "ext-069",
@@ -3349,7 +3819,9 @@ window.LINEAGE_DATA = {
    "identity": "中国人民大学文学院教授、博士生导师（1939.12.26— ），河北泊头人，曾任中文系副主任、系主任，师从缪朗山，长期从事西方文艺理论史教学与研究，合著《西方文艺理论史》，整理《缪朗山文集》",
    "field": "文艺学（西方文论）",
    "bioConfidence": "高",
-   "bioSource": "https://wenxueyuan.ruc.edu.cn/sztd/rxjlrjs/rt_wgwxjys/wgwxjys_rx/05bd82b37fd14da180fe4185ae463780.htm"
+   "bioSource": "https://wenxueyuan.ruc.edu.cn/sztd/rxjlrjs/rt_wgwxjys/wgwxjys_rx/05bd82b37fd14da180fe4185ae463780.htm",
+   "py": "zhanganqi",
+   "ab": "zaq"
   },
   {
    "id": "ext-070",
@@ -3364,7 +3836,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学外国语学院法语系教授、博士生导师（1945.11—2023.3.25），重庆人，师从罗大冈，曾任西语系文学教研室主任、外国语学院副院长，中国法国文学研究会副会长，法国文学研究与翻译家",
    "field": "法国文学",
    "bioConfidence": "高",
-   "bioSource": "https://sfl.pku.edu.cn/tzgg/148032.htm"
+   "bioSource": "https://sfl.pku.edu.cn/tzgg/148032.htm",
+   "py": "luopeng",
+   "ab": "lp"
   },
   {
    "id": "ext-071",
@@ -3379,7 +3853,9 @@ window.LINEAGE_DATA = {
    "identity": "广西师范大学文学院/新闻与传播学院教授、博士生导师（1950.3— ），浙江宁海人，广西首批终身教授，中国《文选》学会副会长、广西中国文学学会会长，研究汉魏六朝文学（中古文学）、文体学与桂学",
    "field": "中国古代文学（魏晋南北朝文学）",
    "bioConfidence": "高",
-   "bioSource": "https://hr.gxnu.edu.cn/2021/0910/c8104a218156/pagem.htm"
+   "bioSource": "https://hr.gxnu.edu.cn/2021/0910/c8104a218156/pagem.htm",
+   "py": "hudalei",
+   "ab": "hdl"
   },
   {
    "id": "ext-072",
@@ -3394,7 +3870,9 @@ window.LINEAGE_DATA = {
    "identity": "比利时比较文学学者（1927年8月5日—2020年10月29日），生于布鲁日，德国亚琛工业大学（RWTH Aachen）比较文学教授并创比较文学研究所（1967—1992），1983—1992年兼卢森堡大学中心教授，根特大学与马堡大学出身，'亚琛学派'与形象学（Imagologie）奠基人之一，主编《亚琛比较文学论丛》，方维规之师",
    "field": "比较文学（形象学）",
    "bioConfidence": "高",
-   "bioSource": "https://ringgaard.com/kb/Q1578208"
+   "bioSource": "https://ringgaard.com/kb/Q1578208",
+   "py": "hugedizelinke",
+   "ab": "hgdzlk"
   },
   {
    "id": "ext-073",
@@ -3409,7 +3887,9 @@ window.LINEAGE_DATA = {
    "identity": "山东大学文学院教授、汉语言文字学专业博士生导师（1933.2—2020.1.16），山东潍坊人，生于青岛，全国首位汉语词汇学专业博士生导师，毕生致力于汉语词汇学理论研究，著有《现代汉语词汇》《现代汉语词汇学》",
    "field": "汉语言文字学（汉语词汇学）",
    "bioConfidence": "高",
-   "bioSource": "https://epaper.gmw.cn/zhdsb/html/2021-06/23/nw.D110000zhdsb_20210623_7-08.htm"
+   "bioSource": "https://epaper.gmw.cn/zhdsb/html/2021-06/23/nw.D110000zhdsb_20210623_7-08.htm",
+   "py": "gebenyi",
+   "ab": "gby"
   },
   {
    "id": "ext-074",
@@ -3424,7 +3904,9 @@ window.LINEAGE_DATA = {
    "identity": "复旦大学中文系/古籍整理研究所教授（1903—1988），字秉南，江苏丰县人，文史学家、楚辞学大家，清华国学院师从陈寅恪、梁启超，晚年全力整理编撰《陈寅恪先生编年事辑》《陈寅恪先生文集》，早年以《全谢山先生年谱》治清代学术史（注：检索证实其主业为中国古代文学/楚辞学，非“明清文学”）",
    "field": "中国古代文学（楚辞学/清代学术史）",
    "bioConfidence": "高",
-   "bioSource": "https://www.fudan.edu.cn/2019/0426/c427a96169/page.htm"
+   "bioSource": "https://www.fudan.edu.cn/2019/0426/c427a96169/page.htm",
+   "py": "jiangtianshu",
+   "ab": "jts"
   },
   {
    "id": "ext-075",
@@ -3439,7 +3921,9 @@ window.LINEAGE_DATA = {
    "identity": "浙江师范大学原校长、教授（1925.10— ），浙江金华人，儿童文学理论家，中国儿童文学学科奠基人、首位国际格林奖中国得主，1978年创建全国首个儿童文学研究室、1979年率先招收全国首批儿童文学硕士研究生，主编《儿童文学概论》",
    "field": "儿童文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.zjnu.edu.cn/2024/1211/c4063a488464/page.htm"
+   "bioSource": "https://www.zjnu.edu.cn/2024/1211/c4063a488464/page.htm",
+   "py": "jiangfeng",
+   "ab": "jf"
   },
   {
    "id": "ext-076",
@@ -3454,7 +3938,9 @@ window.LINEAGE_DATA = {
    "identity": "澳门大学人文学院中国语言文学系讲座教授、系主任（1962— ），原北京大学中文系教授、长江学者特聘教授，1990年获北京大学博士学位，研究理论语言学与汉语语言学，专攻句法学、语义学、语用学及计算语言学",
    "field": "语言学（理论语言学/汉语语法）",
    "bioConfidence": "高",
-   "bioSource": "https://www.um.edu.mo/zh-hant/?p=301460"
+   "bioSource": "https://www.um.edu.mo/zh-hant/?p=301460",
+   "py": "yuanyulin",
+   "ab": "yyl"
   },
   {
    "id": "ext-077",
@@ -3469,7 +3955,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系资深教授、博雅讲席教授（1936.4— ），江苏武进人，北京大学国学研究院院长、中央文史研究馆馆长，古典文学专家，著有《中国诗歌艺术研究》《中国文学概论》《陶渊明研究》，主编四卷本《中国文学史》，2018年当选美国人文与科学院外籍院士",
    "field": "中国古代文学",
    "bioConfidence": "高",
-   "bioSource": "http://bdjcjd.pku.edu.cn/web/letter/organize_teacher_detail.php?id=24"
+   "bioSource": "http://bdjcjd.pku.edu.cn/web/letter/organize_teacher_detail.php?id=24",
+   "py": "yuanxingpei",
+   "ab": "yxp"
   },
   {
    "id": "ext-078",
@@ -3484,7 +3972,9 @@ window.LINEAGE_DATA = {
    "identity": "中国现当代文学学者（1934—2007），江苏句容人；1960 年复旦大学中文系毕业，1977 年调入南京大学中文系，历任副教授、教授、博士生导师、系主任，江苏省中国现代文学学会会长；治中国现当代文学思潮，著《「五四」文学精神》《中国现代文学主潮》",
    "field": "中国现当代文学",
    "bioConfidence": "高",
-   "bioSource": "http://literature.cass.cn/jgsz/yjs/xdwxyjs/lrzjxz/"
+   "bioSource": "http://literature.cass.cn/jgsz/yjs/xdwxyjs/lrzjxz/",
+   "py": "xuzhiying",
+   "ab": "xzy"
   },
   {
    "id": "ext-079",
@@ -3499,7 +3989,9 @@ window.LINEAGE_DATA = {
    "identity": "语言学家（1930—1997），广东阳江人；吉林大学文学院教授，曾任中国语言学会理事、中国音韵学会理事、吉林省语言学会理事长；治汉语语法史与音韵学，曾为中华书局版王力主编《汉语史稿》执笔中下册近半篇幅",
    "field": "汉语史 / 音韵学",
    "bioConfidence": "高",
-   "bioSource": "https://news.jlu.edu.cn/info/1211/40452.htm"
+   "bioSource": "https://news.jlu.edu.cn/info/1211/40452.htm",
+   "py": "xushaozao",
+   "ab": "xsz"
   },
   {
    "id": "ext-080",
@@ -3514,7 +4006,9 @@ window.LINEAGE_DATA = {
    "identity": "四川大学文学与新闻学院教授、博士生导师（1928.12— ），四川成都人，《汉语大字典》常务副主编，中国训诂学会名誉会长，研究音韵学、训诂学、辞书学与汉语史，代表作《集韵校本》获第十五届王力语言学奖一等奖（注：未检索到逝世信息，2023年人民网仍有其活动报道，“已故”待核实）",
    "field": "汉语言文字学（音韵学/辞书学）",
    "bioConfidence": "高",
-   "bioSource": "https://sc.people.com.cn/n2/2023/0418/c379470-40380281.html"
+   "bioSource": "https://sc.people.com.cn/n2/2023/0418/c379470-40380281.html",
+   "py": "zhaozhenduo",
+   "ab": "zzd"
   },
   {
    "id": "ext-081",
@@ -3529,7 +4023,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系比较文学与比较文化研究所教授、博士生导师，《多边文化研究》主编，1982年武汉大学法文系学士，1988年获法国图卢兹第二大学文学博士学位，曾任武汉大学法文系教授、法国研究所所长、《法国研究》主编，研究法国文学、比较文学与文化理论，长于罗兰·巴特及文本理论研究，生年不详（注：检索证实其在北京大学中文系，非外国语学院）",
    "field": "比较文学与世界文学/法国文学",
    "bioConfidence": "高",
-   "bioSource": "https://www.bjdi.pku.edu.cn/xwzx/tzgg/1335002.htm"
+   "bioSource": "https://www.bjdi.pku.edu.cn/xwzx/tzgg/1335002.htm",
+   "py": "chejinshan",
+   "ab": "cjs"
   },
   {
    "id": "ext-082",
@@ -3544,7 +4040,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学历史学系、中国古代史研究中心教授、博士生导师（1950.6— ），北京人，宋史大家邓广铭之女，国家级教学名师，曾任中国宋史研究会会长、北京大学人文社会科学研究院院长，研究宋史、中国古代官僚制度史与唐宋妇女史，著有《宋代文官选任制度诸层面》《祖宗之法——北宋前期政治述略》",
    "field": "历史学（宋史）",
    "bioConfidence": "高",
-   "bioSource": "https://zggds.pku.edu.cn/cyjj/28zggdsyjzx57593.htm"
+   "bioSource": "https://zggds.pku.edu.cn/cyjj/28zggdsyjzx57593.htm",
+   "py": "dengxiaonan",
+   "ab": "dxn"
   },
   {
    "id": "ext-083",
@@ -3559,7 +4057,9 @@ window.LINEAGE_DATA = {
    "identity": "华中师范大学文科资深教授、博士生导师（1935.6.30—2023.2.6），海南乐东人，华中师范大学语言学系与语言与语言教育研究中心创建人，主攻现代汉语语法学，被学界誉为“20世纪现代汉语语法八大家”之一，著有《汉语语法学》《汉语复句研究》，主编十二卷本《邢福义文集》",
    "field": "汉语言文字学（现代汉语语法）",
    "bioConfidence": "高",
-   "bioSource": "https://ling.ccnu.edu.cn/info/1025/1003.htm"
+   "bioSource": "https://ling.ccnu.edu.cn/info/1025/1003.htm",
+   "py": "xingfuyi",
+   "ab": "xfy"
   },
   {
    "id": "ext-084",
@@ -3574,7 +4074,9 @@ window.LINEAGE_DATA = {
    "identity": "福建师范大学文学院二级教授、中国古代文学专业博士生导师（1949— ），福建龙岩人，曾任福建师大中文系副主任、文学院副院长、闽南科技学院院长，研究先秦两汉文学与中国文学批评史，以《左传》研究著称，著有《春秋左传直解》《左传国策研究》《左传战国策讲演录》",
    "field": "中国古代文学（先秦两汉文学）",
    "bioConfidence": "高",
-   "bioSource": "https://ctld.fjnu.edu.cn/c1/43/c2943a49475/page.htm"
+   "bioSource": "https://ctld.fjnu.edu.cn/c1/43/c2943a49475/page.htm",
+   "py": "guodan",
+   "ab": "gd"
   },
   {
    "id": "ext-085",
@@ -3589,7 +4091,9 @@ window.LINEAGE_DATA = {
    "identity": "古汉语、音韵学家（1913—1998），字君恕，四川成都人，四川师范大学中文系（汉语研究所）教授、研究生导师，参与《汉语大字典》编写，合著《国故论衡疏证》",
    "field": "古代汉语/音韵学",
    "bioConfidence": "高",
-   "bioSource": "https://www.sicnu.edu.cn/info/1611/83201.htm"
+   "bioSource": "https://www.sicnu.edu.cn/info/1611/83201.htm",
+   "py": "guochengyong",
+   "ab": "gcy"
   },
   {
    "id": "ext-086",
@@ -3604,7 +4108,9 @@ window.LINEAGE_DATA = {
    "identity": "中国社会科学院文学研究所研究员、博士生导师（1961— ），河南淅川人，哲学博士，教育部长江学者特聘教授，曾任文学所文艺理论研究室主任，后为四川大学文学与新闻学院二级研究员，英国 Theory, Culture & Society 编委，研究当代文化理论、比较文学与文化研究，著有《后儒学转向》《全球对话主义》",
    "field": "比较文学/文化研究（当代文化理论）",
    "bioConfidence": "高",
-   "bioSource": "http://literature.cssn.cn/jgsz/yjs/wyllyjs/lrld_135789/lrzr_135790/202304/t20230428_5625796.shtml"
+   "bioSource": "http://literature.cssn.cn/jgsz/yjs/wyllyjs/lrld_135789/lrzr_135790/202304/t20230428_5625796.shtml",
+   "py": "jinhuimin",
+   "ab": "jhm"
   },
   {
    "id": "ext-087",
@@ -3619,7 +4125,9 @@ window.LINEAGE_DATA = {
    "identity": "华东师范大学中文系教授（1919.9.28—2017.9.28），原名钱国荣，江苏武进人，现当代文艺理论家，曾任华东师大文学研究所所长、《文艺理论研究》主编、中国现代文学研究会副会长，以《论“文学是人学”》闻名，中国现代文学研究界有“北王（王瑶）南钱”之誉，2014年获上海文学艺术奖终身成就奖",
    "field": "中国现当代文学/文艺理论",
    "bioConfidence": "高",
-   "bioSource": "https://www.ecnu.edu.cn/info/1095/4956.htm"
+   "bioSource": "https://www.ecnu.edu.cn/info/1095/4956.htm",
+   "py": "qiangurong",
+   "ab": "qgr"
   },
   {
    "id": "ext-088",
@@ -3634,7 +4142,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系教授、博雅特聘教授、博士生导师（1956— ），四川德阳人，北京大学中国语言学研究中心主任，师从徐通锵，研究理论语言学、历史语言学、语言接触与语言哲学，提出语言接触“无界有阶”模型，发现并命名茶马古道，两获王力语言学奖一等奖",
    "field": "语言学（历史语言学/语言接触）",
    "bioConfidence": "高",
-   "bioSource": "https://news.pku.edu.cn/xwzh/df128523d6614f96b7695c695506021a.htm"
+   "bioSource": "https://news.pku.edu.cn/xwzh/df128523d6614f96b7695c695506021a.htm",
+   "py": "chenbaoya",
+   "ab": "cby"
   },
   {
    "id": "ext-089",
@@ -3649,7 +4159,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系博雅讲席教授、博士生导师（1954.1— ），广东潮州人，中央文史研究馆馆员，曾任北京大学中文系主任（2008—2012），研究二十世纪中国文学、现代中国教育与学术、中国小说史与中国散文史，著有《中国小说叙事模式的转变》《中国现代学术之建立》《触摸历史与进入五四》",
    "field": "中国现当代文学/学术史",
    "bioConfidence": "高",
-   "bioSource": "http://www.ihss.pku.edu.cn/en/xswyh1/articles/1373713209210572800.html"
+   "bioSource": "http://www.ihss.pku.edu.cn/en/xswyh1/articles/1373713209210572800.html",
+   "py": "chenpingyuan",
+   "ab": "cpy"
   },
   {
    "id": "ext-090",
@@ -3664,7 +4176,9 @@ window.LINEAGE_DATA = {
    "identity": "中山大学中文系教授、博士生导师（1977.3— ），广东澄海人，古汉语与古文字教研室教师，师从曾宪通、陈伟武，2005—2008年为复旦大学中文系博士后（师从裘锡圭），研究古文字与出土文献，主持国家社科基金重大项目“上古汉语字词关系史研究”，著有《楚系简帛中字形与音义关系研究》《新见金文字编》",
    "field": "汉语言文字学（古文字学/出土文献）",
    "bioConfidence": "高",
-   "bioSource": "https://chinese.sysu.edu.cn/teacher/525"
+   "bioSource": "https://chinese.sysu.edu.cn/teacher/525",
+   "py": "chensipeng",
+   "ab": "csp"
   },
   {
    "id": "ext-091",
@@ -3679,7 +4193,9 @@ window.LINEAGE_DATA = {
    "identity": "北京大学中文系博雅讲席教授、博士生导师（1959— ），福建光泽人，教育部长江学者特聘教授，中央文史研究馆馆员，曾任北京大学中文系主任（2016—2020），原中国社会科学院文学研究所研究员，研究中国当代文学与文学理论批评，著有《无边的挑战——中国先锋文学的后现代性》《中国当代文学主潮》，主编《中国当代文学批评史》",
    "field": "中国现当代文学/文学批评",
    "bioConfidence": "高",
-   "bioSource": "https://wxjxs.pku.edu.cn/szdw/27efbbf77da1456abd380a1fb7831f6b.htm"
+   "bioSource": "https://wxjxs.pku.edu.cn/szdw/27efbbf77da1456abd380a1fb7831f6b.htm",
+   "py": "chenxiaoming",
+   "ab": "cxm"
   },
   {
    "id": "ext-092",
@@ -3694,7 +4210,9 @@ window.LINEAGE_DATA = {
    "identity": "中国社会科学院文学研究所研究员、博士生导师（1941年9月—，广西南宁人），《文学遗产》杂志主编，中国宋代文学学会副会长、中国唐代文学学会常务理事，研究唐宋文学，著有《苏轼诗词艺术论》《唐诗与绘画》《唐宋诗美学与艺术论》《宋代诗人论》（注：未检索到逝世公开信息，'已故'待核实）",
    "field": "中国古代文学（唐宋诗词）",
    "bioConfidence": "高",
-   "bioSource": "http://literature.cssn.cn/jgsz/yjs/gdwxyjs/lrzjxz_136009/dsd/twp/"
+   "bioSource": "http://literature.cssn.cn/jgsz/yjs/gdwxyjs/lrzjxz_136009/dsd/twp/",
+   "py": "taowenpeng",
+   "ab": "twp"
   },
   {
    "id": "ext-093",
@@ -3709,7 +4227,9 @@ window.LINEAGE_DATA = {
    "identity": "古典文学研究专家、文艺理论家、诗人、书法家（1921—2017），字懋青，甘肃天水人；陕西师范大学教授、博士生导师、文学研究所所长、终身教授；长期治唐宋文学与文艺理论，门下弟子形成「霍家军」",
    "field": "中国古代文学 / 文艺理论",
    "bioConfidence": "高",
-   "bioSource": "https://www.snnu.edu.cn/info/1272/15424.htm"
+   "bioSource": "https://www.snnu.edu.cn/info/1272/15424.htm",
+   "py": "huosonglin",
+   "ab": "hsl"
   },
   {
    "id": "ext-094",
@@ -3724,7 +4244,9 @@ window.LINEAGE_DATA = {
    "identity": "语言学家（1942—2023），天津静海人；南开大学文学院中国语言文学系教授、博士生导师，1998 年起任博导；治现代汉语语法、词汇、修辞与语文现代化，创立语义功能语法，曾任中国语文现代化学会会长、中国修辞学会会长",
    "field": "现代汉语语法",
    "bioConfidence": "高",
-   "bioSource": "https://news.nankai.edu.cn/mtnk/system/2025/08/23/030068431.shtml"
+   "bioSource": "https://news.nankai.edu.cn/mtnk/system/2025/08/23/030068431.shtml",
+   "py": "maqingzhu",
+   "ab": "mqz"
   },
   {
    "id": "ext-095",
@@ -3739,7 +4261,9 @@ window.LINEAGE_DATA = {
    "identity": "法国汉学家，巴黎法国高等实验研究院（EPHE）历史与文献学系研究主任（Directeur d'études，正教授）（1966年12月11日—，生于摩纳哥），博士师从施舟人（Kristofer Schipper），2012年获法兰西铭文与美文学院儒莲奖，研究辽金元政治与宗教史、全真教与日本禅宗，编《宋辽金元时期的中国宗教》第一卷（注：线索所记'复旦'关系未获检索证实）",
    "field": "汉学（辽金元史/宗教史）",
    "bioConfidence": "高",
-   "bioSource": "https://www.wikiwand.com/en/articles/Pierre_Marsone"
+   "bioSource": "https://www.wikiwand.com/en/articles/Pierre_Marsone",
+   "py": "masongren",
+   "ab": "msr"
   },
   {
    "id": "ext-096",
@@ -3754,7 +4278,9 @@ window.LINEAGE_DATA = {
    "identity": "南京大学中文系教授、汉语言文字学博士点创点者及首任博导（1937年11月—，江苏泰州人），师从周祖谟、王力，曾任中国音韵学研究会会长、国家社科基金评委，退休后任杭州师范大学特聘教授，研究音韵学、方言史（通泰方言）与语言学思想史，著有《鲁国尧语言学论文集》《泰州方音史与通泰方言史研究》",
    "field": "汉语言文字学（音韵学）",
    "bioConfidence": "高",
-   "bioSource": "http://www.hanyushi.zju.edu.cn/2022/0608/c68879a2589189/page.htm"
+   "bioSource": "http://www.hanyushi.zju.edu.cn/2022/0608/c68879a2589189/page.htm",
+   "py": "luguoyao",
+   "ab": "lgy"
   },
   {
    "id": "ext-097",
@@ -3769,7 +4295,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学资深教授、艺术与传媒学院创院院长（1934年2月—），中国高校第一位电影学博士生导师，中国文化国际传播研究院院长，1993年创办北京大学生电影节，致力于中国现代戏剧与中国民族化影视理论研究，提出'第三极文化'，著《中国现代话剧文学史略》",
    "field": "影视学（戏剧与影视学）",
    "bioConfidence": "高",
-   "bioSource": "https://www.bnu.edu.cn/xxgk/zmxz/zsjs/86599.htm"
+   "bioSource": "https://www.bnu.edu.cn/xxgk/zmxz/zsjs/86599.htm",
+   "py": "huanghuilin",
+   "ab": "hhl"
   },
   {
    "id": "ext-098",
@@ -3784,7 +4312,9 @@ window.LINEAGE_DATA = {
    "identity": "华南师范大学教育科学学院二级教授、博士生导师（1957年11月—，四川洪雅人），课程与教学论学科学术带头人，曾任教育科学学院课程与教学系主任，国家教育学类专业首届教学指导委员会委员，中国教育学会课程学术委员会副理事长，首倡'大课程论'，研究课程与教学论、教育文化学与教师教育学",
    "field": "课程与教学论（教育学）",
    "bioConfidence": "高",
-   "bioSource": "http://ctld.scnu.edu.cn/mingshifengfan/2016/0707/5.html"
+   "bioSource": "http://ctld.scnu.edu.cn/mingshifengfan/2016/0707/5.html",
+   "py": "huangfuquan",
+   "ab": "hfq"
   },
   {
    "id": "ext-刘宁",
@@ -3801,7 +4331,9 @@ window.LINEAGE_DATA = {
    "identity": "中国社会科学院文学研究所研究员、博士生导师（1969—），曾任教于北京师范大学文学院，中国古代文学（唐宋文学与文献方向）",
    "field": "中国古代文学",
    "bioConfidence": "高",
-   "bioSource": "http://literature.cssn.cn/jgsz/yjs/gdwxyjs_135699/zzyjry_135830/202502/t20250211_5843980.shtml"
+   "bioSource": "http://literature.cssn.cn/jgsz/yjs/gdwxyjs_135699/zzyjry_135830/202502/t20250211_5843980.shtml",
+   "py": "liuning",
+   "ab": "ln"
   },
   {
    "id": "ext-刘石",
@@ -3818,7 +4350,9 @@ window.LINEAGE_DATA = {
    "identity": "",
    "field": "",
    "bioConfidence": "无",
-   "bioSource": ""
+   "bioSource": "",
+   "py": "liushi",
+   "ab": "ls"
   },
   {
    "id": "ext-刘锡庆",
@@ -3835,7 +4369,9 @@ window.LINEAGE_DATA = {
    "identity": "",
    "field": "",
    "bioConfidence": "无",
-   "bioSource": ""
+   "bioSource": "",
+   "py": "liuxiqing",
+   "ab": "lxq"
   },
   {
    "id": "ext-曹卫东",
@@ -3852,7 +4388,9 @@ window.LINEAGE_DATA = {
    "identity": "",
    "field": "",
    "bioConfidence": "无",
-   "bioSource": ""
+   "bioSource": "",
+   "py": "caoweidong",
+   "ab": "cwd"
   },
   {
    "id": "ext-杨庆蕙",
@@ -3869,7 +4407,9 @@ window.LINEAGE_DATA = {
    "identity": "",
    "field": "",
    "bioConfidence": "无",
-   "bioSource": ""
+   "bioSource": "",
+   "py": "yangqinghui",
+   "ab": "yqh"
   },
   {
    "id": "ext-王炳照",
@@ -3886,7 +4426,9 @@ window.LINEAGE_DATA = {
    "identity": "北京师范大学教育学院教授（已故），中国教育史",
    "field": "教育史",
    "bioConfidence": "中",
-   "bioSource": "https://wxy.bnu.edu.cn/"
+   "bioSource": "https://wxy.bnu.edu.cn/",
+   "py": "wangbingzhao",
+   "ab": "wbz"
   },
   {
    "id": "master-003",
@@ -3899,7 +4441,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1884,
    "death": "1939",
-   "year": null
+   "year": null,
+   "py": "wuchengshi",
+   "ab": "wcs"
   },
   {
    "id": "master-004",
@@ -3912,7 +4456,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1887,
    "death": "1939",
-   "year": null
+   "year": null,
+   "py": "qianxuantong",
+   "ab": "qxt"
   },
   {
    "id": "master-005",
@@ -3925,7 +4471,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1887,
    "death": "1947",
-   "year": 1905
+   "year": 1905,
+   "py": "shenjianshi",
+   "ab": "sjs"
   },
   {
    "id": "master-008",
@@ -3938,7 +4486,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1903,
    "death": "2002",
-   "year": 1986
+   "year": 1986,
+   "py": "zhongjingwen",
+   "ab": "zjw"
   },
   {
    "id": "master-016",
@@ -3951,7 +4501,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1905,
    "death": "1988",
-   "year": 1926
+   "year": 1926,
+   "py": "luzongda",
+   "ab": "lzd"
   },
   {
    "id": "master-017",
@@ -3964,7 +4516,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1909,
    "death": "2001",
-   "year": 1991
+   "year": 1991,
+   "py": "xiaozhang",
+   "ab": "xz"
   },
   {
    "id": "master-018",
@@ -3977,7 +4531,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1910,
    "death": "1978",
-   "year": null
+   "year": null,
+   "py": "lizhangzhi",
+   "ab": "lzz"
   },
   {
    "id": "master-020",
@@ -3990,7 +4546,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1916,
    "death": "1995",
-   "year": 1979
+   "year": 1979,
+   "py": "yumin",
+   "ab": "ym"
   },
   {
    "id": "master-021",
@@ -4003,7 +4561,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1912,
    "death": "2005",
-   "year": 1982
+   "year": 1982,
+   "py": "qigong",
+   "ab": "qg"
   },
   {
    "id": "master-022",
@@ -4016,7 +4576,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1936,
    "death": "2015",
-   "year": 1981
+   "year": 1981,
+   "py": "tongqingbing",
+   "ab": "tqb"
   },
   {
    "id": "master-023",
@@ -4029,7 +4591,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1943,
    "death": "",
-   "year": null
+   "year": null,
+   "py": "qinyonglong",
+   "ab": "qyl"
   },
   {
    "id": "master-024",
@@ -4042,7 +4606,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": "",
-   "year": 1982
+   "year": 1982,
+   "py": "zhujinshun",
+   "ab": "zjs"
   },
   {
    "id": "master-025",
@@ -4055,7 +4621,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1941,
    "death": "2017",
-   "year": 1982
+   "year": 1982,
+   "py": "wangfuren",
+   "ab": "wfr"
   },
   {
    "id": "master-026",
@@ -4068,7 +4636,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1933,
    "death": "2024",
-   "year": 1987
+   "year": 1987,
+   "py": "guozhigang",
+   "ab": "gzg"
   },
   {
    "id": "master-027",
@@ -4081,7 +4651,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1933,
    "death": "2025",
-   "year": null
+   "year": null,
+   "py": "lixiusheng",
+   "ab": "lxs"
   },
   {
    "id": "master-028",
@@ -4094,7 +4666,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1929,
    "death": "1992",
-   "year": 1988
+   "year": 1988,
+   "py": "zhangzichen",
+   "ab": "zzc"
   },
   {
    "id": "master-029",
@@ -4107,7 +4681,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1935,
    "death": "2007",
-   "year": 1987
+   "year": 1987,
+   "py": "zhangmeini",
+   "ab": "zmn"
   },
   {
    "id": "master-030",
@@ -4120,7 +4696,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1937,
    "death": "2024",
-   "year": 1998
+   "year": 1998,
+   "py": "chengzhengmin",
+   "ab": "czm"
   },
   {
    "id": "master-031",
@@ -4133,7 +4711,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1927,
    "death": "2018",
-   "year": 1982
+   "year": 1982,
+   "py": "nieshiqiao",
+   "ab": "nsq"
   },
   {
    "id": "master-032",
@@ -4146,7 +4726,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1920,
    "death": "2010",
-   "year": 1983
+   "year": 1983,
+   "py": "guoyuheng",
+   "ab": "gyh"
   },
   {
    "id": "master-033",
@@ -4159,7 +4741,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1926,
    "death": "2000",
-   "year": 1993
+   "year": 1993,
+   "py": "taodezhen",
+   "ab": "tdz"
   },
   {
    "id": "master-034",
@@ -4172,7 +4756,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1955,
    "death": "2023",
-   "year": 2007
+   "year": 2007,
+   "py": "hangeping",
+   "ab": "hgp"
   },
   {
    "id": "master-035",
@@ -4185,7 +4771,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1935,
    "death": "",
-   "year": 1994
+   "year": 1994,
+   "py": "zhangjun",
+   "ab": "zj"
   },
   {
    "id": "master-036",
@@ -4198,7 +4786,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1937,
    "death": "",
-   "year": 1982
+   "year": 1982,
+   "py": "xujialu",
+   "ab": "xjl"
   },
   {
    "id": "master-037",
@@ -4211,7 +4801,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1869,
    "death": "1936",
-   "year": 1902
+   "year": 1902,
+   "py": "zhangtaiyan",
+   "ab": "zty"
   },
   {
    "id": "master-038",
@@ -4224,7 +4816,9 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": 1886,
    "death": "1935",
-   "year": 1907
+   "year": 1907,
+   "py": "huangkan",
+   "ab": "hk"
   }
  ],
  "edges": [
