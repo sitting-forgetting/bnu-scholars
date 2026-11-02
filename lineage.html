@@ -15,6 +15,15 @@
     margin: 8px 0 14px; padding: 10px 0;
     border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
+  /* ---- 结构速览：世表顶部的网状结构统计（运行时计算） ---- */
+  .net-strip {
+    display: flex; gap: 4px 20px; flex-wrap: wrap; align-items: baseline;
+    margin: 0 0 12px; padding: 7px 12px; font-size: 12px; color: var(--muted);
+    background: var(--paper); border: 1px solid var(--line);
+  }
+  .net-strip .ns-t { font-family: var(--f-serif); font-weight: 700; font-size: 12.5px; letter-spacing: 1px; color: var(--ink); }
+  .net-strip b { font-family: var(--f-serif); font-size: 14px; color: var(--crimson-dark); }
+  .net-strip .ns-hint { color: #a39a8c; }
   .page-tools input[type="text"] {
     flex: 1 1 240px; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 2px;
     font-family: var(--f-serif); font-size: 14px; background: var(--paper) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d726a' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M20 20l-4.8-4.8'/%3E%3C/svg%3E") no-repeat 11px center;
@@ -151,6 +160,8 @@
   /* 路径高亮：非路径节点淡出 */
   #shitu.path-mode .node:not(.on-path) { opacity: .13; }
   #shitu.path-mode .node.on-path .card-face { fill: #fbf3dd; stroke: #c9a227; stroke-width: 1.5; }
+  #shitu .node.on-bridge .card-face { fill: #fbf3dd; stroke: #c9a227; stroke-width: 1.5; }
+  .card-bridge-dot { cursor: pointer; }
   #shitu.path-mode .edge-hit { pointer-events: none; }
   /* 悬停反馈：默认不画卡片，悬停时浮出一层纸白 */
   #shitu .node .card-face { fill: transparent; stroke: none; }
@@ -213,6 +224,9 @@
     <label class="switch"><input type="checkbox" id="show-colleague"> 叠加同事关系</label>
     <label class="switch"><input type="checkbox" id="only-direct"> 仅直接证据</label>
   </div>
+
+  <!-- 结构速览：师承图是网不是树，数字运行时计算 -->
+  <div class="net-strip" id="net-strip"></div>
 
   <!-- 师承路径查询：任选两人，高亮他们之间最短的师承链 -->
   <div class="path-bar" id="path-bar" style="display:none">
@@ -336,6 +350,34 @@
     }
   });
 
+  /* ---- 结构速览：并查集算家族、数根、数桥，全部运行时计算不写死 ---- */
+  (function netStrip() {
+    const N = data.nodes, E = data.edges;
+    const inG = new Set(); E.forEach(e => { inG.add(e.mentor); inG.add(e.student); });
+    const p = {}; inG.forEach(id => { p[id] = id; });
+    const find = x => { while (p[x] !== x) { p[x] = p[p[x]]; x = p[x]; } return x; };
+    E.forEach(e => { const a = find(e.mentor), b = find(e.student); if (a !== b) p[a] = b; });
+    const fam = {}; inG.forEach(id => { const r = find(id); (fam[r] = fam[r] || []).push(id); });
+    const fams = Object.values(fam).sort((a, b) => b.length - a.length);
+    const big = fams[0] || [];
+    const bigSet = new Set(big);
+    const hasPar = {}; E.forEach(e => { if (bigSet.has(e.student)) hasPar[e.student] = true; });
+    const rootCount = big.filter(id => !hasPar[id]).length;
+    const byStu = {}; E.forEach(e => { (byStu[e.student] = byStu[e.student] || new Set()).add(e.mentor); });
+    const multi = Object.values(byStu).filter(s => s.size > 1).length;
+    const kind = {}; N.forEach(n => { kind[n.id] = n.kind; });
+    const extEdges = E.filter(e => kind[e.mentor] === "external").length;
+    const strip = document.getElementById("net-strip");
+    if (!strip) return;
+    strip.innerHTML =
+      `<span class="ns-t">结构速览</span>` +
+      `<span><b>${fams.length}</b> 个师承家族</span>` +
+      `<span>最大分量 <b>${big.length}</b> 人、<b>${rootCount}</b> 个独立源头——多个师门粘连，不是一棵树</span>` +
+      `<span><b>${multi}</b> 位学者师从多人（桥）</span>` +
+      `<span><b>${(extEdges / E.length * 100).toFixed(1)}%</b> 的边导师在库外</span>` +
+      `<span class="ns-hint">卡片右上 ◆＝兼师从，点击定位另一位导师</span>`;
+  })();
+
   // 卡片集合（动态）：有门下的（导师）或无导师的（谱系根）为基础卡片；
   // 点击导师可将其折叠的门下学生「展开弹出」为卡片（仿 mulu 交互）
   const expanded = new Set();   // 已展开门下的导师 id
@@ -343,6 +385,7 @@
   let popIds = new Set();       // 本次展开新增的卡片（播放入场动画）
   const nodeEl = {};            // id -> 卡片 <g>，路径高亮时用
   let pathIds = new Set();      // 当前高亮的路径节点
+  let bridgeIds = new Set();    // 兼师从定位高亮（点卡片右上角 ◆ 触发，与路径高亮互不干扰）
   let selectedId = null;        // 当前选中的卡片（render 里用来画金色外框，必须在使用前声明）
 
   let cards = [];
@@ -721,7 +764,7 @@
       const foldedKids = childrenOf[n.id].filter(s => !effCard[s.id]);
       const x = cardX(n), y = cardY(n), h = nameH(n);
       const os = ORG_STATUS[n.kind] || ORG_STATUS.external;
-      const g = el("g", { "class": "node" + (popIds.has(n.id) ? " pop" : "") + (pathIds.has(n.id) ? " on-path" : ""), "data-kind": n.kind || "scholar", transform: "translate(" + x + "," + y + ")", cursor: "pointer" }, gNodes);
+      const g = el("g", { "class": "node" + (popIds.has(n.id) ? " pop" : "") + (pathIds.has(n.id) ? " on-path" : "") + (bridgeIds.has(n.id) ? " on-bridge" : ""), "data-kind": n.kind || "scholar", transform: "translate(" + x + "," + y + ")", cursor: "pointer" }, gNodes);
       nodeEl[n.id] = g;
       // 卡片下方「展开/收起」区的高度：弟子少时逐行列姓名，比圆点阵更高
       const foldRows = foldedKids.length <= 3
@@ -738,6 +781,17 @@
       orgTip.textContent = n.kind === "master" ? "先贤（曾执教本校）"
         : n.kind === "external" ? "外处他任 / 外源（不在本库任职）"
         : "本校任职";
+      // 兼师从角标（◆）：该学生另有多位导师（图中虚线次父边）。点击飞往其中一位并高亮，再点轮换。
+      const otherMentors = mentorsOf[n.id].filter(m => m !== mainParentMap[n.id]);
+      if (otherMentors.length) {
+        const bd = el("path", {
+          d: `M ${CW - 5.5} 2.8 L ${CW - 2.3} 6 L ${CW - 5.5} 9.2 L ${CW - 8.7} 6 Z`,
+          "class": "card-bridge-dot", fill: "#c9a227", stroke: "#8a6d1f", "stroke-width": .6,
+        }, g);
+        const btip = el("title", {}, bd);
+        btip.textContent = "兼师从：" + otherMentors.map(m => (nodeById[m] || {}).name || m).join("、") + "（点击定位）";
+        bd.addEventListener("click", ev => { ev.stopPropagation(); jumpBridge(n.id, otherMentors); });
+      }
       dispName(n).split("").forEach((ch, i) => {
         const t = el("text", { x: CW / 2 + 1, y: 26 + i * 16, "class": "card-name", "text-anchor": "middle" }, g);
         t.textContent = ch;
@@ -821,7 +875,8 @@
       `<div class="lg-row">` +
       Object.values(ORG_STATUS).map(o =>
         `<span><span class="dot" style="background:${o.hollow ? "#fbfaf7" : o.color};border:1.5px solid ${o.color}"></span>${esc(o.label)}</span>`).join("") +
-      `<span style="color:#a39a8c">｜ 名片下方圆点＝折叠的门下学生</span></div>`;
+      `<span style="color:#a39a8c">｜ 名片下方圆点＝折叠的门下学生</span>` +
+      `<span style="color:#a39a8c">｜ 右上 ◆＝兼师从（点击定位另一位导师）</span></div>`;
     lg.querySelectorAll(".lg-item[data-type]").forEach(item => {
       item.addEventListener("click", () => {
         const t = item.dataset.type;
@@ -1114,6 +1169,24 @@
   const searchPop = document.getElementById("search-pop");
   let popIdx = -1, popHits = [];
 
+  /* ---- 兼师从定位：点卡片右上角 ◆，飞往另一位导师并给两张卡金色光晕；多位导师则逐次轮换 ---- */
+  const bridgeCursor = {};
+  function jumpBridge(sid, others) {
+    const i = (bridgeCursor[sid] || 0) % others.length;
+    bridgeCursor[sid] = i + 1;
+    const target = others[i];
+    bridgeIds = new Set([sid, target]);
+    render();
+    if (nodeEl[target]) nodeEl[target].classList.add("on-bridge");
+    if (nodeEl[sid]) nodeEl[sid].classList.add("on-bridge");
+    flyTo(target);
+  }
+  function clearBridge() {
+    if (!bridgeIds.size) return;
+    bridgeIds.forEach(id => { if (nodeEl[id]) nodeEl[id].classList.remove("on-bridge"); });
+    bridgeIds = new Set();
+  }
+
   function flyTo(id) {
     const w = stage.clientWidth, h = stage.clientHeight;
     // 从「看全貌 / 看全高」状态下搜索时，先恢复到可读缩放，否则飞过去还是一团糊
@@ -1186,6 +1259,7 @@
     }
     markSelected(null);
     clearPath(true);
+    clearBridge();
   });
 
   q.addEventListener("keydown", ev => {
