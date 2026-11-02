@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学者详情 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  /* ---- 人物抬头 ---- */
+  .hero-panel {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 24px;
+    align-items: center; background: var(--paper); border: 1px solid var(--line);
+    padding: 26px 30px; margin-bottom: 14px;
+  }
+  .seal-big {
+    width: 62px; height: 62px; flex: none; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: var(--f-serif); font-size: 30px; font-weight: 700; line-height: 1;
+    background: var(--c, var(--crimson)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2);
+    letter-spacing: 0;
+  }
+  .hero-main .eyebrow { font-size: 10px; letter-spacing: 2.6px; }
+  .hero-main h1 {
+    font-family: var(--f-serif); font-size: 34px; font-weight: 700; margin: 6px 0 4px;
+    letter-spacing: 4px; line-height: 1.25; color: var(--ink);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .hero-meta { font-family: var(--f-sans); font-size: 12.5px; color: var(--muted); line-height: 1.8; }
+  .hero-side { display: flex; gap: 0; align-items: stretch; }
+  .hero-side .hs {
+    padding: 0 18px; border-left: 1px solid var(--line); text-align: center; min-width: 78px;
+  }
+  .hero-side .hs:first-child { border-left: none; }
+  .hero-side .hs .n {
+    font-family: var(--f-serif); font-size: 24px; font-weight: 700; line-height: 1.25;
+    color: var(--ink); font-variant-numeric: tabular-nums;
+  }
+  .hero-side .hs .l { font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); letter-spacing: .5px; }
+  .master-tag {
+    font-family: var(--f-sans); font-size: 10.5px; font-weight: 400; color: var(--gold-deep);
+    background: transparent; border: 1px solid #e3d3b0; border-radius: 2px;
+    padding: 1px 7px; letter-spacing: .5px; vertical-align: 5px;
+  }
+  .locate-line {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--muted);
+    margin: 0 0 14px;
+  }
+  .locate-line a { color: var(--crimson); }
+  .locate-line .sep { color: var(--line-strong); }
+
+  /* ---- 师承关系 ---- */
+  .rel-sec + .rel-sec { margin-top: 22px; }
+  .rel-sec .rs-head {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px;
+    font-family: var(--f-sans); font-size: 12px; color: var(--muted); letter-spacing: .5px;
+  }
+  .rel-sec .rs-head b { font-family: var(--f-serif); font-size: 14px; color: var(--ink); font-weight: 700; letter-spacing: 1px; }
+  .rel-list { border-top: 1px solid var(--line-soft); }
+  .rel-list.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+  .rel-item {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px;
+  }
+  .rel-item .r-name { color: var(--ink); }
+  .rel-item a.r-name { color: var(--ink); }
+  .rel-item a.r-name:hover { color: var(--crimson); }
+  .rel-item .r-rel {
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .rel-item .ext {
+    font-family: var(--f-sans); font-size: 10px; color: var(--faint);
+    border: 1px solid var(--line-soft); padding: 0 5px; margin-left: 6px; white-space: nowrap;
+  }
+  .bio-box { font-size: 14.5px; line-height: 2.05; white-space: pre-wrap; color: var(--ink-2); }
+  .interest-line {
+    font-size: 13.5px; line-height: 1.95; color: var(--ink-2); margin: 2px 0;
+    max-width: 720px;
+  }
+  .src-url { word-break: break-all; font-family: var(--f-sans); font-size: 12.5px; }
+
+  @media (max-width: 760px) {
+    .hero-panel { grid-template-columns: auto 1fr; padding: 20px; gap: 16px; }
+    .hero-side { grid-column: 1 / -1; justify-content: flex-start; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+    .hero-side .hs { padding: 0 16px; }
+    .hero-side .hs:first-child { padding-left: 0; }
+    .hero-main h1 { font-size: 27px; }
+    .rel-list.two { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <p class="back-link"><a href="index.html">← 返回学者名录</a></p>
+  <div id="detail"></div>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const id = new URLSearchParams(location.search).get("id");
+  const all = {};
+  (data.scholars || []).forEach(s => { all[s.id] = { ...s, _kind: s.external ? "external" : "scholar" }; });
+  (data.masters || []).forEach(m => { all[m.id] = { ...m, _kind: "master" }; });
+  const s = all[id];
+  const box = document.getElementById("detail");
+
+  if (!s) {
+    box.innerHTML = '<div class="panel"><h2>未找到该学者</h2><p>请从名录页或谱系图点击进入。</p></div>';
+    return;
+  }
+  document.title = `${s.name} · 京师学林`;
+
+  // 边有两处来源：scholars.js 的 mentorEdges（采集表 61 条）与 lineage.js 的 edges
+  // （含全网检索与直录边）。只读前者会让详情页的关系比世表少很多，故合并去重。
+  function mergeEdges() {
+    const seen = new Set();
+    const out = [];
+    const push = e => {
+      const k = `${e.student}|${e.mentor}`;
+      if (seen.has(k)) return;
+      seen.add(k);
+      out.push(e);
+    };
+    (data.mentorEdges || []).forEach(push);
+    ((window.LINEAGE_DATA && window.LINEAGE_DATA.edges) || []).forEach(push);
+    return out;
+  }
+  const edges = mergeEdges().filter(e => e.student === id || e.mentor === id);
+  const color = BNU.disciplineColor(s.discipline);
+
+  const kv = [];
+  const add = (k, v) => { if (v) kv.push(`<dt>${k}</dt><dd>${v}</dd>`); };
+  add("职称", BNU.esc(s.title));
+  add("机构", BNU.esc(s.org));
+  add("二级学科", s.discipline ? `<span class="tag discipline" style="background:${color}">${BNU.esc(s.discipline)}</span>` : "");
+  // 研究方向：官网有的填关键词、有的填整句话。短词做标签，长句单独成行，
+  // 否则一个 40 字的句子被塞进药丸里，既读不了也撑破版面
+  const interests = (s.interests || []).filter(Boolean);
+  const shortTags = interests.filter(t => t.length <= 14);
+  const longLines = interests.filter(t => t.length > 14);
+  add("研究方向", [
+    shortTags.map(t => `<span class="tag">${BNU.esc(t)}</span>`).join(" "),
+    longLines.map(t => `<div class="interest-line">${BNU.esc(t)}</div>`).join(""),
+  ].filter(Boolean).join(""));
+  add("生卒年", s._kind === "master" ? `${s.birth || "?"}–${s.death || "?"}` : (s.birth ? `${s.birth} 年生` : ""));
+  add("籍贯", BNU.esc(s.birthplace));
+  add("主要求学地", BNU.esc(s.studyProv));
+  add("毕业院校", BNU.esc(s.almaMater));
+
+  const mentors = edges.filter(e => e.student === id);
+  const students = edges.filter(e => e.mentor === id);
+  // 无师承记录的收录者（如跨院标明者）不在谱系节点里，别给死链
+  const inLineage = ((window.LINEAGE_DATA && window.LINEAGE_DATA.nodes) || []).some(n => n.id === id);
+  // 外源导师（ext-xxx）只存在于 lineage.js 的 nodes 里，需要单独建名字索引
+  const extNames = {};
+  const extKind = {};
+  ((window.LINEAGE_DATA && window.LINEAGE_DATA.nodes) || []).forEach(n => {
+    extNames[n.id] = n.name; extKind[n.id] = n.kind;
+  });
+
+  // 有详情页的才做链接；库外节点（ext-xxx）点了会 404，这里改成纯文本 + 标记
+  const relOf = e => {
+    const otherId = e.student === id ? e.mentor : e.student;
+    const o = all[otherId];
+    const label = (o && o.name) || extNames[otherId] || otherId;
+    const nameHtml = o
+      ? `<a class="r-name" href="detail.html?id=${encodeURIComponent(otherId)}">${BNU.esc(label)}</a>`
+      : `<span class="r-name">${BNU.esc(label)}</span><span class="ext">库外</span>`;
+    return `<div class="rel-item">
+      <span>${nameHtml}</span>
+      <span class="r-rel">${BNU.esc(e.type || "")}${e.year ? ` · ${e.year}` : ""}</span>
+    </div>`;
+  };
+
+  const works = (s.works || []).map(w => `<li>${BNU.esc(w.title)}${w.year ? `（${w.year}）` : ""}</li>`).join("");
+  const career = (s.career || []).slice().sort((a, b) => (a.year || 0) - (b.year || 0))
+    .map(e => `<div class="tl-item"><span class="year">${e.year || "—"}</span><span class="evt">${BNU.esc(e.text)}</span></div>`).join("");
+
+  const kindLabel = s._kind === "master" ? "先贤名师" : s._kind === "external" ? "外源导师" : "本库学者";
+  const kindTag = s._kind === "master" ? '<span class="master-tag">先贤名师</span>'
+    : s._kind === "external" ? '<span class="master-tag">外源导师</span>' : "";
+
+  box.innerHTML = `
+    <div class="hero-panel">
+      <div class="seal-big" style="--c:${color}">${BNU.esc(s.name.slice(0, 1))}</div>
+      <div class="hero-main">
+        <div class="eyebrow">${kindLabel}${s.org ? " · " + BNU.esc(s.org) : ""}</div>
+        <h1>${BNU.esc(s.name)}${kindTag}</h1>
+        <div class="hero-meta">${BNU.esc([s.title, s.discipline, s.birthplace ? "籍贯 " + s.birthplace : ""].filter(Boolean).join(" · ")) || "—"}</div>
+      </div>
+      <div class="hero-side">
+        <div class="hs"><div class="n">${mentors.length}</div><div class="l">师从</div></div>
+        <div class="hs"><div class="n">${students.length}</div><div class="l">门下</div></div>
+        <div class="hs"><div class="n">${edges.length}</div><div class="l">师承边</div></div>
+      </div>
+    </div>
+
+    <p class="locate-line">
+      ${inLineage
+        ? `<a href="lineage.html?id=${encodeURIComponent(id)}">在世表中定位此人 →</a>`
+        : `<span style="color:var(--muted)">师承世表暂无此人：未检索到可考的师承关系</span>`}
+      ${s.discipline ? `<span class="sep">|</span><a href="index.html?d=${encodeURIComponent(s.discipline)}">查看同学科同侪（${BNU.esc(s.discipline)}）</a>` : ""}
+    </p>
+
+    <div class="panel">
+      <h2>基本信息</h2>
+      <dl class="kv">${kv.join("") || "<dt>—</dt><dd>暂无信息</dd>"}</dl>
+    </div>
+
+    ${mentors.length || students.length ? `
+    <div class="panel">
+      <h2>师承关系</h2>
+      <div class="rel-sec">
+        <div class="rs-head"><b>师从</b><span>${mentors.length} 位导师</span></div>
+        <div class="rel-list">${mentors.length ? mentors.map(relOf).join("") : '<p style="color:var(--muted);font-size:13px;margin:8px 0">无记录</p>'}</div>
+      </div>
+      <div class="rel-sec">
+        <div class="rs-head"><b>门下</b><span>${students.length} 位学生</span></div>
+        <div class="rel-list${students.length > 6 ? " two" : ""}">${students.length ? students.map(relOf).join("") : '<p style="color:var(--muted);font-size:13px;margin:8px 0">无记录</p>'}</div>
+      </div>
+    </div>` : ""}
+
+    ${career ? `<div class="panel"><h2>履历</h2><div class="timeline-list" style="margin-top:4px">${career}</div></div>` : ""}
+    ${works ? `<div class="panel"><h2>代表作</h2><ul style="margin:0;padding-left:20px">${works}</ul></div>` : ""}
+    ${s.note ? `<div class="panel"><h2>${s._kind === "master" ? "生平" : "简介"}</h2><div class="bio-box">${BNU.esc(s.note)}</div></div>` : ""}
+
+    <div class="panel">
+      <h2>数据来源</h2>
+      <dl class="kv">
+        ${s.source ? `<dt>来源网址</dt><dd class="src-url"><a href="${BNU.esc(s.source)}" target="_blank" rel="noopener">${BNU.esc(s.source)}</a></dd>` : ""}
+        <dt>采集日期</dt><dd>${BNU.esc(s.fetched) || "—"}</dd>
+      </dl>
+    </div>`;
+})();
+</script>
+</body>
+</html>

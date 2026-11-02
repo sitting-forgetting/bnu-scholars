@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学人地图 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<style>
+  .map-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(320px, 1fr); gap: 18px; align-items: start; }
+  .map-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+    box-shadow: var(--sh-1); padding: 8px 8px 4px; overflow: hidden;
+  }
+  #map { width: 100%; height: 580px; background: #eef1ec; }
+  .leaflet-container { font-family: var(--f-sans); }
+  /* 底图退到背景：降饱和、提亮，让朱砂色块与省名读得出来 */
+  #map .leaflet-tile-pane { filter: saturate(.45) brightness(1.06) contrast(.94); }
+  .tdt-tip {
+    background: rgba(255, 254, 251, .97); border: 1px solid var(--line); border-radius: var(--r-sm);
+    box-shadow: 0 2px 10px rgba(31, 30, 26, .12); color: var(--ink);
+    font-size: 12.5px; line-height: 1.6; padding: 5px 9px;
+  }
+  .tdt-tip::before { display: none; }
+  .side-stack { display: grid; gap: 18px; }
+
+  .prov-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .prov-head h2 { font-size: 17px; margin: 0; }
+  .prov-head .n {
+    font-family: var(--f-sans); font-size: 12px; color: var(--muted);
+  }
+  #prov-panel { min-height: 168px; }
+  #prov-panel .placeholder {
+    color: var(--muted); font-size: 13px; line-height: 1.9; margin: 8px 0 0;
+    padding: 22px 0; text-align: center; border: 1px dashed var(--line); border-radius: var(--r-sm);
+  }
+  #prov-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; max-height: 340px; overflow: auto; }
+  .pchip {
+    display: inline-flex; flex-direction: column; padding: 6px 11px; border-radius: var(--r-sm);
+    background: var(--paper); border: 1px solid var(--line); font-size: 13px; line-height: 1.5;
+    color: var(--ink); transition: all .14s var(--ease);
+  }
+  a.pchip:hover { border-color: var(--crimson); background: var(--crimson-wash); color: var(--crimson-dark); }
+  .pchip .sub { font-family: var(--f-sans); font-size: 11px; color: var(--muted); }
+  .pchip.master { background: #fdf9f1; border-color: #e8d9c3; }
+  .pchip.master .sub { color: var(--gold-deep); }
+  #rank { width: 100%; height: 440px; }
+
+  .read-tips { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; line-height: 1.95; color: var(--ink-2); }
+  .read-tips li { margin-bottom: 9px; }
+  .read-tips li:last-child { margin-bottom: 0; }
+  .read-tips b { color: var(--crimson-dark); font-weight: 600; }
+
+  .legend-mini {
+    display: flex; align-items: center; gap: 10px; padding: 6px 14px 10px;
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); flex-wrap: wrap;
+  }
+  .legend-mini .bar {
+    width: 96px; height: 6px; border-radius: 0;
+    background: linear-gradient(90deg, #f0f1ec, #d9a29c, #b5493f);
+  }
+  @media (max-width: 1080px) {
+    .map-layout { grid-template-columns: 1fr; }
+    #map { height: 520px; }
+  }
+  @media (max-width: 620px) { #map { height: 420px; } }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">学人地图</h2>
+  <p class="page-desc">按公开简历所载籍贯，呈现学术共同体的地理来源分布。仅统计公开简历写明的省份，缺失者不计入。</p>
+
+  <div class="note-box">
+    <strong>数据覆盖说明：</strong>籍贯来源以文学院官网个人页、教师主页与学位论文／著作的作者简介为主，
+    每条都保留原文与出处（见学者详情页「数据来源」）；先贤部分来自文学院「先贤名师」栏目生平介绍。
+    公开资料确实未载者留空，不做推断。
+  </div>
+
+  <div class="filters">
+    <select id="mode">
+      <option value="birthplace">按籍贯分布</option>
+      <option value="studyProv" disabled>按主要求学地分布（数据尚未采集）</option>
+    </select>
+    <label class="check"><input type="checkbox" id="only-real" checked> 仅统计真实数据（不含示例）</label>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="map-layout">
+    <div class="side-stack">
+      <div class="map-card">
+        <div id="map"></div>
+        <div class="legend-mini">
+          <span id="legend-mode">按籍贯着色</span>
+          <span class="bar"></span>
+          <span id="legend-range">0 — 0</span>
+          <span style="margin-left:auto">滚轮缩放地图，点击省份查看名单</span>
+        </div>
+      </div>
+
+      <div class="chart-box" id="prov-panel">
+        <div class="prov-head">
+          <h2 id="prov-title">省份学者</h2>
+          <span class="n" id="prov-n"></span>
+        </div>
+        <p class="chart-desc" id="prov-desc">点击左侧地图上的省份，或右侧排名中的条形，这里会列出该省的学人名单。</p>
+        <div id="prov-list"><p class="placeholder">尚未选择省份</p></div>
+      </div>
+    </div>
+
+    <div class="side-stack">
+      <div class="chart-box">
+        <h2>省份排名</h2>
+        <p class="chart-desc">与上图同一口径的前 15 名。</p>
+        <div id="rank"></div>
+      </div>
+
+      <div class="chart-box">
+        <h2>怎么读这张图</h2>
+        <ul class="read-tips">
+          <li><b>底图</b>：国界、省界与地名取自天地图；着色为按籍贯统计的学人人数。</li>
+          <li><b>按籍贯</b>：看出身地。「主要求学地」这一口径的公开简历尚未逐条采集，故暂未开放。</li>
+          <li><b>颜色即人数</b>：同一色阶，越深人越多；未着色省份为公开资料未载，不代表无人。</li>
+          <li><b>不做推断</b>：只统计简历里写明的省份，缺失者不进分母以外的任何计算。</li>
+          <li><b>先贤另计</b>：先贤名师的籍贯来自官网生平介绍，在名单中以浅金底标出。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/china.js"></script>
+<script src="data/scholars.js"></script>
+<script src="data/geo-centers.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("map.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  // 省级 GeoJSON 由 vendor/china.js 以 script 引入（挂到 window.CHINA_GEO），
+  // 这样双击 file:// 打开也能读，不再受 fetch 的跨源限制
+  const failTip = msg => {
+    document.getElementById("map").innerHTML =
+      `<div style="padding:40px 24px;text-align:center;color:#6b645a;font-size:14px;line-height:2">
+        ${msg}
+      </div>`;
+  };
+  Promise.resolve(window.CHINA_GEO).then(geoJson => {
+    if (!geoJson) { failTip("地图数据缺失：vendor/china.js 没有载入。"); return; }
+    const modeSel = document.getElementById("mode");
+    const onlyReal = document.getElementById("only-real");
+    const countEl = document.getElementById("count");
+
+    // 学人 = 在职/离退休学者 + 先贤名师（先贤的籍贯来自文学院官网生平）
+    const allPeople = () => {
+      const a = data.scholars.map(s => ({ ...s, _kind: "scholar" }));
+      (data.masters || []).forEach(m => {
+        if (m.birthplace) a.push({ ...m, _kind: "master", studyProv: "" });
+      });
+      return a;
+    };
+    const TOTAL = data.scholars.length + (data.masters || []).length;  // 分母是全部学人，含籍贯未载者
+
+    function stats() {
+      const counts = {};
+      let used = 0;
+      allPeople().forEach(s => {
+        if (onlyReal.checked && s.demo) return;
+        const prov = s[modeSel.value];
+        if (prov) { counts[prov] = (counts[prov] || 0) + 1; used++; }
+      });
+      return { counts, used };
+    }
+
+    let rankChart;
+    let counts = {}, maxV = 1, geoLayer = null;
+
+    // ===== 天地图底图（Leaflet + WMTS）=====
+    // tk 是浏览器端 Key，只在页面里使用
+    const TK = "3a2ba8661bdad256d5b5d15e54b6c435";
+    const tdt = layer => L.tileLayer(
+      `https://t{s}.tianditu.gov.cn/${layer}_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${layer}` +
+      `&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${TK}`,
+      {
+        subdomains: "01234567", maxZoom: 18,
+        attribution: '&copy; <a href="https://www.tianditu.gov.cn/" target="_blank" rel="noopener">天地图</a>',
+      }
+    );
+    const map = L.map("map", {
+      center: [36, 104], zoom: 4, minZoom: 3, maxZoom: 11,
+      zoomSnap: .25, zoomDelta: .5,                       // 允许 1/4 级缩放，fitBounds 才能贴合
+      worldCopyJump: true,
+    });
+    const vecGroup = L.layerGroup([tdt("vec"), tdt("cva")]).addTo(map);
+    const imgGroup = L.layerGroup([tdt("img"), tdt("cia")]);
+    L.control.layers({ "矢量底图": vecGroup, "影像底图": imgGroup }, null, { position: "topright", collapsed: true }).addTo(map);
+    L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
+
+    // 与图例同一套色阶：纸白 → 朱砂
+    const shade = v => {
+      if (!v) return "#f3f4ef";
+      const t = maxV > 1 ? Math.pow(v / maxV, .6) : 1;
+      const c1 = [250, 244, 241], c2 = [168, 52, 44];
+      return `rgb(${c1.map((x, i) => Math.round(x + (c2[i] - x) * t)).join(",")})`;
+    };
+
+    geoLayer = L.geoJSON(geoJson, {
+      // 只填充、不描边：国界与省界一律用天地图底图的那一套，避免两套边界叠出双线
+      style: f => {
+        const v = counts[f.properties.name] || 0;
+        return { stroke: false, fillColor: shade(v), fillOpacity: v ? .68 : 0 };
+      },
+      onEachFeature: (f, layer) => {
+        const name = f.properties.name;
+        if (!name) return;
+        layer.bindTooltip("", { sticky: true, direction: "top", opacity: 1, className: "tdt-tip" });
+        layer.on({
+          mouseover: () => layer.setStyle({ stroke: true, weight: 1.6, color: "#a31f18", opacity: .95 }),
+          mouseout: () => geoLayer.resetStyle(layer),
+          click: () => showProvince(name),
+        });
+      },
+    }).addTo(map);
+    // 视野框到本土（含台湾、海南岛），南海诸岛可向南拖动查看
+    const CN_BOUNDS = [[17.6, 73.5], [53.6, 135.1]];
+    // 首次 fit 时容器可能还没排完版（grid 宽度未定），会在错误的尺寸上算中心 → 地图整体偏移；
+    // 所以布局稳定后再 fit 一次，并在 resize 时重算
+    const fitChina = () => { map.invalidateSize(); map.fitBounds(CN_BOUNDS, { padding: [8, 8] }); };
+    fitChina();
+    requestAnimationFrame(() => { fitChina(); requestAnimationFrame(fitChina); });
+    window.addEventListener("load", fitChina);
+    let rzTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(rzTimer);
+      rzTimer = setTimeout(() => map.invalidateSize(), 160);
+    });
+
+    // 点省份 → 列出该省的学者（可点进详情页）
+    function showProvince(prov) {
+      const key = modeSel.value;
+      const list = allPeople().filter(s => s[key] === prov);
+      const panel = document.getElementById("prov-panel");
+      const title = document.getElementById("prov-title");
+      const desc = document.getElementById("prov-desc");
+      const box = document.getElementById("prov-list");
+      const label = key === "birthplace" ? "籍贯" : "主要求学地";
+      title.textContent = prov;
+      document.getElementById("prov-n").textContent = `${list.length} 人 · 按${label}`;
+      desc.textContent = `点击姓名进入学者详情页；先贤名师无独立详情页，仅列名。`;
+      box.innerHTML = list
+        .sort((a, b) => a.name.localeCompare(b.name, "zh"))
+        .map(x => {
+          const isMaster = x._kind === "master";
+          const meta = [x.title, x.discipline].filter(Boolean).join(" · ");
+          const inner = `${BNU.esc(x.name)}${meta ? `<span class="sub">${BNU.esc(meta)}</span>` : ""}`;
+          return isMaster
+            ? `<span class="pchip master" title="先贤名师">${inner}</span>`
+            : `<a class="pchip" href="detail.html?id=${encodeURIComponent(x.id)}">${inner}</a>`;
+        }).join("");
+      panel.style.display = "block";
+    }
+    window.__showProvince = showProvince;   // 便于调试与自动化测试
+    window.__map = map;
+    window.__geoLayer = geoLayer;
+
+    function render() {
+      const s = stats();
+      counts = s.counts;                       // 写到外层，供 shade() 与图层样式读取
+      maxV = Math.max(1, ...Object.values(counts));
+      countEl.textContent = `可定位 ${s.used} / ${TOTAL} 人（${(s.used / TOTAL * 100).toFixed(1)}%）`;
+      document.getElementById("legend-range").textContent = `0 — ${maxV}`;
+
+      geoLayer.eachLayer(layer => {
+        const name = layer.feature && layer.feature.properties ? layer.feature.properties.name : "";
+        if (!name) return;
+        const v = counts[name] || 0;
+        layer.setStyle({ fillColor: shade(v), fillOpacity: v ? .68 : 0 });
+        layer.setTooltipContent(
+          v ? `<b>${BNU.esc(name)}</b><br/>学人 ${v} 人` : `<b>${BNU.esc(name)}</b><br/>无记录`
+        );
+      });
+      const key = modeSel.value;
+      const label = key === "birthplace" ? "籍贯" : "主要求学地";
+      document.getElementById("legend-mode").textContent = `按${label}着色`;
+
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 15);
+      const rankOption = {
+        grid: { left: 4, right: 40, top: 10, bottom: 6, containLabel: true },
+        tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, formatter: p => `<b>${p[0].name}</b><br/>${p[0].value} 人` },
+        xAxis: { type: "value", minInterval: 1 },
+        yAxis: {
+          type: "category", data: sorted.map(x => x[0]), inverse: true,
+          axisLabel: { fontSize: 12, color: "#40453e" }, axisLine: { show: false },
+        },
+        series: [{
+          type: "bar", barMaxWidth: 16,
+          itemStyle: { borderRadius: [0, 2, 2, 0], color: "#b5493f" },
+          emphasis: { itemStyle: { color: "#c25a50" } },
+          label: { show: true, position: "right", fontSize: 11.5, color: "#6d726a" },
+          data: sorted.map(x => x[1]),
+        }],
+      };
+      if (!rankChart) {
+        rankChart = BNU.mount("rank", rankOption);
+        rankChart.on("click", params => { if (params.name) showProvince(params.name); });
+      } else {
+        rankChart.setOption(rankOption);
+      }
+    }
+    modeSel.addEventListener("change", render);
+    onlyReal.addEventListener("change", render);
+    render();
+
+    // 首屏先替用户选好人数最多的省份，避免右栏一开始是空的
+    (function preselect() {
+      const { counts } = stats();
+      const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+      if (top) showProvince(top[0]);
+    })();
+  }).catch(err => {
+    document.getElementById("map").innerHTML =
+      '<p style="color:#a06a00;padding:40px;text-align:center">地图渲染出错，请按 F12 / 右键「检查」查看控制台报错。</p>';
+    console.error(err);
+  });
+})();
+</script>
+</body>
+</html>

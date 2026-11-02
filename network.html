@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学术谱系 · 已合并至师承世表</title>
+<meta http-equiv="refresh" content="0; url=lineage.html">
+<link rel="stylesheet" href="css/shared.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">学术谱系已合并</h2>
+  <p class="page-desc">
+    「学术谱系」（力导向关系网）与「师承全景」（世表）已合并为一个页面：<b>师承世表</b>——
+    以 mulu.1012.wiki 的世表形态呈现全部师承关系，同事关系改为可叠加开关。
+    正在自动跳转……
+  </p>
+  <p><a href="lineage.html">如果没有自动跳转，请点击这里 →</a></p>
+</main>
+<div id="site-footer"></div>
+<script src="data/scholars.js"></script>
+<script src="js/common.js"></script>
+<script>
+  document.getElementById("site-header").innerHTML = BNU.header("lineage.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(window.BNU_DATA);
+  window.location.replace("lineage.html");
+</script>
+</body>
+</html>

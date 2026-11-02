@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>京师学林 · 北师大中文系学者库</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  /* ---- 卷首 ---- */
+  .hero {
+    position: relative; overflow: visible; border-radius: 0;
+    background: transparent;
+    color: var(--ink); padding: 46px 0 42px; margin: 0 0 4px;
+    display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr);
+    gap: 72px; align-items: end;
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
+    box-shadow: none;
+  }
+  .hero .eyebrow { color: var(--crimson); letter-spacing: 3.4px; font-size: 11.5px; }
+  .hero h1 {
+    font-family: var(--f-serif); font-size: 78px; line-height: 1.02; letter-spacing: 18px;
+    margin: 18px 0 0; font-weight: 700; text-indent: 7px; color: var(--ink);
+    text-shadow: none;
+  }
+  .hero .kicker {
+    font-family: var(--f-serif); font-size: 15.5px; letter-spacing: 2.2px;
+    color: var(--muted); margin: 14px 0 0;
+  }
+  /* 题词已转为矢量字形，避免 Safari 对 Web Font 的加载差异 */
+  .hero .motto {
+    font-size: 34px; line-height: 1; color: var(--ink);
+    margin: 24px 0 10px;
+  }
+  .hero .motto svg { display: block; height: 1em; width: auto; overflow: visible; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .hero .rule {
+    width: 40px; height: 2px; background: var(--crimson);
+    margin: 24px 0 20px;
+  }
+  .hero .tagline {
+    font-size: 16px; line-height: 2.05; color: var(--ink-2);
+    max-width: 620px; margin: 0;
+  }
+  .hero .tagline .nowrap { white-space: nowrap; }
+  .hero .cta { margin-top: 30px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
+  .hero .cta a {
+    font-family: var(--f-sans); padding: 0 0 5px; border-radius: 0;
+    font-size: 14px; font-weight: 500; letter-spacing: .5px;
+    color: var(--ink-2); border-bottom: 1px solid var(--line-strong);
+    background: none; box-shadow: none;
+    transition: color .16s var(--ease), border-color .16s var(--ease);
+  }
+  .hero .cta a.primary { color: var(--crimson); border-bottom-color: var(--crimson); font-weight: 600; }
+  .hero .cta a:hover { color: var(--crimson); border-bottom-color: var(--crimson); transform: none; }
+
+  /* 卷首右侧统计 */
+  .hero-board {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    background: transparent; border: 0; border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line); border-radius: 0; overflow: visible;
+  }
+  .hero-board .hs {
+    background: transparent; padding: 18px 22px 16px;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .hero-board .hs .n {
+    font-family: var(--f-serif); font-size: 40px; font-weight: 700; line-height: 1.1;
+    letter-spacing: .5px; font-variant-numeric: tabular-nums; color: var(--ink);
+  }
+  .hero-board .hs .l { font-family: var(--f-sans); font-size: 12px; color: var(--ink-2); letter-spacing: 1px; margin-top: 4px; }
+  .hero-board .hs .s { font-family: var(--f-sans); font-size: 11px; color: var(--faint); margin-top: 4px; letter-spacing: .2px; }
+
+  /* ---- 四条路径：目录式索引 ---- */
+  .paths {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
+    margin: 32px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .path {
+    position: relative; display: block; background: transparent;
+    border: 0; border-right: 1px solid var(--line);
+    border-radius: 0; padding: 22px 24px 20px; box-shadow: none;
+    transition: background .16s var(--ease);
+    overflow: visible;
+  }
+  .path:last-child { border-right: 0; }
+  .path:hover { background: var(--paper); transform: none; box-shadow: none; text-decoration: none; }
+  .path .no {
+    font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    color: var(--crimson); display: block; margin-bottom: 10px;
+  }
+  .path .t {
+    font-family: var(--f-serif); font-size: 19px; font-weight: 700; color: var(--ink);
+    margin-bottom: 7px; letter-spacing: 1.8px;
+  }
+  .path .d { font-size: 13.5px; color: var(--muted); line-height: 1.95; }
+  .path .go {
+    margin-top: 15px; font-family: var(--f-sans); font-size: 13px; color: var(--ink-2);
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .path .go::after { content: "→"; transition: transform .18s var(--ease); }
+  .path:hover .go, .path:hover .go::after { color: var(--crimson); }
+  .path:hover .go::after { transform: translateX(3px); }
+  .path::after { display: none; }
+
+  /* ---- 名录区 ---- */
+  .list-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin: 56px 0 4px; }
+  .list-head .page-title { margin: 0 0 2px; font-size: 30px; }
+  .list-head .page-desc { margin: 0; font-size: 14px; }
+
+  @media (max-width: 1040px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 36px 0 32px; }
+    .hero h1 { font-size: 62px; letter-spacing: 14px; }
+    .hero .motto { font-size: 30px; }
+    .hero .kicker { font-size: 14.5px; }
+    .hero .tagline { font-size: 15.5px; }
+    .paths { grid-template-columns: 1fr 1fr; }
+    .path:nth-child(2) { border-right: 0; }
+    .path:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 620px) {
+    .hero { padding: 30px 0 28px; }
+    .hero h1 { font-size: 46px; letter-spacing: 10px; text-indent: 4px; }
+    .hero .motto { font-size: 26px; letter-spacing: 2px; margin-top: 18px; }
+    .hero .kicker { font-size: 13.5px; letter-spacing: 1.6px; }
+    .hero .tagline { font-size: 14.5px; line-height: 1.95; }
+    .hero-board .hs { padding: 14px 15px; }
+    .hero-board .hs .n { font-size: 30px; }
+    .paths { grid-template-columns: 1fr; }
+    .path { border-right: 0; border-bottom: 1px solid var(--line); }
+    .path:last-child { border-bottom: 0; }
+    .list-head .page-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+
+  <section class="hero rise">
+    <div>
+      <div class="eyebrow">数字人文 · 学术谱系可视化</div>
+      <h1>京师学林</h1>
+      <p class="kicker">北京师范大学中文系学者库与学术谱系</p>
+      <p class="motto">
+        <span class="sr-only">百年师大，中文当先</span>
+        <svg class="motto-svg" aria-hidden="true" focusable="false" viewBox="45 -214 2249 248" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M130 -4Q134 -4 134 -6Q134 -9 131 -9Q113 -7 111 -6Q110 1 100 2Q86 1 88 -22Q92 -47 85 -77Q83 -79 80 -81Q77 -82 75 -88Q75 -91 84 -106Q87 -111 88 -112Q98 -127 107 -159Q102 -158 92 -157Q83 -155 79 -155Q52 -152 45 -162Q46 -165 77 -169Q145 -179 186 -182Q211 -180 214 -166Q214 -157 196 -160Q164 -165 120 -162Q133 -151 132 -142Q131 -132 120 -117Q115 -109 113 -105Q138 -117 155 -118Q167 -119 176 -111Q182 -105 181 -91Q180 -82 180 -85Q175 -33 171 -8Q168 15 150 16Q140 16 134 2Q131 -2 130 -4ZM133 -10Q138 -6 141 -5Q147 -5 149 -16Q155 -69 156 -100Q157 -104 151 -105Q147 -105 139 -104Q120 -101 110 -103Q109 -102 107 -99Q99 -88 94 -85Q94 -85 96 -81Q99 -76 100 -74Q102 -70 105 -61Q109 -62 119 -65Q130 -69 136 -70Q148 -69 151 -59Q151 -54 140 -54H129Q126 -53 122 -52Q123 -54 122 -54Q119 -54 112 -52Q109 -51 107 -51Q107 -35 109 -18Q112 -18 118 -20Q127 -22 132 -22Q137 -22 137 -19Q137 -18 138 -17Q138 -17 140 -16Q142 -16 142 -15Q142 -12 133 -10ZM137 -4Q138 -4 138 -4Q137 -5 136 -6Q134 -5 136 -5Q137 -4 137 -4ZM139 -4Q138 -4 139 -3Q140 -3 139 -4Z M389 24Q386 21 386 18L387 16Q387 13 386 8Q386 3 386 1Q387 -10 387 -33Q388 -57 388 -68Q358 -64 324 -55Q321 -54 316 -53Q297 -47 289 -49Q282 -50 281 -55Q281 -56 282 -57Q284 -58 286 -58Q288 -59 290 -59Q295 -60 304 -62Q314 -64 318 -65Q342 -70 365 -74Q361 -75 359 -78Q355 -87 354 -91Q349 -97 344 -107Q342 -105 338 -105Q327 -105 317 -111Q314 -112 313 -113Q318 -113 328 -117Q331 -118 332 -118Q359 -128 388 -134Q388 -135 389 -135Q390 -135 389 -151Q389 -154 386 -152Q384 -151 385 -154Q386 -155 387 -156Q388 -158 388 -158Q388 -159 388 -160Q390 -163 388 -164Q386 -163 381 -162Q370 -159 354 -156Q348 -145 341 -139Q340 -138 339 -137Q335 -134 331 -134Q329 -134 325 -138Q324 -139 324 -139Q321 -145 324 -150Q326 -156 332 -160Q341 -169 348 -189Q354 -206 352 -211Q352 -214 359 -214Q366 -214 366 -213Q377 -209 374 -198Q371 -187 361 -172Q383 -178 398 -182Q407 -185 418 -185Q433 -182 428 -176Q428 -174 428 -173Q427 -170 410 -168Q402 -167 400 -166Q401 -161 401 -137Q416 -140 428 -137Q432 -136 432 -129Q432 -128 432 -127Q432 -124 427 -124Q405 -124 400 -122Q400 -92 401 -80Q425 -85 453 -85Q468 -85 468 -81Q468 -80 469 -77Q471 -72 465 -72Q460 -70 448 -72Q419 -74 401 -70Q401 -67 401 -59Q400 -52 400 -48Q401 -37 400 -16Q400 0 400 6Q400 8 400 11Q399 13 399 15Q399 15 398 17Q398 19 396 19Q396 19 395 19Q395 18 394 18Q394 19 393 22Q393 25 392 26Q392 26 391 26Q391 26 390 26Q389 27 388 27Q388 25 389 24ZM372 -75Q379 -77 388 -79Q388 -103 388 -120Q357 -113 349 -108Q353 -104 358 -102Q362 -103 365 -100Q376 -90 377 -82Q377 -80 373 -76Q372 -75 372 -75Z M708 -139Q730 -138 728 -127Q727 -113 712 -95Q696 -79 679 -77H678Q679 -41 676 -8Q676 -5 676 1Q676 8 675 10Q675 12 674 17Q673 25 672 28Q672 30 670 30Q669 30 669 34Q667 34 666 31Q665 -12 666 -61Q666 -70 666 -79Q660 -82 653 -89Q653 -91 654 -91Q654 -91 656 -90V-91Q650 -97 648 -107Q648 -108 647 -110Q647 -112 646 -114V-113Q646 -115 646 -117Q646 -117 645 -117Q643 -116 636 -112Q631 -110 630 -109Q629 -109 627 -106Q624 -103 621 -103Q616 -106 617 -113Q617 -122 621 -121Q626 -123 629 -127Q637 -137 651 -156Q662 -171 667 -177V-183Q652 -179 637 -179Q628 -179 627 -181Q627 -186 640 -189Q644 -191 654 -193Q663 -196 667 -197Q668 -201 672 -201Q673 -201 673 -201Q674 -201 677 -199Q687 -203 692 -203Q697 -203 699 -197Q699 -194 697 -193Q697 -192 696 -192Q694 -189 693 -188Q684 -183 677 -174Q677 -155 677 -135Q694 -139 708 -139ZM593 -38Q592 -38 591 -37Q590 -36 589 -36Q587 -36 585 -39Q584 -42 583 -42Q579 -48 584 -54Q598 -61 605 -138Q606 -149 608 -173Q609 -182 609 -185Q609 -188 608 -189H607L604 -187Q604 -188 605 -189Q605 -191 605 -191Q606 -192 606 -195Q608 -203 613 -203Q618 -202 620 -199Q622 -192 620 -178Q618 -169 618 -164Q618 -131 614 -97Q609 -46 593 -38ZM558 -114Q558 -117 561 -123Q561 -156 571 -170Q571 -171 571 -172Q571 -174 573 -175Q575 -175 576 -172Q577 -170 578 -169Q584 -162 584 -150Q589 -156 594 -168Q598 -178 602 -185Q602 -185 604 -186V-185Q604 -176 596 -156Q592 -148 591 -144Q590 -142 589 -138Q582 -119 579 -105Q575 -98 568 -99Q559 -109 558 -114ZM677 -126Q677 -108 677 -91V-88Q681 -88 684 -89Q714 -106 717 -125Q717 -130 707 -130Q690 -130 677 -126ZM649 -119Q648 -118 648 -116Q648 -116 648 -115Q651 -98 666 -89Q667 -106 667 -124Q665 -123 661 -122Q657 -121 649 -119ZM667 -133V-160Q663 -154 654 -142Q646 -130 643 -126Q655 -130 667 -133ZM668 23Q668 23 669 25V24Q669 23 668 22ZM669 10Q669 11 669 11Q671 11 669 10ZM672 16Q671 17 672 17Q672 17 672 16Z M819 15Q816 15 811 14Q807 13 805 13Q808 13 808 12Q807 11 799 9Q799 9 798 10Q797 10 796 10Q794 10 794 9Q796 6 809 3Q813 2 815 2Q818 2 823 0Q828 -1 830 -1Q866 -24 880 -95Q879 -96 878 -97Q876 -100 874 -101Q873 -101 871 -101Q866 -100 863 -100Q861 -99 856 -97Q845 -93 840 -93Q836 -94 827 -98Q826 -99 825 -101Q823 -103 822 -104Q821 -106 821 -107Q821 -112 831 -112Q832 -112 833 -112Q835 -112 840 -111Q847 -110 851 -111Q857 -112 869 -113Q879 -115 884 -115Q890 -153 890 -182Q890 -187 888 -188H886H885V-194Q885 -195 889 -198Q890 -199 890 -199Q891 -199 894 -198Q901 -198 902 -195V-187Q900 -160 895 -117Q916 -120 936 -122Q953 -122 953 -114Q952 -110 942 -108Q919 -108 894 -104Q893 -102 893 -98Q893 -95 896 -90Q930 -39 966 -22Q991 -14 1015 -2Q1018 -1 1018 0Q1018 2 1015 2Q1015 3 1014 3Q1013 3 1011 4Q1011 4 1010 4Q1009 3 1008 3Q1007 3 1006 4Q1005 5 1004 5Q1001 5 997 3Q994 2 993 2Q990 1 983 1Q966 0 960 -4Q926 -24 890 -81Q872 0 830 14Q825 15 819 15Z M1072 33 1069 31Q1091 18 1091 -2Q1090 -2 1087 -2Q1078 -1 1075 -5Q1059 -29 1087 -34Q1111 -32 1106 -2Q1099 24 1072 33Z M1378 -79Q1377 -71 1367 -69Q1359 -68 1356 -77Q1347 -93 1339 -116Q1334 -129 1341 -135Q1347 -138 1351 -134Q1353 -132 1355 -131Q1376 -137 1401 -142V-178Q1401 -191 1400 -195Q1400 -197 1399 -199Q1399 -203 1405 -203Q1416 -200 1415 -178Q1415 -173 1415 -162Q1414 -150 1414 -144Q1435 -148 1452 -148Q1465 -149 1473 -139Q1482 -129 1477 -122Q1468 -107 1452 -93Q1454 -92 1454 -90Q1453 -81 1442 -82Q1430 -84 1413 -83Q1413 -79 1412 -71Q1412 -65 1412 -63Q1412 -53 1411 -35Q1411 8 1409 18Q1408 32 1403 33Q1402 34 1400 34Q1398 34 1397 33Q1397 31 1396 31Q1396 31 1396 27Q1395 23 1395 22Q1399 -35 1400 -82Q1388 -81 1378 -79ZM1428 -94Q1442 -112 1454 -132Q1456 -135 1455 -136Q1454 -138 1450 -137Q1441 -136 1426 -134Q1418 -133 1414 -133Q1414 -126 1413 -111Q1413 -99 1413 -93Q1416 -93 1421 -94Q1426 -94 1428 -94ZM1400 -92Q1400 -110 1401 -130Q1376 -125 1363 -119Q1365 -112 1370 -98Q1372 -92 1373 -89Q1380 -90 1400 -92Z M1732 -129Q1732 -124 1723 -124Q1697 -124 1681 -123Q1685 -118 1685 -112Q1685 -108 1682 -97Q1681 -91 1681 -90Q1677 -75 1669 -61Q1689 -40 1702 -33Q1719 -23 1756 -11Q1758 -10 1759 -10Q1772 -8 1772 -2Q1772 0 1768 0Q1729 1 1708 -11Q1684 -29 1664 -52Q1649 -28 1638 -19Q1614 0 1591 2Q1572 0 1566 -2V-3Q1591 -8 1613 -20Q1640 -34 1656 -61Q1646 -74 1635 -89Q1635 -89 1634 -90Q1632 -93 1629 -94Q1621 -94 1622 -103Q1622 -108 1627 -108Q1636 -108 1645 -91Q1648 -85 1650 -83Q1655 -77 1661 -70Q1672 -90 1677 -118Q1677 -121 1679 -123Q1676 -123 1670 -122Q1663 -122 1660 -121Q1652 -120 1636 -117Q1619 -114 1611 -112Q1600 -110 1594 -114Q1593 -114 1592 -115Q1587 -117 1586 -118Q1586 -118 1585 -120Q1586 -121 1589 -122Q1591 -122 1592 -122Q1602 -121 1619 -123Q1624 -124 1633 -125Q1685 -134 1711 -136Q1729 -136 1732 -129ZM1655 -149 1653 -148H1652Q1649 -148 1649 -151Q1649 -153 1651 -154Q1653 -155 1653 -156Q1653 -164 1646 -174Q1645 -175 1644 -176Q1642 -179 1642 -182Q1666 -180 1673 -155Q1673 -154 1674 -151Q1675 -147 1675 -145Q1672 -136 1667 -134Q1659 -134 1657 -144Q1656 -149 1655 -149Z M1925 1Q1919 1 1908 4Q1896 7 1889 7Q1888 7 1885 7Q1881 6 1880 6Q1865 2 1864 -5Q1864 -9 1871 -9Q1869 -5 1880 -5Q1883 -5 1891 -7Q1894 -8 1896 -8Q1920 -13 1931 -9Q1931 -9 1932 -8Q1935 -4 1937 -4Q1939 -4 1940 -5Q1948 -16 1954 -39Q1954 -40 1952 -40Q1916 -40 1899 -33Q1878 -25 1867 -26H1866Q1853 -32 1851 -38Q1851 -43 1865 -42Q1880 -42 1895 -47Q1917 -52 1937 -55Q1950 -56 1958 -51Q1958 -53 1959 -56Q1961 -65 1962 -70Q1961 -78 1953 -79Q1930 -81 1899 -71Q1896 -71 1889 -69Q1880 -67 1876 -67Q1861 -67 1861 -74Q1861 -76 1862 -77Q1867 -77 1871 -77Q1877 -77 1890 -81Q1903 -84 1910 -85Q1911 -86 1914 -86Q1913 -87 1910 -87Q1909 -88 1909 -88Q1906 -98 1907 -121Q1906 -120 1905 -119Q1901 -114 1898 -113Q1879 -90 1874 -88Q1858 -92 1859 -107Q1860 -110 1860 -118Q1861 -125 1861 -129Q1862 -137 1870 -144H1871Q1874 -144 1874 -140Q1875 -138 1875 -137Q1875 -137 1877 -135Q1877 -134 1878 -128Q1881 -113 1882 -113Q1888 -113 1896 -119Q1899 -121 1900 -122Q1903 -124 1908 -131Q1906 -175 1903 -184Q1903 -185 1902 -186V-187Q1903 -192 1908 -193Q1924 -196 1936 -180Q1942 -173 1937 -162Q1930 -143 1931 -114Q1940 -115 1963 -134Q1970 -140 1967 -149Q1968 -155 1980 -156Q1987 -153 1992 -147Q1994 -143 1994 -139Q1993 -132 1974 -122Q1968 -120 1954 -113Q1938 -105 1930 -102Q1930 -96 1926 -88Q1927 -88 1929 -88Q1944 -90 1961 -90Q1972 -90 1980 -81Q1993 -70 1986 -54Q1966 -2 1955 10Q1951 17 1946 18Q1938 18 1932 8Q1929 1 1925 1ZM1935 -111Q1935 -111 1935 -110Q1936 -110 1937 -110Q1938 -109 1938 -109Q1939 -109 1942 -112Q1938 -112 1935 -112Q1934 -112 1934 -111Q1934 -110 1934 -110Q1934 -111 1935 -111Z M2135 -114Q2134 -114 2131 -112Q2129 -111 2127 -110Q2119 -100 2111 -98Q2105 -101 2101 -115Q2101 -117 2103 -118Q2104 -119 2104 -120Q2105 -122 2106 -124Q2108 -128 2112 -134Q2118 -141 2120 -146Q2120 -148 2121 -150Q2122 -152 2122 -153Q2122 -154 2122 -155Q2121 -157 2121 -157Q2123 -161 2125 -162Q2126 -162 2130 -157Q2131 -156 2131 -156Q2131 -155 2132 -155Q2132 -154 2133 -154Q2146 -144 2136 -126Q2151 -133 2165 -136Q2167 -152 2168 -174Q2169 -175 2169 -176Q2169 -177 2168 -177Q2169 -180 2166 -186Q2164 -190 2164 -193Q2165 -199 2177 -198Q2188 -195 2186 -181Q2183 -174 2182 -156Q2182 -153 2182 -148Q2181 -142 2181 -139Q2185 -141 2193 -142Q2194 -143 2195 -143V-144Q2195 -145 2195 -146V-147Q2196 -147 2197 -147Q2198 -147 2200 -147Q2201 -146 2202 -146Q2203 -146 2205 -145Q2211 -145 2212 -143Q2215 -139 2211 -136Q2208 -136 2200 -133Q2196 -132 2188 -131Q2183 -129 2180 -129Q2179 -124 2178 -115Q2176 -104 2175 -99Q2176 -99 2177 -100Q2180 -102 2182 -103Q2188 -111 2195 -109H2197Q2198 -107 2201 -106Q2204 -104 2204 -98Q2204 -97 2194 -91Q2190 -89 2190 -89Q2184 -83 2179 -77Q2174 -71 2171 -66Q2184 -63 2182 -41Q2182 -37 2181 -29Q2179 -20 2180 -15Q2179 7 2197 13Q2218 18 2252 13Q2269 11 2273 6Q2280 0 2278 -20Q2278 -21 2279 -24Q2280 -27 2280 -27Q2280 -26 2280 -28Q2280 -30 2280 -34V-37Q2280 -35 2280 -35Q2282 -35 2282 -35Q2284 -32 2285 -24Q2292 -11 2294 5Q2291 11 2291 13Q2291 13 2290 14Q2281 20 2275 21Q2227 29 2191 21Q2170 13 2169 -9Q2169 -23 2173 -49Q2176 -64 2170 -64Q2129 -1 2097 15Q2096 16 2093 17Q2084 15 2084 9Q2084 6 2087 3Q2089 3 2089 2Q2089 2 2090 1Q2090 0 2091 0H2092Q2093 0 2093 0Q2095 0 2095 0Q2130 -20 2168 -82Q2158 -78 2142 -70Q2119 -58 2107 -59Q2100 -59 2095 -62Q2094 -63 2090 -68Q2090 -74 2095 -74H2096Q2097 -74 2097 -73Q2120 -77 2157 -94Q2161 -106 2164 -124Q2146 -119 2135 -114Z"/></svg>
+      </p>
+      <div class="rule"></div>
+      <p class="tagline">
+        以官网师资页与学位论文题录为依据，把散落在各处的「谁师从谁」整理成 235 条<span class="nowrap">可溯源</span>的师承关系，
+        并呈现为一张可按年代、按家族展开的世表。
+      </p>
+      <div class="cta">
+        <a class="primary" href="lineage.html">进入师承世表 →</a>
+        <a class="ghost" href="masters.html">先贤名师</a>
+        <a class="ghost" href="build-guide.html">构建方法</a>
+      </div>
+    </div>
+    <div class="hero-board" id="hero-stats"></div>
+  </section>
+
+  <section class="paths">
+    <a class="path" href="lineage.html">
+      <span class="no">01</span>
+      <div class="t">师承世表</div>
+      <div class="d">纵轴年代带、横轴家族树。点姓名看门下，点连线看证据原文与出处。</div>
+      <span class="go">展开世表</span>
+    </a>
+    <a class="path" href="masters.html">
+      <span class="no">02</span>
+      <div class="t">先贤名师</div>
+      <div class="d">学科奠基人的生平与师承，是今日谱系的源头。</div>
+      <span class="go">读生平</span>
+    </a>
+    <a class="path" href="timeline.html">
+      <span class="no">03</span>
+      <div class="t">学科时间线</div>
+      <div class="d">师承发生的年代、学科结构与关系类型，看学科的纵深与厚度。</div>
+      <span class="go">看分布</span>
+    </a>
+    <a class="path" href="data-sources.html">
+      <span class="no">04</span>
+      <div class="t">数据来源</div>
+      <div class="d">每条边从哪来、证据怎么分级、标签依据哪份官方文件。</div>
+      <span class="go">查出处</span>
+    </a>
+  </section>
+
+  <div class="list-head">
+    <div>
+      <h2 class="page-title">学者名录</h2>
+      <p class="page-desc">收录北京师范大学中文系（文学院）在录与离退休学者，另含 1 位跨院标明的新闻传播学院教授；可按关键词、学科、职称、机构筛选；点击卡片进入详情。</p>
+    </div>
+  </div>
+
+  <div class="stat-strip" id="stat-strip"></div>
+
+  <div class="filters">
+    <input type="text" id="q" placeholder="搜索姓名 / 研究方向 / 毕业院校…" autocomplete="off">
+    <select id="f-discipline"><option value="">全部学科</option></select>
+    <select id="f-title"><option value="">全部职称</option></select>
+    <select id="f-org"><option value="">全部机构</option></select>
+    <label class="check"><input type="checkbox" id="only-related"> 仅看有师承关系的</label>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="card-grid" id="cards"></div>
+  <button class="load-more" id="load-more" style="display:none"></button>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("index.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const real = data.scholars.filter(s => !s.demo && !s.external);  // 外源导师只在谱系中出现，不进名录
+  const realIds = new Set(real.map(s => s.id));
+
+  // 师承边有两处来源：scholars.js（采集表 83 条）与 lineage.js（世表 235 条，含检索/直录）。
+  // 首页统计必须与「师承世表」页口径一致，否则同一份数据在两个页面显示不同数字。
+  const edges = (() => {
+    const seen = new Set(), out = [];
+    (data.mentorEdges || []).concat((window.LINEAGE_DATA && window.LINEAGE_DATA.edges) || []).forEach(e => {
+      const k = `${e.student}|${e.mentor}`;
+      if (seen.has(k)) return;
+      seen.add(k); out.push(e);
+    });
+    return out;
+  })();
+
+  // 「涉及学者」只数本库学者（先贤与外源不算在内）
+  const relatedIds = new Set();
+  edges.forEach(e => {
+    if (realIds.has(e.student)) relatedIds.add(e.student);
+    if (realIds.has(e.mentor)) relatedIds.add(e.mentor);
+  });
+
+  // 每位学者的师承边数（供名录卡片角标使用）
+  const relCount = {};
+  edges.forEach(e => {
+    relCount[e.student] = (relCount[e.student] || 0) + 1;
+    relCount[e.mentor] = (relCount[e.mentor] || 0) + 1;
+  });
+  window.__REL_COUNT__ = relCount;
+
+  // 封面统计板：大数字 + 一行注解
+  document.getElementById("hero-stats").innerHTML = [
+    [real.length, "收录学者", "文学院 12 个研究所 + 跨院 1 人（珠海授课）"],
+    [data.masters.length, "先贤名师", "官网「先贤名师」栏目"],
+    [edges.length, "师承关系", "每条附证据原文"],
+    [relatedIds.size, "涉及学者", "有师承记录者"],
+  ].map(([n, l, s]) => `<div class="hs"><div class="n">${n}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join("");
+
+  // 学科数按中文系口径统计，跨院标明者不计入
+  const discRoster = real.filter(s => s.org !== "新闻传播学院（跨院）");
+  document.getElementById("stat-strip").innerHTML = [
+    [real.length, "收录学者"],
+    [new Set(discRoster.map(s => s.discipline).filter(Boolean)).size, "二级学科"],
+    [edges.length, "师承关系"],
+    [new Set(edges.map(e => e.mentor)).size, "授业导师"],
+  ].map(([n, l]) => `<div class="stat"><div class="num">${n}</div><div class="lab">${l}</div></div>`).join("");
+
+  const fill = (id, values) => {
+    const sel = document.getElementById(id);
+    [...new Set(values.filter(Boolean))].sort().forEach(v => {
+      const o = document.createElement("option");
+      o.value = v; o.textContent = v;
+      sel.appendChild(o);
+    });
+  };
+  fill("f-discipline", real.map(s => s.discipline));
+  fill("f-title", real.map(s => s.title));
+  fill("f-org", real.map(s => s.org));
+
+  const q = document.getElementById("q");
+  const fd = document.getElementById("f-discipline");
+  const ft = document.getElementById("f-title");
+  const fo = document.getElementById("f-org");
+  const or = document.getElementById("only-related");
+  const cards = document.getElementById("cards");
+  const count = document.getElementById("count");
+  const more = document.getElementById("load-more");
+
+  // 名录一次渲染 48 张，避免 188 张卡片同时上屏；「显示更多」增量追加
+  const STEP = 48;
+  let shown = STEP, list = [];
+
+  function matched() {
+    const kw = q.value.trim().toLowerCase();
+    return real.filter(s => {
+      if (fd.value && s.discipline !== fd.value) return false;
+      if (ft.value && s.title !== ft.value) return false;
+      if (fo.value && s.org !== fo.value) return false;
+      if (or.checked && !relatedIds.has(s.id)) return false;
+      if (kw) {
+        const hay = [s.name, s.discipline, s.almaMater, s.org, ...(s.interests || []),
+                     ...(s.works || []).map(w => w.title)].join(" ").toLowerCase();
+        if (!hay.includes(kw)) return false;
+      }
+      return true;
+    }).sort((a, b) => a.name.localeCompare(b.name, "zh"));
+  }
+
+  function paint() {
+    const slice = list.slice(0, shown);
+    cards.innerHTML = slice.map(BNU.scholarCard).join("") ||
+      '<p class="empty-tip">没有符合条件的学者，试试放宽筛选条件。</p>';
+    count.textContent = `共 ${list.length} 人`;
+    const rest = list.length - slice.length;
+    more.style.display = rest > 0 ? "block" : "none";
+    more.textContent = rest > 0 ? `显示更多（还有 ${rest} 人）` : "";
+  }
+
+  function render() {
+    list = matched();
+    shown = STEP;
+    paint();
+  }
+
+  more.addEventListener("click", () => { shown += STEP * 2; paint(); });
+  [q, fd, ft, fo, or].forEach(el => el.addEventListener("input", render));
+
+  // 支持带参进入：?q=姓名 直接搜索，?d=二级学科 直接按学科筛选
+  // （详情页的「同侪」「搜此人」链接用的就是这个）
+  const params = new URLSearchParams(location.search);
+  const preD = params.get("d"), preQ = params.get("q");
+  if (preD && [...fd.options].some(o => o.value === preD)) fd.value = preD;
+  if (preQ) q.value = preQ;
+  render();
+})();
+</script>
+</body>
+</html>

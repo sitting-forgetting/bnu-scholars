@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>师承世表 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .page-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin: 6px 0 2px; }
+  .page-head .page-title { margin: 0; }
+  .page-head .lead { font-family: var(--f-sans); font-size: 12px; color: var(--muted); letter-spacing: .2px; }
+  .page-tools {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin: 8px 0 14px; padding: 10px 0;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .page-tools input[type="text"] {
+    flex: 1 1 240px; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 2px;
+    font-family: var(--f-serif); font-size: 14px; background: var(--paper) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d726a' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M20 20l-4.8-4.8'/%3E%3C/svg%3E") no-repeat 11px center;
+    color: var(--ink);
+  }
+  .page-tools input[type="text"]:focus { outline: none; border-color: var(--crimson); background-color: #fff; }
+  .mini-btn {
+    font-family: var(--f-sans); font-size: 11.5px; border: 1px solid var(--line);
+    background: transparent; border-radius: 2px; padding: 6px 10px; cursor: pointer;
+    color: var(--ink-2); transition: border-color .15s var(--ease), color .15s var(--ease), background .15s var(--ease);
+  }
+  .mini-btn:hover { border-color: var(--crimson); color: var(--crimson); background: var(--crimson-wash); }
+  .search-wrap { position: relative; flex: 1 1 240px; min-width: 220px; }
+  .search-wrap input[type="text"] { width: 100%; }
+  .search-pop { position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: var(--paper); border: 1px solid var(--line); border-radius: 2px; box-shadow: 0 10px 30px rgba(23,25,22,.12); max-height: 330px; overflow: auto; z-index: 20; display: none; }
+  .sp-item { display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; cursor: pointer; border-bottom: 1px solid var(--line-soft); }
+  .sp-item:last-child { border-bottom: none; }
+  .sp-item:hover, .sp-item.on { background: var(--paper-2); }
+  .sp-name { font-family: var(--f-serif); font-size: 14px; font-weight: 700; letter-spacing: .5px; }
+  .sp-meta { font-family: var(--f-sans); font-size: 11px; color: var(--muted); margin-left: auto; text-align: right; }
+  .sp-empty { padding: 12px; font-family: var(--f-sans); font-size: 12.5px; color: var(--muted); }
+  /* 更新提示：挪到右上角，避免压住右下的小地图与缩放控件 */
+  .notice-bar {
+    position: absolute; right: 12px; top: 9px; display: none; align-items: center; gap: 8px;
+    background: rgba(255,254,251,.95); color: var(--muted); border: 1px solid var(--line);
+    font-family: var(--f-sans); font-size: 10.5px; border-radius: 2px;
+    padding: 4px 6px 4px 10px; box-shadow: 0 2px 10px rgba(23,25,22,.05); z-index: 6;
+  }
+  .notice-bar::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--crimson); flex: none; }
+  .notice-bar button { background: none; border: none; color: var(--faint); cursor: pointer; font-size: 13px; line-height: 1; padding: 0 4px; }
+  .notice-bar button:hover { color: var(--crimson); }
+  /* 暗色主题 */
+  body.dark {
+    --bg: #141613; --paper: #1c1e1a; --paper-2: #242721; --ink: #e8e9e3; --ink-2: #c3c6bd;
+    --muted: #9ba095; --faint: #767b70; --line: #34372f; --line-soft: #292c26;
+    --line-strong: #474b41; --crimson: #e0574d; --crimson-dark: #f07a70; --crimson-wash: #2c1c19;
+    --header-bg: rgba(20, 22, 19, .92);
+  }
+  body.dark #stage { background: #171915; }
+  body.dark .stage-hint, body.dark .stage-legend, body.dark .stage-zoom, body.dark .stage-minimap { background: rgba(28,30,26,.94); }
+  body.dark .node rect.card-face { fill: transparent; }
+  body.dark #shitu .node:hover .card-face { fill: #22251f; }
+  body.dark #shitu .node.selected .card-face { fill: #24201b; }
+  body.dark .person-head .nm, body.dark .card-name { color: var(--ink); }
+  body.dark .card-name { fill: #e8e9e3; }
+  body.dark .fold-label { fill: #878c82; }
+  body.dark .band-label { fill: #9ba095; }
+  body.dark .notice-bar { background: rgba(28,30,26,.95); color: var(--muted); }
+  body.dark .search-pop { background: var(--paper); }
+  body.dark .sp-item:hover, body.dark .sp-item.on { background: #242721; }
+  body.dark .page-tools input[type="text"], body.dark .mini-btn, body.dark .fchip { background-color: #1c1e1a; color: var(--ink); }
+  body.dark rect.band-bg { fill: rgba(255,255,255,.035); }
+  body.dark .rel-item, body.dark .side-card, body.dark .card-face { background: transparent; }
+  .switch { font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .switch input { accent-color: var(--crimson); }
+  .graph-layout { display: grid; grid-template-columns: 1fr 312px; gap: 18px; align-items: start; }
+  #stage {
+    position: relative; overflow: hidden;
+    /* 极淡的方格纸纹：让大片留白有质感，又不会抢走细线的注意力 */
+    background:
+      repeating-linear-gradient(0deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px),
+      #f7f8f5;
+    border: 1px solid var(--line); border-radius: 0;
+    height: clamp(560px, calc(100vh - 232px), 900px);
+    cursor: grab; touch-action: none;
+  }
+  #stage.dragging { cursor: grabbing; }
+  #shitu { display: block; }
+  .stage-hint { position: absolute; left: 12px; top: 9px; font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); background: rgba(247,248,245,.92); border: 1px solid var(--line); border-radius: 2px; padding: 2px 8px; pointer-events: none; }
+  .stage-zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 2px; align-items: center; background: rgba(255,254,251,.94); border: 1px solid var(--line); border-radius: 2px; padding: 3px 4px; }
+  .stage-zoom button { border: none; background: none; font-size: 13px; cursor: pointer; font-family: var(--f-sans); color: var(--ink-2); padding: 2px 7px; }
+  .stage-zoom button:hover { color: var(--crimson); }
+  .stage-zoom .pct { font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); min-width: 36px; text-align: center; font-variant-numeric: tabular-nums; }
+  .stage-minimap { position: absolute; right: 12px; bottom: 54px; width: 182px; height: 68px; background: rgba(255,254,251,.95); border: 1px solid var(--line); border-radius: 0; cursor: pointer; overflow: hidden; }
+  .stage-minimap svg { display: block; }
+  .stage-legend { position: absolute; left: 12px; bottom: 12px; background: rgba(255,254,251,.93); border: 1px solid var(--line); border-radius: 0; padding: 7px 10px; font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); line-height: 2; max-width: calc(100% - 230px); }
+  .stage-legend .lg-row { display: flex; gap: 2px 12px; flex-wrap: wrap; align-items: center; }
+  .stage-legend .lg-item { cursor: pointer; user-select: none; border: 0; border-radius: 0; padding: 0; white-space: nowrap; }
+  .stage-legend .lg-item:hover { color: var(--crimson); }
+  .stage-legend .lg-item.off { opacity: .32; text-decoration: line-through; }
+  .stage-legend .ln { display: inline-block; width: 16px; border-top: 1px solid; margin-right: 4px; vertical-align: 3px; }
+  .stage-legend .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 4px; vertical-align: 0; }
+  .side-panel { position: sticky; top: calc(var(--header-h) + 16px); }
+  .side-card { background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 16px 18px; }
+  .side-card + .side-card { margin-top: 12px; }
+  .side-card h3 { font-family: var(--f-serif); font-size: 13px; margin: 0 0 12px; color: var(--ink); letter-spacing: 2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .side-card .empty { color: var(--muted); font-size: 12.5px; margin: 0; line-height: 1.9; }
+  .person-head { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+  .person-head .avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+  .person-head .nm { font-family: var(--f-serif); font-size: 19px; font-weight: 700; letter-spacing: 1.5px; }
+  .person-head .meta { font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); line-height: 1.65; }
+  .rel-block { margin-top: 14px; }
+  .rel-block .rb-title { font-family: var(--f-sans); font-size: 11px; font-weight: 600; letter-spacing: 1.4px; color: var(--muted); margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid var(--line-soft); }
+  .rel-item { border: 0; border-bottom: 1px solid var(--line-soft); border-radius: 0; padding: 8px 0; margin-bottom: 0; font-size: 13px; background: transparent; }
+  .rel-item .ri-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .rel-item .ri-name { font-family: var(--f-serif); font-weight: 700; letter-spacing: .6px; }
+  .rel-item .ri-type { font-family: var(--f-sans); font-size: 10px; color: var(--green); background: rgba(31,138,102,.08); border: 0; border-radius: 2px; padding: 0 6px; line-height: 1.7; }
+  .rel-item .ri-weak { font-family: var(--f-sans); font-size: 10px; color: var(--gold-deep); background: var(--gold-wash); border: 1px solid #e7d9bc; border-radius: 2px; padding: 0 6px; }
+  .rel-item .ri-ev { color: var(--muted); font-size: 12px; margin-top: 4px; line-height: 1.7; }
+  /* 传承载体：这门学问当年靠什么方式往下走，取自证据原文，没有就整行不出现 */
+  .rel-item .ri-channel { font-size: 12px; margin-top: 4px; line-height: 1.7; color: var(--ink-soft, #4a4a4a); }
+  .rel-item .ri-channel b { font-family: var(--f-sans); font-size: 10px; font-weight: 600; letter-spacing: .5px; color: var(--crimson); margin-right: 4px; }
+  .rel-item .ri-ev a { word-break: break-all; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+  .rel-item .ri-ev a:hover { color: var(--crimson); }
+  .ext-note { font-family: var(--f-sans); font-size: 11.5px; color: var(--gold-deep); background: var(--gold-wash); border: 1px solid #e7d9bc; border-radius: 2px; padding: 8px 10px; margin-top: 8px; line-height: 1.75; }
+  .family-chips { display: flex; gap: 4px 14px; flex-wrap: wrap; }
+  .fchip { font-family: var(--f-serif); font-size: 12.5px; border: 0; border-bottom: 1px dotted var(--line-strong); background: transparent; border-radius: 0; padding: 2px 0; cursor: pointer; color: var(--ink-2); }
+  .fchip:hover { border-bottom-color: var(--crimson); color: var(--crimson); }
+  .fchip.on { background: transparent; border-bottom: 1px solid var(--crimson); color: var(--crimson); font-weight: 600; }
+  .tour-card { position: absolute; left: 50%; bottom: 88px; transform: translateX(-50%); background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 14px 18px; box-shadow: 0 12px 36px rgba(23,25,22,.16); z-index: 5; max-width: 330px; }
+  .tour-card .tour-step { font-family: var(--f-sans); font-size: 10px; letter-spacing: 1.5px; color: var(--faint); }
+  .tour-card .tour-title { font-family: var(--f-serif); font-size: 15px; font-weight: 700; margin: 4px 0 4px; color: var(--ink); letter-spacing: 1px; }
+  .tour-card .tour-text { font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 10px; }
+  .tour-card .tour-skip { background: none; border: none; font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); cursor: pointer; margin-left: 10px; }
+  .tour-card .tour-skip:hover { color: var(--crimson); }
+  .node.pop { animation: cardIn .4s ease; }
+  @keyframes cardIn { from { opacity: 0; } to { opacity: 1; } }
+  .card-name { font-family: var(--f-serif); font-size: 13px; fill: #171916; font-weight: 600; letter-spacing: 1px; }
+  .card-sub { font-family: var(--f-sans); font-size: 8.5px; fill: #979b92; letter-spacing: 0; }
+  .fold-name { font-family: var(--f-serif); font-size: 9.5px; font-weight: 400; }   /* 对比度达 AA */
+  .fold-label { font-family: var(--f-sans); font-size: 9px; fill: #979b92; }
+  /* 路径查询栏 */
+  .path-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 8px 0; margin: 4px 0 0; background: transparent; border: 0; border-bottom: 1px solid var(--line);
+    font-family: var(--f-sans); font-size: 12px; }
+  .path-bar .pb-label { color: var(--crimson-dark); font-weight: 600; letter-spacing: 1px; }
+  .path-bar input { width: 132px; padding: 5px 8px; font: inherit; font-size: 12px;
+    border: 1px solid var(--line); border-radius: 2px; background: var(--paper); }
+  .path-bar .pb-arrow { color: var(--faint); }
+  .path-bar .pb-result { color: var(--ink); line-height: 1.9; }
+  .path-bar .pb-result .hop { color: var(--muted); font-size: 11px; margin: 0 4px; }
+  .path-bar .pb-result b { color: var(--crimson-dark); font-family: var(--f-serif); letter-spacing: .5px; }
+  /* 路径高亮：非路径节点淡出 */
+  #shitu.path-mode .node:not(.on-path) { opacity: .13; }
+  #shitu.path-mode .node.on-path .card-face { fill: #fbf3dd; stroke: #c9a227; stroke-width: 1.5; }
+  #shitu.path-mode .edge-hit { pointer-events: none; }
+  /* 悬停反馈：默认不画卡片，悬停时浮出一层纸白 */
+  #shitu .node .card-face { fill: transparent; stroke: none; }
+  #shitu .node:hover .card-face { fill: #fffefb; stroke: var(--line-strong); stroke-width: 1; }
+  #shitu .node:hover .card-name { fill: var(--crimson-dark); }
+  #shitu .node:focus-visible { outline: 2px solid #c9a227; outline-offset: 2px; }
+  #shitu .node:hover .toggle .fold-label { fill: var(--crimson); }
+  /* 选中态：点了哪张卡，图上要看得出来。 */
+  #shitu .node.selected .card-face { fill: #fffefb; stroke: var(--crimson); stroke-width: 1.4; }
+  #shitu .node.selected .card-name { fill: var(--crimson-dark); }
+  /* 轮廓模式：缩到 30% 以下时隐藏文字，只留色块与连线，避免糊成噪点 */
+  #shitu.overview .card-name,
+  #shitu.overview .card-sub,
+  #shitu.overview .fold-label,
+  #shitu.overview .toggle { display: none; }
+  #shitu.overview .card-face { fill: #d9dbd5; stroke: none; opacity: .75; }
+  #shitu.overview .node[data-kind="master"] .card-face { fill: #c9a227; opacity: .8; }
+  #shitu.overview .node[data-kind="external"] .card-face { fill: #c7cac2; opacity: .6; }
+  .band-label {
+    font-family: var(--f-sans); font-size: 10.5px; fill: var(--muted); letter-spacing: 1px;
+    /* 纸色描边做光晕：年代标签压在卡片/连线上时仍然可读 */
+    paint-order: stroke; stroke: #f7f8f5; stroke-width: 3px; stroke-linejoin: round;
+  }
+  body.dark #shitu.overview .card-face { fill: #3a3d35; }
+  body.dark #shitu.overview .node[data-kind="master"] .card-face { fill: #8a6d3b; }
+  @media (max-width: 1020px) {
+    .graph-layout { grid-template-columns: 1fr; }
+    .side-panel { position: static; }
+    #stage { height: 62vh; min-height: 460px; }
+    .stage-legend { display: none; }
+    .stage-minimap { display: none; }
+    /* 窄屏：操作提示与更新条会互相压盖，直接让位给图本身 */
+    .stage-hint, .notice-bar { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <div class="page-head">
+    <h2 class="page-title">师承世表</h2>
+    <span class="lead" id="lead"></span>
+  </div>
+
+  <div class="page-tools">
+    <div class="search-wrap">
+      <input type="text" id="q" placeholder="找学者：输入姓名定位（按 / 快速聚焦）" autocomplete="off">
+      <div class="search-pop" id="search-pop"></div>
+    </div>
+    <span class="tool-sep"></span>
+    <button class="mini-btn" id="btn-fullheight" title="把视野缩到正好看到全部年代带">看全高</button>
+    <button class="mini-btn" id="btn-fit" title="缩到能看见整张图">看全貌</button>
+    <button class="mini-btn" id="btn-collapse" title="收起所有已展开的门下">全部收起</button>
+    <span class="tool-sep"></span>
+    <button class="mini-btn primary" id="btn-path">查师承路径</button>
+    <button class="mini-btn" id="btn-zhanghuang" title="一键追 章太炎 → 黄侃 → 陆宗达 → 王宁，看每一代靠什么传下去">章黄一脉</button>
+    <button class="mini-btn" id="btn-tour">操作引导</button>
+    <button class="mini-btn" id="btn-theme">☾ 夜间</button>
+    <span class="tool-sep"></span>
+    <label class="switch"><input type="checkbox" id="show-colleague"> 叠加同事关系</label>
+    <label class="switch"><input type="checkbox" id="only-direct"> 仅直接证据</label>
+  </div>
+
+  <!-- 师承路径查询：任选两人，高亮他们之间最短的师承链 -->
+  <div class="path-bar" id="path-bar" style="display:none">
+    <span class="pb-label">师承路径</span>
+    <input type="text" id="path-a" placeholder="起点（如 王宁）" autocomplete="off" list="path-names">
+    <span class="pb-arrow">⟶</span>
+    <input type="text" id="path-b" placeholder="终点（如 白如）" autocomplete="off" list="path-names">
+    <datalist id="path-names"></datalist>
+    <button class="mini-btn" id="path-go">查</button>
+    <button class="mini-btn" id="path-clear">清除</button>
+    <span class="pb-result" id="path-result"></span>
+  </div>
+
+  <div class="graph-layout">
+    <div id="stage" role="img" aria-label="师承世表图谱">
+      <svg id="shitu" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="stage-hint">拖拽平移 · 滚轮或双指缩放 · 点姓名看师承与出处</div>
+      <div class="stage-legend" id="stage-legend"></div>
+      <div class="tour-card" id="tour-card">
+        <div class="tour-step">1 / 3</div>
+        <div class="tour-title">把图谱挪一挪</div>
+        <div class="tour-text">按住空白处拖拽，或用滚轮缩放。</div>
+        <button class="mini-btn" id="tour-next">下一步</button>
+        <button class="tour-skip" id="tour-skip">跳过引导</button>
+      </div>
+      <div class="stage-minimap" id="minimap" title="小地图：点击跳转"></div>
+      <div class="notice-bar" id="notice-bar">
+        <span>更新：新增搜索候选、暗色主题、小地图导航</span>
+        <button id="notice-close" aria-label="关闭">×</button>
+      </div>
+      <div class="stage-zoom">
+        <button id="zoom-out" title="缩小" aria-label="缩小">－</button>
+        <span class="pct" id="zoom-pct">100%</span>
+        <button id="zoom-in" title="放大" aria-label="放大">＋</button>
+      </div>
+    </div>
+    <aside class="side-panel">
+      <div class="side-card" id="info-card">
+        <h3>节点信息</h3>
+        <p class="empty">点击世表中的姓名卡片，这里会显示该学者的受业师与门下，每条附原文证据与来源链接。</p>
+      </div>
+      <div class="side-card" id="family-card">
+        <h3>主要家族</h3>
+        <p class="empty" style="margin-bottom:8px">门下三人以上的导师，点击在图中单独高亮其谱系。</p>
+        <div class="family-chips" id="family-chips"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.LINEAGE_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("lineage.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer({
+    scholars: new Array(data.stats.totalScholars || 0).fill({ demo: false })
+  });
+  const esc = BNU.esc;
+  const SVGNS = "http://www.w3.org/2000/svg";
+  const nodeById = {};
+  data.nodes.forEach(n => { nodeById[n.id] = n; });
+
+  /* ================= 关系线型与颜色 ================= */
+  const REL_STYLE = {
+    "博士":        { dash: null,      w: 1.1, color: "#c92820", label: "博士" },
+    "硕士":        { dash: null,      w: 1.0, color: "#1f8a66", label: "硕士" },
+    "博士后":      { dash: null,      w: 1.0, color: "#2f6fb0", label: "博士后" },
+    "受业":        { dash: "6,3",     w: 1.0, color: "#8a6d3b", label: "受业" },
+    "就学期间受教": { dash: "3,3",     w: 1.0, color: "#8a6d3b", label: "就学受教" },
+    "问学":        { dash: "1,3",     w: 1.2, color: "#4f7a80", label: "问学" },
+    "硕士、博士":   { dash: null,      w: 1.0, color: "#c92820", label: "硕博同门" },
+    "研究生":      { dash: null,      w: 1.0, color: "#c92820", label: "研究生" },
+  };
+  function relStyle(type) {
+    if (REL_STYLE[type]) return REL_STYLE[type];
+    for (const k of Object.keys(REL_STYLE)) {
+      if (type.indexOf(k) === 0) return REL_STYLE[k];
+    }
+    return { dash: null, w: 1.2, color: "#857f77", label: type.slice(0, 5) };
+  }
+  const relTypes = [...new Set(data.edges.map(e => e.type))].sort((a, b) => a.localeCompare(b, "zh"));
+  const relHidden = {};
+
+  const ORG_STATUS = {
+    scholar:  { color: "#c92820", hollow: false, label: "本校任职" },
+    master:   { color: "#b08d3f", hollow: false, label: "先贤（曾执教本校）" },
+    external: { color: "#9aa0a6", hollow: true,  label: "他处任职 / 外源" },
+  };
+
+  /* ================= 顶部一句话 ================= */
+  const directEdges = data.edges.filter(e => e.strength === "直接").length;
+  document.getElementById("lead").textContent =
+    data.stats.edges + " 条师承关系 · " + data.stats.scholarNodes + " 位本库学者 · " +
+    data.stats.masterNodes + " 位先贤 · " + data.stats.externalNodes + " 位外源导师 · " +
+    directEdges + " 条直接证据 · " + data.stats.colleagueEdges + " 条同事关系（可叠加）";
+
+  /* ================= 布局（仿 mulu：折叠 + 树形分层 + 直角连线） =================
+     核心规则：只有「自己也带学生」的学者才展开为姓名卡片；
+     纯学生折叠成导师卡片下方的圆点阵（门下 N），不画连线——图面因此稀疏清晰。 */
+  const q = document.getElementById("q");
+  const onlyDirect = document.getElementById("only-direct");
+  const showColleague = document.getElementById("show-colleague");
+  let familyMentor = null;
+
+  function visibleEdge(e) {
+    if (relHidden[e.type]) return false;
+    if (onlyDirect.checked && e.strength !== "直接") return false;
+    if (familyMentor && e.mentor !== familyMentor && e.student !== familyMentor) return false;
+    return true;
+  }
+
+  const childrenOf = {}, mentorsOf = {};
+  data.nodes.forEach(n => { childrenOf[n.id] = []; mentorsOf[n.id] = []; });
+  data.edges.forEach(e => {
+    if (nodeById[e.student] && nodeById[e.mentor]) {
+      childrenOf[e.mentor].push(e.student);
+      mentorsOf[e.student].push(e.mentor);
+    }
+  });
+
+  // 卡片集合（动态）：有门下的（导师）或无导师的（谱系根）为基础卡片；
+  // 点击导师可将其折叠的门下学生「展开弹出」为卡片（仿 mulu 交互）
+  const expanded = new Set();   // 已展开门下的导师 id
+  let effCard = {};             // 当前生效的卡片集合（随展开状态重算）
+  let popIds = new Set();       // 本次展开新增的卡片（播放入场动画）
+  const nodeEl = {};            // id -> 卡片 <g>，路径高亮时用
+  let pathIds = new Set();      // 当前高亮的路径节点
+  let selectedId = null;        // 当前选中的卡片（render 里用来画金色外框，必须在使用前声明）
+
+  let cards = [];
+  const X = {}, Y = {};
+  const CW = 34, GAP = 14, SLOT = CW + GAP;
+  const BAND_BASE = 1975, BAND_STEP = 5, BAND_H = 150;
+  const layout = { contentW: 0, contentH: 0 };
+  let mainParentMap = {};   // 主父映射：多导师的学生只挂一个主父（其余为次父边，弱化显示）
+
+  // 重算布局（展开/收起后调用）——森林布局：每棵家族树独立排布、树间留隙，
+  // 同一导师的学生紧贴其下，不同家族不穿插（仿 mulu 的清晰结构）
+  function relayout() {
+    effCard = {};
+    data.nodes.forEach(n => { effCard[n.id] = n.asMentor > 0 || mentorsOf[n.id].length === 0; });
+    expanded.forEach(tid => childrenOf[tid].forEach(s => { effCard[s] = true; }));
+
+    // 主父：多导师学生的归属树（取其导师列表中的第一个）
+    mainParentMap = {};
+    data.nodes.forEach(n => {
+      if (!effCard[n.id]) return;
+      const ps = mentorsOf[n.id].filter(m => effCard[m]);
+      mainParentMap[n.id] = ps.length ? ps[0] : null;
+    });
+    // 防环：沿主父链检测，成环则断开为根
+    data.nodes.forEach(n => {
+      if (!effCard[n.id]) return;
+      const seen = new Set([n.id]);
+      let p = mainParentMap[n.id];
+      while (p != null) {
+        if (seen.has(p)) { mainParentMap[n.id] = null; break; }
+        seen.add(p);
+        p = mainParentMap[p];
+      }
+    });
+    const childrenMain = {};
+    cards = data.nodes.filter(n => effCard[n.id]);
+    cards.forEach(n => {
+      const p = mainParentMap[n.id];
+      if (p == null) return;
+      (childrenMain[p] = childrenMain[p] || []).push(n.id);
+    });
+
+    // ===== 布局（mulu 结构三合一）=====
+    // 纵轴 = 年代带（自适应 5 年分带，年份待补置顶）；横轴 = 家族树展开；
+    // 树（家族块）按其最早成员年份从左到右定位——年代骨架 + 家族聚簇。
+    for (const k in X) delete X[k];
+    for (const k in Y) delete Y[k];
+    function bandOf(n) {
+      if (!n.year) return -1;   // 年份待补带置顶（仿 mulu）
+      return Math.floor((n.year - BAND_BASE) / BAND_STEP);
+    }
+    const bks = [...new Set(cards.map(bandOf))].sort((a, b) => a - b);
+    const bandIdx = {};
+    bks.forEach((k, i) => { bandIdx[k] = i; });
+    layout.bands = bks;
+
+    // 递归子树布局：返回 {width, minYear, place(baseX)}；父居中于学生卡片
+    function layoutSub(id) {
+      const kids = childrenMain[id] || [];
+      const subs = kids.map(layoutSub);
+      let w = 0;
+      const offs = subs.map(sub => { const o = w; w += sub.width + GAP; return o; });
+      if (subs.length) w -= GAP;
+      w = Math.max(w, CW);
+      const cx = subs.length
+        ? (offs[0] + offs[offs.length - 1] + CW) / 2 - CW / 2
+        : (w - CW) / 2;
+      const selfYear = nodeById[id].year || 9999;
+      const minYear = subs.length ? Math.min(selfYear, ...subs.map(s => s.minYear)) : selfYear;
+      return {
+        width: w, minYear,
+        place(bx) {
+          X[id] = bx + cx;
+          Y[id] = bandIdx[bandOf(nodeById[id])] * BAND_H;
+          subs.forEach((sub, i) => sub.place(bx + offs[i]));
+        },
+      };
+    }
+    // 家族树（根）按其最早成员年份排序——年代越早越靠左（mulu 的 block 定位规则）
+    const roots = cards.filter(c => mainParentMap[c.id] == null)
+      .sort((a, b) => (bandOf(a) - bandOf(b)) || a.name.localeCompare(b.name, "zh"));
+    // 左侧留出年代标尺的空白，避免年代标签压在卡片姓名上
+    let bx = 84;
+    roots.forEach(r => {
+      const t = layoutSub(r.id);
+      t.place(bx);
+      bx += t.width + GAP * 3;   // 家族树之间留大间隙
+    });
+
+    // 代际修正：父子同带（或倒挂）时父上移一带——否则父居中于唯一孩子会完全重合
+    let minY = Infinity;
+    function fixY(id) {
+      const kids = childrenMain[id] || [];
+      kids.forEach(fixY);
+      if (kids.length) {
+        const minKidY = Math.min(...kids.map(k => Y[k]));
+        if (Y[id] >= minKidY) Y[id] = minKidY - BAND_H;
+      }
+      minY = Math.min(minY, Y[id]);
+    }
+    roots.forEach(r => fixY(r.id));
+    if (minY < 0) {   // 上移产生负 y：整体下移，保持画布内
+      const shift = -minY;
+      Object.keys(Y).forEach(k => { Y[k] += shift; });
+    }
+
+    layout.contentW = bx + 60;
+    layout.contentH = (Math.max(...Object.values(Y), 0) + 180);
+  }
+
+  // 展开/收起某导师的门下（点击卡片触发）
+  function toggleExpand(tid) {
+    setTimeout(saveState, 0);
+    popIds = new Set();
+    if (!expanded.has(tid)) {
+      expanded.add(tid);
+      childrenOf[tid].forEach(s => { if (!effCard[s]) popIds.add(s); });
+    } else {
+      expanded.delete(tid);
+    }
+    relayout();
+    render();
+  }
+
+
+  function cardX(n) { return X[n.id] || 0; }
+  function cardY(n) { return Y[n.id] || 0; }
+  // 显示名：去掉括注并最多 4 字（避免长名字撑破年代带）
+  function dispName(n) {
+    return n.name.split("（")[0].slice(0, 4);
+  }
+  // 卡片高度 = 顶部留白 26 + 名字行数 × 16 + 年份区 12（原公式漏算字号高度，导致末字压年份）
+  function nameH(n) { return 26 + 16 * dispName(n).length + 12; }
+
+  /* ================= 视图 ================= */
+  const svg = document.getElementById("shitu");
+  const stage = document.getElementById("stage");
+  const view = { x: 0, y: 0, k: 1 };
+  let gRoot = null;
+
+  function applyView() {
+    if (gRoot) gRoot.setAttribute("transform", "translate(" + view.x + "," + view.y + ") scale(" + view.k + ")");
+    // 缩得太小时文字变成噪点，切「轮廓模式」：只留色块与线，不画字
+    const ov = view.k < 0.30;
+    const svg = document.getElementById("shitu");
+    if (svg) svg.classList.toggle("overview", ov);
+    document.getElementById("zoom-pct").textContent = Math.round(view.k * 100) + "%";
+    if (typeof drawMinimap === "function" && gRoot) drawMinimap();
+    if (typeof saveState === "function") saveState();
+  }
+  // 看全高：k 取「视口高 / 内容高」，横向仍可拖，但所有年代带都在视野内
+  function fitFullHeight() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    view.k = Math.max(0.18, Math.min(1.1, h / layout.contentH * 0.96));
+    view.x = 30;
+    view.y = Math.max(8, (h - layout.contentH * view.k) / 2);
+    applyView();
+  }
+  function fitView() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    view.k = Math.min(1.1, Math.min(w / layout.contentW, h / layout.contentH) * 0.94);
+    view.x = Math.max(10, (w - layout.contentW * view.k) / 2);
+    view.y = Math.max(10, (h - layout.contentH * view.k) / 2);
+    applyView();
+  }
+  // 默认视图：接近 100%（卡片清晰可读），锚定到最早有人物的年代带；靠拖拽/小地图浏览长卷
+  function fitHeight() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    // 窄屏（手机/半屏）按 0.95 只看得见两三张卡，按视口宽度降档
+    view.k = w < 560 ? 0.62 : (w < 900 ? 0.78 : 0.95);
+    const roots = data.nodes.filter(n => effCard[n.id] && mainParentMap[n.id] == null && X[n.id] != null)
+      .sort((a, b) => X[a.id] - X[b.id]);
+    const anchor = roots[0] || data.nodes.find(n => effCard[n.id] && X[n.id] != null);
+    if (anchor) {
+      view.x = Math.min(40, w / 2 - (X[anchor.id] + CW / 2) * view.k);
+    } else {
+      view.x = 40;
+    }
+    // 纵向不要锚在 1920 那种空年代带上：把「当前横向窗口里最靠上的一张卡」顶到视口上方 40px，
+    // 首屏直接看到人和线，而不是半屏空白（空带仍可通过拖拽/看全高回看）
+    const x0 = (0 - view.x) / view.k, x1 = (w - view.x) / view.k;
+    const ys = data.nodes
+      .filter(n => effCard[n.id] && Y[n.id] != null && X[n.id] >= x0 - 60 && X[n.id] <= x1)
+      .map(n => Y[n.id]);
+    view.y = ys.length ? 40 - Math.min(...ys) * view.k : 30;
+    applyView();
+  }
+  function zoomAt(cx, cy, factor) {
+    const k2 = Math.min(3, Math.max(0.12, view.k * factor));
+    const r = stage.getBoundingClientRect();
+    const mx = cx - r.left, my = cy - r.top;
+    view.x = mx - (mx - view.x) * (k2 / view.k);
+    view.y = my - (my - view.y) * (k2 / view.k);
+    view.k = k2;
+    applyView();
+  }
+  stage.addEventListener("wheel", e => {
+    e.preventDefault();
+    zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 0.89);
+  }, { passive: false });
+  let drag = null;
+  // 触摸/鼠标统一用 Pointer Events：单指拖拽平移，双指捏合缩放
+  const pointers = new Map();
+  let pinch = null;
+  stage.addEventListener("pointerdown", e => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {            // 第二根手指落下 → 进入捏合
+      const [a, b] = [...pointers.values()];
+      pinch = {
+        dist: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        k: view.k, vx: view.x, vy: view.y,
+        cx: (a.x + b.x) / 2, cy: (a.y + b.y) / 2,
+      };
+      drag = null;
+      stage.classList.remove("dragging");
+      return;
+    }
+    if (e.target.closest(".node")) return;
+    if (e.target.closest("button")) return;
+    if (e.target.closest(".stage-legend")) return;
+    drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
+    stage.classList.add("dragging");
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener("pointermove", e => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2 && pinch) {   // 捏合缩放：以两指中点为锚
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2;
+      const nextK = Math.max(0.05, Math.min(2.6, pinch.k * (d / pinch.dist)));
+      const s2 = nextK / pinch.k;
+      view.k = nextK;
+      view.x = cx - (cx - pinch.vx) * s2;
+      view.y = cy - (cy - pinch.vy) * s2;
+      applyView();
+      return;
+    }
+    if (!drag) return;
+    view.x = drag.vx + (e.clientX - drag.x);
+    view.y = drag.vy + (e.clientY - drag.y);
+    applyView();
+  });
+  const endPointer = e => {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    drag = null;
+    stage.classList.remove("dragging");
+  };
+  stage.addEventListener("pointerup", endPointer);
+  stage.addEventListener("pointercancel", endPointer);
+  stage.addEventListener("pointerleave", e => { if (e.pointerType === "touch") endPointer(e); });
+
+  /* ================= 渲染 ================= */
+  function isExtNode(n) { return n.kind === "external"; }
+  function el(tag, attrs, parent) {
+    const e = document.createElementNS(SVGNS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  function render() {
+    svg.innerHTML = "";
+    svg.setAttribute("width", stage.clientWidth);
+    svg.setAttribute("height", stage.clientHeight);
+    gRoot = el("g", {}, svg);
+    const gBands = el("g", {}, gRoot), gColleague = el("g", {}, gRoot),
+          gEdges = el("g", {}, gRoot), gNodes = el("g", {}, gRoot);
+
+    // 年代带背景（隔带底纹）+ 左侧年代标签（mulu 的年代骨架）
+    layout.bands.forEach((k, i) => {
+      const y = i * BAND_H;
+      if (i % 2 === 0) {
+        el("rect", { x: 0, y: y - 14, width: layout.contentW, height: BAND_H - 6, fill: "rgba(23,25,22,.022)", "class": "band-bg" }, gBands);
+      }
+      el("line", { x1: 0, y1: y - 14, x2: layout.contentW, y2: y - 14, stroke: "#dcded7", "stroke-width": 0.8 }, gBands);
+      // 标签放在左侧留白里：x < 84，与卡片列完全错开
+      const lt = el("text", { x: 10, y: y + 26, "class": "band-label" }, gBands);
+      lt.textContent = k === -1 ? "年份待补" : (BAND_BASE + k * BAND_STEP) + "—" + (BAND_BASE + k * BAND_STEP + BAND_STEP - 1);
+    });
+
+    // 同事关系（可选叠加：浅灰细线最底层）
+    if (showColleague.checked) {
+      (data.colleagueEdges || []).forEach(ce => {
+        const a = nodeById[ce.a], b = nodeById[ce.b];
+        if (!a || !b || !effCard[a.id] || !effCard[b.id]) return;
+        if (familyMentor && ce.a !== familyMentor && ce.b !== familyMentor) return;
+        const ax = cardX(a) + CW / 2, ay = cardY(a) + nameH(a) / 2;
+        const bx = cardX(b) + CW / 2, by = cardY(b) + nameH(b) / 2;
+        el("line", { x1: ax, y1: ay, x2: bx, y2: by, stroke: "#9aa0a6", "stroke-width": 0.8, opacity: 0.25 }, gColleague);
+      });
+    }
+
+    // 师承连线（mulu 的总线式布线）：导师的垂直干线汇入带间通道，横走后垂下到各学生——
+    // 同一导师的多条边共享干线，视觉上是地铁图而非蜘蛛网
+    const byParent = {};
+    data.edges.forEach(e => {
+      if (!visibleEdge(e)) return;
+      const s = nodeById[e.student], m = nodeById[e.mentor];
+      if (!effCard[s.id] || !effCard[m.id]) return;
+      (byParent[e.mentor] = byParent[e.mentor] || []).push(e);
+    });
+    Object.keys(byParent).forEach(mid => {
+      const m = nodeById[mid];
+      const trunkX = cardX(m) + CW / 2;
+      const yTop = cardY(m) + nameH(m) + (m.asMentor > 0 ? 26 : 0);
+      const segs = byParent[mid].map(e => {
+        const s = nodeById[e.student];
+        return { sx: cardX(s) + CW / 2, sy: cardY(s) - 4, e, s };
+      });
+      const trunkColor = relStyle(segs[0].e.type).color;
+      // 公交式母线：导师下方先拉一条横向总线，每个学生各自从母线垂下。
+      // 以前的「一条干线通到底 + 逐级横走」会让干线穿过同门卡片，看起来像父子链；
+      // 改成并联后，平辈关系一眼可辨（干线的竖段不再经过任何人的卡片）。
+      const busY = yTop + 10;
+      // 母线只连「主父是本导师」的学生；学生的另一个导师（次父）单独走一条淡色通道，
+      // 否则一个次父学生就能把母线拉成横贯全图的线。
+      const mainSegs = segs.filter(g => mainParentMap[g.e.student] === mid);
+      const secSegs = segs.filter(g => mainParentMap[g.e.student] !== mid);
+      const busXs = mainSegs.map(g => g.sx).concat([trunkX]);
+      const busL = Math.min(...busXs), busR = Math.max(...busXs);
+      // 导师 → 母线的短竖线
+      el("line", { x1: trunkX, y1: yTop, x2: trunkX, y2: busY, stroke: trunkColor, "stroke-width": 1, opacity: 0.6 }, gEdges);
+      // 横向母线（只有跨列时才画）
+      if (busR - busL > 0.5) {
+        el("line", { x1: busL, y1: busY, x2: busR, y2: busY, stroke: trunkColor, "stroke-width": 1, opacity: 0.6 }, gEdges);
+      }
+      // 次父通道：比母线低 12px 的独立水平线，虚线 + 更淡
+      const secY = busY + 12;
+      if (secSegs.length) {
+        const secXs = secSegs.map(g => g.sx).concat([trunkX]);
+        el("line", { x1: Math.min(...secXs), y1: secY, x2: Math.max(...secXs), y2: secY,
+                     stroke: "#8a6d3b", "stroke-width": 1, "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
+        el("line", { x1: trunkX, y1: busY, x2: trunkX, y2: secY, stroke: "#8a6d3b", "stroke-width": 1, "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
+      }
+      // 各分支：从母线的学生自己那一列垂下
+      segs.forEach(seg => {
+        const st = relStyle(seg.e.type);
+        const isMain = mainParentMap[seg.e.student] === mid;
+        const op = isMain ? 0.8 : 0.4;
+        const baseY = isMain ? busY : secY;
+        const d = "M " + seg.sx + " " + baseY + " L " + seg.sx + " " + seg.sy;
+        const path = el("path", {
+          d: d, fill: "none", stroke: isExtNode(m) ? "#9aa0a6" : st.color,
+          "stroke-width": st.w, "stroke-dasharray": isExtNode(m) ? "3,3" : (st.dash || "none"),
+          opacity: op, cursor: "pointer",
+        }, gEdges);
+        path.style.pointerEvents = "stroke";
+        // 可见线只有 1.2–1.7px，直接点很难命中；下面垫一条 11px 透明线做热区
+        const hit = el("path", {
+          d: d, fill: "none", stroke: "transparent", "stroke-width": 11,
+          cursor: "pointer", "class": "edge-hit",
+        }, gEdges);
+        hit.style.pointerEvents = "stroke";
+        const onEdgeClick = ev => { ev.stopPropagation(); showEdge(seg.e); };
+        const onEnter = () => path.setAttribute("opacity", 1);
+        const onLeave = () => path.setAttribute("opacity", op);
+        path.addEventListener("click", onEdgeClick);
+        hit.addEventListener("click", onEdgeClick);
+        path.addEventListener("mouseenter", onEnter);
+        hit.addEventListener("mouseenter", onEnter);
+        path.addEventListener("mouseleave", onLeave);
+        hit.addEventListener("mouseleave", onLeave);
+      });
+    });
+
+    // 节点卡片：竖排姓名 + 任职圆点 + 门下圆点阵
+    const kw = q.value.trim();
+    // 家族高亮模式：只画该导师与其学生卡片
+    const cardsToDraw = familyMentor
+      ? cards.filter(c => c.id === familyMentor || childrenOf[familyMentor].indexOf(c.id) >= 0)
+      : cards;
+    cardsToDraw.forEach(n => {
+      const foldedKids = childrenOf[n.id].filter(s => !effCard[s.id]);
+      const x = cardX(n), y = cardY(n), h = nameH(n);
+      const os = ORG_STATUS[n.kind] || ORG_STATUS.external;
+      const g = el("g", { "class": "node" + (popIds.has(n.id) ? " pop" : "") + (pathIds.has(n.id) ? " on-path" : ""), "data-kind": n.kind || "scholar", transform: "translate(" + x + "," + y + ")", cursor: "pointer" }, gNodes);
+      nodeEl[n.id] = g;
+      // 卡片下方「展开/收起」区的高度：弟子少时逐行列姓名，比圆点阵更高
+      const foldRows = foldedKids.length <= 3
+        ? (foldedKids.length ? 16 + foldedKids.length * 12 + 14 : 0)
+        : (foldedKids.length ? (foldedKids.length > 11 ? 36 : 26) : (expanded.has(n.id) && childrenOf[n.id].length ? 26 : 0));
+      el("rect", { x: -6, y: -4, width: CW + 12, height: h + 8 + foldRows, fill: "transparent", "pointer-events": "all" }, g);
+      if (pathIds.has(n.id)) {   // 路径节点：垫一层暖色光晕，缩小时也能一眼找到
+        el("rect", { x: -8, y: -8, width: CW + 16, height: h + 16, rx: 3,
+                     fill: "rgba(201,162,39,.14)", stroke: "#c9a227", "stroke-width": 1 }, g);
+      }
+      el("rect", { x: 0, y: 0, width: CW, height: h, rx: 2, "class": "card-face" }, g);
+      const orgDot = el("circle", { cx: CW / 2 + 1, cy: 5, r: 2, fill: os.hollow ? "var(--paper)" : os.color, stroke: os.color, "stroke-width": 1 }, g);
+      const orgTip = el("title", {}, orgDot);   // 圆点是纯颜色编码，补文字说明（色觉障碍友好）
+      orgTip.textContent = n.kind === "master" ? "先贤（曾执教本校）"
+        : n.kind === "external" ? "外处他任 / 外源（不在本库任职）"
+        : "本校任职";
+      dispName(n).split("").forEach((ch, i) => {
+        const t = el("text", { x: CW / 2 + 1, y: 26 + i * 16, "class": "card-name", "text-anchor": "middle" }, g);
+        t.textContent = ch;
+      });
+      if (n.year) {
+        const yt = el("text", { x: CW / 2 + 1, y: h - 8, "class": "card-sub", "text-anchor": "middle" }, g);
+        yt.textContent = n.year;
+      }
+      // 卡片下方的「展开/收起」独立开关：圆点阵 + 标签，点它才改图结构
+      const tg = el("g", { "class": "toggle", cursor: "pointer" }, g);
+      if (foldedKids.length) {
+        // 弟子少（≤3 人）时直接列出姓名——只画 1~3 个 2px 圆点，用户根本看不出下面有人
+        if (foldedKids.length <= 3) {
+          foldedKids.forEach((sid, i) => {
+            const kid = nodeById[sid];
+            const nm = el("text", {
+              x: CW / 2 + 2, y: h + 16 + i * 12, "class": "fold-name",
+              "text-anchor": "middle",
+              fill: kid.kind === "external" ? "#a9ada4" : "#6d726a",
+            }, tg);
+            nm.textContent = dispName(kid);
+          });
+          const fl0 = el("text", { x: CW / 2 + 2, y: h + 16 + foldedKids.length * 12 + 4,
+                                   "class": "fold-label", "text-anchor": "middle" }, tg);
+          fl0.textContent = "展开 ▾";
+          el("rect", { x: -6, y: h + 2, width: CW + 12, height: 16 + foldedKids.length * 12 + 14,
+                       fill: "transparent", "pointer-events": "all" }, tg);
+        } else {
+          const perRow = 11;
+          foldedKids.slice(0, 22).forEach((sid, i) => {
+            const kid = nodeById[sid];
+            const row = Math.floor(i / perRow), col = i % perRow;
+            const dot = el("circle", {
+              cx: 5 + col * 6.4, cy: h + 8 + row * 8, r: 2.2,
+              fill: kid.kind === "external" ? "#c7cac2" : "#c92820",
+            }, tg);
+            const ttl = el("title", {}, dot);            // 悬停显示折叠的是谁
+            ttl.textContent = kid.name;
+          });
+          const fl = el("text", { x: CW / 2 + 2, y: h + (foldedKids.length > perRow ? 30 : 20), "class": "fold-label", "text-anchor": "middle" }, tg);
+          fl.textContent = "门下 " + n.asMentor + " ▾";
+          el("rect", { x: -6, y: h + 2, width: CW + 12, height: (foldedKids.length > perRow ? 36 : 26), fill: "transparent", "pointer-events": "all" }, tg);
+        }
+      } else if (expanded.has(n.id) && childrenOf[n.id].length) {
+        const fl2 = el("text", { x: CW / 2 + 2, y: h + 20, "class": "fold-label", "text-anchor": "middle" }, tg);
+        fl2.textContent = "收起 ▴";
+        el("rect", { x: -6, y: h + 2, width: CW + 12, height: 26, fill: "transparent", "pointer-events": "all" }, tg);
+      }
+      tg.addEventListener("click", ev => { ev.stopPropagation(); toggleExpand(n.id); });
+      if (kw && n.name.indexOf(kw) >= 0) {
+        // 高亮框要连弟子区一起框住，否则看起来「只高亮了卡片、下面没高亮」
+        el("rect", { x: -4.5, y: -4.5, width: CW + 9, height: h + 9 + foldRows, rx: 3,
+                     fill: "none", stroke: "#c9a227", "stroke-width": 2 }, g);
+      }
+      // 键盘可达：Tab 走到卡片，Enter/Space 等同点击
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", n.name + "，" + (n.kind === "master" ? "先贤" : n.kind === "external" ? "外源导师" : "本库学者") + "，门下 " + n.asMentor + " 人");
+      // 单击卡片 = 只看右侧信息，不动图结构；展开/收起交给下方 tg 开关
+      const activate = () => { showNode(n.id); };
+      g.addEventListener("click", ev => { ev.stopPropagation(); activate(); });
+      g.addEventListener("keydown", ev => {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); activate(); }
+      });
+    });
+
+    // 图例
+    const lg = document.getElementById("stage-legend");
+    const seenLabel = {};
+    const relItems = relTypes.filter(t => {
+      const lab = relStyle(t).label;
+      if (seenLabel[lab]) return false;
+      seenLabel[lab] = t;
+      return true;
+    }).map(t => {
+      const st = relStyle(t);
+      return `<span class="lg-item${relHidden[t] ? " off" : ""}" data-type="${esc(t)}" title="点击隐藏/显示"><span class="ln" style="border-top-color:${st.color};border-top-style:${st.dash ? "dashed" : "solid"};border-top-width:1px"></span>${esc(st.label)}</span>`;
+    }).join("");
+    lg.innerHTML =
+      `<div class="lg-row">${relItems}<span class="lg-item" id="lg-colleague" title="叠加/收起同事关系"><span class="ln" style="border-top-color:#9aa0a6;border-top-width:1px"></span>同事</span></div>` +
+      `<div class="lg-row">` +
+      Object.values(ORG_STATUS).map(o =>
+        `<span><span class="dot" style="background:${o.hollow ? "#fbfaf7" : o.color};border:1.5px solid ${o.color}"></span>${esc(o.label)}</span>`).join("") +
+      `<span style="color:#a39a8c">｜ 名片下方圆点＝折叠的门下学生</span></div>`;
+    lg.querySelectorAll(".lg-item[data-type]").forEach(item => {
+      item.addEventListener("click", () => {
+        const t = item.dataset.type;
+        relHidden[t] = !relHidden[t];
+        render();
+      });
+    });
+    const lgCol = document.getElementById("lg-colleague");
+    if (lgCol) {
+      lgCol.classList.toggle("off", !showColleague.checked);
+      lgCol.addEventListener("click", () => {
+        showColleague.checked = !showColleague.checked;
+        render();
+      });
+    }
+
+    // 搜索定位：命中后视图飞到第一个命中卡片
+    if (kw) {
+      const first = data.nodes.find(n => effCard[n.id] && n.name.indexOf(kw) >= 0 && X[n.id] != null);
+      if (first) {
+        const w = stage.clientWidth, h = stage.clientHeight;
+        view.x = w / 2 - (X[first.id] + CW / 2) * view.k;
+        view.y = h / 2 - (Y[first.id] + 20) * view.k;
+      }
+    }
+    applyView();
+    drawMinimap();
+  }
+
+  // 小地图：全部卡片的微缩点阵 + 当前视口框（仿 mulu）
+  function drawMinimap() {
+    const mm = document.getElementById("minimap");
+    if (!mm) return;
+    const MW = 182, MH = 68;
+    mm.innerHTML = "";
+    const sx = MW / (layout.contentW || 1), sy = MH / (layout.contentH || 1);
+    const sc = Math.min(sx, sy);
+    const ox = (MW - layout.contentW * sc) / 2, oy = (MH - layout.contentH * sc) / 2;
+    const msvg = document.createElementNS(SVGNS, "svg");
+    msvg.setAttribute("width", MW); msvg.setAttribute("height", MH);
+    mm.appendChild(msvg);
+    data.nodes.forEach(n => {
+      if (!effCard[n.id] || X[n.id] == null) return;
+      const c = document.createElementNS(SVGNS, "circle");
+      const r = n.asMentor >= 3 ? 2 : 1.2;
+      c.setAttribute("cx", ox + (X[n.id] + CW / 2) * sc);
+      c.setAttribute("cy", oy + (Y[n.id] + 15) * sc);
+      c.setAttribute("r", r);
+      c.setAttribute("fill", n.kind === "master" ? "#b08d3f" : (n.kind === "external" ? "#9aa0a6" : "#c92820"));
+      msvg.appendChild(c);
+    });
+    // 视口框
+    const w = stage.clientWidth, h = stage.clientHeight;
+    const vx = (-view.x) / view.k * sc + ox, vy = (-view.y) / view.k * sc + oy;
+    const vw = w / view.k * sc, vh = h / view.k * sc;
+    const rect = document.createElementNS(SVGNS, "rect");
+    rect.setAttribute("x", Math.max(0, vx)); rect.setAttribute("y", Math.max(0, vy));
+    rect.setAttribute("width", Math.min(vw, MW)); rect.setAttribute("height", Math.min(vh, MH));
+    rect.setAttribute("fill", "rgba(201,40,32,.06)"); rect.setAttribute("stroke", "#c92820"); rect.setAttribute("stroke-width", 1);
+    msvg.appendChild(rect);
+    mm.onclick = ev => {
+      const r = mm.getBoundingClientRect();
+      const cx = (ev.clientX - r.left - ox) / sc, cy = (ev.clientY - r.top - oy) / sc;
+      view.x = stage.clientWidth / 2 - cx * view.k;
+      view.y = stage.clientHeight / 2 - cy * view.k;
+      applyView();
+    };
+  }
+
+  /* ================= 侧栏 ================= */
+  const infoCard = document.getElementById("info-card");
+
+  function evidenceHtml(list) {
+    if (!list || !list.length) return '<div class="ri-ev">无来源信息</div>';
+    return list.slice(0, 4).map(ev => {
+      const link = ev.url ? `<br/><a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.url.length > 56 ? ev.url.slice(0, 56) + "…" : ev.url)}</a>` : "";
+      return `<div class="ri-ev">${esc(ev.text || "")}${link}</div>`;
+    }).join("");
+  }
+  function relBadge(type, strength) {
+    const w = strength === "直接" ? "" : `<span class="ri-weak">${esc(strength)}</span>`;
+    return `<span class="ri-type">${esc(type)}</span>${w}`;
+  }
+  function channelHtml(e) {
+    if (!e.channel) return "";
+    return `<div class="ri-channel"><b>传承载体</b>${esc(e.channel)}</div>`;
+  }
+  function relRows(edges, side) {
+    return edges.map(e => {
+      const other = nodeById[side === "student" ? e.mentor : e.student];
+      return `<div class="rel-item"><div class="ri-head"><span class="ri-name">${esc(other.name)}</span>${relBadge(e.type, e.strength)}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + "</span>" : ""}</div>${channelHtml(e)}${evidenceHtml(e.evidence)}</div>`;
+    }).join("");
+  }
+  function markSelected(id) {
+    if (selectedId && nodeEl[selectedId]) nodeEl[selectedId].classList.remove("selected");
+    selectedId = id;
+    if (id && nodeEl[id]) nodeEl[id].classList.add("selected");
+  }
+
+  function showNode(id) {
+    const n = nodeById[id];
+    if (!n) return;
+    markSelected(id);
+    // 地址栏同步当前选中的人，方便复制链接分享（replaceState 不污染后退历史）
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set("id", id);
+      history.replaceState(null, "", u);
+    } catch (e) { /* file:// 下可能受限，忽略 */ }
+    const color = n.kind === "master" ? "#b08d3f" : (n.kind === "external" ? "#9aa0a6" : BNU.disciplineColor(n.discipline));
+    const kindLabel = n.kind === "master" ? "先贤" : (n.kind === "external" ? "外源导师" : "本库学者");
+    const meta = [n.title, n.org, n.discipline].filter(Boolean).map(esc).join(" · ") || "—";
+    const mentors = data.edges.filter(e => e.student === id);
+    const students = data.edges.filter(e => e.mentor === id);
+    const extBlock = n.kind === "external" ? `
+      <div class="ext-note">
+        <b>${esc(n.identity || "身份待考")}</b>${n.bioConfidence && n.bioConfidence !== "无" ? "（来源置信：" + esc(n.bioConfidence) + "）" : ""}
+        ${n.bioSource ? `<br/><a href="${esc(n.bioSource)}" target="_blank" rel="noopener">身份来源</a>` : ""}
+        <br/>该导师为学者库外源人物（据公开文献确认其师承关系，尚未收入学者名录）。
+      </div>` : "";
+    infoCard.setAttribute("data-pinned", "1");
+    infoCard.innerHTML = `
+      <h3>节点信息</h3>
+      <div class="person-head">
+        <div class="avatar" style="background:${color}">${esc(n.name.slice(0, 1))}</div>
+        <div>
+          <div class="nm">${esc(n.name)} <span style="font-size:12px;color:var(--muted)">${esc(kindLabel)}</span></div>
+          <div class="meta">${meta}${n.year ? " · 入谱 " + n.year + " 年" : ""}</div>
+        </div>
+      </div>
+      ${extBlock}
+      <div class="rel-block">
+        <div class="rb-title">受业于（${mentors.length}）</div>
+        ${mentors.length ? relRows(mentors, "student") : '<p class="empty">暂无记载。</p>'}
+      </div>
+      <div class="rel-block">
+        <div class="rb-title">门下（${students.length}）</div>
+        ${students.length ? relRows(students, "mentor") : '<p class="empty">暂无记载。</p>'}
+      </div>
+      ${n.kind === "external" ? "" : `<a href="detail.html?id=${encodeURIComponent(id)}" style="font-size:13px">查看学者详情 →</a>`}`;
+  }
+  function showEdge(e) {
+    markSelected(null);
+    const s = nodeById[e.student], m = nodeById[e.mentor];
+    infoCard.setAttribute("data-pinned", "1");
+    infoCard.innerHTML = `
+      <h3>关系证据</h3>
+      <div class="rel-item">
+        <div class="ri-head"><span class="ri-name">${esc(m.name)} → ${esc(s.name)}</span>${relBadge(e.type, e.strength)}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + " 年</span>" : ""}</div>
+        ${channelHtml(e)}
+        ${evidenceHtml(e.evidence)}
+        <div class="ri-ev" style="color:var(--muted)">来源：${esc((e.sources || []).join("；"))}</div>
+      </div>
+      <p class="empty" style="margin-top:8px">点击姓名卡片可查看该学者的完整师承。</p>`;
+  }
+
+  /* ================= 师承路径查询：任选两人，找最短师承链 ================= */
+  // 把师承看成无向图（可以往上问「我的祖师是谁」，也可以往下问「我的同门在哪」），
+  // 用 BFS 找最短链，再把每一步的方向还原成「师从 / 门下」。
+  function buildAdj() {
+    const adj = {};
+    data.edges.forEach(e => {
+      (adj[e.student] = adj[e.student] || []).push({ id: e.mentor, e });
+      (adj[e.mentor] = adj[e.mentor] || []).push({ id: e.student, e });
+    });
+    return adj;
+  }
+  function findChain(aId, bId) {
+    if (aId === bId) return [{ id: aId }];
+    const adj = buildAdj();
+    const prev = {}; prev[aId] = null;
+    const q = [aId];
+    while (q.length) {
+      const cur = q.shift();
+      if (cur === bId) break;
+      for (const nb of (adj[cur] || [])) {
+        if (prev[nb.id] !== undefined) continue;
+        prev[nb.id] = { from: cur, edge: nb.e };
+        q.push(nb.id);
+      }
+    }
+    if (prev[bId] === undefined) return null;
+    const chain = [];
+    let cur = bId;
+    while (cur !== aId) {
+      const pv = prev[cur];
+      chain.unshift({ id: cur, from: pv.from, edge: pv.edge });
+      cur = pv.from;
+    }
+    chain.unshift({ id: aId });
+    return chain;
+  }
+  function nameOf_(id) { const n = nodeById[id]; return n ? n.name : id; }
+
+  function runPath() {
+    const a = document.getElementById("path-a").value.trim();
+    const b = document.getElementById("path-b").value.trim();
+    const out = document.getElementById("path-result");
+    if (!a || !b) { out.innerHTML = '<span style="color:var(--muted)">请填两个名字</span>'; return; }
+    const aId = (findName(a) || {}).id, bId = (findName(b) || {}).id;
+    if (!aId || !bId) {
+      const bad = !aId ? a : b;
+      out.innerHTML = `<span style="color:#B23A2B">「${esc(bad)}」不在谱系图中</span>`
+        + '<span style="color:var(--muted);font-size:12px">——先贤中无师承记录者（如鲁迅、沈从文）不入图，可到「先贤名师」页查看</span>';
+      return;
+    }
+    const chain = findChain(aId, bId);
+    clearPath(false);
+    if (!chain) {
+      out.innerHTML = '<span style="color:#B23A2B">两人在本图中不连通</span>';
+      return;
+    }
+    if (chain.length === 1) { out.innerHTML = '<span style="color:var(--muted)">是同一人</span>'; return; }
+    // 高亮：路径上若有人被折叠成圆点，就把他整条祖先链逐层展开，直到显示为卡片
+    pathIds = new Set(chain.map(x => x.id));
+    const toExpand = new Set();
+    const walkUp = (id, seen) => {
+      data.edges.filter(e => e.student === id).forEach(e => {
+        if (seen.has(e.mentor)) return;
+        seen.add(e.mentor);
+        toExpand.add(e.mentor);
+        walkUp(e.mentor, seen);          // 父节点本身可能也被折叠，继续往上
+      });
+    };
+    chain.forEach(st => { if (!effCard[st.id]) walkUp(st.id, new Set()); });
+    toExpand.forEach(id => expanded.add(id));
+    if (toExpand.size) {
+      relayout(); render();              // render 时按 pathIds 打上 on-path
+    } else {
+      Object.values(nodeEl).forEach(g => g.classList.remove("on-path"));
+      pathIds.forEach(id => { if (nodeEl[id]) nodeEl[id].classList.add("on-path"); });
+    }
+    document.getElementById("shitu").classList.add("path-mode");
+    let html = "";
+    chain.forEach((step, i) => {
+      if (i > 0) {
+        const e = step.edge, fromId = step.from;
+        const isMentor = e.mentor === fromId;             // 上一步的人是不是导师
+        const dir = isMentor ? "门下" : "师从";
+        const yr = e.year ? " · " + e.year : "";
+        const ch = e.channel ? `｜${esc(e.channel)}` : "";
+        html += `<span class="hop">──${dir}（${esc(e.type)}${yr}${ch}）──▶</span>`;
+      }
+      html += `<b>${esc(nameOf_(step.id))}</b>`;
+    });
+    html += ` <span style="color:var(--muted);font-size:12px">（${chain.length - 1} 步）</span>`;
+    out.innerHTML = html;
+    fitToPath(chain);
+  }
+  // 视野框住整条路径（路径常横跨多个年代带，单点 flyTo 会看不全）
+  function fitToPath(chain) {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    const xs = [], ys = [];
+    chain.forEach(st => {
+      if (X[st.id] != null) xs.push(X[st.id]);
+      if (Y[st.id] != null) ys.push(Y[st.id]);
+    });
+    if (!xs.length || !ys.length) return;
+    const padX = 70, padTop = 80, padBottom = 130;
+    const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + CW + padX;
+    const minY = Math.min(...ys) - padTop, maxY = Math.max(...ys) + padBottom;
+    const kFit = Math.min(w / (maxX - minX), h / (maxY - minY)) * 0.92;
+    view.k = Math.max(0.30, Math.min(1.05, kFit));
+    view.x = w / 2 - (minX + maxX) / 2 * view.k;
+    view.y = h / 2 - (minY + maxY) / 2 * view.k;
+    applyView();
+  }
+
+  function clearPath(clearInputs = true) {
+    pathIds = new Set();
+    Object.values(nodeEl).forEach(g => g.classList.remove("on-path"));
+    document.getElementById("shitu").classList.remove("path-mode");
+    if (clearInputs) {
+      document.getElementById("path-a").value = "";
+      document.getElementById("path-b").value = "";
+      document.getElementById("path-result").innerHTML = "";
+    }
+  }
+  // 按姓名找人（支持模糊：取最短的完全包含匹配）
+  function findName(kw) {
+    kw = kw.trim();
+    if (!kw) return null;
+    const pool = data.nodes.filter(n => nodeById[n.id]);
+    return pool.find(n => n.name === kw)
+        || pool.filter(n => n.name.indexOf(kw) >= 0).sort((x, y) => x.name.length - y.name.length)[0]
+        || null;
+  }
+
+  /* ================= 搜索候选面板（仿 mulu 的搜索列表：姓名 + 机构/职称/年份） ================= */
+  const searchPop = document.getElementById("search-pop");
+  let popIdx = -1, popHits = [];
+
+  function flyTo(id) {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    // 从「看全貌 / 看全高」状态下搜索时，先恢复到可读缩放，否则飞过去还是一团糊
+    if (view.k < 0.5) view.k = 0.95;
+    view.x = w / 2 - (X[id] + CW / 2) * view.k;
+    view.y = h / 2 - (Y[id] + 20) * view.k;
+    applyView();
+  }
+  function updatePop() {
+    const kw = q.value.trim();
+    if (!kw) { searchPop.style.display = "none"; popHits = []; popIdx = -1; return; }
+    popHits = data.nodes
+      .filter(n => n.name.indexOf(kw) >= 0)
+      .sort((a, b) => (b.asMentor + b.asStudent) - (a.asMentor + a.asStudent))
+      .slice(0, 8);
+    popIdx = popHits.length ? 0 : -1;
+    searchPop.innerHTML = popHits.map((n, i) => {
+      const meta = [n.org, n.title, n.year].filter(Boolean).join(" · ");
+      return `<div class="sp-item${i === popIdx ? " on" : ""}" data-id="${esc(n.id)}">
+        <span class="sp-name">${esc(n.name)}</span>
+        <span class="sp-meta">${esc(meta)}</span>
+      </div>`;
+    }).join("") || '<div class="sp-empty">无匹配（可试「王宁」「钟敬文」）</div>';
+    searchPop.style.display = "block";   // 必须显式赋值：CSS 默认 display:none，置空会回退到 none
+  }
+  function choosePop(i) {
+    const n = popHits[i];
+    if (!n) return;
+    // 纯学生（无门下）默认折叠成圆点，先展开其祖先链，否则飞过去只有个无字圆点
+    if (!effCard[n.id]) {
+      const walkUp = (id, seen) => {
+        data.edges.filter(e => e.student === id).forEach(e => {
+          if (seen.has(e.mentor)) return;
+          seen.add(e.mentor); expanded.add(e.mentor); walkUp(e.mentor, seen);
+        });
+      };
+      walkUp(n.id, new Set());
+      relayout(); render();
+    }
+    flyTo(n.id);
+    showNode(n.id);
+    searchPop.style.display = "none";
+  }
+  searchPop.addEventListener("mousedown", ev => {
+    ev.preventDefault();   // 阻止输入框失焦（否则面板在点击完成前隐藏，选择落空）
+    const item = ev.target.closest(".sp-item");
+    if (!item) return;
+    const idx = [...searchPop.querySelectorAll(".sp-item")].indexOf(item);
+    if (idx >= 0) choosePop(idx);
+  });
+  q.addEventListener("input", updatePop);
+  // 全局快捷键：/ 聚焦搜索框，? 呼出操作引导，Esc 清除（输入框内不拦截）
+  document.addEventListener("keydown", ev => {
+    const t = ev.target;
+    const typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
+    if (typing) return;
+    if (ev.key === "/") { ev.preventDefault(); document.getElementById("q").focus(); }
+    else if (ev.key === "?") { ev.preventDefault(); showTour(); }
+  });
+
+  // Esc：清掉右侧选中 + 搜索候选，回到「未选中」状态
+  const INFO_EMPTY = '<h3>节点信息</h3><p class="empty">点击世表中的姓名卡片，这里会显示该学者的受业师与门下，每条附原文证据与来源链接。</p>';
+  document.addEventListener("keydown", ev => {
+    if (ev.key !== "Escape") return;
+    searchPop.style.display = "none";
+    const ic = document.getElementById("info-card");
+    if (ic && ic.getAttribute("data-pinned")) {
+      ic.innerHTML = INFO_EMPTY;
+      ic.removeAttribute("data-pinned");
+    }
+    markSelected(null);
+    clearPath(true);
+  });
+
+  q.addEventListener("keydown", ev => {
+    if (searchPop.style.display === "none" || !popHits.length) return;
+    if (ev.key === "ArrowDown") { ev.preventDefault(); popIdx = Math.min(popIdx + 1, popHits.length - 1); updatePop(); }
+    else if (ev.key === "ArrowUp") { ev.preventDefault(); popIdx = Math.max(popIdx - 1, 0); updatePop(); }
+    else if (ev.key === "Enter") { ev.preventDefault(); choosePop(popIdx); }
+    else if (ev.key === "Escape") { searchPop.style.display = "none"; }
+  });
+  q.addEventListener("blur", () => setTimeout(() => { searchPop.style.display = "none"; }, 150));
+
+  /* ================= 主题切换（仿 mulu 的日间/夜间） ================= */
+  // ---- 状态持久化：刷新后回到原处（展开集合 + 视野）----
+  const STATE_KEY = "bnu.lineage.state.v1";
+  let saveTimer = null;
+  function saveState() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try {
+        localStorage.setItem(STATE_KEY, JSON.stringify({
+          expanded: [...expanded],
+          view: { x: view.x, y: view.y, k: view.k },
+        }));
+      } catch (e) { /* 隐私模式/配额满时静默失败 */ }
+    }, 200);
+  }
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STATE_KEY);
+      if (!raw) return null;
+      const st = JSON.parse(raw);
+      return st && Array.isArray(st.expanded) ? st : null;
+    } catch (e) { return null; }
+  }
+
+  // 全部收起：展开多了以后回不到初始态，给一个一键复原
+  function collapseAll() {
+    if (!expanded.size) return;
+    expanded.clear();
+    popIds = new Set();
+    relayout();
+    render();
+    fitHeight();
+    saveState();
+  }
+  document.getElementById("btn-collapse").addEventListener("click", collapseAll);
+
+  // ---- 路径查询绑定 ----
+  (function initPathUI() {
+    const bar = document.getElementById("path-bar");
+    const a = document.getElementById("path-a"), b = document.getElementById("path-b");
+    // datalist 候选
+    const dl = document.getElementById("path-names");
+    dl.innerHTML = data.nodes.filter(n => nodeById[n.id])
+      .sort((x, y) => (y.asMentor + y.asStudent) - (x.asMentor + x.asStudent))
+      .slice(0, 400).map(n => `<option value="${esc(n.name)}">`).join("");
+    document.getElementById("btn-path").addEventListener("click", () => {
+      const open = bar.style.display !== "none";
+      bar.style.display = open ? "none" : "flex";
+      if (!open) a.focus();
+    });
+    document.getElementById("path-go").addEventListener("click", runPath);
+    document.getElementById("path-clear").addEventListener("click", () => clearPath(true));
+    // 章黄一脉：一条链看四代，每一跳后面挂的就是「传承载体」
+    document.getElementById("btn-zhanghuang").addEventListener("click", () => {
+      bar.style.display = "flex";
+      a.value = "章太炎"; b.value = "王宁";
+      runPath();
+    });
+    [a, b].forEach(el2 => el2.addEventListener("keydown", ev => {
+      if (ev.key === "Enter") { ev.preventDefault(); runPath(); }
+    }));
+  })();
+
+  const btnTheme = document.getElementById("btn-theme");
+  function applyTheme(dark) {
+    document.body.classList.toggle("dark", dark);
+    btnTheme.textContent = dark ? "☀ 日间" : "☾ 夜间";
+    try { localStorage.setItem("lineage-theme", dark ? "dark" : "light"); } catch (e) {}
+  }
+  let darkMode = false;
+  try { darkMode = localStorage.getItem("lineage-theme") === "dark"; } catch (e) {}
+  applyTheme(darkMode);
+  btnTheme.addEventListener("click", () => { darkMode = !darkMode; applyTheme(darkMode); render(); });
+
+  /* ================= 更新公告 + 操作引导按钮 ================= */
+  const notice = document.getElementById("notice-bar");
+  try { if (!localStorage.getItem("lineage-notice-closed")) notice.style.display = "flex"; } catch (e) { notice.style.display = "flex"; }
+  document.getElementById("notice-close").addEventListener("click", () => {
+    notice.style.display = "none";
+    try { localStorage.setItem("lineage-notice-closed", "1"); } catch (e) {}
+  });
+
+  document.getElementById("btn-tour").addEventListener("click", () => {
+    try { localStorage.removeItem("lineage-tour-done"); } catch (e) {}
+    tourStep = 0;
+    showTour();
+  });
+
+  /* ================= 缩放 / 家族 / 筛选 ================= */
+  document.getElementById("btn-fit").addEventListener("click", fitView);
+  document.getElementById("btn-fullheight").addEventListener("click", fitFullHeight);
+  const zoomBtn = (id, f) => document.getElementById(id).addEventListener("click", () => {
+    const r = stage.getBoundingClientRect();
+    zoomAt(r.left + r.width / 2, r.top + r.height / 2, f);
+  });
+  zoomBtn("zoom-in", 1.25);
+  zoomBtn("zoom-out", 0.8);
+
+  const fam = document.getElementById("family-chips");
+  const topMentors = data.nodes.filter(n => n.asMentor >= 3)
+    .sort((a, b) => b.asMentor - a.asMentor || a.name.localeCompare(b.name, "zh"));
+  fam.innerHTML = topMentors.map(n =>
+    `<button class="fchip${familyMentor === n.id ? " on" : ""}" data-id="${esc(n.id)}">${esc(n.name)} 门下 ${n.asMentor}</button>`).join("") ||
+    '<span style="font-size:12.5px;color:var(--muted)">暂无</span>';
+  document.getElementById("family-card").addEventListener("click", ev => {
+    const btn = ev.target.closest(".fchip");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    familyMentor = familyMentor === id ? null : id;
+    if (familyMentor) expanded.add(id);   // 高亮家族时自动展开其门下
+    relayout();
+    render();
+  });
+
+  [q, onlyDirect, showColleague].forEach(elx => elx.addEventListener("input", render));
+  window.addEventListener("resize", () => { render(); fitView(); });
+
+  // 新手引导（3 步，看过即不再显示）
+  const TOUR = [
+    ["把图谱挪一挪", "按住空白处拖拽，或用滚轮缩放。"],
+    ["点姓名，学生弹出", "点击导师卡片，其门下学生会展开弹出；再点一次收起。每条连线旁可查证据出处。"],
+    ["左下图例可筛选", "点图例中的关系类型可隐藏对应连线；勾选「叠加同事关系」查看同机构学者网络。"],
+  ];
+  let tourStep = 0;
+  const tourCard = document.getElementById("tour-card");
+  function showTour() {
+    if (localStorage.getItem("lineage-tour-done")) { tourCard.style.display = "none"; return; }
+    tourCard.style.display = "";
+    document.getElementById("tour-card").querySelector(".tour-step").textContent = (tourStep + 1) + " / " + TOUR.length;
+    document.querySelector("#tour-card .tour-title").textContent = TOUR[tourStep][0];
+    document.querySelector("#tour-card .tour-text").textContent = TOUR[tourStep][1];
+    document.getElementById("tour-next").textContent = tourStep === TOUR.length - 1 ? "开始探索" : "下一步";
+  }
+  document.getElementById("tour-next").addEventListener("click", () => {
+    tourStep++;
+    if (tourStep >= TOUR.length) { localStorage.setItem("lineage-tour-done", "1"); tourCard.style.display = "none"; }
+    else showTour();
+  });
+  document.getElementById("tour-skip").addEventListener("click", () => {
+    localStorage.setItem("lineage-tour-done", "1");
+    tourCard.style.display = "none";
+  });
+  showTour();
+
+  // 恢复上次的展开集合与视野（深链接优先，见下）
+  const savedState = loadState();
+  const deepId = new URLSearchParams(location.search).get("id");
+  if (savedState && !deepId) {
+    savedState.expanded.forEach(id => { if (nodeById[id]) expanded.add(id); });
+  }
+
+  relayout();
+  render();
+  if (savedState && !deepId && savedState.view && isFinite(savedState.view.k)) {
+    view.k = savedState.view.k; view.x = savedState.view.x; view.y = savedState.view.y;
+    applyView();
+  } else {
+    fitHeight();   // 默认：高度适配的清晰视图，横向拖拽浏览；「看全貌」才缩到全图
+  }
+
+  // 深链接：lineage.html?id=xxx 直接定位该学者（其祖先链自动展开）
+  if (deepId) {
+    const target = nodeById[deepId] ? deepId : (data.nodes.find(n => n.name === deepId) || {}).id;
+    if (target) {
+      const walkUp2 = (id, seen) => {
+        data.edges.filter(e => e.student === id).forEach(e => {
+          if (seen.has(e.mentor)) return;
+          seen.add(e.mentor); expanded.add(e.mentor); walkUp2(e.mentor, seen);
+        });
+      };
+      if (!effCard[target]) { walkUp2(target, new Set()); relayout(); render(); }
+      showNode(target);
+      if (X[target] != null) flyTo(target);
+    }
+  }
+
+  window.__lineage = { data, X, Y, view, layout, effCard, expanded, fitView, fitHeight, relayout, toggleExpand, collapseAll, showNode, markSelected,
+    getSelectedId: () => selectedId };
+})();
+</script>
+</body>
+</html>

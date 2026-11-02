@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据来源 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .src-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 22px 24px; margin-bottom: 12px;
+  }
+  .src-card h3 {
+    margin: 0 0 5px; font-family: var(--f-serif); font-size: 16px; color: var(--ink);
+    letter-spacing: 1.2px; font-weight: 700;
+  }
+  .src-card .chain { font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin: 0 0 12px; }
+  .kv2 { display: grid; grid-template-columns: 96px 1fr; gap: 8px 18px; font-size: 13.5px; }
+  .kv2 dt { font-family: var(--f-sans); color: var(--muted); font-size: 12px; }
+  .kv2 dd { margin: 0; color: var(--ink-2); }
+  .grade {
+    display: inline-block; font-family: var(--f-sans); font-size: 11px; padding: 0 7px;
+    border-radius: 2px; margin-left: 6px; vertical-align: 1px; line-height: 1.75;
+  }
+  .g-strong { color: #1f7a5c; border: 1px solid #b8d8cb; background: #f0f7f4; }
+  .g-mid { color: var(--gold-deep); border: 1px solid #e3d3b0; background: var(--gold-wash); }
+  .g-weak { color: #9c3a32; border: 1px solid #e0c3bf; background: #faf0ef; }
+  .warn {
+    background: var(--gold-wash); border: 1px solid #e9dec9; border-left: 2px solid var(--gold);
+    padding: 13px 17px; border-radius: 2px; font-size: 13.5px; margin: 16px 0; color: #5a4c35;
+  }
+  table.gt {
+    width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 12px 0;
+    border: 1px solid var(--line);
+  }
+  table.gt th, table.gt td {
+    border: 0; border-bottom: 1px solid var(--line-soft); padding: 10px 14px;
+    text-align: left; vertical-align: top;
+  }
+  table.gt th {
+    background: var(--paper-2); color: var(--muted); font-family: var(--f-sans);
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px; border-bottom: 1px solid var(--line);
+  }
+  table.gt tr:last-child td { border-bottom: 0; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">数据来源与整理思路</h2>
+  <p class="page-desc">
+    本页回答三个问题：数据从哪来、为什么这么整理、哪些信息我们坚持不填。所有数据只收录可核验的公开来源。
+  </p>
+
+  <div class="chart-box">
+    <h2>证据强度分级</h2>
+    <p class="chart-desc">不是所有来源权重相同。按证据强度分级决定能否采用，弱证据一律降级标注。</p>
+    <table class="gt">
+      <tr><th style="width:130px">级别</th><th>来源类型</th><th>使用规则</th></tr>
+      <tr>
+        <td><span class="grade g-strong">强 · 官方</span></td>
+        <td>学院官网师资页 · 学位论文题录 · 官方新闻稿</td>
+        <td>可直接采用，逐条记录 URL 与采集日期</td>
+      </tr>
+      <tr>
+        <td><span class="grade g-mid">中 · 数据库</span></td>
+        <td>CALIS 学位论文服务系统题录</td>
+        <td>可采用，但需与官网信息交叉核对</td>
+      </tr>
+      <tr>
+        <td><span class="grade g-weak">弱 · 第三方</span></td>
+        <td>百科 · 媒体报道 · 未经核实的转述</td>
+        <td>不采用；如必须收录，标注「待确认」</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+    四条数据来源链
+  </h2>
+
+  <div class="src-card">
+    <h3>① 学者基本信息 <span class="grade g-strong">强 · 官方</span></h3>
+    <p class="chain">北京师范大学文学院官网「师资队伍」→ 文理学院官网「中文系系所师资」</p>
+    <dl class="kv2">
+      <dt>覆盖</dt><dd>北京校区 12 个研究所 + 离退休老师；珠海校区中文系（正高/副高/中级）；另收录 2 位跨院标明者：新闻传播学院 1 位（原属文学院新闻传播研究所，现于珠海为汉语言文学专业本科生授课）、国际中文教育学院 1 位（北师大文学院文学博士，研究汉魏六朝文学）</dd>
+      <dt>名单缺口</dt><dd>师资列表页只列在岗人员，长期外派或页面已下架的教授会整条线漏收。此类人物按「研究所介绍页 + 官方新闻稿 + 学位论文题录」交叉核实后补录，并在采集表备注说明（如过常宝：现任河北大学学术副校长，官网师资列表已不列，但仍在指导北师大博士）</dd>
+      <dt>字段</dt><dd>姓名、职称、二级学科、研究方向、履历、代表作、籍贯等</dd>
+      <dt>采集方式</dt><dd>人工核对官网页面，逐条录入采集表，记录来源 URL 与采集日期</dd>
+      <dt>脚本</dt><dd>scripts/scrape_faculty.py（限速抓取，页面全量缓存可复跑）</dd>
+    </dl>
+  </div>
+
+  <div class="src-card">
+    <h3>② 师承关系 <span class="grade g-mid">中 · 数据库</span></h3>
+    <p class="chain">北京师范大学学位论文服务系统题录 → 提取「导师」字段；CALIS 公开题录作补充</p>
+    <dl class="kv2">
+      <dt>检索式</dt><dd>正向：导师 = 姓名 AND 授予单位 = 北京师范大学（取门下学生）；反向：作者 = 姓名（取本人的学位论文，题录的导师栏即其师承）</dd>
+      <dt>证据</dt><dd>每条边附论文题名、年份、题录出处，点击连线可查看</dd>
+      <dt>局限</dt><dd>该校学位论文库须统一身份登录后方可检索，1980 年代中期以前的题录不收；校外授予的学位（清华、港中文、早稻田等）与同名干扰，仍须本人自述或序跋致谢佐证</dd>
+      <dt>脚本</dt><dd>scripts/scrape_advisors.py（CALIS 分片检索 + 离线重建）</dd>
+    </dl>
+  </div>
+
+  <div class="src-card">
+    <h3>③ 同事关系 <span class="grade g-strong">强 · 官方</span></h3>
+    <p class="chain">官网师资页的「研究所」分组信息</p>
+    <dl class="kv2">
+      <dt>判定</dt><dd>同一研究所 / 教研室的在录教师互为同事</dd>
+      <dt>用途</dt><dd>作为弱关联背景图层，默认关闭，避免淹没师承结构</dd>
+      <dt>排除</dt><dd>「离退休老师」为跨研究所混合组，不生成同事边</dd>
+    </dl>
+  </div>
+
+  <div class="src-card">
+    <h3>④ 合著关系 <span class="grade g-weak">缺口 · 待采集</span></h3>
+    <p class="chain">采集表「合著关系」工作表（目前为空）</p>
+    <dl class="kv2">
+      <dt>计划来源</dt><dd>学者代表作中的共同署名（专著、教材、论文）</dd>
+      <dt>现状</dt><dd>尚未系统采集，合著网络暂为空图——此缺口如实标注</dd>
+    </dl>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+    我们坚持不填的地方
+  </h2>
+
+  <div class="warn">
+    <p style="margin:0 0 8px"><strong>宁可留空，也不推断。</strong>以下字段在官网未明确记载时一律留空，不做猜测：</p>
+    <ul style="margin:0;padding-left:20px;font-size:14px;line-height:2">
+      <li><strong>籍贯 / 出生年份</strong>：仅当简历原文写明「××年生」「××省人」时才录入</li>
+      <li><strong>珠海校区教师的二级学科</strong>：官网仅按正高/副高/中级分组，未标注学科，故留空（共 20 人）</li>
+      <li><strong>离退休老师的二级学科</strong>：多数无公开信息，留空（共 55 人）</li>
+      <li><strong>职称</strong>：仅当简介或页面明确写「教授 / 副教授 / 讲师」时才录入，不从「博导」等字样反推</li>
+    </ul>
+  </div>
+
+  <div class="chart-box">
+    <h2>覆盖情况一览</h2>
+    <p class="chart-desc">各字段的实际填充情况，如实反映数据完整度。</p>
+    <div id="fill-chart" class="chart" style="height:380px"></div>
+  </div>
+
+  <div class="chart-box">
+    <h2>版权与使用</h2>
+    <p style="font-size:14px;line-height:1.9;margin:0">
+      本站是北师大中文系学者公开学术信息的聚合整理与阅读索引，仅用于数字人文课程的教学展示。
+      学者履历、成果等信息来源于学院官网与公开学术数据库，原文及数据版权归各来源所有。
+      如您是信息来源方，认为本站展示存在不当之处，欢迎联系更正或下架。
+    </p>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="data/scholars.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("data-sources.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const total = data.scholars.length;
+  const pct = n => total ? Math.round(n / total * 100) : 0;
+  const fields = [
+    ["姓名", data.scholars.filter(s => s.name).length],
+    ["职称", data.scholars.filter(s => s.title).length],
+    ["二级学科", data.scholars.filter(s => s.discipline).length],
+    ["所属机构", data.scholars.filter(s => s.org).length],
+    ["研究方向", data.scholars.filter(s => (s.interests || []).length).length],
+    ["出生年份", data.scholars.filter(s => s.birth).length],
+    ["籍贯", data.scholars.filter(s => s.birthplace).length],
+    ["来源URL", data.scholars.filter(s => s.source).length],
+  ].sort((a, b) => a[1] - b[1]);
+
+  BNU.mount("fill-chart", {
+    tooltip: {
+      trigger: "axis",
+      formatter: p => {
+        const i = p[0].dataIndex;
+        return `${fields[i][0]}：${fields[i][1]} / ${total} 人（${pct(fields[i][1])}%）`;
+      },
+    },
+    grid: { left: 90, right: 70, top: 20, bottom: 30 },
+    xAxis: { type: "value", max: total },
+    yAxis: { type: "category", data: fields.map(f => f[0]) },
+    series: [{
+      type: "bar", barMaxWidth: 18,
+      itemStyle: {
+        color: p => p.value / total > 0.9 ? "#b5493f" : (p.value / total > 0.5 ? "#b08d3f" : "#c9a227"),
+      },
+      data: fields.map(f => f[1]),
+      label: {
+        show: true, position: "right", fontSize: 12, color: "#857f77",
+        formatter: p => `${p.value}（${pct(p.value)}%）`,
+      },
+    }],
+  });
+})();
+</script>
+</body>
+</html>

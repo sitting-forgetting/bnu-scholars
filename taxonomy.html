@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分类依据 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .sys-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 20px 24px; margin-bottom: 12px;
+  }
+  .sys-card h3 { margin: 0 0 4px; font-family: var(--f-serif); font-size: 16px; color: var(--ink); letter-spacing: 1px; }
+  .sys-card .sub { font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin: 0 0 12px; }
+  .kv3 { display: grid; grid-template-columns: 96px 1fr; gap: 8px 18px; font-size: 13.5px; }
+  .kv3 dt { font-family: var(--f-sans); color: var(--muted); font-size: 12px; }
+  .kv3 dd { margin: 0; color: var(--ink-2); }
+  .note {
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--gold-deep);
+    background: var(--gold-wash); border: 1px solid #e9dec9; border-radius: 2px;
+    padding: 8px 12px; margin-top: 10px;
+  }
+  .warn {
+    background: var(--gold-wash); border: 1px solid #e9dec9; border-left: 2px solid var(--gold);
+    padding: 13px 17px; border-radius: 2px; font-size: 13.5px; margin: 16px 0; color: #5a4c35;
+  }
+  table.ct { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; border: 1px solid var(--line); }
+  table.ct th, table.ct td { border: 0; border-bottom: 1px solid var(--line-soft); padding: 8px 13px; text-align: left; }
+  table.ct th {
+    background: var(--paper-2); color: var(--muted); font-family: var(--f-sans);
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px; border-bottom: 1px solid var(--line);
+  }
+  table.ct tr:last-child td { border-bottom: 0; }
+  table.ct td.num { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">分类依据</h2>
+  <p class="page-desc">
+    站内的学科、职称、机构标签都不是我们自创的，各自有官方出处。本页把每个分类体系的机构、依据、口径讲清，
+    让每一个标签都能追溯。
+  </p>
+
+  <div class="chart-box">
+    <h2 style="margin-bottom:12px">为什么需要这一页</h2>
+    <p style="font-size:14px;line-height:1.9;margin:0">
+      中文系的人员分类有两套并行的口径：<strong>官网按「研究所」组织</strong>（古代汉语研究所、文艺学研究所…），
+      而<strong>学科评估按「二级学科」划分</strong>（汉语言文字学、中国现当代文学…）。二者不是一一对应关系——
+      例如「现代汉语研究所」与「理论语言学研究所」在学科上分别对应汉语言文字学与语言学及应用语言学。
+      站内同时展示两套标签，本页说明其对应依据与无法对应的部分。
+    </p>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+    三套分类体系
+  </h2>
+
+  <div class="sys-card">
+    <h3>① 研究所 / 教研室</h3>
+    <p class="sub">官网组织架构 · 本站「所属机构」字段的直接来源</p>
+    <dl class="kv3">
+      <dt>依据</dt><dd>北京师范大学文学院官网「师资队伍」栏目的分组</dd>
+      <dt>单位</dt><dd>古代汉语、现代汉语、理论语言学、应用语言学、文艺学、比较文学与世界文学、中国古代文学、中国现当代文学、古典文献、中文创意写作、民间文学、语文教育（共 12 个研究所）</dd>
+      <dt>补充</dt><dd>「离退休老师」为跨研究所的混合名单，不计入任何单一研究所；另收录 1 位跨院学者（新闻传播学院，原属文学院新闻传播研究所，现于珠海为汉语言文学专业本科生授课），仅为标注入库，不计入上述 12 个研究所</dd>
+      <dt>本站用法</dt><dd>作为「所属机构」字段；同一研究所的在录教师生成同事关系（默认隐藏）</dd>
+    </dl>
+  </div>
+
+  <div class="sys-card">
+    <h3>② 二级学科</h3>
+    <p class="sub">国务院学位委员会学科目录 · 本站「二级学科」字段的取值依据</p>
+    <dl class="kv3">
+      <dt>依据</dt><dd>《学位授予和人才培养学科目录》中「中国语言文学」（0501）下设的二级学科</dd>
+      <dt>本站取值</dt><dd>汉语言文字学 · 中国古代文学 · 中国现当代文学 · 比较文学与世界文学 · 文艺学 · 语言学及应用语言学 · 文献学（古典文献学）· 民俗学（民间文学）</dd>
+      <dt>映射方式</dt><dd>按研究所名称映射到最接近的二级学科；无法对应者标为「其他（创意写作）」「其他（语文教育）」</dd>
+      <dt>留空原因</dt><dd>珠海校区教师官网仅按正高/副高/中级分组，未标注学科；离退休老师多无公开信息</dd>
+    </dl>
+    <div class="note">
+      说明：本站不自行判定学者的学科归属。映射仅用于分组的可视化，具体归属以学院官方认定为准。
+    </div>
+  </div>
+
+  <div class="sys-card">
+    <h3>③ 专业技术职务（职称）</h3>
+    <p class="sub">高校岗位设置 · 本站「职称」字段的取值依据</p>
+    <dl class="kv3">
+      <dt>依据</dt><dd>官网个人简介与师资页中明确书写的职务名称</dd>
+      <dt>本站取值</dt><dd>教授 · 副教授 · 讲师 · 助理教授 · 研究员 · 副研究员 · 退休 · 先贤（已故）</dd>
+      <dt>录入规则</dt><dd>仅当原文明确写「教授 / 副教授 / 讲师」等字样时录入；不从「博士生导师」等字样反推职称</dd>
+      <dt>珠海校区</dt><dd>官网按「正高 / 副高 / 中级」分组，此类分组的职称由分组名推得，在备注中标注来源</dd>
+    </dl>
+  </div>
+
+  <div class="warn">
+    <strong>一处重要区分：</strong>「教授」是职称，「博士生导师」是指导资格，二者不是一回事。
+    本站的「职称」字段只记职称，指导资格（如是否博导）另在详情页展示，不混用。
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+    研究所 ↔ 二级学科对应表
+  </h2>
+
+  <table class="ct">
+    <tr><th>研究所 / 机构</th><th>对应二级学科</th><th>本站人数</th></tr>
+    <tr><td>古代汉语研究所</td><td>汉语言文字学</td><td class="num" id="n-ghy"></td></tr>
+    <tr><td>现代汉语研究所</td><td>汉语言文字学</td><td class="num" id="n-xdy"></td></tr>
+    <tr><td>理论语言学研究所</td><td>语言学及应用语言学</td><td class="num" id="n-lly"></td></tr>
+    <tr><td>应用语言学研究所</td><td>语言学及应用语言学</td><td class="num" id="n-yyy"></td></tr>
+    <tr><td>文艺学研究所</td><td>文艺学</td><td class="num" id="n-wyx"></td></tr>
+    <tr><td>比较文学与世界文学研究所</td><td>比较文学与世界文学</td><td class="num" id="n-bjw"></td></tr>
+    <tr><td>中国古代文学研究所</td><td>中国古代文学</td><td class="num" id="n-zgg"></td></tr>
+    <tr><td>中国现当代文学研究所</td><td>中国现当代文学</td><td class="num" id="n-zgx"></td></tr>
+    <tr><td>古典文献研究所</td><td>文献学</td><td class="num" id="n-gdw"></td></tr>
+    <tr><td>中文创意写作研究所</td><td>其他（创意写作）</td><td class="num" id="n-cyx"></td></tr>
+    <tr><td>民间文学研究所</td><td>民俗学（民间文学）</td><td class="num" id="n-mjw"></td></tr>
+    <tr><td>语文教育研究所</td><td>其他（语文教育）</td><td class="num" id="n-ywj"></td></tr>
+    <tr><td>中文系（文理学院·珠海）</td><td><em>未标注</em></td><td class="num" id="n-zh"></td></tr>
+    <tr><td>离退休老师</td><td><em>跨学科混合</em></td><td class="num" id="n-ltx"></td></tr>
+    <tr><td>新闻传播学院（跨院收录）</td><td>新闻学</td><td class="num" id="n-xw"></td></tr>
+  </table>
+
+  <div class="chart-box" style="margin-top:20px">
+    <h2>职称结构</h2>
+    <p class="chart-desc">按本站「职称」字段统计，反映收录人员的职务构成。</p>
+    <div id="title-chart" class="chart" style="height:340px"></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="data/scholars.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("taxonomy.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  // 各研究所人数
+  const orgCount = {};
+  data.scholars.forEach(s => {
+    const o = s.org || "（未标注）";
+    orgCount[o] = (orgCount[o] || 0) + 1;
+  });
+  const map = {
+    "n-ghy": "古代汉语研究所", "n-xdy": "现代汉语研究所",
+    "n-lly": "理论语言学研究所", "n-yyy": "应用语言学研究所",
+    "n-wyx": "文艺学研究所", "n-bjw": "比较文学与世界文学研究所",
+    "n-zgg": "中国古代文学研究所", "n-zgx": "中国现当代文学研究所",
+    "n-gdw": "古典文献研究所", "n-cyx": "中文创意写作研究所",
+    "n-mjw": "民间文学研究所", "n-ywj": "语文教育研究所",
+    "n-zh": "中文系（文理学院）", "n-ltx": "离退休老师",
+    "n-xw": "新闻传播学院（跨院）",
+  };
+  Object.entries(map).forEach(([id, org]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = orgCount[org] || 0;
+  });
+
+  // 职称结构
+  const titleCount = {};
+  data.scholars.forEach(s => {
+    const t = s.title || "未标注";
+    titleCount[t] = (titleCount[t] || 0) + 1;
+  });
+  const entries = Object.entries(titleCount).sort((a, b) => b[1] - a[1]);
+  BNU.mount("title-chart", {
+    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+    grid: { left: 80, right: 50, top: 20, bottom: 30 },
+    xAxis: { type: "category", data: entries.map(e => e[0]) },
+    yAxis: { type: "value", minInterval: 1 },
+    series: [{
+      type: "bar", barMaxWidth: 46,
+      itemStyle: { color: "#b5493f" },
+      data: entries.map(e => e[1]),
+      label: { show: true, position: "top", color: "#857f77", fontSize: 12 },
+    }],
+  });
+})();
+</script>
+</body>
+</html>

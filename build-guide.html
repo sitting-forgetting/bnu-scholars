@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>构建方法 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .step {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 20px 24px; margin-bottom: 12px; position: relative;
+  }
+  .step .no {
+    position: absolute; left: -14px; top: 20px; width: 28px; height: 28px; border-radius: 2px;
+    background: var(--bg); border: 1px solid var(--crimson); color: var(--crimson);
+    font-family: var(--f-sans); font-size: 12px; display: flex;
+    align-items: center; justify-content: center; font-weight: 600;
+  }
+  .step h3 { margin: 0 0 8px; font-family: var(--f-serif); font-size: 16px; color: var(--ink); letter-spacing: 1px; }
+  .step .desc { font-size: 14px; line-height: 2; margin: 0 0 10px; color: var(--ink-2); }
+  .step .meta { font-family: var(--f-sans); font-size: 12px; color: var(--muted); }
+  .kvs { display: grid; grid-template-columns: 90px 1fr; gap: 7px 16px; font-size: 13.5px; margin-top: 8px; }
+  .kvs dt { font-family: var(--f-sans); color: var(--muted); font-size: 12px; }
+  .kvs dd { margin: 0; }
+  .warn {
+    background: var(--gold-wash); border: 1px solid #e9dec9; border-left: 2px solid var(--gold);
+    padding: 13px 17px; border-radius: 2px; font-size: 13.5px; margin: 18px 0; color: #5a4c35;
+  }
+  .reltype { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 12px 0; border: 1px solid var(--line); }
+  .reltype th, .reltype td { border: 0; border-bottom: 1px solid var(--line-soft); padding: 9px 14px; text-align: left; }
+  .reltype th {
+    background: var(--paper-2); color: var(--muted); font-family: var(--f-sans);
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px; border-bottom: 1px solid var(--line);
+  }
+  .reltype tr:last-child td { border-bottom: 0; }
+  .reltype .sw { display: inline-block; width: 26px; height: 0; border-top-width: 1.5px; border-top-style: solid; margin-right: 8px; vertical-align: 3px; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">构建方法</h2>
+  <p class="page-desc">
+    本页说明学者库与关系网络是如何建起来的：数据从哪来、怎么清洗、怎么核验、已知哪些缺口。
+    每一项都尽量做到可溯源、可复现——宁可标注「覆盖缺口」，也不编造。
+  </p>
+
+  <div class="chart-box">
+    <h2 style="margin-bottom:12px">核心原则</h2>
+    <div class="warn">
+      <strong>只有「学生」和「导师」都在学者库中的师承关系，才写进谱系。</strong><br/>
+      只有一端在库的学位论文记录不计入关系网络，而是收进「候选学者」表，作为未来扩充学者库的人选。
+      这样做是为了让网络反映真实的学科内部结构，而不是被大量库外名字冲淡。
+    </div>
+    <p class="desc" style="font-size:14px;margin:0">
+      同理，同事关系（同研究所）属于弱关联，默认关闭，必须手动开启才显示，以免淹没真正有价值的师承边。
+    </p>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+    收录流水线（每补充一位学者都走一遍）
+  </h2>
+
+  <div class="step">
+    <div class="no">1</div>
+    <h3>身份核验与采集</h3>
+    <p class="desc">以北京师范大学文学院、文理学院（珠海）官网「师资队伍」栏目为准，逐人采集姓名、职称、二级学科、研究方向、履历、代表作。</p>
+    <dl class="kvs">
+      <dt>数据源</dt><dd>wxy.bnu.edu.cn 师资队伍（12 个研究所 + 离退休老师）· fas.bnu.edu.cn 中文系</dd>
+      <dt>脚本</dt><dd>scripts/scrape_faculty.py（限速 0.6 秒/页，全量缓存可复跑）</dd>
+      <dt>红线</dt><dd>只采公开信息，逐条记录来源 URL 与采集日期</dd>
+    </dl>
+  </div>
+
+  <div class="step">
+    <div class="no">2</div>
+    <h3>师承线索采集</h3>
+    <p class="desc">学位论文题录中的「导师」字段是最权威、最结构化的师承证据，优于从个人简介文字中推断。</p>
+    <dl class="kvs">
+      <dt>数据源</dt><dd>CALIS 高校学位论文服务系统（etd2.calis.edu.cn）公开检索接口</dd>
+      <dt>检索式</dt><dd>导师=姓名 AND 学位授予单位=北京师范大学</dd>
+      <dt>脚本</dt><dd>scripts/scrape_advisors.py（支持 --start/--end 分片、--offline 离线重建）</dd>
+      <dt>说明</dt><dd>北师大 etdlib 学位论文库需统一身份认证，故采用 CALIS 公开题录替代，此缺口如实记录</dd>
+    </dl>
+  </div>
+
+  <div class="step">
+    <div class="no">3</div>
+    <h3>数据清洗与拆分</h3>
+    <p class="desc">原始题录存在导师字段连写、多名导师混排、同名异人等问题，全部按规则处理。</p>
+    <dl class="kvs">
+      <dt>连写拆分</dt><dd>「王宁李国英」→ 王宁 / 李国英（按学者库姓名最长匹配切分）</dd>
+      <dt>同名过滤</dt><dd>导师姓名不在本库名单内的边一律丢弃，避免混入其他院系同名导师</dd>
+      <dt>省份归一</dt><dd>「吉林省吉林市」→「吉林省」，保证地图可匹配显示</dd>
+      <dt>脚本</dt><dd>scripts/merge_advisors.py</dd>
+    </dl>
+  </div>
+
+  <div class="step">
+    <div class="no">4</div>
+    <h3>入库与分类</h3>
+    <p class="desc">按「两端是否都在学者库」决定去向：库内边入师承表，其余入候选学者表。</p>
+    <dl class="kvs">
+      <dt>师承关系表</dt><dd>学生、导师、关系类型、学位层次、论文题名、年份、来源 URL</dd>
+      <dt>候选学者表</dt><dd>导师在库、学生在库外的论文记录，作为扩充人选清单</dd>
+      <dt>幂等</dt><dd>相同（学生ID, 导师ID, 论文题目）的边可重复运行不会重复写入</dd>
+    </dl>
+  </div>
+
+  <div class="step">
+    <div class="no">5</div>
+    <h3>关系类型与证据规则</h3>
+    <p class="desc">每条关系边都附带可点击的证据，点击连线即可查看来源。</p>
+    <table class="reltype">
+      <tr><th>关系类型</th><th>含义</th><th>证据来源</th><th>图谱样式</th></tr>
+      <tr>
+        <td>师承</td><td>硕士 / 博士学位论文指导关系</td>
+        <td>CALIS 学位论文题录（题名 + 年份）</td>
+        <td><span class="sw" style="border-top-color:#c92820"></span>红线 · 箭头</td>
+      </tr>
+      <tr>
+        <td>合著</td><td>共同署名同一部作品</td>
+        <td>采集表「合著关系」工作表</td>
+        <td><span class="sw" style="border-top-color:#2f6fb0"></span>蓝线</td>
+      </tr>
+      <tr>
+        <td>同事</td><td>同一研究所 / 教研室</td>
+        <td>官网师资名单页</td>
+        <td><span class="sw" style="border-top-color:#B8A894;border-top-style:dashed"></span>灰色虚线（默认关闭）</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="step">
+    <div class="no">6</div>
+    <h3>生成与校验</h3>
+    <p class="desc">采集表统一转换为网站数据，构建时自动执行校验，发现问题逐条提示。</p>
+    <dl class="kvs">
+      <dt>脚本</dt><dd>scripts/build_data.py</dd>
+      <dt>校验项</dt><dd>必填字段 · 学者 ID 唯一性 · 省份名与地图一致性 · 关系表 ID 存在性</dd>
+      <dt>输出</dt><dd>site/data/scholars.js（离线可用，无需联网）</dd>
+    </dl>
+  </div>
+
+  <div class="step">
+    <div class="no">7</div>
+    <h3>已知缺口（如实声明）</h3>
+    <p class="desc">以下限制影响数据的完整性，已在站内和交付文档中标注。</p>
+    <dl class="kvs">
+      <dt>检索受限</dt><dd>CALIS 接口有频率限制，部分教师尚未完成检索，师承边数仍在增长</dd>
+      <dt>收录滞后</dt><dd>CALIS 对近年学位论文收录不全，青年教师的学生论文多未入库</dd>
+      <dt>非本校学位</dt><dd>外校博士入职者，其学位论文不在北师大，需另行核实</dd>
+      <dt>合著空缺</dt><dd>合著关系尚未系统采集，当前合著图为空</dd>
+      <dt>籍贯缺口</dt><dd>167/224 人可定位到省份，其余 57 人公开资料确实未载（官网简历不写、百科无词条或同名无法确认）</dd>
+    </dl>
+  </div>
+
+  <div class="chart-box" style="margin-top:24px">
+    <h2>数据引用</h2>
+    <p style="font-size:14px;margin:0;line-height:1.9">
+      本库全部数据来自北师大文学院 / 文理学院官网与 CALIS 学位论文服务系统的公开信息，
+      逐条记录来源与采集日期，仅用于数字人文课程教学展示。
+      如引用，请注明「京师学林（数字人文课程作品）」及对应来源链接。
+    </p>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/scholars.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  document.getElementById("site-header").innerHTML = BNU.header("build-guide.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(window.BNU_DATA);
+})();
+</script>
+</body>
+</html>

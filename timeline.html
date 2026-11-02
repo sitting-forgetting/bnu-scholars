@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学科时间线 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .grid-2 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 18px; align-items: stretch; }
+  .grid-2 > .chart-box { margin-bottom: 0; }
+  .stack { display: grid; gap: 18px; }
+
+  /* 师承事件流水 */
+  .ev-list { margin: 4px 0 0; }
+  .ev {
+    display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: baseline;
+    padding: 10px 8px 10px 0; border-bottom: 1px dashed var(--line-soft);
+    border-radius: 4px; transition: background .14s var(--ease);
+  }
+  .ev:hover { background: rgba(176, 137, 104, .055); }
+  .ev:last-child { border-bottom: none; }
+  .ev .yr {
+    font-family: var(--f-sans); font-size: 12.5px; font-weight: 700; color: var(--crimson-dark);
+    font-variant-numeric: tabular-nums; letter-spacing: .3px;
+  }
+  .ev .chain { font-size: 14.5px; line-height: 1.75; }
+  .ev .chain .m { color: var(--ink); font-weight: 600; }
+  .ev .chain .arrow { color: var(--line-strong); margin: 0 8px; }
+  .ev .chain .s { color: var(--ink-2); }
+  .ev .chain .ev-src { font-family: var(--f-sans); font-size: 11.5px; color: var(--faint); margin-left: 8px; }
+  .ev .chain .ev-src a { color: var(--faint); text-decoration: underline dotted; text-underline-offset: 3px; }
+  .ev .chain .ev-src a:hover { color: var(--crimson); }
+  .ev .type {
+    display: inline-block; font-family: var(--f-sans); font-size: 11.5px; padding: 0 8px;
+    border-radius: 2px; background: var(--paper-2); border: 1px solid var(--line);
+    color: var(--muted); white-space: nowrap; margin-left: 8px; line-height: 1.7;
+  }
+  .ev .type.weak { background: var(--gold-wash); border-color: #e7d9bc; color: var(--gold-deep); }
+  .ev-tools { display: flex; gap: 10px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; background: var(--paper); }
+  .seg button {
+    font-family: var(--f-sans); font-size: 12px; padding: 5px 13px; border: none;
+    background: transparent; color: var(--muted); cursor: pointer; transition: all .15s var(--ease);
+  }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button.on { background: var(--crimson); color: #fff; }
+  .seg button:not(.on):hover { background: var(--crimson-wash); color: var(--crimson); }
+  @media (max-width: 980px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .ev { grid-template-columns: 48px 1fr; }
+    .ev .type { grid-column: 2; justify-self: start; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">学科时间线</h2>
+  <p class="page-desc">
+    师承关系是这门学科最细的时间刻度。本页以 235 条师承边的年份、所属学科与关系类型，
+    呈现这条脉络的纵深、结构与厚度；所有统计口径与「师承世表」一致。
+  </p>
+
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="chart-box">
+    <h2>师承关系发生的年代</h2>
+    <p class="chart-desc">
+      按师承关系成立（入学/受业）的年份，每 5 年一带统计。可考年份 153 条，其余 54 条年份待补，不计入本图。
+    </p>
+    <div id="year-chart" class="chart" style="height:340px"></div>
+    <div class="foot-note" id="year-note"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-box">
+      <h2>二级学科结构</h2>
+      <p class="chart-desc">在录学者 <span id="n-disc-total">188</span> 人的学科归属。灰色为官网未标注二级学科者，按原样保留、不做推断。</p>
+      <div id="disc-chart" class="chart" style="height:420px"></div>
+    </div>
+    <div class="chart-box">
+      <h2>关系类型构成</h2>
+      <p class="chart-desc">235 条边按原始表述归类。「就学期间受教」等含未细分说明的边，统一归入「其他」。</p>
+      <div id="type-chart" class="chart" style="height:420px"></div>
+    </div>
+  </div>
+
+  <div class="chart-box" style="margin-top:18px">
+    <h2>师承事件流水</h2>
+    <p class="chart-desc">按年份倒序排列的每一条师承关系。点「证据」可查看该条关系的原始表述与来源链接。</p>
+    <div class="ev-tools">
+      <div class="seg" id="ev-filter">
+        <button data-k="all" class="on">全部 153</button>
+        <button data-k="博士">博士</button>
+        <button data-k="硕士">硕士</button>
+        <button data-k="其他">受业 / 其他</button>
+      </div>
+      <span class="hint" id="ev-count" style="font-family:var(--f-sans);font-size:12.5px;color:var(--muted)"></span>
+    </div>
+    <div class="ev-list" id="ev-list"></div>
+    <button class="load-more" id="ev-more" style="display:none"></button>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  const ld = window.LINEAGE_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("timeline.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const esc = BNU.esc;
+  const edges = (ld && ld.edges) || [];
+  const nodes = (ld && ld.nodes) || [];
+  const nameOf = {};
+  nodes.forEach(n => { nameOf[n.id] = n.name; });
+  const kindOf = {};
+  nodes.forEach(n => { kindOf[n.id] = n.kind; });
+
+  /* ---------- 顶部指标 ---------- */
+  (function kpi() {
+    // 连通家族数：并查集
+    const parent = {};
+    const find = x => { while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; };
+    const uni = (a, b) => { a = find(a); b = find(b); if (a !== b) parent[a] = b; };
+    nodes.forEach(n => { parent[n.id] = n.id; });
+    edges.forEach(e => { if (parent[e.student] != null && parent[e.mentor] != null) uni(e.student, e.mentor); });
+    const fams = new Set(edges.map(e => find(e.student)));
+    const extMentors = new Set(edges.filter(e => kindOf[e.mentor] === "external").map(e => e.mentor));
+    const extEdges = edges.filter(e => kindOf[e.mentor] === "external").length;
+    const years = edges.filter(e => e.year);
+
+    document.getElementById("kpi-row").innerHTML = [
+      [edges.length, "师承关系"],
+      [years.length, "可考年份", `${edges.length - years.length} 条待补`],
+      [fams.size, "互不连通的家族"],
+      [`${Math.round(extEdges / edges.length * 100)}%`, "导师在库外的边", `${extMentors.size} 位外源导师`],
+    ].map(([n, l, s]) => `<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div>${s ? `<div class="l" style="color:var(--faint);font-size:11.5px">${s}</div>` : ""}</div>`).join("");
+  })();
+
+  /* ---------- 1. 师承年代 ---------- */
+  (function yearChart() {
+    const ys = edges.filter(e => e.year).map(e => +e.year);
+    const BIN = 5;
+    const from = Math.floor(Math.min(...ys) / BIN) * BIN;   // 1925
+    const to = Math.floor(Math.max(...ys) / BIN) * BIN;     // 2020
+    const bins = [];
+    for (let y = from; y <= to; y += BIN) bins.push(y);
+    const counts = bins.map(b => ys.filter(y => y >= b && y < b + BIN).length);
+    const labels = bins.map(b => `${b}–${String(b + BIN - 1).slice(2)}`);
+    const empty = counts.filter(c => c === 0).length;
+
+    BNU.mount("year-chart", {
+      grid: { left: 44, right: 18, top: 26, bottom: 54 },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "shadow" },
+        formatter: p => {
+          const i = p[0].dataIndex;
+          return `<b>${labels[i]}</b><br/>师承关系 ${counts[i]} 条`;
+        },
+      },
+      xAxis: {
+        type: "category", data: labels,
+        axisLabel: { interval: 1, fontSize: 11, color: "#6d726a" },
+      },
+      yAxis: { type: "value", name: "条", nameTextStyle: { color: "#979b92", fontSize: 11 }, minInterval: 1 },
+      series: [{
+        type: "bar", data: counts, barMaxWidth: 30,
+        itemStyle: {
+          borderRadius: [2, 2, 0, 0],
+          color: p => (bins[p.dataIndex] === from ? "#c9a227" : "#b5493f"),
+        },
+        label: {
+          show: true, position: "top", fontSize: 11, color: "#6d726a",
+          formatter: p => (p.value ? p.value : ""),
+        },
+        markArea: empty ? {
+          silent: true,
+          itemStyle: { color: "rgba(23,25,22,.028)" },
+          label: {
+            show: true, position: "insideTop", color: "#979b92", fontSize: 11,
+            formatter: "1930—1975 无记录",
+          },
+          data: [[{ xAxis: labels[1] }, { xAxis: labels[labels.length - 11] }]],
+        } : undefined,
+      }],
+    });
+
+    const peak = Math.max(...counts), peakIdx = counts.indexOf(peak);
+    document.getElementById("year-note").innerHTML =
+      `峰值出现在 <b>${labels[peakIdx]}</b>（${peak} 条）。1930—1975 年间的空白不是学科中断，` +
+      `而是证据结构所致：这一代人的师承关系早于学位论文题录的覆盖范围，只能靠回忆文章与档案补充。` +
+      `另有 ${edges.length - ys.length} 条边年份未载，收入世表的「年份待补」带。`;
+  })();
+
+  /* ---------- 2. 学科结构 ---------- */
+  (function discChart() {
+    // 学科结构按中文系口径统计，跨院标明者不计入
+    const roster = data.scholars.filter(s => s.org !== "新闻传播学院（跨院）");
+    document.getElementById("n-disc-total").textContent = roster.length;
+    const counts = {};
+    roster.forEach(s => {
+      const d = s.discipline || "学科待补";
+      counts[d] = (counts[d] || 0) + 1;
+    });
+    // 「学科待补」放到最后：它人数最多（75 人），排第一会把其余学科压成短条，
+    // 无法比较；它本来也不是一个学科，是缺口
+    const PENDING = "学科待补";
+    const labels = Object.keys(counts).sort((a, b) => {
+      if (a === PENDING) return 1;
+      if (b === PENDING) return -1;
+      return counts[b] - counts[a];
+    });
+    const vals = labels.map(l => counts[l]);
+    const colors = labels.map(l => l === PENDING ? "#c9c0b2" : BNU.disciplineColor(l));
+
+    BNU.mount("disc-chart", {
+      grid: { left: 4, right: 46, top: 8, bottom: 8, containLabel: true },
+      tooltip: {
+        trigger: "axis", axisPointer: { type: "shadow" },
+        formatter: p => p[0].name === PENDING
+          ? `<b>学科待补</b><br/>${p[0].value} 人（官网未标注二级学科）`
+          : `<b>${p[0].name}</b><br/>${p[0].value} 人`,
+      },
+      xAxis: { type: "value", minInterval: 1, splitLine: { show: true } },
+      yAxis: {
+        type: "category", data: labels, inverse: true,
+        axisLabel: { fontSize: 12, color: "#40453e" },
+        axisLine: { show: false },
+      },
+      series: [{
+        type: "bar", data: vals.map((v, i) => ({ value: v, itemStyle: { color: colors[i] } })),
+        barMaxWidth: 18,
+        itemStyle: { borderRadius: [0, 2, 2, 0] },
+        label: { show: true, position: "right", fontSize: 11.5, color: "#6d726a" },
+        markLine: {
+          silent: true, symbol: "none",
+          lineStyle: { color: "#dcded7", type: "dashed", width: 1 },
+          label: { show: false },
+          data: [{ yAxis: labels.length - 1.5 }],
+        },
+      }],
+    });
+  })();
+
+  /* ---------- 3. 关系类型 ---------- */
+  (function typeChart() {
+    const g = { "博士": 0, "硕士": 0, "受业": 0, "博士后": 0, "其他": 0 };
+    edges.forEach(e => {
+      const t = e.type || "";
+      if (t === "博士") g["博士"]++;
+      else if (t === "硕士" || t === "硕士、博士") g["硕士"]++;
+      else if (t === "受业") g["受业"]++;
+      else if (t === "博士后") g["博士后"]++;
+      else g["其他"]++;
+    });
+    const colors = { "博士": "#c92820", "硕士": "#1f8a66", "受业": "#8a6d3b", "博士后": "#2f6fb0", "其他": "#c7cac2" };
+    const items = Object.entries(g).map(([name, value]) => ({ name, value, itemStyle: { color: colors[name] } }));
+
+    BNU.mount("type-chart", {
+      tooltip: { trigger: "item", formatter: p => `<b>${p.name}</b><br/>${p.value} 条 · ${p.percent}%` },
+      legend: {
+        bottom: 0, itemWidth: 9, itemHeight: 9, icon: "circle", itemGap: 12,
+        formatter: name => {
+          const it = items.find(x => x.name === name);
+          return `${name} ${it ? it.value : ""}`;
+        },
+      },
+      graphic: [{
+        type: "text", left: "center", top: "41%", style: {
+          text: `${edges.length}\n条师承边`, textAlign: "center", fill: "#c92820",
+          font: '700 22px "Source Han Serif SC", "Songti SC", serif', lineHeight: 26,
+        },
+      }],
+      series: [{
+        type: "pie", radius: ["52%", "72%"], center: ["50%", "45%"],
+        avoidLabelOverlap: true, padAngle: 1.5, minShowLabelAngle: 26,
+        itemStyle: { borderRadius: 2, borderColor: "#fffefb", borderWidth: 2 },
+        label: { show: true, formatter: "{d}%", fontSize: 11.5, color: "#6d726a" },
+        labelLine: { length: 6, length2: 8, lineStyle: { color: "#c7cac2" } },
+        data: items,
+      }],
+    });
+  })();
+
+  /* ---------- 4. 师承事件流水 ---------- */
+  (function events() {
+    const list = edges.filter(e => e.year).slice().sort((a, b) => b.year - a.year);
+    const box = document.getElementById("ev-list");
+    const more = document.getElementById("ev-more");
+    const cnt = document.getElementById("ev-count");
+    let key = "all", shown = 24;
+
+    const bucket = e => {
+      const t = e.type || "";
+      if (t === "博士") return "博士";
+      if (t === "硕士" || t === "硕士、博士") return "硕士";
+      return "其他";
+    };
+    const cur = () => key === "all" ? list : list.filter(e => bucket(e) === key);
+
+    function paint() {
+      const all = cur();
+      const slice = all.slice(0, shown);
+      box.innerHTML = slice.map(e => {
+        const ev = (e.evidence && e.evidence[0]) || null;
+        const weak = e.strength && e.strength.indexOf("弱") === 0;
+        const src = ev && ev.url
+          ? `<span class="ev-src"><a href="${esc(ev.url)}" target="_blank" rel="noopener">证据</a></span>` : "";
+        return `<div class="ev">
+          <span class="yr">${e.year}</span>
+          <span class="chain"><span class="m">${esc(nameOf[e.mentor] || e.mentor)}</span><span class="arrow">→</span><span class="s">${esc(nameOf[e.student] || e.student)}</span><span class="type${weak ? " weak" : ""}" title="${esc(e.strength || "")}">${esc(e.type || "—")}</span>${src}</span>
+        </div>`;
+      }).join("") || '<p class="empty-tip">该类型下暂无记录。</p>';
+      cnt.textContent = `共 ${all.length} 条`;
+      const rest = all.length - slice.length;
+      more.style.display = rest > 0 ? "block" : "none";
+      more.textContent = rest > 0 ? `显示更多（还有 ${rest} 条）` : "";
+    }
+    more.onclick = () => { shown += 40; paint(); };
+    document.querySelectorAll("#ev-filter button").forEach(b => {
+      b.onclick = () => {
+        document.querySelectorAll("#ev-filter button").forEach(x => x.classList.remove("on"));
+        b.classList.add("on");
+        key = b.dataset.k; shown = 24; paint();
+      };
+    });
+    paint();
+  })();
+})();
+</script>
+</body>
+</html>

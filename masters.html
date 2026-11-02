@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>先贤名师 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .intro-box {
+    position: relative; background: transparent;
+    border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    border-radius: 0; padding: 22px 0 20px 22px;
+    margin-bottom: 26px; box-shadow: none; overflow: hidden;
+  }
+  .intro-box::before {
+    content: ""; position: absolute; left: 0; top: 22px; bottom: 20px; width: 2px;
+    background: var(--crimson); pointer-events: none;
+  }
+  .intro-box p { margin: 0; font-size: 14px; line-height: 2.1; color: var(--ink-2); }
+  .intro-box .em { color: var(--crimson-dark); font-weight: 600; }
+
+  .grid-note {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); margin: 0 0 16px;
+  }
+  .grid-note .axis-demo { display: inline-flex; align-items: center; gap: 6px; }
+  .grid-note .axis-demo i {
+    display: inline-block; width: 48px; height: 1px; border-radius: 0;
+    background: var(--gold); position: relative;
+  }
+  .grid-note .axis-demo i::after {
+    content: ""; position: absolute; right: -1px; top: -3px; width: 1px; height: 7px;
+    background: var(--gold); border-radius: 0;
+  }
+
+  .master-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 12px; }
+  .master-card {
+    position: relative; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 3px; padding: 20px 20px 15px; cursor: pointer;
+    display: flex; flex-direction: column; gap: 0; box-shadow: none;
+    transition: border-color .16s var(--ease), background .16s var(--ease);
+    text-align: left;
+  }
+  .master-card:hover { background: #fff; border-color: var(--line-strong); transform: none; box-shadow: none; }
+  .master-card .idx {
+    position: absolute; right: 16px; top: 14px; font-family: var(--f-sans);
+    font-size: 10.5px; color: var(--faint); letter-spacing: 1px; font-variant-numeric: tabular-nums;
+  }
+  .master-card .m-name {
+    font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--ink);
+    letter-spacing: 2.5px; line-height: 1.4;
+  }
+  .master-card:hover .m-name { color: var(--crimson-dark); }
+  .master-card .m-years {
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); margin-top: 3px;
+    font-variant-numeric: tabular-nums; letter-spacing: .3px;
+  }
+  /* 生卒轴 */
+  .m-life { position: relative; height: 1px; background: var(--line-soft); border-radius: 0; margin: 12px 0 14px; }
+  .m-life span {
+    position: absolute; top: 0; height: 1px; border-radius: 0;
+    background: var(--gold);
+  }
+  .m-life span::after {
+    content: ""; position: absolute; right: -1px; top: -3px; width: 1px; height: 7px;
+    background: var(--gold); border-radius: 0;
+  }
+  .m-life .open { background: var(--gold); }
+  .master-card .m-bio {
+    font-size: 12.5px; line-height: 1.95; color: var(--muted);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden; margin-bottom: 14px; min-height: 72px;
+  }
+  .master-card .m-foot {
+    margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line-soft);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-family: var(--f-sans); font-size: 11px; color: var(--muted);
+  }
+  .master-card .m-foot .disc { display: inline-flex; align-items: center; gap: 5px; }
+  .master-card .m-foot .disc b { font-weight: 600; color: var(--crimson); }
+  .master-card .m-foot .read { color: var(--crimson); opacity: 0; transform: translateX(-4px); transition: all .18s var(--ease); }
+  .master-card:hover .m-foot .read { opacity: 1; transform: none; }
+
+  /* 详情弹层 */
+  .modal-mask {
+    display: none; position: fixed; inset: 0; background: rgba(23, 25, 22, .46);
+    -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+    z-index: 100; align-items: center; justify-content: center; padding: 24px;
+  }
+  .modal-mask.show { display: flex; animation: fadein .18s ease; }
+  @keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
+  .modal {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px; max-width: 660px; width: 100%;
+    max-height: 84vh; overflow: auto; padding: 0; position: relative;
+    box-shadow: 0 20px 60px rgba(23,25,22,.2); animation: rise .26s var(--ease) both;
+  }
+  .modal .m-head {
+    padding: 30px 34px 22px; border-bottom: 1px solid var(--line);
+    background: transparent; border-radius: 0;
+  }
+  .modal h2 {
+    margin: 0; font-family: var(--f-serif); font-size: 26px; color: var(--ink);
+    letter-spacing: 3px; font-weight: 700;
+  }
+  .modal .m-years {
+    font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .modal .m-body { padding: 24px 34px 30px; }
+  .modal .m-bio-full { font-size: 14.5px; line-height: 2.1; color: var(--ink-2); white-space: pre-wrap; }
+  .modal .m-life { margin: 16px 0 0; }
+  .modal .m-src {
+    margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); word-break: break-all;
+  }
+  .modal .close {
+    position: absolute; top: 14px; right: 16px; width: 28px; height: 28px; border-radius: 2px;
+    font-size: 18px; color: var(--muted); cursor: pointer; border: 1px solid var(--line); background: transparent;
+    line-height: 1; display: flex; align-items: center; justify-content: center;
+  }
+  .modal .close:hover { color: #fff; background: var(--crimson); border-color: var(--crimson); }
+  .modal .go-lineage {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--crimson);
+  }
+  @media (max-width: 620px) {
+    .modal .m-head { padding: 24px 22px 18px; }
+    .modal .m-body { padding: 20px 22px 26px; }
+    .modal h2 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">先贤名师</h2>
+  <p class="page-desc">北师大中文系学科奠基人。名单与生平依据文学院官网「先贤名师」栏目整理，共 38 位。</p>
+
+  <div class="intro-box">
+    <p>
+      先贤名师是北师大中文学科的源头。他们多为中国现代学术史上的开风气者——
+      <span class="em">钱玄同、刘半农</span>是五四新文化运动的参与者，<span class="em">黎锦熙</span>是现代汉语语法研究的奠基人，
+      <span class="em">钟敬文</span>被誉为「中国民俗学之父」，<span class="em">陆宗达</span>承章黄之学而开现代训诂学一脉，
+      <span class="em">启功</span>则是文献学与文物鉴定的一代宗师。他们的师承与授业，构成今日学科谱系的根。
+    </p>
+  </div>
+
+  <div class="grid-note">
+    <span class="axis-demo"><i></i> 卡片中的细线为生卒区间，横轴范围 1870 — 2026</span>
+    <span>·</span>
+    <span>按生年排序，生年不详者置于末尾</span>
+  </div>
+
+  <div class="master-grid" id="master-grid"></div>
+</main>
+<div id="site-footer"></div>
+
+<div class="modal-mask" id="modal-mask" role="dialog" aria-modal="true" aria-labelledby="m-name">
+  <div class="modal">
+    <button class="close" id="modal-close" aria-label="关闭">×</button>
+    <div class="m-head">
+      <h2 id="m-name"></h2>
+      <div class="m-years" id="m-years"></div>
+      <div class="m-life" id="m-life-modal"><span></span></div>
+    </div>
+    <div class="m-body">
+      <div class="m-bio-full" id="m-bio"></div>
+      <div id="m-extra"></div>
+      <div class="m-src" id="m-src"></div>
+    </div>
+  </div>
+</div>
+
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  const data = window.BNU_DATA;
+  document.getElementById("site-header").innerHTML = BNU.header("masters.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const ld = window.LINEAGE_DATA;
+  const nodeById = {};
+  (ld && ld.nodes || []).forEach(n => { nodeById[n.id] = n; });
+  // 门下人数：以世表数据为准（比采集表 61 条完整）
+  const studentsOf = {};
+  (ld && ld.edges || []).forEach(e => {
+    (studentsOf[e.mentor] = studentsOf[e.mentor] || []).push(e.student);
+  });
+
+  const LIFE_MIN = 1870, LIFE_MAX = 2026;
+  const lifeBar = (birth, death) => {
+    if (!birth) return "";
+    const b = Math.max(LIFE_MIN, +birth);
+    const d = death ? Math.min(LIFE_MAX, +death) : LIFE_MAX;
+    const left = (b - LIFE_MIN) / (LIFE_MAX - LIFE_MIN) * 100;
+    const w = Math.max(1.2, (d - b) / (LIFE_MAX - LIFE_MIN) * 100);
+    return `<div class="m-life"><span class="${death ? "" : "open"}" style="left:${left.toFixed(2)}%;width:${w.toFixed(2)}%"></span></div>`;
+  };
+
+  // 生卒年显示：两者都有用「1881—1936」；只有生年表示在世，用「1943—」；都没有则「生卒待考」
+  const fmtYears = m => {
+    if (m.birth && m.death) return `${m.birth}—${m.death}`;
+    if (m.birth) return `${m.birth}—`;
+    if (m.death) return `?—${m.death}`;
+    return "生卒待考";
+  };
+
+  // 按生年排序；生年不详的排到最后（不占据开头位置）
+  const masters = (data.masters || []).slice().sort((a, b) => (a.birth || 9999) - (b.birth || 9999));
+  const grid = document.getElementById("master-grid");
+  grid.innerHTML = masters.map((m, i) => {
+    const n = (studentsOf[m.id] || []).length;
+    return `
+    <div class="master-card" data-i="${i}" tabindex="0" role="button"
+         aria-label="${BNU.esc(m.name)}，${fmtYears(m)}，查看生平">
+      <span class="idx">${String(i + 1).padStart(2, "0")}</span>
+      <div class="m-name">${BNU.esc(m.name)}</div>
+      <div class="m-years">${fmtYears(m)}${m.birthplace ? " · " + BNU.esc(m.birthplace) : ""}</div>
+      ${lifeBar(m.birth, m.death)}
+      <div class="m-bio">${BNU.esc(m.note || "")}</div>
+      <div class="m-foot">
+        <span class="disc">${n ? `门下 <b>${n}</b> 人` : (nodeById[m.id] ? "已入谱系" : "未入谱系")}</span>
+        <span class="read">读生平 →</span>
+      </div>
+    </div>`;
+  }).join("");
+
+  const mask = document.getElementById("modal-mask");
+  function open(card) {
+    const m = masters[+card.dataset.i];
+    document.getElementById("m-name").textContent = m.name;
+    document.getElementById("m-years").textContent =
+      `${fmtYears(m)}${m.birthplace ? " · " + m.birthplace : ""}`;
+    document.getElementById("m-life-modal").outerHTML =
+      lifeBar(m.birth, m.death).replace('class="m-life"', 'class="m-life" id="m-life-modal"')
+      || '<div class="m-life" id="m-life-modal" style="display:none"></div>';
+    document.getElementById("m-bio").textContent = m.note || "（暂无简介）";
+    const n = (studentsOf[m.id] || []).length;
+    document.getElementById("m-extra").innerHTML = n
+      ? `<a class="go-lineage" href="lineage.html?id=${encodeURIComponent(m.id)}">在世表中查看门下 ${n} 人 →</a>` : "";
+    document.getElementById("m-src").innerHTML = m.source
+      ? `来源：<a href="${BNU.esc(m.source)}" target="_blank" rel="noopener">${BNU.esc(m.source)}</a>`
+      : "来源：文学院官网「先贤名师」";
+    mask.classList.add("show");
+  }
+  grid.addEventListener("click", e => {
+    const card = e.target.closest(".master-card");
+    if (card) open(card);
+  });
+  grid.addEventListener("keydown", e => {
+    const card = e.target.closest(".master-card");
+    if (card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); open(card); }
+  });
+  const close = () => mask.classList.remove("show");
+  document.getElementById("modal-close").onclick = close;
+  mask.onclick = e => { if (e.target === mask) close(); };
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+})();
+</script>
+</body>
+</html>
