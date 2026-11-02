@@ -76,7 +76,7 @@
     </table>
   </div>
 
-  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--accent-dark);padding-left:10px;border-left:4px solid var(--accent)">
     四条数据来源链
   </h2>
 
@@ -122,7 +122,7 @@
     </dl>
   </div>
 
-  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--crimson-dark);padding-left:10px;border-left:4px solid var(--crimson)">
+  <h2 style="font-size:17px;margin:24px 0 14px;color:var(--accent-dark);padding-left:10px;border-left:4px solid var(--accent)">
     我们坚持不填的地方
   </h2>
 
@@ -207,7 +207,7 @@
     series: [{
       type: "bar", barMaxWidth: 18,
       itemStyle: {
-        color: p => p.value / total > 0.9 ? "#b5493f" : (p.value / total > 0.5 ? "#b08d3f" : "#c9a227"),
+        color: p => p.value / total > 0.9 ? "#1d4f8c" : (p.value / total > 0.5 ? "#b08d3f" : "#c9a227"),
       },
       data: fields.map(f => f[1]),
       label: {

@@ -1,16 +1,18 @@
 /* ==========================================================================
    京师学林 · 共用样式
-   设计语言：纸白底 · 墨色字 · 朱砂细线 · 宋体标题 · 大留白
+   设计语言：纸白底 · 墨色字 · 师大蓝细线 · 朱砂印记 · 宋体标题 · 大留白
    视觉参考：mulu.1012.wiki/scholars（书卷气、竖排姓名、细线谱系）
    ========================================================================== */
 
 /* ---------- 1. 令牌 ---------- */
 :root {
   /* 色 */
-  --crimson: #c92820;
-  --crimson-dark: #a31f18;
-  --crimson-light: #d85047;
-  --crimson-wash: #f8ecea;
+  --accent: #1d4f8c;
+  --accent-dark: #123a68;
+  --accent-light: #4a7fb5;
+  --accent-wash: #eaf1f8;
+  --seal: #c92820;
+  --seal-bg: #004DA0;
   --gold: #b08d3f;
   --gold-deep: #8a6d3b;
   --gold-bright: #c9a227;
@@ -78,10 +80,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: rgba(201, 40, 32, .14); color: var(--crimson-dark); }
+::selection { background: rgba(29, 79, 140, .14); color: var(--accent-dark); }
 
-a { color: var(--crimson); text-decoration: none; transition: color .15s var(--ease); }
-a:hover { color: var(--crimson-light); text-decoration: none; }
+a { color: var(--accent); text-decoration: none; transition: color .15s var(--ease); }
+a:hover { color: var(--accent-light); text-decoration: none; }
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -110,12 +112,13 @@ img { max-width: 100%; }
 .brand:hover { text-decoration: none; }
 .brand .seal {
   width: 30px; height: 30px; flex: none; border-radius: 3px;
-  background: var(--crimson);
+  background: var(--seal-bg);
   color: #fdf9f3; font-family: var(--f-serif); font-size: 17px; font-weight: 700;
   display: flex; align-items: center; justify-content: center; line-height: 1;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
   letter-spacing: 0;
 }
+.brand .seal svg { width: 25px; height: auto; display: block; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.3; }
 .brand-text strong {
   font-family: var(--f-serif); font-size: 18px; font-weight: 700;
@@ -135,12 +138,12 @@ img { max-width: 100%; }
 }
 .main-nav a::after {
   content: ""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 2px;
-  background: var(--crimson); transform: scaleX(0); transform-origin: center;
+  background: var(--accent); transform: scaleX(0); transform-origin: center;
   transition: transform .2s var(--ease);
 }
-.main-nav a:hover { color: var(--crimson); text-decoration: none; }
+.main-nav a:hover { color: var(--accent); text-decoration: none; }
 .main-nav a:hover::after { transform: scaleX(.5); }
-.main-nav a.active { color: var(--crimson-dark); font-weight: 600; }
+.main-nav a.active { color: var(--accent-dark); font-weight: 600; }
 .main-nav a.active::after { transform: scaleX(1); }
 
 /* ---------- 3. 版面 ---------- */
@@ -155,7 +158,7 @@ img { max-width: 100%; }
 }
 .page-title::before {
   content: ""; width: 2px; height: 21px; border-radius: 0; flex: none;
-  background: var(--crimson);
+  background: var(--accent);
 }
 .page-desc {
   color: var(--muted); font-size: 14px; margin: 0 0 26px; max-width: 780px; line-height: 1.95;
@@ -210,7 +213,7 @@ img { max-width: 100%; }
 }
 .filters input[type="text"]::placeholder { color: var(--faint); }
 .filters input[type="text"]:focus {
-  outline: none; border-color: var(--crimson); background: #fff;
+  outline: none; border-color: var(--accent); background: #fff;
 }
 .filters select {
   padding: 8px 30px 8px 10px; border: 1px solid var(--line); border-radius: 2px;
@@ -219,7 +222,7 @@ img { max-width: 100%; }
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236d726a' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 10px center;
 }
-.filters select:focus { outline: none; border-color: var(--crimson); }
+.filters select:focus { outline: none; border-color: var(--accent); }
 .filters label.switch,
 .filters label { font-family: var(--f-sans); }
 .filters .count {
@@ -230,7 +233,7 @@ img { max-width: 100%; }
   display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted);
   cursor: pointer; user-select: none;
 }
-.check input { accent-color: var(--crimson); width: 13px; height: 13px; }
+.check input { accent-color: var(--accent); width: 13px; height: 13px; }
 
 /* ---------- 6. 学者卡片 ---------- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(286px, 1fr)); gap: 12px; }
@@ -254,7 +257,7 @@ img { max-width: 100%; }
   letter-spacing: 1px;
 }
 .scholar-card .name a { color: var(--ink); }
-.scholar-card:hover .name a { color: var(--crimson-dark); }
+.scholar-card:hover .name a { color: var(--accent-dark); }
 .scholar-card .meta {
   font-family: var(--f-sans); font-size: 12px; color: var(--muted);
   margin-top: 3px; line-height: 1.65;
@@ -280,7 +283,7 @@ img { max-width: 100%; }
   font-family: var(--f-sans); font-size: 13px; color: var(--ink-2); cursor: pointer;
   transition: background .15s var(--ease), border-color .15s var(--ease), color .15s var(--ease);
 }
-.load-more:hover { background: var(--paper); border-color: var(--crimson); color: var(--crimson); }
+.load-more:hover { background: var(--paper); border-color: var(--accent); color: var(--accent); }
 .empty-tip {
   grid-column: 1 / -1; padding: 48px 20px; text-align: center;
   color: var(--muted); font-size: 14px; background: transparent;
@@ -302,13 +305,13 @@ img { max-width: 100%; }
 }
 .panel h2::before {
   content: ""; width: 2px; height: 14px; border-radius: 0; flex: none;
-  background: var(--crimson);
+  background: var(--accent);
 }
 .kv { display: grid; grid-template-columns: 96px 1fr; gap: 10px 18px; font-size: 14.5px; margin: 0; }
 .kv dt { font-family: var(--f-sans); color: var(--muted); font-size: 12.5px; }
 .kv dd { margin: 0; color: var(--ink); }
 .back-link { font-family: var(--f-sans); font-size: 12.5px; color: var(--muted); margin: 0 0 10px; }
-.back-link a { color: var(--crimson); }
+.back-link a { color: var(--accent); }
 
 /* ---------- 8. 时间线 ---------- */
 .timeline-list { position: relative; margin: 20px 0 0; padding-left: 26px; }
@@ -319,15 +322,15 @@ img { max-width: 100%; }
 .tl-item { position: relative; padding: 0 0 20px 14px; }
 .tl-item::before {
   content: ""; position: absolute; left: -23px; top: 9px; width: 7px; height: 7px;
-  border-radius: 50%; background: var(--paper); border: 1.5px solid var(--crimson);
+  border-radius: 50%; background: var(--paper); border: 1.5px solid var(--accent);
   box-shadow: 0 0 0 3px var(--bg);
 }
 .tl-item .year {
-  font-family: var(--f-sans); font-size: 12px; font-weight: 700; color: var(--crimson-dark);
+  font-family: var(--f-sans); font-size: 12px; font-weight: 700; color: var(--accent-dark);
   margin-right: 10px; letter-spacing: .4px; font-variant-numeric: tabular-nums;
 }
 .tl-item .who a { color: var(--ink); font-weight: 600; }
-.tl-item .who a:hover { color: var(--crimson); }
+.tl-item .who a:hover { color: var(--accent); }
 .tl-item .evt { color: var(--ink-2); font-size: 14px; }
 .tl-item .src { font-family: var(--f-sans); font-size: 11px; color: var(--faint); margin-top: 4px; word-break: break-all; }
 
@@ -372,19 +375,19 @@ img { max-width: 100%; }
 }
 .prose h2::before {
   content: ""; width: 2px; height: 16px; border-radius: 0; flex: none;
-  background: var(--crimson);
+  background: var(--accent);
 }
-.prose h3 { font-family: var(--f-serif); font-size: 16px; color: var(--crimson-dark); margin: 26px 0 10px; letter-spacing: .8px; }
+.prose h3 { font-family: var(--f-serif); font-size: 16px; color: var(--accent-dark); margin: 26px 0 10px; letter-spacing: .8px; }
 .prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
 .prose li { margin-bottom: 8px; }
 .prose strong { color: var(--ink); font-weight: 700; }
 .prose code {
   font-family: var(--f-mono); font-size: .87em; background: var(--paper-2);
-  border: 1px solid var(--line-soft); border-radius: 2px; padding: 1px 6px; color: var(--crimson-dark);
+  border: 1px solid var(--line-soft); border-radius: 2px; padding: 1px 6px; color: var(--accent-dark);
 }
 .prose blockquote {
   margin: 0 0 18px; padding: 14px 20px; background: var(--paper-2);
-  border-left: 2px solid var(--crimson); border-radius: 0;
+  border-left: 2px solid var(--accent); border-radius: 0;
   color: var(--ink-2); font-size: 14px;
 }
 .prose blockquote p:last-child { margin-bottom: 0; }
@@ -401,8 +404,8 @@ img { max-width: 100%; }
   margin-bottom: 10px; font-weight: 600;
 }
 .toc a { display: block; color: var(--muted); padding: 4px 0; line-height: 1.65; }
-.toc a:hover { color: var(--crimson); }
-.toc a.on { color: var(--crimson-dark); font-weight: 600; }
+.toc a:hover { color: var(--accent); }
+.toc a.on { color: var(--accent-dark); font-weight: 600; }
 
 /* 表格 */
 .tbl-wrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); }
@@ -414,7 +417,7 @@ table.tbl th {
 }
 table.tbl td { padding: 11px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: top; line-height: 1.75; }
 table.tbl tr:last-child td { border-bottom: none; }
-table.tbl tbody tr:hover td { background: rgba(201, 40, 32, .025); }
+table.tbl tbody tr:hover td { background: rgba(29, 79, 140, .025); }
 
 /* ---------- 12. 页脚 ---------- */
 .site-footer {
@@ -427,7 +430,7 @@ table.tbl tbody tr:hover td { background: rgba(201, 40, 32, .025); }
 .site-footer .f-brand { font-family: var(--f-serif); font-size: 15px; color: var(--ink); letter-spacing: 3px; margin-bottom: 4px; font-weight: 700; }
 .site-footer .f-links { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; }
 .site-footer .f-links a { color: var(--muted); }
-.site-footer .f-links a:hover { color: var(--crimson); }
+.site-footer .f-links a:hover { color: var(--accent); }
 .site-footer .demo-note { color: var(--gold-deep); }
 
 /* ---------- 13. 通用小件 ---------- */
@@ -459,6 +462,7 @@ table.tbl tbody tr:hover td { background: rgba(201, 40, 32, .025); }
   .header-inner { padding: 12px 16px 0; height: auto; align-items: flex-start; flex-direction: column; gap: 4px; }
   .site-header { padding-bottom: 0; }
   .brand .seal { width: 26px; height: 26px; font-size: 15px; }
+  .brand .seal svg { width: 19px; }
   .brand-text strong { font-size: 16px; }
   .main-nav {
     width: calc(100% + 16px); height: auto; overflow-x: auto; flex-wrap: nowrap; gap: 0;

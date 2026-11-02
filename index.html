@@ -17,7 +17,7 @@
     border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
     box-shadow: none;
   }
-  .hero .eyebrow { color: var(--crimson); letter-spacing: 3.4px; font-size: 11.5px; }
+  .hero .eyebrow { color: var(--accent); letter-spacing: 3.4px; font-size: 11.5px; }
   .hero h1 {
     font-family: var(--f-serif); font-size: 78px; line-height: 1.02; letter-spacing: 18px;
     margin: 18px 0 0; font-weight: 700; text-indent: 7px; color: var(--ink);
@@ -38,7 +38,7 @@
     overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
   }
   .hero .rule {
-    width: 40px; height: 2px; background: var(--crimson);
+    width: 40px; height: 2px; background: var(--accent);
     margin: 24px 0 20px;
   }
   .hero .tagline {
@@ -54,8 +54,8 @@
     background: none; box-shadow: none;
     transition: color .16s var(--ease), border-color .16s var(--ease);
   }
-  .hero .cta a.primary { color: var(--crimson); border-bottom-color: var(--crimson); font-weight: 600; }
-  .hero .cta a:hover { color: var(--crimson); border-bottom-color: var(--crimson); transform: none; }
+  .hero .cta a.primary { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .hero .cta a:hover { color: var(--accent); border-bottom-color: var(--accent); transform: none; }
 
   /* 卷首右侧统计 */
   .hero-board {
@@ -91,7 +91,7 @@
   .path:hover { background: var(--paper); transform: none; box-shadow: none; text-decoration: none; }
   .path .no {
     font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px;
-    color: var(--crimson); display: block; margin-bottom: 10px;
+    color: var(--accent); display: block; margin-bottom: 10px;
   }
   .path .t {
     font-family: var(--f-serif); font-size: 19px; font-weight: 700; color: var(--ink);
@@ -103,18 +103,18 @@
     display: inline-flex; align-items: center; gap: 4px;
   }
   .path .go::after { content: "→"; transition: transform .18s var(--ease); }
-  .path:hover .go, .path:hover .go::after { color: var(--crimson); }
+  .path:hover .go, .path:hover .go::after { color: var(--accent); }
   .path:hover .go::after { transform: translateX(3px); }
   .path::after { display: none; }
 
   /* ---- 传统学术资源·章黄一脉 ---- */
   .tradition { margin: 64px 0 0; border-top: 1px solid var(--ink); padding-top: 30px; }
   .tr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
-  .tr-eyebrow { font-size: 11.5px; letter-spacing: 3.4px; color: var(--crimson); margin-bottom: 10px; }
+  .tr-eyebrow { font-size: 11.5px; letter-spacing: 3.4px; color: var(--accent); margin-bottom: 10px; }
   .tr-title { font-family: var(--f-serif); font-size: 26px; letter-spacing: 2px; color: var(--ink); margin: 0 0 8px; }
   .tr-desc { font-size: 13.5px; color: var(--muted); line-height: 1.95; margin: 0; max-width: 660px; }
   .tr-more { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
-  .tr-more:hover { color: var(--crimson); }
+  .tr-more:hover { color: var(--accent); }
   .tr-jump { border-top: 1px solid var(--line); }
   .tr-jump:last-of-type { border-bottom: 1px solid var(--line); }
   .tr-jump summary {
@@ -123,7 +123,7 @@
     gap: 14px; align-items: baseline; padding: 15px 2px;
   }
   .tr-jump summary::-webkit-details-marker { display: none; }
-  .tr-jump .no { font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--crimson); }
+  .tr-jump .no { font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--accent); }
   .tr-jump .names { font-family: var(--f-serif); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 1px; }
   .tr-jump .names i { font-style: normal; font-weight: 400; color: var(--faint); padding: 0 2px; }
   .tr-jump .carrier { font-size: 13px; color: var(--muted); }

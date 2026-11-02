@@ -15,10 +15,10 @@
   }
   .intro-box::before {
     content: ""; position: absolute; left: 0; top: 22px; bottom: 20px; width: 2px;
-    background: var(--crimson); pointer-events: none;
+    background: var(--accent); pointer-events: none;
   }
   .intro-box p { margin: 0; font-size: 14px; line-height: 2.1; color: var(--ink-2); }
-  .intro-box .em { color: var(--crimson-dark); font-weight: 600; }
+  .intro-box .em { color: var(--accent-dark); font-weight: 600; }
 
   .grid-note {
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -51,7 +51,7 @@
     font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--ink);
     letter-spacing: 2.5px; line-height: 1.4;
   }
-  .master-card:hover .m-name { color: var(--crimson-dark); }
+  .master-card:hover .m-name { color: var(--accent-dark); }
   .master-card .m-years {
     font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); margin-top: 3px;
     font-variant-numeric: tabular-nums; letter-spacing: .3px;
@@ -78,8 +78,8 @@
     font-family: var(--f-sans); font-size: 11px; color: var(--muted);
   }
   .master-card .m-foot .disc { display: inline-flex; align-items: center; gap: 5px; }
-  .master-card .m-foot .disc b { font-weight: 600; color: var(--crimson); }
-  .master-card .m-foot .read { color: var(--crimson); opacity: 0; transform: translateX(-4px); transition: all .18s var(--ease); }
+  .master-card .m-foot .disc b { font-weight: 600; color: var(--accent); }
+  .master-card .m-foot .read { color: var(--accent); opacity: 0; transform: translateX(-4px); transition: all .18s var(--ease); }
   .master-card:hover .m-foot .read { opacity: 1; transform: none; }
 
   /* 详情弹层 */
@@ -119,10 +119,10 @@
     font-size: 18px; color: var(--muted); cursor: pointer; border: 1px solid var(--line); background: transparent;
     line-height: 1; display: flex; align-items: center; justify-content: center;
   }
-  .modal .close:hover { color: #fff; background: var(--crimson); border-color: var(--crimson); }
+  .modal .close:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
   .modal .go-lineage {
     display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
-    font-family: var(--f-sans); font-size: 12.5px; color: var(--crimson);
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--accent);
   }
   @media (max-width: 620px) {
     .modal .m-head { padding: 24px 22px 18px; }

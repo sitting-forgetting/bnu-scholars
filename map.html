@@ -46,7 +46,7 @@
     background: var(--paper); border: 1px solid var(--line); font-size: 13px; line-height: 1.5;
     color: var(--ink); transition: all .14s var(--ease);
   }
-  a.pchip:hover { border-color: var(--crimson); background: var(--crimson-wash); color: var(--crimson-dark); }
+  a.pchip:hover { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-dark); }
   .pchip .sub { font-family: var(--f-sans); font-size: 11px; color: var(--muted); }
   .pchip.master { background: #fdf9f1; border-color: #e8d9c3; }
   .pchip.master .sub { color: var(--gold-deep); }
@@ -55,7 +55,7 @@
   .read-tips { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; line-height: 1.95; color: var(--ink-2); }
   .read-tips li { margin-bottom: 9px; }
   .read-tips li:last-child { margin-bottom: 0; }
-  .read-tips b { color: var(--crimson-dark); font-weight: 600; }
+  .read-tips b { color: var(--accent-dark); font-weight: 600; }
 
   .legend-mini {
     display: flex; align-items: center; gap: 10px; padding: 6px 14px 10px;
@@ -63,7 +63,7 @@
   }
   .legend-mini .bar {
     width: 96px; height: 6px; border-radius: 0;
-    background: linear-gradient(90deg, #f0f1ec, #d9a29c, #b5493f);
+    background: linear-gradient(90deg, #f0f1ec, #9fb9d6, #1d4f8c);
   }
   @media (max-width: 1080px) {
     .map-layout { grid-template-columns: 1fr; }
@@ -214,11 +214,11 @@
     L.control.layers({ "矢量底图": vecGroup, "影像底图": imgGroup }, null, { position: "topright", collapsed: true }).addTo(map);
     L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
 
-    // 与图例同一套色阶：纸白 → 朱砂
+    // 与图例同一套色阶：纸白 → 师大蓝
     const shade = v => {
       if (!v) return "#f3f4ef";
       const t = maxV > 1 ? Math.pow(v / maxV, .6) : 1;
-      const c1 = [250, 244, 241], c2 = [168, 52, 44];
+      const c1 = [246, 247, 245], c2 = [29, 79, 140];
       return `rgb(${c1.map((x, i) => Math.round(x + (c2[i] - x) * t)).join(",")})`;
     };
 
@@ -234,7 +234,7 @@
         layer.bindTooltip("", { sticky: true, direction: "top", opacity: 1, className: "tdt-tip" });
         layer.on({
           // 放大后色块已隐去，悬停不能再描出省界——那正是与底图对不上的那道线
-          mouseover: () => { if (map.getZoom() < HIGH_ZOOM) layer.setStyle({ stroke: true, weight: 1.6, color: "#a31f18", opacity: .95 }); },
+          mouseover: () => { if (map.getZoom() < HIGH_ZOOM) layer.setStyle({ stroke: true, weight: 1.6, color: "#123a68", opacity: .95 }); },
           mouseout: () => { if (map.getZoom() < HIGH_ZOOM) geoLayer.resetStyle(layer); },
           click: () => showProvince(name),
         });
@@ -295,7 +295,7 @@
         L.circleMarker(ll, {
           radius: 5 + 13 * Math.sqrt(v / maxV),
           color: "#fff", weight: 1.6, opacity: .9,
-          fillColor: "#b5493f", fillOpacity: .9,
+          fillColor: "#1d4f8c", fillOpacity: .9,
         })
           .bindTooltip(`<b>${BNU.esc(name)}</b><br/>学人 ${v} 人`, { direction: "top", opacity: 1, className: "tdt-tip" })
           .on("click", () => showProvince(name))
@@ -349,8 +349,8 @@
         },
         series: [{
           type: "bar", barMaxWidth: 16,
-          itemStyle: { borderRadius: [0, 2, 2, 0], color: "#b5493f" },
-          emphasis: { itemStyle: { color: "#c25a50" } },
+          itemStyle: { borderRadius: [0, 2, 2, 0], color: "#1d4f8c" },
+          emphasis: { itemStyle: { color: "#4a7fb5" } },
           label: { show: true, position: "right", fontSize: 11.5, color: "#6d726a" },
           data: sorted.map(x => x[1]),
         }],
