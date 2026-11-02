@@ -107,6 +107,33 @@
   .path:hover .go::after { transform: translateX(3px); }
   .path::after { display: none; }
 
+  /* ---- 传统学术资源·章黄一脉 ---- */
+  .tradition { margin: 64px 0 0; border-top: 1px solid var(--ink); padding-top: 30px; }
+  .tr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tr-eyebrow { font-size: 11.5px; letter-spacing: 3.4px; color: var(--crimson); margin-bottom: 10px; }
+  .tr-title { font-family: var(--f-serif); font-size: 26px; letter-spacing: 2px; color: var(--ink); margin: 0 0 8px; }
+  .tr-desc { font-size: 13.5px; color: var(--muted); line-height: 1.95; margin: 0; max-width: 660px; }
+  .tr-more { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+  .tr-more:hover { color: var(--crimson); }
+  .tr-jump { border-top: 1px solid var(--line); }
+  .tr-jump:last-of-type { border-bottom: 1px solid var(--line); }
+  .tr-jump summary {
+    list-style: none; cursor: pointer; display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) minmax(0, 1.5fr) auto;
+    gap: 14px; align-items: baseline; padding: 15px 2px;
+  }
+  .tr-jump summary::-webkit-details-marker { display: none; }
+  .tr-jump .no { font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--crimson); }
+  .tr-jump .names { font-family: var(--f-serif); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 1px; }
+  .tr-jump .names i { font-style: normal; font-weight: 400; color: var(--faint); padding: 0 2px; }
+  .tr-jump .carrier { font-size: 13px; color: var(--muted); }
+  .tr-jump .carrier b { font-weight: 600; color: var(--ink-2); margin-right: 4px; }
+  .tr-jump .chev { color: var(--faint); font-size: 12px; transition: transform .18s var(--ease); }
+  .tr-jump[open] .chev { transform: rotate(180deg); }
+  .tr-jump .tr-body { padding: 2px 2px 18px 72px; }
+  .tr-jump .tr-body p { font-size: 13.5px; color: var(--muted); line-height: 2.05; margin: 0 0 8px; max-width: 780px; }
+  .tr-jump .tr-body p:last-child { margin-bottom: 0; }
+
   /* ---- 名录区 ---- */
   .list-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin: 56px 0 4px; }
   .list-head .page-title { margin: 0 0 2px; font-size: 30px; }
@@ -121,6 +148,8 @@
     .paths { grid-template-columns: 1fr 1fr; }
     .path:nth-child(2) { border-right: 0; }
     .path:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .tr-jump summary { grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1.3fr) auto; gap: 10px; }
+    .tr-jump .tr-body { padding-left: 62px; }
   }
   @media (max-width: 620px) {
     .hero { padding: 30px 0 28px; }
@@ -134,6 +163,10 @@
     .path { border-right: 0; border-bottom: 1px solid var(--line); }
     .path:last-child { border-bottom: 0; }
     .list-head .page-title { font-size: 26px; }
+    .tr-jump summary { grid-template-columns: 1fr auto; gap: 4px 10px; }
+    .tr-jump .no, .tr-jump .names, .tr-jump .carrier { grid-column: 1; }
+    .tr-jump .chev { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+    .tr-jump .tr-body { padding-left: 2px; }
   }
 </style>
 </head>
@@ -159,6 +192,7 @@
         <a class="primary" href="lineage.html">进入师承世表 →</a>
         <a class="ghost" href="masters.html">先贤名师</a>
         <a class="ghost" href="build-guide.html">构建方法</a>
+        <a class="ghost" href="#tradition">章黄一脉</a>
       </div>
     </div>
     <div class="hero-board" id="hero-stats"></div>
@@ -189,6 +223,70 @@
       <div class="d">每条边从哪来、证据怎么分级、标签依据哪份官方文件。</div>
       <span class="go">查出处</span>
     </a>
+  </section>
+
+  <section class="tradition" id="tradition">
+    <div class="tr-head">
+      <div>
+        <div class="tr-eyebrow">传统学术资源 · 章黄一脉</div>
+        <h2 class="tr-title">一门「点书」的学问，如何在北师大传下来</h2>
+        <p class="tr-desc">章黄之学靠口耳相授、点书、手批、当面目验传下来。下面四跳，每跳只取史料原文里写着的动作——我们称之为「传承载体」；查不到就留空，空着也是结论。证据原文与链接，见师承世表对应边上。</p>
+      </div>
+      <a class="tr-more" href="lineage.html">在世表中追这条链 →</a>
+    </div>
+
+    <details class="tr-jump">
+      <summary>
+        <span class="no">第一跳</span>
+        <span class="names">章太炎 <i>→</i> 黄侃</span>
+        <span class="carrier"><b>载体</b>日夕研讨（1907–1908 · 东京）</span>
+        <span class="chev">▾</span>
+      </summary>
+      <div class="tr-body">
+        <p>1907 年，黄侃以笔名作文刊于章太炎主编的《民报》，年表记「师事太炎先生」；次年「再走日本，往依章师，日夕研讨国学」。上海图书馆人物规范档把拜门系于 1905 年——年份两说并存，库里按官网年表取 1907，另一说保留在证据里。</p>
+        <p>这一跳没有课程，没有学籍，只有「往依」与「日夕研讨」：同住、同读、天天说话。载体只能写作四个字。</p>
+      </div>
+    </details>
+
+    <details class="tr-jump">
+      <summary>
+        <span class="no">第二跳</span>
+        <span class="names">黄侃 <i>→</i> 陆宗达</span>
+        <span class="carrier"><b>载体</b>拜门 · 作《集韵》表 · 点书三遍 · 系联 · 过录（1926 · 北京）</span>
+        <span class="chev">▾</span>
+      </summary>
+      <div class="tr-body">
+        <p>1926 年，陆宗达由章门弟子吴承仕（检斋）引荐拜门。第一步是笨功夫：跟着季刚先生作《集韵》表，「夜以继日地伏案填格子，一百来天过了音韵关」。</p>
+        <p>第二步是连点三部《说文解字注》。点完第一部，黄侃「看也不看，也不回答问题，搁在一边」，只说「再买一部来点」；点完三遍，才开口讲。批改被取消了，取而代之的是重复本身——「一次学会」的教学假设在这里被公开否认。</p>
+        <p>完整载体：拜门（吴检斋引荐）→ 作《集韵》表 → 连点三部《说文解字注》→ 形音义综合系联 → 过录师批。每一环都能在原文里找到对应的一句话。</p>
+      </div>
+    </details>
+
+    <details class="tr-jump">
+      <summary>
+        <span class="no">第三跳</span>
+        <span class="names">陆宗达 <i>→</i> 王宁</span>
+        <span class="carrier"><b>载体</b>研究生班 · 学术助手（1961 / 1983 · 北京）</span>
+        <span class="chev">▾</span>
+      </summary>
+      <div class="tr-body">
+        <p>1961 年，陆宗达把黄侃教他的那套程序原样搬进研究生班：还是点书、还是系联、还是先自己读过再听老师讲。三十五年过去，载体从「师生二人同住」变成集体授课，动作却没有换。</p>
+        <p>1983 年起又多了一种载体：王宁调作陆先生的学术助手——整理遗稿、合著《训诂方法论》、共同署名指导。师徒关系在这一步变成合作关系，传承从「一个人教一个人」变成「两个人一起生产」。陆宗达经常告诫学生：「要先接受师承，再广泛吸收。」</p>
+      </div>
+    </details>
+
+    <details class="tr-jump">
+      <summary>
+        <span class="no">第四跳</span>
+        <span class="names">王宁 <i>→</i> 诸生</span>
+        <span class="carrier"><b>载体</b>学位论文指导（1987–2022）</span>
+        <span class="chev">▾</span>
+      </summary>
+      <div class="tr-body">
+        <p>王宁门下，本库收到 16 条师承边，年份从 1987 到 2022，载体几乎全是同一件事：学位论文指导。传承载体从手批、点书，变成一份份可查的题录。</p>
+        <p>四跳连起来看：日夕研讨 → 点书三遍 → 研究生班与助手 → 学位论文题录。越往后，载体越清楚、越好查；越往前，载体越模糊、越依赖回忆。而学问里最要紧的那部分——点书时老师为什么不看、什么时候才肯开口——恰恰只存在于最模糊的那一端。</p>
+      </div>
+    </details>
   </section>
 
   <div class="list-head">

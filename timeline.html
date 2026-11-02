@@ -60,8 +60,8 @@
 <main class="wrap">
   <h2 class="page-title">学科时间线</h2>
   <p class="page-desc">
-    师承关系是这门学科最细的时间刻度。本页以 235 条师承边的年份、所属学科与关系类型，
-    呈现这条脉络的纵深、结构与厚度；所有统计口径与「师承世表」一致。
+    师承关系是这门学科最细的时间刻度。本页以全部师承边的年份、所属学科与关系类型，
+    呈现这条脉络的纵深、结构与厚度；所有统计口径与「师承世表」一致，数字均为运行时从数据文件读取。
   </p>
 
   <div class="kpi-row" id="kpi-row"></div>
@@ -69,7 +69,7 @@
   <div class="chart-box">
     <h2>师承关系发生的年代</h2>
     <p class="chart-desc">
-      按师承关系成立（入学/受业）的年份，每 5 年一带统计。可考年份 153 条，其余 54 条年份待补，不计入本图。
+      按师承关系成立（入学/受业）的年份，每 5 年一带统计。<span id="n-year-desc"></span>
     </p>
     <div id="year-chart" class="chart" style="height:340px"></div>
     <div class="foot-note" id="year-note"></div>
@@ -78,12 +78,12 @@
   <div class="grid-2">
     <div class="chart-box">
       <h2>二级学科结构</h2>
-      <p class="chart-desc">在录学者 <span id="n-disc-total">188</span> 人的学科归属。灰色为官网未标注二级学科者，按原样保留、不做推断。</p>
+      <p class="chart-desc">在录学者 <span id="n-disc-total">189</span> 人的学科归属。灰色为官网未标注二级学科者，按原样保留、不做推断。</p>
       <div id="disc-chart" class="chart" style="height:420px"></div>
     </div>
     <div class="chart-box">
       <h2>关系类型构成</h2>
-      <p class="chart-desc">235 条边按原始表述归类。「就学期间受教」等含未细分说明的边，统一归入「其他」。</p>
+      <p class="chart-desc"><span id="n-type-total"></span> 条边按原始表述归类。「就学期间受教」等含未细分说明的边，统一归入「其他」。</p>
       <div id="type-chart" class="chart" style="height:420px"></div>
     </div>
   </div>
@@ -93,7 +93,7 @@
     <p class="chart-desc">按年份倒序排列的每一条师承关系。点「证据」可查看该条关系的原始表述与来源链接。</p>
     <div class="ev-tools">
       <div class="seg" id="ev-filter">
-        <button data-k="all" class="on">全部 153</button>
+        <button data-k="all" class="on">全部</button>
         <button data-k="博士">博士</button>
         <button data-k="硕士">硕士</button>
         <button data-k="其他">受业 / 其他</button>
@@ -157,6 +157,8 @@
     const counts = bins.map(b => ys.filter(y => y >= b && y < b + BIN).length);
     const labels = bins.map(b => `${b}–${String(b + BIN - 1).slice(2)}`);
     const empty = counts.filter(c => c === 0).length;
+    document.getElementById("n-year-desc").textContent =
+      `可考年份 ${ys.length} 条，其余 ${edges.length - ys.length} 条年份待补，不计入本图。`;
 
     BNU.mount("year-chart", {
       grid: { left: 44, right: 18, top: 26, bottom: 54 },
@@ -204,8 +206,8 @@
 
   /* ---------- 2. 学科结构 ---------- */
   (function discChart() {
-    // 学科结构按中文系口径统计，跨院标明者不计入
-    const roster = data.scholars.filter(s => s.org !== "新闻传播学院（跨院）");
+    // 学科结构按中文系口径统计：外源导师与跨院标明者不计入
+    const roster = data.scholars.filter(s => !s.demo && !s.external && s.org !== "新闻传播学院（跨院）");
     document.getElementById("n-disc-total").textContent = roster.length;
     const counts = {};
     roster.forEach(s => {
@@ -264,6 +266,7 @@
       else g["其他"]++;
     });
     const colors = { "博士": "#c92820", "硕士": "#1f8a66", "受业": "#8a6d3b", "博士后": "#2f6fb0", "其他": "#c7cac2" };
+    document.getElementById("n-type-total").textContent = edges.length;
     const items = Object.entries(g).map(([name, value]) => ({ name, value, itemStyle: { color: colors[name] } }));
 
     BNU.mount("type-chart", {
@@ -307,6 +310,7 @@
       return "其他";
     };
     const cur = () => key === "all" ? list : list.filter(e => bucket(e) === key);
+    document.querySelector('#ev-filter button[data-k="all"]').textContent = `全部 ${list.length}`;
 
     function paint() {
       const all = cur();
