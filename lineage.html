@@ -503,11 +503,22 @@
     if (!expanded.has(tid)) {
       expanded.add(tid);
       childrenOf[tid].forEach(s => { if (!effCard[s]) popIds.add(s); });
+      relayout();
+      // 主父口径检测：展开后没有任何学生挂在本导师树下（学生全是别人的主父学生）
+      // → 「死钮」：撤销展开，改为定位到学生实际所在位置（其主导师树下）
+      const underMe = cards.filter(c => mainParentMap[c.id] === tid);
+      if (!underMe.length && childrenOf[tid].length) {
+        expanded.delete(tid);
+        relayout();
+        locateSecondary(tid);
+        return;
+      }
+      render();
     } else {
       expanded.delete(tid);
+      relayout();
+      render();
     }
-    relayout();
-    render();
   }
 
 
@@ -761,7 +772,7 @@
       ? cards.filter(c => c.id === familyMentor || childrenOf[familyMentor].indexOf(c.id) >= 0)
       : cards;
     cardsToDraw.forEach(n => {
-      const foldedKids = childrenOf[n.id].filter(s => !effCard[s.id]);
+      const foldedKids = childrenOf[n.id].filter(s => !effCard[s]);
       const x = cardX(n), y = cardY(n), h = nameH(n);
       const os = ORG_STATUS[n.kind] || ORG_STATUS.external;
       const g = el("g", { "class": "node" + (popIds.has(n.id) ? " pop" : "") + (pathIds.has(n.id) ? " on-path" : "") + (bridgeIds.has(n.id) ? " on-bridge" : ""), "data-kind": n.kind || "scholar", transform: "translate(" + x + "," + y + ")", cursor: "pointer" }, gNodes);
@@ -800,47 +811,54 @@
         const yt = el("text", { x: CW / 2 + 1, y: h - 8, "class": "card-sub", "text-anchor": "middle" }, g);
         yt.textContent = n.year;
       }
-      // 卡片下方的「展开/收起」独立开关：圆点阵 + 标签，点它才改图结构
-      const tg = el("g", { "class": "toggle", cursor: "pointer" }, g);
-      if (foldedKids.length) {
-        // 弟子少（≤3 人）时直接列出姓名——只画 1~3 个 2px 圆点，用户根本看不出下面有人
-        if (foldedKids.length <= 3) {
-          foldedKids.forEach((sid, i) => {
-            const kid = nodeById[sid];
-            const nm = el("text", {
-              x: CW / 2 + 2, y: h + 16 + i * 12, "class": "fold-name",
-              "text-anchor": "middle",
-              fill: kid.kind === "external" ? "#a9ada4" : "#6d726a",
-            }, tg);
-            nm.textContent = dispName(kid);
-          });
-          const fl0 = el("text", { x: CW / 2 + 2, y: h + 16 + foldedKids.length * 12 + 4,
-                                   "class": "fold-label", "text-anchor": "middle" }, tg);
-          fl0.textContent = "展开 ▾";
-          el("rect", { x: -6, y: h + 2, width: CW + 12, height: 16 + foldedKids.length * 12 + 14,
-                       fill: "transparent", "pointer-events": "all" }, tg);
+      // 卡片下方的「展开/收起」独立开关：圆点阵 + 标签，点它才改图结构。
+      // 无折叠项且未展开时不画（学生全部以卡片可见时，开关本身没有存在的意义）
+      if (foldedKids.length || (expanded.has(n.id) && childrenOf[n.id].length)) {
+        const tg = el("g", { "class": "toggle", cursor: "pointer" }, g);
+        if (foldedKids.length) {
+          // 弟子少（≤3 人）时直接列出姓名——只画 1~3 个 2px 圆点，用户根本看不出下面有人
+          if (foldedKids.length <= 3) {
+            foldedKids.forEach((sid, i) => {
+              const kid = nodeById[sid];
+              const nm = el("text", {
+                x: CW / 2 + 2, y: h + 16 + i * 12, "class": "fold-name",
+                "text-anchor": "middle",
+                fill: kid.kind === "external" ? "#a9ada4" : "#6d726a",
+              }, tg);
+              nm.textContent = dispName(kid);
+            });
+            const fl0 = el("text", { x: CW / 2 + 2, y: h + 16 + foldedKids.length * 12 + 4,
+                                     "class": "fold-label", "text-anchor": "middle" }, tg);
+            fl0.textContent = "展开 ▾";
+            el("rect", { x: -6, y: h + 2, width: CW + 12, height: 16 + foldedKids.length * 12 + 14,
+                         fill: "transparent", "pointer-events": "all" }, tg);
+          } else {
+            const perRow = 11;
+            foldedKids.slice(0, 22).forEach((sid, i) => {
+              const kid = nodeById[sid];
+              const row = Math.floor(i / perRow), col = i % perRow;
+              const dot = el("circle", {
+                cx: 5 + col * 6.4, cy: h + 8 + row * 8, r: 2.2,
+                fill: kid.kind === "external" ? "#c7cac2" : "#c92820",
+              }, tg);
+              const ttl = el("title", {}, dot);            // 悬停显示折叠的是谁
+              ttl.textContent = kid.name;
+            });
+            const fl = el("text", { x: CW / 2 + 2, y: h + (foldedKids.length > perRow ? 30 : 20), "class": "fold-label", "text-anchor": "middle" }, tg);
+            fl.textContent = "门下 " + n.asMentor + " ▾";
+            el("rect", { x: -6, y: h + 2, width: CW + 12, height: (foldedKids.length > perRow ? 36 : 26), fill: "transparent", "pointer-events": "all" }, tg);
+          }
         } else {
-          const perRow = 11;
-          foldedKids.slice(0, 22).forEach((sid, i) => {
-            const kid = nodeById[sid];
-            const row = Math.floor(i / perRow), col = i % perRow;
-            const dot = el("circle", {
-              cx: 5 + col * 6.4, cy: h + 8 + row * 8, r: 2.2,
-              fill: kid.kind === "external" ? "#c7cac2" : "#c92820",
-            }, tg);
-            const ttl = el("title", {}, dot);            // 悬停显示折叠的是谁
-            ttl.textContent = kid.name;
-          });
-          const fl = el("text", { x: CW / 2 + 2, y: h + (foldedKids.length > perRow ? 30 : 20), "class": "fold-label", "text-anchor": "middle" }, tg);
-          fl.textContent = "门下 " + n.asMentor + " ▾";
-          el("rect", { x: -6, y: h + 2, width: CW + 12, height: (foldedKids.length > perRow ? 36 : 26), fill: "transparent", "pointer-events": "all" }, tg);
+          const fl2 = el("text", { x: CW / 2 + 2, y: h + 20, "class": "fold-label", "text-anchor": "middle" }, tg);
+          fl2.textContent = "收起 ▴";
+          el("rect", { x: -6, y: h + 2, width: CW + 12, height: 26, fill: "transparent", "pointer-events": "all" }, tg);
         }
-      } else if (expanded.has(n.id) && childrenOf[n.id].length) {
-        const fl2 = el("text", { x: CW / 2 + 2, y: h + 20, "class": "fold-label", "text-anchor": "middle" }, tg);
-        fl2.textContent = "收起 ▴";
-        el("rect", { x: -6, y: h + 2, width: CW + 12, height: 26, fill: "transparent", "pointer-events": "all" }, tg);
+        tg.addEventListener("click", ev => { ev.stopPropagation(); toggleExpand(n.id); });
+        const ttip = el("title", {}, tg);
+        ttip.textContent = foldedKids.length && !childrenOf[n.id].some(s => mentorsOf[s][0] === n.id)
+          ? "门下学生兼师从多人、挂在主导师树下——点击前往其位置"
+          : (expanded.has(n.id) ? "收起门下学生" : "展开门下学生");
       }
-      tg.addEventListener("click", ev => { ev.stopPropagation(); toggleExpand(n.id); });
       if (kw && n.name.indexOf(kw) >= 0) {
         // 高亮框要连弟子区一起框住，否则看起来「只高亮了卡片、下面没高亮」
         el("rect", { x: -4.5, y: -4.5, width: CW + 9, height: h + 9 + foldRows, rx: 3,
@@ -876,7 +894,8 @@
       Object.values(ORG_STATUS).map(o =>
         `<span><span class="dot" style="background:${o.hollow ? "#fbfaf7" : o.color};border:1.5px solid ${o.color}"></span>${esc(o.label)}</span>`).join("") +
       `<span style="color:#a39a8c">｜ 名片下方圆点＝折叠的门下学生</span>` +
-      `<span style="color:#a39a8c">｜ 右上 ◆＝兼师从（点击定位另一位导师）</span></div>`;
+      `<span style="color:#a39a8c">｜ 右上 ◆＝兼师从（点击定位另一位导师）</span>` +
+      `<span style="color:#a39a8c">｜ 自带门下的学者常驻展开，「收起」只折纯学生</span></div>`;
     lg.querySelectorAll(".lg-item[data-type]").forEach(item => {
       item.addEventListener("click", () => {
         const t = item.dataset.type;
@@ -1185,6 +1204,26 @@
     if (!bridgeIds.size) return;
     bridgeIds.forEach(id => { if (nodeEl[id]) nodeEl[id].classList.remove("on-bridge"); });
     bridgeIds = new Set();
+  }
+
+  /* ---- 次父定位：多导师学生的次父导师，其「门下」钮展开后学生不会出现在本树下
+     （学生挂在主导师树下）——此时点击改为飞往学生实际位置并高亮，多位则逐次轮换 ---- */
+  const secCursor = {};
+  function locateSecondary(tid) {
+    const kids = childrenOf[tid].filter(s => nodeById[s]);
+    if (!kids.length) return;
+    const i = (secCursor[tid] || 0) % kids.length;
+    secCursor[tid] = i + 1;
+    const target = kids[i];
+    const mp = mentorsOf[target][0];          // 学生的主父（第一位在库导师）
+    if (mp && mp !== tid) expanded.add(mp);   // 展开主父，学生才会以卡片出现在其树下
+    relayout();
+    bridgeIds = new Set([tid, target]);
+    render();
+    if (nodeEl[target]) nodeEl[target].classList.add("on-bridge");
+    if (nodeEl[tid]) nodeEl[tid].classList.add("on-bridge");
+    if (X[target] != null) flyTo(target);
+    else if (mp && X[mp] != null) flyTo(mp);
   }
 
   function flyTo(id) {
