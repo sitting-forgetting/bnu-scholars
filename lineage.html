@@ -163,6 +163,7 @@
   #shitu.path-mode .node.on-path .card-face { fill: #fbf3dd; stroke: #c9a227; stroke-width: 1.5; }
   #shitu .node.on-bridge .card-face { fill: #fbf3dd; stroke: #c9a227; stroke-width: 1.5; }
   .card-bridge-dot { cursor: pointer; }
+  .toggle:focus, .card-bridge-dot:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   #shitu.path-mode .edge-hit { pointer-events: none; }
   /* 悬停反馈：默认不画卡片，悬停时浮出一层纸白 */
   #shitu .node .card-face { fill: transparent; stroke: none; }
@@ -804,6 +805,13 @@
         }, g);
         const btip = el("title", {}, bd);
         btip.textContent = "兼师从：" + otherMentors.map(m => (nodeById[m] || {}).name || m).join("、") + "（点击定位）";
+        bd.setAttribute("tabindex", "0");          // 键盘可达：Tab 聚焦后 Enter/Space 触发定位
+        bd.setAttribute("role", "button");
+        bd.setAttribute("aria-label", btip.textContent);
+        bd.addEventListener("keydown", ev => {
+          if (ev.key !== "Enter" && ev.key !== " ") return;
+          ev.preventDefault(); ev.stopPropagation(); jumpBridge(n.id, otherMentors);
+        });
         bd.addEventListener("click", ev => { ev.stopPropagation(); jumpBridge(n.id, otherMentors); });
       }
       dispName(n).split("").forEach((ch, i) => {
@@ -857,10 +865,18 @@
           el("rect", { x: -6, y: h + 2, width: CW + 12, height: 26, fill: "transparent", "pointer-events": "all" }, tg);
         }
         tg.addEventListener("click", ev => { ev.stopPropagation(); toggleExpand(n.id); });
+        tg.setAttribute("tabindex", "0");          // 键盘可达：Tab 聚焦后 Enter/Space 等同点击
+        tg.setAttribute("role", "button");
         const ttip = el("title", {}, tg);
         ttip.textContent = foldedKids.length && !childrenOf[n.id].some(s => mentorsOf[s][0] === n.id)
           ? "门下学生兼师从多人、挂在主导师树下——点击前往其位置"
           : (expanded.has(n.id) ? "收起门下学生" : "展开门下学生");
+        tg.setAttribute("aria-label", ttip.textContent);
+        tg.setAttribute("aria-expanded", expanded.has(n.id) ? "true" : "false");
+        tg.addEventListener("keydown", ev => {
+          if (ev.key !== "Enter" && ev.key !== " ") return;
+          ev.preventDefault(); ev.stopPropagation(); toggleExpand(n.id);
+        });
       }
       if (kw && hitName(n, kw)) {
         // 高亮框要连弟子区一起框住，否则看起来「只高亮了卡片、下面没高亮」
@@ -1311,9 +1327,11 @@
     markSelected(null);
     clearPath(true);
     clearBridge();
+    if (familyMentor) { familyMentor = null; syncFamChips(); render(); }   // 家族高亮也一并退出
   });
 
   q.addEventListener("keydown", ev => {
+    if (ev.isComposing || ev.keyCode === 229) return;   // 输入法组词态：回车/方向键属于候选操作，不触发页面行为
     if (searchPop.style.display === "none" || !popHits.length) return;
     if (ev.key === "ArrowDown") { ev.preventDefault(); popIdx = Math.min(popIdx + 1, popHits.length - 1); updatePop(); }
     else if (ev.key === "ArrowUp") { ev.preventDefault(); popIdx = Math.max(popIdx - 1, 0); updatePop(); }
@@ -1381,6 +1399,7 @@
       runPath();
     });
     [a, b].forEach(el2 => el2.addEventListener("keydown", ev => {
+      if (ev.isComposing || ev.keyCode === 229) return;   // 输入法组词态：回车是确认汉字，不是执行查询
       if (ev.key === "Enter") { ev.preventDefault(); runPath(); }
     }));
   })();
@@ -1421,6 +1440,8 @@
   zoomBtn("zoom-out", 0.8);
 
   const fam = document.getElementById("family-chips");
+  const syncFamChips = () => fam.querySelectorAll(".fchip")
+    .forEach(b2 => b2.classList.toggle("on", b2.dataset.id === familyMentor));
   const topMentors = data.nodes.filter(n => n.asMentor >= 3)
     .sort((a, b) => b.asMentor - a.asMentor || a.name.localeCompare(b.name, "zh"));
   fam.innerHTML = topMentors.map(n =>
@@ -1434,15 +1455,33 @@
     if (familyMentor) expanded.add(id);   // 高亮家族时自动展开其门下
     relayout();
     render();
+    syncFamChips();
   });
 
   [q, onlyDirect, showColleague].forEach(elx => elx.addEventListener("input", render));
-  window.addEventListener("resize", () => { render(); fitView(); });
+  // 画布尺寸变化（窗口缩放 / 工具栏换行 / 路径栏开合）：重绘并锚定视野中心，不重置视野。
+  // 关键：中心内容点必须用「旧尺寸」计算——resize 触发时布局已变，届时再读尺寸算出的
+  // 「当前中心点」锚回当前中心是恒等操作，视野照样会跳。
+  let roTimer = null;
+  const roPrev = { w: stage.clientWidth, h: stage.clientHeight };
+  new ResizeObserver(() => {
+    if (stage.clientWidth === roPrev.w && stage.clientHeight === roPrev.h) return;
+    clearTimeout(roTimer);
+    roTimer = setTimeout(() => {
+      const w = stage.clientWidth, h = stage.clientHeight;
+      const cx = (roPrev.w / 2 - view.x) / view.k, cy = (roPrev.h / 2 - view.y) / view.k;   // 旧视野中心的内容点
+      roPrev.w = w; roPrev.h = h;
+      render();
+      view.x = w / 2 - cx * view.k;
+      view.y = h / 2 - cy * view.k;
+      applyView();
+    }, 120);
+  }).observe(stage);
 
   // 新手引导（3 步，看过即不再显示）
   const TOUR = [
     ["把图谱挪一挪", "按住空白处拖拽，或用滚轮缩放。"],
-    ["点姓名，学生弹出", "点击导师卡片，其门下学生会展开弹出；再点一次收起。每条连线旁可查证据出处。"],
+    ["「门下」开关展开学生", "点导师卡片＝看右侧信息；展开门下要点卡片下方的「门下 N ▾」开关，再点收起。兼师从多处的导师，点开关会直接飞往学生在主导师树下的位置。点连线可查证据出处。"],
     ["左下图例可筛选", "点图例中的关系类型可隐藏对应连线；勾选「叠加同事关系」查看同机构学者网络。"],
   ];
   let tourStep = 0;
