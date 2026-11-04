@@ -24,6 +24,21 @@
   .net-strip .ns-t { font-family: var(--f-serif); font-weight: 700; font-size: 12.5px; letter-spacing: 1px; color: var(--ink); }
   .net-strip b { font-family: var(--f-serif); font-size: 14px; color: var(--accent-dark); }
   .net-strip .ns-hint { color: #a39a8c; }
+  .net-wrap { position: relative; }
+  .ns-stat { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; border-bottom: 1px dotted var(--line-strong); }
+  .ns-stat:hover, .ns-stat[aria-expanded="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+  .ns-stat:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .net-pop { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(23,25,22,.12); padding: 12px 16px 14px; max-height: 360px; overflow: auto; display: none; }
+  body.dark .net-pop { background: var(--paper); }
+  .net-pop .np-cap { font-size: 12.5px; line-height: 1.75; color: var(--ink-2); margin: 0 0 10px; }
+  .net-pop .np-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-2); padding: 2.5px 0; }
+  .net-pop .np-k { width: 64px; flex: none; }
+  .net-pop .np-bar { height: 9px; background: var(--accent); opacity: .8; flex: none; }
+  .net-pop .np-item { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 5px 2px; border-bottom: 1px dotted var(--line-soft); cursor: pointer; }
+  .net-pop .np-item:hover, .net-pop .np-item:focus-visible { background: var(--accent-wash); outline: none; }
+  .net-pop .np-name { font-family: var(--f-serif); font-size: 13px; color: var(--ink); flex: none; }
+  .net-pop .np-meta { font-size: 11.5px; color: var(--muted); text-align: right; }
+  .net-pop .np-note { font-size: 11.5px; color: var(--muted); margin: 8px 0 0; }
   .page-tools input[type="text"] {
     flex: 1 1 240px; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 2px;
     font-family: var(--f-serif); font-size: 14px; background: var(--paper) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d726a' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M20 20l-4.8-4.8'/%3E%3C/svg%3E") no-repeat 11px center;
@@ -165,6 +180,19 @@
   .card-bridge-dot { cursor: pointer; }
   .toggle:focus, .card-bridge-dot:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   #shitu.path-mode .edge-hit { pointer-events: none; }
+  /* 流动圆点：干线/母线上滚动的粒子，方向师→生（借鉴 mulu 的流线效果，SVG 实现） */
+  @keyframes edgeflow { to { stroke-dashoffset: -8; } }
+  .edge-flow {
+    fill: none; stroke-linecap: round;
+    stroke-dasharray: 0.1 7.9;   /* 周期 8px，负向推进 = 沿路径方向流动，循环无缝 */
+    animation: edgeflow 1.4s linear infinite;
+    pointer-events: none;
+  }
+  /* 路径高亮时流动退为氛围层，不与金色路径抢注意力 */
+  #shitu.path-mode .edge-flow { opacity: .12; }
+  @media (prefers-reduced-motion: reduce) {
+    .edge-flow { display: none; }
+  }
   /* 悬停反馈：默认不画卡片，悬停时浮出一层纸白 */
   #shitu .node .card-face { fill: transparent; stroke: none; }
   #shitu .node:hover .card-face { fill: #fffefb; stroke: var(--line-strong); stroke-width: 1; }
@@ -228,7 +256,10 @@
   </div>
 
   <!-- 结构速览：师承图是网不是树，数字运行时计算 -->
-  <div class="net-strip" id="net-strip"></div>
+  <div class="net-wrap">
+    <div class="net-strip" id="net-strip"></div>
+    <div class="net-pop" id="net-pop"></div>
+  </div>
 
   <!-- 师承路径查询：任选两人，高亮他们之间最短的师承链 -->
   <div class="path-bar" id="path-bar" style="display:none">
@@ -355,6 +386,7 @@
   });
 
   /* ---- 结构速览：并查集算家族、数根、数桥，全部运行时计算不写死 ---- */
+  const NET = {};
   (function netStrip() {
     const N = data.nodes, E = data.edges;
     const inG = new Set(); E.forEach(e => { inG.add(e.mentor); inG.add(e.student); });
@@ -373,14 +405,134 @@
     const extEdges = E.filter(e => kind[e.mentor] === "external").length;
     const strip = document.getElementById("net-strip");
     if (!strip) return;
+    NET.fams = fams; NET.byStu = byStu;
     strip.innerHTML =
       `<span class="ns-t">结构速览</span>` +
-      `<span><b>${fams.length}</b> 个师承家族</span>` +
+      `<button class="ns-stat" type="button" data-key="fam" aria-expanded="false" aria-controls="net-pop"><b>${fams.length}</b> 个师承家族</button>` +
       `<span>最大分量 <b>${big.length}</b> 人、<b>${rootCount}</b> 个独立源头——多个师门粘连，不是一棵树</span>` +
-      `<span><b>${multi}</b> 位学者师从多人（桥）</span>` +
-      `<span><b>${(extEdges / E.length * 100).toFixed(1)}%</b> 的边导师在库外</span>` +
-      `<span class="ns-hint">卡片右上 ◆＝兼师从，点击定位另一位导师</span>`;
+      `<button class="ns-stat" type="button" data-key="bridge" aria-expanded="false" aria-controls="net-pop"><b>${multi}</b> 位学者师从多人（桥）</button>` +
+      `<button class="ns-stat" type="button" data-key="ext" aria-expanded="false" aria-controls="net-pop"><b>${(extEdges / E.length * 100).toFixed(1)}%</b> 的边导师在库外</button>` +
+      `<span class="ns-hint">点数字看发现 · 卡片右上 ◆＝兼师从，点击定位另一位导师</span>`;
   })();
+
+  /* ---- 结构发现面板：点速览条数字弹出（家族规模 / 桥名单 / 外源边年代），全部运行时计算 ---- */
+  const netPop = document.getElementById("net-pop");
+  let netPopKey = null;
+
+  function netFindings() {
+    if (NET.cache) return NET.cache;
+    const nm = {}, kd = {};
+    data.nodes.forEach(n => { nm[n.id] = n.name; kd[n.id] = n.kind; });
+    const par = {};
+    data.edges.forEach(e => { if (!par[e.student]) par[e.student] = e.mentor; });
+    // 每族最深代数：记忆化 DFS（防环）
+    const kids = {};
+    data.edges.forEach(e => (kids[e.mentor] = kids[e.mentor] || []).push(e.student));
+    const depth = {}, inS = {};
+    const dfs = x => {
+      if (depth[x] != null) return depth[x];
+      if (inS[x]) return 1;
+      inS[x] = true;
+      let m = 1;
+      (kids[x] || []).forEach(s => { m = Math.max(m, 1 + dfs(s)); });
+      inS[x] = false;
+      return depth[x] = m;
+    };
+    NET.fams.forEach(f => f.forEach(id => dfs(id)));
+    const buckets = [
+      { label: "16 人以上", test: s => s >= 16 },
+      { label: "6–15 人", test: s => s >= 6 && s <= 15 },
+      { label: "3–5 人", test: s => s >= 3 && s <= 5 },
+      { label: "2 人", test: s => s === 2 },
+      { label: "1 人", test: s => s === 1 },
+    ];
+    const famRows = buckets.map(b => ({ label: b.label, n: NET.fams.filter(f => b.test(f.length)).length })).filter(r => r.n > 0);
+    let chainFams = 0, maxD = 0, deepTop = null;
+    NET.fams.forEach(f => {
+      let md = 0, top = null;
+      f.forEach(id => { const dv = dfs(id); if (dv > md) { md = dv; top = id; } });
+      if (md >= 3) chainFams++;
+      if (md > maxD) { maxD = md; deepTop = top; }
+    });
+    let deepRoot = deepTop;
+    const seenUp = new Set();
+    while (deepRoot && par[deepRoot] && !seenUp.has(deepRoot)) { seenUp.add(deepRoot); deepRoot = par[deepRoot]; }
+    // 桥名单：按导师数降序
+    const bridges = Object.entries(NET.byStu)
+      .filter(([, s]) => s.size > 1)
+      .map(([id, s]) => ({ id, name: nm[id] || id, n: s.size, ms: [...s].map(m => nm[m] || m) }))
+      .sort((a, b) => b.n - a.n || nm[a.id].localeCompare(nm[b.id], "zh"));
+    // 外源边年代分布 + 带徒最多的外源导师
+    const dec = {}; let extNoYear = 0; const extCnt = {};
+    data.edges.forEach(e => {
+      if (kd[e.mentor] !== "external") return;
+      if (e.year) { const k = Math.floor(e.year / 10) * 10; dec[k] = (dec[k] || 0) + 1; }
+      else extNoYear++;
+      extCnt[e.mentor] = (extCnt[e.mentor] || 0) + 1;
+    });
+    const decRows = Object.keys(dec).map(k => ({ dec: +k, n: dec[k] })).sort((a, b) => a.dec - b.dec);
+    const mxExt = Math.max(0, ...Object.values(extCnt));
+    const extTop = Object.keys(extCnt).filter(id => extCnt[id] === mxExt).map(id => nm[id]).sort((a, b) => a.localeCompare(b, "zh"));
+    NET.cache = { famRows, chainFams, maxD, deepRoot: nm[deepRoot] || "", bridges, decRows, extNoYear, extTop };
+    return NET.cache;
+  }
+
+  function renderNetPop(key) {
+    const F = netFindings();
+    if (key === "fam") {
+      const mx = Math.max(...F.famRows.map(r => r.n));
+      netPop.innerHTML =
+        `<p class="np-cap">按连通分量统计的 ${NET.fams.length} 个家族的规模分布。没有一人孤族——最小的家族也有一对师徒；多数师承仍是点对点，成链（三代以上）仅 ${F.chainFams} 族，最深 ${F.maxD} 代（${esc(F.deepRoot)}一脉）。</p>` +
+        F.famRows.map(r => `<div class="np-row"><span class="np-k">${r.label}</span><span class="np-bar" style="width:${Math.max(4, Math.round(r.n / mx * 260))}px"></span><span>${r.n} 族</span></div>`).join("");
+    } else if (key === "bridge") {
+      const top = F.bridges[0];
+      netPop.innerHTML =
+        `<p class="np-cap">师从多位导师的 ${F.bridges.length} 位学者，按导师数排序——桥是师门之间的渡口，把各自独立的家族连成网。兼师最多：${esc(top.name)}（${top.n} 位导师）。点击任意一行定位到该学者。</p>` +
+        F.bridges.map(b => `<div class="np-item" data-id="${esc(b.id)}" tabindex="0" role="button" aria-label="定位 ${esc(b.name)}"><span class="np-name">${esc(b.name)}</span><span class="np-meta">${b.n} 位导师：${esc(b.ms.join("、"))}</span></div>`).join("");
+    } else {
+      const mx = Math.max(...F.decRows.map(r => r.n));
+      const peak = F.decRows.reduce((a, b) => (b.n > a.n ? b : a), F.decRows[0]);
+      const recent = F.decRows.filter(r => r.dec >= 1990 && r.dec <= 2010).reduce((s, r) => s + r.n, 0);
+      netPop.innerHTML =
+        `<p class="np-cap">导师在库外的师承边，按年代分布。峰值在 ${peak.dec} 年代（${peak.n} 条），1990—2010 年代合计 ${recent} 条——在录学者外校求学的高峰期。带徒最多的外源导师：${esc(F.extTop.join("、"))}。</p>` +
+        F.decRows.map(r => `<div class="np-row"><span class="np-k">${r.dec}s</span><span class="np-bar" style="width:${Math.max(4, Math.round(r.n / mx * 260))}px"></span><span>${r.n} 条</span></div>`).join("") +
+        (F.extNoYear ? `<p class="np-note">另有 ${F.extNoYear} 条外源边年份待补，未计入分布。</p>` : "");
+    }
+  }
+
+  function openNetPop(key) {
+    if (netPopKey === key) { closeNetPop(); return; }
+    netPopKey = key;
+    renderNetPop(key);
+    netPop.style.display = "block";
+    document.querySelectorAll("#net-strip .ns-stat").forEach(b => b.setAttribute("aria-expanded", b.dataset.key === key ? "true" : "false"));
+  }
+  function closeNetPop() {
+    netPopKey = null;
+    netPop.style.display = "none";
+    document.querySelectorAll("#net-strip .ns-stat").forEach(b => b.setAttribute("aria-expanded", "false"));
+  }
+  document.getElementById("net-strip").addEventListener("click", ev => {
+    const btn = ev.target.closest(".ns-stat");
+    if (btn) openNetPop(btn.dataset.key);
+  });
+  netPop.addEventListener("click", ev => {
+    const item = ev.target.closest(".np-item");
+    if (!item) return;
+    const id = item.dataset.id;
+    closeNetPop();
+    showNode(id);
+  });
+  netPop.addEventListener("keydown", ev => {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    const item = ev.target.closest(".np-item");
+    if (!item) return;
+    ev.preventDefault();
+    item.click();
+  });
+  document.addEventListener("mousedown", ev => {
+    if (netPopKey && !ev.target.closest(".net-wrap")) closeNetPop();
+  });
 
   // 卡片集合（动态）：有门下的（导师）或无导师的（谱系根）为基础卡片；
   // 点击导师可将其折叠的门下学生「展开弹出」为卡片（仿 mulu 交互）
@@ -730,6 +882,12 @@
       if (busR - busL > 0.5) {
         el("line", { x1: busL, y1: busY, x2: busR, y2: busY, stroke: trunkColor, "stroke-width": 1, opacity: 0.6 }, gEdges);
       }
+      // 流动圆点叠加层：只铺在干线与母线上（非每条分支），粒子从导师处向外流——师→生
+      const flow = { "class": "edge-flow", stroke: trunkColor, "stroke-width": 2.2, opacity: 0.5 };
+      el("line", { ...flow, x1: trunkX, y1: yTop, x2: trunkX, y2: busY }, gEdges);
+      // 母线分两半、起点都定在干线处：负向 dashoffset 即从干线向两侧推进
+      if (busR - trunkX > 0.5) el("line", { ...flow, x1: trunkX, y1: busY, x2: busR, y2: busY }, gEdges);
+      if (trunkX - busL > 0.5) el("line", { ...flow, x1: trunkX, y1: busY, x2: busL, y2: busY }, gEdges);
       // 次父通道：比母线低 12px 的独立水平线，虚线 + 更淡
       const secY = busY + 12;
       if (secSegs.length) {
@@ -1318,6 +1476,7 @@
   const INFO_EMPTY = '<h3>节点信息</h3><p class="empty">点击世表中的姓名卡片，这里会显示该学者的受业师与门下，每条附原文证据与来源链接。</p>';
   document.addEventListener("keydown", ev => {
     if (ev.key !== "Escape") return;
+    if (netPopKey) { closeNetPop(); return; }   // 先退结构发现面板，不连带清空选中
     searchPop.style.display = "none";
     const ic = document.getElementById("info-card");
     if (ic && ic.getAttribute("data-pinned")) {
