@@ -2422,7 +2422,7 @@ window.BNU_DATA = {
    "homepage": "",
    "source": "https://wxy.bnu.edu.cn/yjdw/ywjyyjs/fe35b99af7004732ae55b306b248c831.htm",
    "fetched": "2026-10-21",
-   "note": "籍贯据人工核实：赵宁宁,女,广东珠海人,教育学博士,北京师范大学文学院副教授,E-mail: ningning.zhao@bnu.edu.cn。　｜籍贯　｜期刊作者简介栏（《北京师范大学学报(社会科学版)》2023年第1期《义务教育语文课程标准(2022年版)》解读）　｜http://mp.weixin.qq.com/s?__biz=",
+   "note": "籍贯据人工核实：赵宁宁,女,广东珠海人,教育学博士,北京师范大学文学院副教授（联系方式已按隐私政策脱敏，见原刊作者简介）。　｜籍贯　｜期刊作者简介栏（《北京师范大学学报(社会科学版)》2023年第1期《义务教育语文课程标准(2022年版)》解读）　｜http://mp.weixin.qq.com/s?__biz=",
    "org": "语文教育研究所",
    "demo": false
   },
