@@ -5329,7 +5329,7 @@ window.LINEAGE_DATA = {
    "student": "bnu-019",
    "mentor": "ext-095",
    "year": null,
-   "type": "就学期间受教（联合培养导师）",
+   "type": "就学期间受教",
    "strength": "直接",
    "evidence": [
     {
@@ -5340,7 +5340,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官方公众号（北师大全球华语对比研究中心《清末民初语法研究》推介）"
    ],
-   "channel": ""
+   "channel": "师承方式：联合培养导师（巴黎 EPHE）"
   },
   {
    "student": "bnu-020",
@@ -5662,7 +5662,7 @@ window.LINEAGE_DATA = {
    "student": "bnu-031",
    "mentor": "ext-008",
    "year": null,
-   "type": "就学期间受教（访学导师）",
+   "type": "就学期间受教",
    "strength": "直接",
    "evidence": [
     {
@@ -5673,13 +5673,13 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": ""
+   "channel": "师承方式：访学导师（卡内基梅隆）"
   },
   {
    "student": "bnu-031",
    "mentor": "ext-048",
    "year": null,
-   "type": "就学期间受教（硕/博阶段导师，原文未细分）",
+   "type": "就学期间受教",
    "strength": "直接",
    "evidence": [
     {
@@ -5690,13 +5690,13 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": ""
+   "channel": "师承方式：硕/博阶段导师（原文未细分）"
   },
   {
    "student": "bnu-031",
    "mentor": "master-036",
    "year": null,
-   "type": "就学期间受教（硕/博阶段导师，原文未细分）",
+   "type": "就学期间受教",
    "strength": "直接",
    "evidence": [
     {
@@ -5707,7 +5707,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": ""
+   "channel": "师承方式：硕/博阶段导师（原文未细分）"
   },
   {
    "student": "bnu-033",
@@ -6955,7 +6955,7 @@ window.LINEAGE_DATA = {
    "student": "bnu-097",
    "mentor": "bnu-070",
    "year": 2012,
-   "type": "博士",
+   "type": "博士后",
    "strength": "直接",
    "evidence": [
     {
@@ -6966,7 +6966,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学者库既有边（学位论文题录）"
    ],
-   "channel": ""
+   "channel": "抽检修正 2026-11-12：原录「博士」，唯一证据为博士后研究报告，据证据改录「博士后」"
   },
   {
    "student": "bnu-098",
@@ -8656,7 +8656,7 @@ window.LINEAGE_DATA = {
    "student": "bnu-179",
    "mentor": "ext-090",
    "year": 2020,
-   "type": "博士导师（硕博连读，导师同为陈斯鹏）",
+   "type": "博士",
    "strength": "间接",
    "evidence": [
     {
@@ -8667,7 +8667,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网师资介绍页（广西师大文学院，经freekaoyan转载）"
    ],
-   "channel": ""
+   "channel": "师承方式：硕博连读；2017 年转博后导师仍为陈斯鹏"
   },
   {
    "student": "bnu-180",
@@ -18447,18 +18447,14 @@ window.LINEAGE_DATA = {
   "totalScholars": 196,
   "extWithBio": 100,
   "relTypes": {
+   "研究生": 1,
+   "受业": 14,
    "博士": 130,
    "硕士": 65,
-   "受业": 14,
-   "博士后": 9,
+   "博士后": 10,
+   "就学期间受教": 9,
    "硕士、博士": 5,
-   "就学期间受教": 5,
-   "问学": 3,
-   "就学期间受教（硕/博阶段导师，原文未细分）": 2,
-   "研究生": 1,
-   "就学期间受教（联合培养导师）": 1,
-   "就学期间受教（访学导师）": 1,
-   "博士导师（硕博连读，导师同为陈斯鹏）": 1
+   "问学": 3
   }
  }
 };
