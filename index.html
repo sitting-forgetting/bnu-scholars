@@ -185,8 +185,8 @@
       </p>
       <div class="rule"></div>
       <p class="tagline">
-        以官网师资页与学位论文题录为依据，把散落在各处的「谁师从谁」整理成 237 条<span class="nowrap">可溯源</span>的师承关系，
-        并呈现为一张可按年代、按家族展开的世表。
+        以官网师资页与学位论文题录为依据，把散落在各处的「谁师从谁」整理成 237 条<span class="nowrap">逐条附证据</span>的师承关系，
+        按强、中、弱三级标注，并呈现为一张可按年代、按家族展开的世表。
       </p>
       <div class="cta">
         <a class="primary" href="lineage.html">进入师承世表 →</a>
@@ -248,7 +248,7 @@
       </div>
     </details>
 
-    <details class="tr-jump">
+    <details class="tr-jump" open>
       <summary>
         <span class="no">再传</span>
         <span class="names">黄侃 <i>→</i> 陆宗达</span>
@@ -299,7 +299,7 @@
   <div class="stat-strip" id="stat-strip"></div>
 
   <div class="filters">
-    <input type="text" id="q" placeholder="搜索姓名 / 研究方向 / 毕业院校…" autocomplete="off">
+    <input type="text" id="q" placeholder="搜索姓名 / 研究方向 / 机构…" autocomplete="off">
     <select id="f-discipline"><option value="">全部学科</option></select>
     <select id="f-title"><option value="">全部职称</option></select>
     <select id="f-org"><option value="">全部机构</option></select>
@@ -352,10 +352,11 @@
   window.__REL_COUNT__ = relCount;
 
   // 封面统计板：大数字 + 一行注解
+  const gradeTally = BNU.gradeTally(edges);
   document.getElementById("hero-stats").innerHTML = [
     [real.length, "收录学者", "文学院 12 个研究所、离退休与珠海中文系；另含跨院 2 人"],
     [data.masters.length, "先贤名师", "官网「先贤名师」栏目"],
-    [edges.length, "师承关系", "每条附证据原文"],
+    [edges.length, "师承关系", `强 ${gradeTally["强"]} · 中 ${gradeTally["中"]} · 弱 ${gradeTally["弱"]}，逐条附原文`],
     [relatedIds.size, "涉及学者", "有师承记录者"],
   ].map(([n, l, s]) => `<div class="hs"><div class="n">${n}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join("");
 

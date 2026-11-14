@@ -55,25 +55,26 @@
 
   <div class="chart-box">
     <h2>证据强度分级</h2>
-    <p class="chart-desc">不是所有来源权重相同。按证据强度分级决定能否采用，弱证据一律降级标注。</p>
+    <p class="chart-desc">不是所有来源权重相同。分级逐边生效：世表给每条边标等级徽标，弱边默认隐藏、取消勾选后灰显复核，首页统计板给出各级条数。判定只读整理者在「来源」与「强度」两栏已写下的结论，不另作推断。</p>
     <table class="gt">
       <tr><th style="width:130px">级别</th><th>来源类型</th><th>使用规则</th></tr>
       <tr>
-        <td><span class="grade g-strong">强 · 官方</span></td>
-        <td>学院官网师资页 · 学位论文题录 · 官方新闻稿</td>
-        <td>可直接采用，逐条记录 URL 与采集日期</td>
+        <td><span class="grade g-strong">强 · 官方/一手</span></td>
+        <td>学院官网师资页 · 本校学位论文题录 · 官方新闻稿 · 本人自述与序跋 · 学术期刊</td>
+        <td>直接采用，逐条记录 URL 与采集日期</td>
       </tr>
       <tr>
-        <td><span class="grade g-mid">中 · 数据库</span></td>
-        <td>CALIS 学位论文服务系统题录</td>
-        <td>可采用，但需与官网信息交叉核对</td>
+        <td><span class="grade g-mid">中 · 数据库/转载</span></td>
+        <td>CALIS · 知网 · 万方 · 国图论文目录 · 官网内容的第三方转载</td>
+        <td>可采用，需与官网交叉核对；世表标「证据·中」</td>
       </tr>
       <tr>
-        <td><span class="grade g-weak">弱 · 第三方</span></td>
-        <td>百科 · 媒体报道 · 未经核实的转述</td>
-        <td>不采用；如必须收录，标注「待确认」</td>
+        <td><span class="grade g-weak">弱 · 第三方转述</span></td>
+        <td>百科 · 商业网站 · 校友平台回忆与纪念文章 · 整理者标「弱」者</td>
+        <td>收录但标「证据·弱」：世表默认隐藏，取消勾选后灰显复核；不作为谱系结论的依据</td>
       </tr>
     </table>
+    <p class="chart-desc" id="grade-tally" style="margin-top:10px"></p>
   </div>
 
   <h2 style="font-size:17px;margin:24px 0 14px;color:var(--accent-dark);padding-left:10px;border-left:4px solid var(--accent)">
@@ -98,7 +99,7 @@
     <dl class="kv2">
       <dt>检索式</dt><dd>正向：导师 = 姓名 AND 授予单位 = 北京师范大学（取门下学生）；反向：作者 = 姓名（取本人的学位论文，题录的导师栏即其师承）</dd>
       <dt>证据</dt><dd>每条边附论文题名、年份、题录出处，点击连线可查看</dd>
-      <dt>局限</dt><dd>该校学位论文库须统一身份登录后方可检索，1980 年代中期以前的题录不收；校外授予的学位（清华、港中文、早稻田等）与同名干扰，仍须本人自述或序跋致谢佐证</dd>
+      <dt>局限</dt><dd>该校学位论文库须统一身份登录后方可检索，1980 年代中期以前的题录不收；校外授予的学位（清华、港中文、早稻田等）与同名干扰，仍须本人自述或序跋致谢佐证。题录边的证据链接为学位论文库首页而非单条记录链接，证据文本保留题名与年份供入馆复核；世表与时间线已就此加注</dd>
       <dt>脚本</dt><dd>scripts/scrape_advisors.py（CALIS 分片检索 + 离线重建）</dd>
     </dl>
   </div>
@@ -138,7 +139,7 @@
 
   <div class="chart-box">
     <h2>覆盖情况一览</h2>
-    <p class="chart-desc">口径为 190 位在录学者（6 条外源条目与 38 位先贤不计入本图）。末三项（履历、个人主页、代表作）是本库最空的字段——官网并未系统著录，我们没有替学者补写，覆盖率低就是低。</p>
+    <p class="chart-desc">口径为 190 位在录学者（学者表另含 6 条外源备录条目；世表中的 104 位外源导师节点与 26 位入谱先贤节点不计入本图）。末三项（履历、个人主页、代表作）是本库最空的字段——官网并未系统著录，我们没有替学者补写，覆盖率低就是低。</p>
     <div id="fill-chart" class="chart" style="height:460px"></div>
   </div>
 
@@ -174,6 +175,11 @@
   const data = window.BNU_DATA;
   document.getElementById("site-header").innerHTML = BNU.header("data-sources.html");
   document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const gt = BNU.gradeTally(window.LINEAGE_DATA.edges);
+  document.getElementById("grade-tally").textContent =
+    `按上表规则逐边核算：强 ${gt["强"]} · 中 ${gt["中"]} · 弱 ${gt["弱"]}，共 ${window.LINEAGE_DATA.edges.length} 条。` +
+    "弱边默认隐藏，取消勾选世表「隐藏弱证据」后灰显复核；首页统计板同口径。";
 
   // 口径：190 位在录学者（不含 6 条外源条目与 38 位先贤），与「数据说明」第七节一致
   const pop = data.scholars.filter(s => !s.external);

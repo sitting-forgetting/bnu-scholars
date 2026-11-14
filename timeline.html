@@ -319,7 +319,7 @@
         const ev = (e.evidence && e.evidence[0]) || null;
         const weak = e.strength && e.strength.indexOf("弱") === 0;
         const src = ev && ev.url
-          ? `<span class="ev-src"><a href="${esc(ev.url)}" target="_blank" rel="noopener">证据</a></span>` : "";
+          ? `<span class="ev-src"><a href="${esc(ev.url)}" target="_blank" rel="noopener"${BNU.isLibraryHome(ev.url) ? ' title="链接为学位论文库首页（需统一身份认证），请依题名与年份复核"' : ""}>证据</a></span>` : "";
         return `<div class="ev">
           <span class="yr">${e.year}</span>
           <span class="chain"><span class="m">${esc(nameOf[e.mentor] || e.mentor)}</span><span class="arrow">→</span><span class="s">${esc(nameOf[e.student] || e.student)}</span><span class="type${weak ? " weak" : ""}" title="${esc(e.strength || "")}">${esc(e.type || "—")}</span>${src}</span>

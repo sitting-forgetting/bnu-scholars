@@ -140,6 +140,8 @@
   .rel-item .ri-type { font-family: var(--f-sans); font-size: 10px; color: var(--green); background: rgba(31,138,102,.08); border: 0; border-radius: 2px; padding: 0 6px; line-height: 1.7; }
   .rel-item .ri-weak { font-family: var(--f-sans); font-size: 10px; color: var(--gold-deep); background: var(--gold-wash); border: 1px solid #e7d9bc; border-radius: 2px; padding: 0 6px; }
   .rel-item .ri-ev { color: var(--muted); font-size: 12px; margin-top: 4px; line-height: 1.7; }
+  .rel-item .ri-ev-note { display: block; margin-top: 2px; font-size: 11px; color: var(--faint); }
+  .rel-item .ri-grade { color: var(--muted); background: var(--paper); border-color: var(--line-strong); }
   /* 传承载体：这门学问当年靠什么方式往下走，取自证据原文，没有就整行不出现 */
   .rel-item .ri-channel { font-size: 12px; margin-top: 4px; line-height: 1.7; color: var(--ink-soft, #4a4a4a); }
   .rel-item .ri-channel b { font-family: var(--f-sans); font-size: 10px; font-weight: 600; letter-spacing: .5px; color: var(--accent); margin-right: 4px; }
@@ -253,6 +255,7 @@
     <span class="tool-sep"></span>
     <label class="switch"><input type="checkbox" id="show-colleague"> 叠加同事关系</label>
     <label class="switch"><input type="checkbox" id="only-direct"> 仅直接证据</label>
+    <label class="switch"><input type="checkbox" id="hide-weak" checked> 隐藏弱证据</label>
   </div>
 
   <!-- 结构速览：师承图是网不是树，数字运行时计算 -->
@@ -356,9 +359,11 @@
 
   /* ================= 顶部一句话 ================= */
   const directEdges = data.edges.filter(e => e.strength === "直接").length;
+  const gradeTally = BNU.gradeTally(data.edges);
   document.getElementById("lead").textContent =
     data.stats.edges + " 条师承关系 · " + data.stats.scholarNodes + " 位本库学者 · " +
     data.stats.masterNodes + " 位先贤 · " + data.stats.externalNodes + " 位外源导师 · " +
+    "证据分级 强 " + gradeTally["强"] + " · 中 " + gradeTally["中"] + " · 弱 " + gradeTally["弱"] + "（默认隐藏） · " +
     directEdges + " 条直接证据 · " + data.stats.colleagueEdges + " 条同事关系（可叠加）";
 
   /* ================= 布局（仿 mulu：折叠 + 树形分层 + 直角连线） =================
@@ -366,12 +371,14 @@
      纯学生折叠成导师卡片下方的圆点阵（门下 N），不画连线——图面因此稀疏清晰。 */
   const q = document.getElementById("q");
   const onlyDirect = document.getElementById("only-direct");
+  const hideWeak = document.getElementById("hide-weak");
   const showColleague = document.getElementById("show-colleague");
   let familyMentor = null;
 
   function visibleEdge(e) {
     if (relHidden[e.type]) return false;
     if (onlyDirect.checked && e.strength !== "直接") return false;
+    if (hideWeak.checked && BNU.edgeGrade(e) === "弱") return false;
     if (familyMentor && e.mentor !== familyMentor && e.student !== familyMentor) return false;
     return true;
   }
@@ -900,12 +907,13 @@
       segs.forEach(seg => {
         const st = relStyle(seg.e.type);
         const isMain = mainParentMap[seg.e.student] === mid;
-        const op = isMain ? 0.8 : 0.4;
+        const weak = BNU.edgeGrade(seg.e) === "弱";
+        const op = (isMain ? 0.8 : 0.4) * (weak ? 0.55 : 1);
         const baseY = isMain ? busY : secY;
         const d = "M " + seg.sx + " " + baseY + " L " + seg.sx + " " + seg.sy;
         const path = el("path", {
-          d: d, fill: "none", stroke: isExtNode(m) ? "#9aa0a6" : st.color,
-          "stroke-width": st.w, "stroke-dasharray": isExtNode(m) ? "3,3" : (st.dash || "none"),
+          d: d, fill: "none", stroke: weak ? "#b9beb6" : (isExtNode(m) ? "#9aa0a6" : st.color),
+          "stroke-width": st.w, "stroke-dasharray": weak ? "2,4" : (isExtNode(m) ? "3,3" : (st.dash || "none")),
           opacity: op, cursor: "pointer",
         }, gEdges);
         path.style.pointerEvents = "stroke";
@@ -1149,12 +1157,15 @@
     if (!list || !list.length) return '<div class="ri-ev">无来源信息</div>';
     return list.slice(0, 4).map(ev => {
       const link = ev.url ? `<br/><a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.url.length > 56 ? ev.url.slice(0, 56) + "…" : ev.url)}</a>` : "";
-      return `<div class="ri-ev">${esc(ev.text || "")}${link}</div>`;
+      const note = BNU.isLibraryHome(ev.url)
+        ? '<span class="ri-ev-note">链接为学位论文库首页（需统一身份认证）；请依证据中的题名与年份入馆复核。</span>' : "";
+      return `<div class="ri-ev">${esc(ev.text || "")}${link}${note}</div>`;
     }).join("");
   }
-  function relBadge(type, strength) {
+  function relBadge(type, strength, grade) {
     const w = strength === "直接" ? "" : `<span class="ri-weak">${esc(strength)}</span>`;
-    return `<span class="ri-type">${esc(type)}</span>${w}`;
+    const g = grade && grade !== "强" ? `<span class="ri-weak ri-grade">证据·${esc(grade)}</span>` : "";
+    return `<span class="ri-type">${esc(type)}</span>${w}${g}`;
   }
   function channelHtml(e) {
     if (!e.channel) return "";
@@ -1163,7 +1174,7 @@
   function relRows(edges, side) {
     return edges.map(e => {
       const other = nodeById[side === "student" ? e.mentor : e.student];
-      return `<div class="rel-item"><div class="ri-head"><span class="ri-name">${esc(other.name)}</span>${relBadge(e.type, e.strength)}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + "</span>" : ""}</div>${channelHtml(e)}${evidenceHtml(e.evidence)}</div>`;
+      return `<div class="rel-item"><div class="ri-head"><span class="ri-name">${esc(other.name)}</span>${relBadge(e.type, e.strength, BNU.edgeGrade(e))}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + "</span>" : ""}</div>${channelHtml(e)}${evidenceHtml(e.evidence)}</div>`;
     }).join("");
   }
   function markSelected(id) {
@@ -1221,7 +1232,7 @@
     infoCard.innerHTML = `
       <h3>关系证据</h3>
       <div class="rel-item">
-        <div class="ri-head"><span class="ri-name">${esc(m.name)} → ${esc(s.name)}</span>${relBadge(e.type, e.strength)}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + " 年</span>" : ""}</div>
+        <div class="ri-head"><span class="ri-name">${esc(m.name)} → ${esc(s.name)}</span>${relBadge(e.type, e.strength, BNU.edgeGrade(e))}${e.year ? ' <span style="font-size:11.5px;color:var(--muted)">' + e.year + " 年</span>" : ""}</div>
         ${channelHtml(e)}
         ${evidenceHtml(e.evidence)}
         <div class="ri-ev" style="color:var(--muted)">来源：${esc((e.sources || []).join("；"))}</div>
@@ -1617,7 +1628,7 @@
     syncFamChips();
   });
 
-  [q, onlyDirect, showColleague].forEach(elx => elx.addEventListener("input", render));
+  [q, onlyDirect, hideWeak, showColleague].forEach(elx => elx.addEventListener("input", render));
   // 画布尺寸变化（窗口缩放 / 工具栏换行 / 路径栏开合）：重绘并锚定视野中心，不重置视野。
   // 关键：中心内容点必须用「旧尺寸」计算——resize 触发时布局已变，届时再读尺寸算出的
   // 「当前中心点」锚回当前中心是恒等操作，视野照样会跳。

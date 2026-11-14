@@ -35,6 +35,7 @@
     ["map.html", "学人地图"],
     ["build-guide.html", "构建方法"],
     ["data-sources.html", "数据来源"],
+    ["schema.html", "字段口径"],
     ["taxonomy.html", "分类依据"],
   ];
 
@@ -47,6 +48,21 @@
       return String(s == null ? "" : s)
         .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    },
+    // 分级只读整理者已写的 sources/strength 判定，不引入新判断；规则全文见 data-sources.html
+    edgeGrade(e) {
+      const lab = (e.sources || []).join(" ");
+      if (/^弱/.test(e.strength || "") || /\(弱\)|百度百科|商业网站|校友平台|纪念文章/.test(lab)) return "弱";
+      if (/转载|转引|CALIS|中国知网|万方|国图|国家图书馆/.test(lab)) return "中";
+      return "强";
+    },
+    gradeTally(edges) {
+      const t = { "强": 0, "中": 0, "弱": 0 };
+      edges.forEach(e => { t[BNU.edgeGrade(e)]++; });
+      return t;
+    },
+    isLibraryHome(url) {
+      return /^https?:\/\/etdlib\.bnu\.edu\.cn\/?$/.test(url || "");
     },
     demoBadge(s) {
       return s.demo ? '<span class="badge-demo">示例数据</span>' : "";

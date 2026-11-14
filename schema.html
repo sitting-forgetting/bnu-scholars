@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字段定义与标准参照 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  .warn {
+    background: var(--gold-wash); border: 1px solid #e9dec9; border-left: 2px solid var(--gold);
+    padding: 13px 17px; border-radius: 2px; font-size: 13.5px; margin: 16px 0; color: #5a4c35;
+  }
+  table.gt {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+    border: 1px solid var(--line);
+  }
+  table.gt th, table.gt td {
+    border: 0; border-bottom: 1px solid var(--line-soft); padding: 9px 12px;
+    text-align: left; vertical-align: top;
+  }
+  table.gt th {
+    background: var(--paper-2); color: var(--muted); font-family: var(--f-sans);
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px; border-bottom: 1px solid var(--line);
+  }
+  table.gt tr:last-child td { border-bottom: 0; }
+  table.gt td code, .inline-code {
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12px;
+    background: var(--paper-2); border: 1px solid var(--line-soft); border-radius: 2px;
+    padding: 0 4px; white-space: nowrap;
+  }
+  table.gt .req { font-family: var(--f-sans); font-size: 11.5px; white-space: nowrap; }
+  .req-yes { color: #9c3a32; font-weight: 600; }
+  .req-no { color: var(--muted); }
+  table.gt td .sub { color: var(--muted); font-size: 12px; }
+  .layer-chip {
+    display: inline-block; font-family: var(--f-sans); font-size: 11px; padding: 0 7px;
+    border-radius: 2px; line-height: 1.75; white-space: nowrap;
+  }
+  .l-level { color: #1d4f8c; border: 1px solid #c3d3e6; background: #eef3f9; }
+  .l-mode { color: #5a4c35; border: 1px solid #e3d3b0; background: var(--gold-wash); }
+  .l-solo { color: #9c3a32; border: 1px solid #e0c3bf; background: #faf0ef; }
+  .type-note { font-size: 13.5px; line-height: 1.95; color: var(--ink-2); margin: 10px 0; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h2 class="page-title">字段定义与标准参照</h2>
+  <p class="page-desc">
+    每个字段都是一个承诺：这个词在本库里有固定含义、固定来源、固定取值域。本页是全站的数据字典——
+    字段叫什么、什么类型、何时必填、对标哪套公开规范。「构建方法」讲流程，「分类依据」讲三套分类体系，
+    本页讲语义：把每个字段放到公开标准的坐标系里，让任何一个值都能回答「你凭什么这么写」。
+  </p>
+
+  <div class="chart-box">
+    <h2>参照系：四套规范，各借一物</h2>
+    <p class="chart-desc">
+      课程对元数据的要求是「对标国标、行标、经典案例」。本库收的是人物与关系，不是图像或古籍实物，
+      所以选了四套有公开出处、能逐条映射的参照——不为「对标」而编造适用性，不适用就如实写不适用。
+    </p>
+    <table class="gt">
+      <tr><th style="width:190px">参照</th><th>是什么</th><th>本库借它什么</th></tr>
+      <tr>
+        <td><strong>Dublin Core 元素集</strong>（DCMI，15 项核心元素）</td>
+        <td>国际通用的资源描述最小框架：题名、创建者、主题、描述、关联、时空覆盖、权限、来源等</td>
+        <td>通用元素的命名与自查框架；「出处逐条可回链、权限全站统一声明」的做法直接来自它</td>
+      </tr>
+      <tr>
+        <td><strong>CBDB</strong>（中国历代人物传记资料库，哈佛大学、北京大学等合建）</td>
+        <td>以「人物—人物关系代码」记录古代人物谱系：师事、从游、问学等类型并行，不套现代学位层级</td>
+        <td>师承边「关系类型」字段的取值思路：原文优先、不强归一（见下文专节）</td>
+      </tr>
+      <tr>
+        <td><strong>图像元数据元素集</strong>（课程讲义所举：题名、交替题名、创建者、主题、描述、风格、颜色、关联、时空范围、权限、出处、标签、注释等二十余项）</td>
+        <td>文化行业图像资源著录框架，与 Dublin Core 同源的扩展元素集</td>
+        <td>逐元素映射自查（见「通用元素映射」表）；本库不收图像，图像专有元素如实标「不适用」</td>
+      </tr>
+      <tr>
+        <td><strong>古籍著录惯例</strong>（题名 · 著者 · 年代）</td>
+        <td>古籍与文献题录的一般著录做法</td>
+        <td>「代表作」与「证据文本」的组织：书名带书名号原文照录，年份缺失时保留题名不弃条</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="chart-box">
+    <h2>学者表字段（data/scholars.js）</h2>
+    <p class="chart-desc">196 条著录：190 位官网在录教师 + 6 条外源备录。「必填」一栏只有 ID 与姓名是构建脚本强制的——其余一律「有则录、无则空」。</p>
+    <table class="gt">
+      <tr><th style="width:100px">字段</th><th style="width:82px">类型</th><th style="width:56px">必填</th><th>取值规范</th><th style="width:180px">对标</th></tr>
+      <tr><td><code>id</code></td><td>字符串</td><td class="req req-yes">必填</td><td>站内主键：学者 <code>bnu-NNN</code> · 先贤 <code>master-NNN</code> · 世表外源节点 <code>ext-NNN</code>；构建校验唯一性</td><td>本站自编，无外部对标</td></tr>
+      <tr><td><code>name</code></td><td>字符串</td><td class="req req-yes">必填</td><td>姓名原字照录，不改写、不用别称替代</td><td>Dublin Core·题名（人以姓名立目）；CBDB·姓名</td></tr>
+      <tr><td><code>gender</code></td><td>字符串</td><td class="req req-no">可选</td><td>官网或公开材料明写才录</td><td>图像元素集·（人物条目不强制）</td></tr>
+      <tr><td><code>birth</code> / <code>death</code></td><td>整数/字符串</td><td class="req req-no">可选</td><td>仅当简历原文写明「××年生」等才录生年；卒年仅先贤表系统性记录</td><td>Dublin Core·时空覆盖（人物以生卒年定位）</td></tr>
+      <tr><td><code>title</code></td><td>字符串</td><td class="req req-no">可选</td><td>取值域：教授 · 副教授 · 讲师 · 助理教授 · 研究员 · 副研究员 · 退休 · 先贤；仅录原文明写，不从「博导」反推（规则详见「分类依据」页③）</td><td>分类体系（见「分类依据」页）</td></tr>
+      <tr><td><code>discipline</code></td><td>字符串</td><td class="req req-no">可选</td><td>取值域为学科目录「中国语言文学」下设二级学科 + 「其他」；由研究所映射而来，映射表见「分类依据」页②</td><td>《学位授予和人才培养学科目录》0501</td></tr>
+      <tr><td><code>org</code></td><td>字符串</td><td class="req req-no">可选</td><td>官网「师资队伍」栏目的分组：12 个研究所之一，或「离退休老师」「跨院」</td><td>官网组织架构（见「分类依据」页①）</td></tr>
+      <tr><td><code>interests</code></td><td>字符串数组</td><td class="req req-no">可选</td><td>研究方向，官网个人页原词照录，不翻译、不改写、不合并近义</td><td>Dublin Core·主题；图像元素集·标签</td></tr>
+      <tr><td><code>birthplace</code></td><td>字符串</td><td class="req req-no">可选</td><td>省级，仅当原文写「××省人」才录；「吉林省吉林市」→「吉林省」归一，保证地图可匹配</td><td>Dublin Core·时空覆盖（空间半边）</td></tr>
+      <tr><td><code>studyProv</code></td><td>字符串</td><td class="req req-no">可选</td><td>主要求学地（省级），预留维度：当前仅零星有值，学人地图的「按求学地分布」选项保持禁用，如实注明数据尚未采集</td><td>同上（本站预留字段）</td></tr>
+      <tr><td><code>almaMater</code></td><td>字符串</td><td class="req req-no">可选</td><td>毕业院校，原文明写才录</td><td>CBDB·履历经历类字段</td></tr>
+      <tr><td><code>career</code></td><td>对象数组 <code>[{year,text}]</code></td><td class="req req-no">可选</td><td>官网履历逐条转录；年份缺失时保留原文条目，不推测年份</td><td>Dublin Core·描述</td></tr>
+      <tr><td><code>works</code></td><td>对象数组 <code>[{title,year}]</code></td><td class="req req-no">可选</td><td>代表作：题名带书名号原文照录 + 年份；年份缺失不弃条（古籍著录惯例）</td><td>古籍著录惯例；Dublin Core·关联</td></tr>
+      <tr><td><code>homepage</code></td><td>字符串</td><td class="req req-no">可选</td><td>个人主页 URL，仅录官网给出的链接</td><td>Dublin Core·关联</td></tr>
+      <tr><td><code>source</code></td><td>字符串</td><td class="req req-no">可选</td><td>该学者信息的主要采集页 URL</td><td>Dublin Core·来源；图像元素集·出处</td></tr>
+      <tr><td><code>fetched</code></td><td>字符串</td><td class="req req-no">可选</td><td>采集日期，<code>YYYY-MM-DD</code></td><td>可溯源要求（构建方法页红线）</td></tr>
+      <tr><td><code>note</code></td><td>字符串</td><td class="req req-no">可选</td><td>备注：官网原文摘录、同名辨析、口径说明等核对线索</td><td>Dublin Core·注释；图像元素集·注释</td></tr>
+      <tr><td><code>demo</code></td><td>布尔</td><td class="req req-no">可选</td><td>示例数据标志；当前库内为 0 条，机制保留（页脚据此切换提示文案）</td><td>本站机制字段</td></tr>
+      <tr><td><code>external</code></td><td>布尔</td><td class="req req-no">可选</td><td>外源备录标志：不在官网师资名录、但身份可核（当前 6 条），仅为师承边提供身份锚点；不计入 190 人口径<span class="sub">（见下节）</span></td><td>本站口径字段</td></tr>
+    </table>
+  </div>
+
+  <div class="chart-box">
+    <h2>先贤表与外源备录</h2>
+    <p style="font-size:14px;line-height:1.95;margin:0 0 8px">
+      <strong>先贤表</strong>（<code>data/scholars.js</code> 的 <code>masters</code>，38 条）：结构同学者表，<code>title</code> 固定为「先贤」，另设 <code>master</code> 标志。名单与生平依据文学院官网「先贤名师」栏目整理；生卒年多数有载（34/38 有卒年），其余字段按原文有则录、无则空。
+      其中 26 位已在世表立节点，其余 12 位（鲁迅、余嘉锡、黎锦熙、刘半农、刘盼遂、顾随、谭丕模、穆木天、沈从文、黄药眠、李何林、叶丁易）暂无核验入谱的师承边，仅在「先贤名师」名录页展示。
+    </p>
+    <p style="font-size:14px;line-height:1.95;margin:0">
+      <strong>外源备录</strong>（学者表中 <code>external:true</code> 的 6 条）：人物不在官网师资名录，但作为某条师承边的导师端身份可核——为「不混入名录、也不丢证据」而单列。世表以 <code>ext-</code> 空心灰点入谱，覆盖率统计一律不计入。
+    </p>
+  </div>
+
+  <div class="chart-box">
+    <h2>师承边字段（data/lineage.js）</h2>
+    <p class="chart-desc">237 条边，每条两端都是节点 ID、中间是证据。世表节点另有一组冗余字段，一并列出。</p>
+    <table class="gt">
+      <tr><th style="width:100px">字段</th><th style="width:82px">类型</th><th style="width:56px">必填</th><th>取值规范</th><th style="width:180px">对标</th></tr>
+      <tr><td><code>student</code></td><td>ID</td><td class="req req-yes">必填</td><td>学生端节点 ID；可为学者（<code>bnu-</code>）或先贤（<code>master-</code>）——先贤作学生端即「先贤的老师是谁」这条边</td><td>CBDB·关系两端</td></tr>
+      <tr><td><code>mentor</code></td><td>ID</td><td class="req req-yes">必填</td><td>导师端节点 ID；可为学者、先贤或外源节点（<code>ext-</code>）</td><td>同上</td></tr>
+      <tr><td><code>year</code></td><td>整数</td><td class="req req-no">可选</td><td>论文/结缘年份；题录未载者留空（53 条），时间线与世表按「年份待补」处理，不推测</td><td>图像元素集·时空范围</td></tr>
+      <tr><td><code>type</code></td><td>字符串</td><td class="req req-yes">必填</td><td>关系类型，取值原文优先——专节见下</td><td>CBDB·关系代码（师事、从游等）</td></tr>
+      <tr><td><code>strength</code></td><td>字符串</td><td class="req req-yes">必填</td><td>整理者标注的证据强度：直接 / 间接 / 弱（不建议入图谱）；页面按「数据来源」页规则折算为强·中·弱徽标</td><td>证据分级体系（见「数据来源」页）</td></tr>
+      <tr><td><code>evidence</code></td><td>对象数组 <code>[{text,url?}]</code></td><td class="req req-yes">必填</td><td>证据原文 + 链接；CALIS 题录边链接只能给到库首页而非单条记录，文本保留题名与年份，站内已加注提示入馆复核</td><td>图像元素集·出处；Dublin Core·来源</td></tr>
+      <tr><td><code>sources</code></td><td>字符串数组</td><td class="req req-yes">必填</td><td>来源类型清单（如「北师大官网……原文直录」「CALIS 题录」），分级规则按它判定，不另作推断</td><td>同上</td></tr>
+      <tr><td><code>channel</code></td><td>字符串</td><td class="req req-no">可选</td><td>结缘渠道说明，如「第一届研究生（1961—1964）＋1979 年进修＋学术助手」——给边一个可读的人物故事</td><td>本站叙事字段</td></tr>
+    </table>
+    <p style="font-size:13.5px;line-height:1.9;margin:10px 0 0;color:var(--ink-2)">
+      <strong>世表节点冗余字段</strong>（<code>nodes</code>）：<code>kind</code>（scholar / external / master 三分类，即图像元素集·标签的站内落地）、<code>py</code>（拼音）、<code>ab</code>（缩写）、<code>asMentor</code> / <code>asStudent</code>（两端边数，构建时预聚合）、<code>year</code>（结缘年份，世表纵向定位用，缺者置顶并标「待补」）。
+      <strong>同事边</strong>（<code>colleagueEdges</code>，791 条）：<code>a</code> / <code>b</code> / <code>org</code> / <code>label</code> / <code>evidence</code>——同一研究所即一条，默认关闭显示。
+    </p>
+  </div>
+
+  <div class="chart-box">
+    <h2>专节：type 字段的两层语义</h2>
+    <div class="warn">
+      <strong>「关系类型」一个字段里实际混着两种语义：学位层次与受业方式。这是已知口径，本页如实承认、不强行归一。</strong><br/>
+      原文优先原则：史料写「受业」「问学」，就记受业方式；题录写明「博士」「硕士」，就记学位层次。
+      强行把「受业」折算成「博士」就是推断——违反「宁可留空，也不推断」。
+    </div>
+    <p class="type-note">
+      这个混合不是疏忽：<span id="cnt-mode">—</span> 条受业方式取值多发生在<strong>先贤及其同辈</strong>身上——
+      记录他们的师承依据是回忆文章、序跋、年谱这类史料，原文只说「受业」「问学」，从不给出现代学位名；
+      而 <span id="cnt-level">—</span> 条学位层次取值来自<strong>学位论文题录</strong>，字段本身写的就是博士/硕士。
+      另有 1 条孤例照录题录原文：<span class="inline-code">博士导师（硕博连读，导师同为陈斯鹏）</span>。
+      唯一一条「研究生」取值是 1961 年的师承——彼时我国硕士、博士学位制度尚未建立，题录只称「研究生」，取值保留了制度原貌。
+    </p>
+    <table class="gt" id="type-table">
+      <tr><th>取值</th><th style="width:70px">条数</th><th style="width:110px">语义层</th></tr>
+      <tbody id="type-tbody"></tbody>
+    </table>
+    <p class="type-note">
+      对标 CBDB：CBDB 记录古代人物关系同样不按现代学位制度分层，师事、从游、问学等代码并行——本库的取值思路与它同构。
+      <strong>改进方向（future work）</strong>：若库扩到需要机器比对，可将 <code>type</code> 拆为 <code>type_level</code>（学位层次）与 <code>type_mode</code>（受业方式）两个正交字段；当前规模下保持单字段 + 本页说明，避免为拆而拆。
+    </p>
+  </div>
+
+  <div class="chart-box">
+    <h2>通用元素映射：图像元素集 ↔ 本库字段</h2>
+    <p class="chart-desc">课程讲义列举的图像元数据元素集逐项对照。图像专有元素如实标「不适用」——不适用也是结论，造一个空字段冒充覆盖才是造假。</p>
+    <table class="gt">
+      <tr><th style="width:110px">元素</th><th style="width:250px">本库对应</th><th>说明</th></tr>
+      <tr><td>题名</td><td><code>name</code> · <code>works[].title</code></td><td>学者条目以姓名立目；著作另录题名</td></tr>
+      <tr><td>交替题名</td><td>无对应字段</td><td>史料中的字、号、别称随证据原文保留；未单列字段，不造无用字段</td></tr>
+      <tr><td>创建者</td><td>采集流程本身</td><td>学者条目的「创建者」是整理行为，见「构建方法」页；作品创建者即学者本人</td></tr>
+      <tr><td>主题</td><td><code>discipline</code> · <code>interests[]</code></td><td>学科取值域与映射见「分类依据」页</td></tr>
+      <tr><td>描述</td><td><code>career[]</code> · <code>note</code></td><td>履历逐条转录；备注存原文摘录与口径说明</td></tr>
+      <tr><td>风格</td><td>不适用</td><td>本库不收图像资源</td></tr>
+      <tr><td>颜色</td><td>不适用</td><td>本库不收图像资源</td></tr>
+      <tr><td>关联</td><td><code>edges</code> · <code>colleagueEdges</code></td><td>人—人师承、人—所同事，是本库的主体内容</td></tr>
+      <tr><td>时空范围</td><td><code>birth</code> · <code>death</code> · <code>birthplace</code> · <code>studyProv</code> · <code>edge.year</code></td><td>省级粒度；生卒年仅原文明写</td></tr>
+      <tr><td>权限</td><td>全站统一声明</td><td>见「数据来源」页「版权与使用」：仅教学展示，来源版权归各来源，可联系更正下架</td></tr>
+      <tr><td>出处</td><td><code>source</code> · <code>evidence[].url</code> · <code>sources[]</code></td><td>逐条可回链；CALIS 边链接只到库首页，如实标注</td></tr>
+      <tr><td>标签</td><td><code>interests[]</code> · <code>kind</code></td><td>研究方向标签；世表节点三分类</td></tr>
+      <tr><td>注释</td><td><code>note</code></td><td>同名辨析、口径说明等核对线索</td></tr>
+    </table>
+  </div>
+
+  <div class="chart-box">
+    <h2>必填与留空</h2>
+    <div class="warn">
+      <strong>必填只有三个：边的两端 ID 与关系类型。</strong>学者条目里仅 <code>id</code>、<code>name</code> 由构建脚本强制——
+      其余字段一律「有则录、无则空」。空字段的覆盖率（如出生年份、个人主页、代表作）在「数据来源」页覆盖图里如实画出，低就是低。
+    </div>
+    <p class="type-note" id="live-note"></p>
+  </div>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  document.getElementById("site-header").innerHTML = BNU.header("schema.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(window.BNU_DATA);
+
+  const E = window.LINEAGE_DATA.edges;
+  const MODE = /^(受业|问学|就学期间受教)/;
+  const layer = t => MODE.test(t) ? ["受业方式", "l-mode"] : (t.startsWith("博士导师") ? ["孤例", "l-solo"] : ["学位层次", "l-level"]);
+
+  const tally = {};
+  E.forEach(e => tally[e.type] = (tally[e.type] || 0) + 1);
+  const rows = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+  document.getElementById("type-tbody").innerHTML = rows.map(([t, n]) => {
+    const [name, cls] = layer(t);
+    return `<tr><td><span class="inline-code">${BNU.esc(t)}</span></td><td>${n}</td><td><span class="layer-chip ${cls}">${name}</span></td></tr>`;
+  }).join("");
+
+  document.getElementById("cnt-level").textContent = rows.filter(([t]) => layer(t)[0] === "学位层次").reduce((s, [, n]) => s + n, 0);
+  document.getElementById("cnt-mode").textContent = rows.filter(([t]) => layer(t)[0] === "受业方式").reduce((s, [, n]) => s + n, 0);
+
+  const st = BNU.gradeTally(E);
+  const pop = window.BNU_DATA.scholars.filter(s => !s.external);
+  document.getElementById("live-note").textContent =
+    `现算自当前数据版本（${window.LINEAGE_DATA.generatedAt}）：在录 ${pop.length} 位学者中，出生年份有值 ${pop.filter(s => s.birth).length} 位、` +
+    `主要求学地有值 ${pop.filter(s => s.studyProv).length} 位；237 条边证据强度整理者标注为直接 ${E.filter(e => e.strength === "直接").length} · ` +
+    `间接 ${E.filter(e => e.strength === "间接").length} · 弱 ${E.filter(e => /^弱/.test(e.strength)).length}（折算徽标：强 ${st["强"]} · 中 ${st["中"]} · 弱 ${st["弱"]}）。`;
+})();
+</script>
+</body>
+</html>
