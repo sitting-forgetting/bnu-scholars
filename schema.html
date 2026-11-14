@@ -39,7 +39,6 @@
   }
   .l-level { color: #1d4f8c; border: 1px solid #c3d3e6; background: #eef3f9; }
   .l-mode { color: #5a4c35; border: 1px solid #e3d3b0; background: var(--gold-wash); }
-  .l-solo { color: #9c3a32; border: 1px solid #e0c3bf; background: #faf0ef; }
   .type-note { font-size: 13.5px; line-height: 1.95; color: var(--ink-2); margin: 10px 0; }
 </style>
 </head>
@@ -54,10 +53,11 @@
   </p>
 
   <div class="chart-box">
-    <h2>参照系：四套规范，各借一物</h2>
+    <h2>参照系：五套规范，各借一物</h2>
     <p class="chart-desc">
       课程对元数据的要求是「对标国标、行标、经典案例」。本库收的是人物与关系，不是图像或古籍实物，
-      所以选了四套有公开出处、能逐条映射的参照——不为「对标」而编造适用性，不适用就如实写不适用。
+      所以选了五套有公开出处、能逐条映射的参照——不为「对标」而编造适用性，不适用就如实写不适用。
+      本页是站内速查版；更细的 CIDOC-CRM 映射、受控词表全文与脱敏政策见仓库根目录《字段字典.md》（提交文档版）。
     </p>
     <table class="gt">
       <tr><th style="width:190px">参照</th><th>是什么</th><th>本库借它什么</th></tr>
@@ -65,6 +65,11 @@
         <td><strong>Dublin Core 元素集</strong>（DCMI，15 项核心元素）</td>
         <td>国际通用的资源描述最小框架：题名、创建者、主题、描述、关联、时空覆盖、权限、来源等</td>
         <td>通用元素的命名与自查框架；「出处逐条可回链、权限全站统一声明」的做法直接来自它</td>
+      </tr>
+      <tr>
+        <td><strong>CIDOC-CRM</strong>（ISO 21127，国际博物馆界本体标准）</td>
+        <td>把「人物—事件—时间—地点」建模为本体的国际标准：关系被描述为事件，而不是两人之间的静态属性</td>
+        <td>师承边的建模立场：一条师承是一次可指认的<strong>传授事件</strong>（谁、何时、以何种方式），所以每条边挂证据、年份与类型，而不是一根静态连线</td>
       </tr>
       <tr>
         <td><strong>CBDB</strong>（中国历代人物传记资料库，哈佛大学、北京大学等合建）</td>
@@ -130,7 +135,7 @@
       <tr><td><code>student</code></td><td>ID</td><td class="req req-yes">必填</td><td>学生端节点 ID；可为学者（<code>bnu-</code>）或先贤（<code>master-</code>）——先贤作学生端即「先贤的老师是谁」这条边</td><td>CBDB·关系两端</td></tr>
       <tr><td><code>mentor</code></td><td>ID</td><td class="req req-yes">必填</td><td>导师端节点 ID；可为学者、先贤或外源节点（<code>ext-</code>）</td><td>同上</td></tr>
       <tr><td><code>year</code></td><td>整数</td><td class="req req-no">可选</td><td>论文/结缘年份；题录未载者留空（53 条），时间线与世表按「年份待补」处理，不推测</td><td>图像元素集·时空范围</td></tr>
-      <tr><td><code>type</code></td><td>字符串</td><td class="req req-yes">必填</td><td>关系类型，取值原文优先——专节见下</td><td>CBDB·关系代码（师事、从游等）</td></tr>
+      <tr><td><code>type</code></td><td>字符串</td><td class="req req-yes">必填</td><td>关系类型，取值原文优先——专节见下</td><td>CBDB·关系代码（师事、从游等）；CIDOC-CRM·事件类型</td></tr>
       <tr><td><code>strength</code></td><td>字符串</td><td class="req req-yes">必填</td><td>整理者标注的证据强度：直接 / 间接 / 弱（不建议入图谱）；页面按「数据来源」页规则折算为强·中·弱徽标</td><td>证据分级体系（见「数据来源」页）</td></tr>
       <tr><td><code>evidence</code></td><td>对象数组 <code>[{text,url?}]</code></td><td class="req req-yes">必填</td><td>证据原文 + 链接；CALIS 题录边链接只能给到库首页而非单条记录，文本保留题名与年份，站内已加注提示入馆复核</td><td>图像元素集·出处；Dublin Core·来源</td></tr>
       <tr><td><code>sources</code></td><td>字符串数组</td><td class="req req-yes">必填</td><td>来源类型清单（如「北师大官网……原文直录」「CALIS 题录」），分级规则按它判定，不另作推断</td><td>同上</td></tr>
@@ -147,13 +152,13 @@
     <div class="warn">
       <strong>「关系类型」一个字段里实际混着两种语义：学位层次与受业方式。这是已知口径，本页如实承认、不强行归一。</strong><br/>
       原文优先原则：史料写「受业」「问学」，就记受业方式；题录写明「博士」「硕士」，就记学位层次。
-      强行把「受业」折算成「博士」就是推断——违反「宁可留空，也不推断」。
+      强行把「受业」折算成「博士」就是推断——违反「宁可留空，也不推断」。括注型变体（如「就学期间受教（访学导师）」）已在 2026-11-12 抽检后归一：基型入本字段，限定语移入 <code>channel</code>。
     </div>
     <p class="type-note">
       这个混合不是疏忽：<span id="cnt-mode">—</span> 条受业方式取值多发生在<strong>先贤及其同辈</strong>身上——
       记录他们的师承依据是回忆文章、序跋、年谱这类史料，原文只说「受业」「问学」，从不给出现代学位名；
       而 <span id="cnt-level">—</span> 条学位层次取值来自<strong>学位论文题录</strong>，字段本身写的就是博士/硕士。
-      另有 1 条孤例照录题录原文：<span class="inline-code">博士导师（硕博连读，导师同为陈斯鹏）</span>。
+      同次抽检还按唯一证据改过一条类型：原录「博士」，证据却只有一份博士后研究报告，据证据改录「博士后」，修正过程留痕在 <code>channel</code> 里——改类型不改证据，改动本身也要有据。
       唯一一条「研究生」取值是 1961 年的师承——彼时我国硕士、博士学位制度尚未建立，题录只称「研究生」，取值保留了制度原貌。
     </p>
     <table class="gt" id="type-table">
@@ -208,7 +213,7 @@
 
   const E = window.LINEAGE_DATA.edges;
   const MODE = /^(受业|问学|就学期间受教)/;
-  const layer = t => MODE.test(t) ? ["受业方式", "l-mode"] : (t.startsWith("博士导师") ? ["孤例", "l-solo"] : ["学位层次", "l-level"]);
+  const layer = t => MODE.test(t) ? ["受业方式", "l-mode"] : ["学位层次", "l-level"];
 
   const tally = {};
   E.forEach(e => tally[e.type] = (tally[e.type] || 0) + 1);
