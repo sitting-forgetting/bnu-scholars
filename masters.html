@@ -47,6 +47,24 @@
     position: absolute; right: 16px; top: 14px; font-family: var(--f-sans);
     font-size: 10.5px; color: var(--faint); letter-spacing: 1px; font-variant-numeric: tabular-nums;
   }
+  .master-card .m-top { display: flex; gap: 14px; align-items: flex-start; padding-right: 22px; }
+  .m-face {
+    width: 72px; height: 94px; flex: none; border: 1px solid var(--line); overflow: hidden;
+    background: linear-gradient(180deg, #f3f1ea, #e9e7df);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .m-face img {
+    width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 20%);
+    display: block; filter: saturate(.94);
+  }
+  .m-face.none {
+    border-style: dashed; border-color: var(--line-strong);
+    background: repeating-linear-gradient(135deg, #f2f2ee 0 7px, #ecece7 7px 14px);
+  }
+  .m-face.none b {
+    font-family: var(--f-sans); font-size: 10.5px; font-weight: 400; color: #9c3a32;
+    letter-spacing: 2px; writing-mode: vertical-rl; line-height: 1;
+  }
   .master-card .m-name {
     font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--ink);
     letter-spacing: 2.5px; line-height: 1.4;
@@ -97,8 +115,14 @@
   }
   .modal .m-head {
     padding: 30px 34px 22px; border-bottom: 1px solid var(--line);
-    background: transparent; border-radius: 0;
+    background: transparent; border-radius: 0; display: flex; gap: 20px; align-items: flex-start;
   }
+  .modal .m-head .m-face { width: 104px; height: 136px; }
+  .modal .m-head .mh-text { min-width: 0; flex: 1; }
+  .modal .m-imgsrc {
+    font-family: var(--f-sans); font-size: 11px; color: var(--muted); margin-top: 9px; line-height: 1.8;
+  }
+  .modal .m-imgsrc a { color: var(--accent); }
   .modal h2 {
     margin: 0; font-family: var(--f-serif); font-size: 26px; color: var(--ink);
     letter-spacing: 3px; font-weight: 700;
@@ -135,7 +159,7 @@
 <div id="site-header"></div>
 <main class="wrap">
   <h2 class="page-title">先贤名师</h2>
-  <p class="page-desc">北师大中文系学科奠基人。名单与生平依据文学院官网「先贤名师」栏目整理，共 38 位。</p>
+  <p class="page-desc">北师大中文系学科奠基人。名单与生平依据文学院官网「先贤名师」栏目整理，共 38 位；其中 35 位已配本人肖像，逐张与发布页小传核对，出处与许可见<a href="portraits.html">「先贤影像」</a>。</p>
 
   <div class="intro-box">
     <p>
@@ -160,9 +184,13 @@
   <div class="modal">
     <button class="close" id="modal-close" aria-label="关闭">×</button>
     <div class="m-head">
-      <h2 id="m-name"></h2>
-      <div class="m-years" id="m-years"></div>
-      <div class="m-life" id="m-life-modal"><span></span></div>
+      <div id="m-face-slot"></div>
+      <div class="mh-text">
+        <h2 id="m-name"></h2>
+        <div class="m-years" id="m-years"></div>
+        <div class="m-life" id="m-life-modal"><span></span></div>
+        <div class="m-imgsrc" id="m-imgsrc"></div>
+      </div>
     </div>
     <div class="m-body">
       <div class="m-bio-full" id="m-bio"></div>
@@ -174,6 +202,7 @@
 
 <script src="data/scholars.js"></script>
 <script src="data/lineage.js"></script>
+<script src="data/media.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
@@ -208,6 +237,14 @@
     return "生卒待考";
   };
 
+  // 肖像：取自已核对的影像表；未采集到者显示「待补」占位，不用首字头像冒充照片
+  const faceHtml = m => {
+    const p = BNU.portrait(m.id);
+    return p
+      ? `<div class="m-face" style="--focus:${p.focus}"><img src="${BNU.esc(p.file)}" alt="${BNU.esc(m.name)}肖像" loading="lazy" decoding="async"></div>`
+      : `<div class="m-face none" title="已查一手渠道，未获可署名引用的本人肖像"><b>肖像待补</b></div>`;
+  };
+
   // 按生年排序；生年不详的排到最后（不占据开头位置）
   const masters = (data.masters || []).slice().sort((a, b) => (a.birth || 9999) - (b.birth || 9999));
   const grid = document.getElementById("master-grid");
@@ -217,8 +254,13 @@
     <div class="master-card" data-i="${i}" tabindex="0" role="button"
          aria-label="${BNU.esc(m.name)}，${fmtYears(m)}，查看生平">
       <span class="idx">${String(i + 1).padStart(2, "0")}</span>
-      <div class="m-name">${BNU.esc(m.name)}</div>
-      <div class="m-years">${fmtYears(m)}${m.birthplace ? " · " + BNU.esc(m.birthplace) : ""}</div>
+      <div class="m-top">
+        ${faceHtml(m)}
+        <div style="min-width:0">
+          <div class="m-name">${BNU.esc(m.name)}</div>
+          <div class="m-years">${fmtYears(m)}${m.birthplace ? " · " + BNU.esc(m.birthplace) : ""}</div>
+        </div>
+      </div>
       ${lifeBar(m.birth, m.death)}
       <div class="m-bio">${BNU.esc(m.note || "")}</div>
       <div class="m-foot">
@@ -232,6 +274,11 @@
   function open(card) {
     const m = masters[+card.dataset.i];
     document.getElementById("m-name").textContent = m.name;
+    document.getElementById("m-face-slot").innerHTML = faceHtml(m);
+    const p = BNU.portrait(m.id);
+    document.getElementById("m-imgsrc").innerHTML = p
+      ? `肖像：${BNU.esc(window.BNU_MEDIA.sources[p.src].name)} · ${BNU.esc(window.BNU_MEDIA.sources[p.src].license)}　<a href="portraits.html">影像出处与许可 →</a>`
+      : `肖像待补：已查一手渠道未获可引用照片，<a href="portraits.html">查检记录 →</a>`;
     document.getElementById("m-years").textContent =
       `${fmtYears(m)}${m.birthplace ? " · " + m.birthplace : ""}`;
     document.getElementById("m-life-modal").outerHTML =

@@ -7,28 +7,119 @@
 <title>师承世表 · 京师学林</title>
 <link rel="stylesheet" href="css/shared.css">
 <style>
-  .page-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin: 6px 0 2px; }
-  .page-head .page-title { margin: 0; }
-  .page-head .lead { font-family: var(--f-sans); font-size: 12px; color: var(--muted); letter-spacing: .2px; }
-  .page-tools {
-    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-    margin: 8px 0 14px; padding: 10px 0;
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  /* ===== 全屏工作台：整页就是画布，控件浮在图上，页面本身不滚动 ===== */
+  html, body { height: 100%; }
+  body.app {
+    height: 100dvh; overflow: hidden; display: flex; flex-direction: column;
+    --header-h: 46px;
+    --hud-bg: rgba(255, 254, 251, .86);
+    --hud-solid: #fffefb;
+    --hud-line: rgba(23, 25, 22, .13);
+    --hud-shadow: 0 10px 30px rgba(23, 25, 22, .10);
+    --rail-w: 264px;
+    --drawer-w: 338px;
+    --nav-h: 168px;
+    --vermillion: #c92820;
+    --jade: #1f8a66;
   }
-  /* ---- 结构速览：世表顶部的网状结构统计（运行时计算） ---- */
+  body.app.dark {
+    --hud-bg: rgba(26, 28, 24, .88);
+    --hud-solid: #1c1e1a;
+    --hud-line: rgba(255, 255, 255, .11);
+    --hud-shadow: 0 12px 34px rgba(0, 0, 0, .5);
+    --vermillion: #e0655c;
+    --jade: #4cc39a;
+  }
+  body.app #site-header { position: relative; flex: none; height: auto; }
+  body.app .header-inner { max-width: none; padding: 0 14px; gap: 14px; }
+  body.app .brand-text em { display: none; }
+  body.app .brand .seal { width: 25px; height: 25px; }
+  body.app .brand-text strong { font-size: 16px; letter-spacing: 2px; }
+  body.app .main-nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; height: auto; min-height: 34px; }
+  body.app .main-nav::-webkit-scrollbar { display: none; }
+  body.app .main-nav a { padding: 0 9px; font-size: 12.5px; white-space: nowrap; }
+  body.app.fs #site-header { display: none; }
+  #app { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+
+  /* 浮层通用：纸白玻璃 + 一道铜蓝渐变压顶，和站内的印章/铜色/黛蓝同源 */
+  .hud {
+    position: absolute; z-index: 20;
+    background: var(--hud-bg); border: 1px solid var(--hud-line);
+    box-shadow: var(--hud-shadow); border-radius: 4px;
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .hud-top {
+    left: 0; right: 0; top: 0; height: 52px; z-index: 32;
+    display: flex; align-items: center; gap: 9px; padding: 0 12px;
+    border-radius: 0; border-left: 0; border-right: 0; border-top: 0;
+  }
+  .hud-top::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-bright) 18%, var(--accent) 52%, var(--jade) 84%, var(--vermillion) 100%);
+    opacity: .55; pointer-events: none;
+  }
+  .hud-title { display: flex; align-items: baseline; gap: 9px; flex: 0 1 auto; min-width: 0; overflow: hidden; }
+  .hud-title h1 {
+    font-family: var(--f-serif); font-size: 17px; font-weight: 700; letter-spacing: 3px;
+    margin: 0; color: var(--ink); white-space: nowrap; flex: none;
+  }
+  .hud-title .lead { font-family: var(--f-sans); font-size: 11px; color: var(--muted); white-space: nowrap; letter-spacing: .2px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .fs-brand { display: none; align-items: center; gap: 8px; flex: none; }
+  body.fs .fs-brand { display: flex; }
+  .fs-brand .seal-mini {
+    width: 24px; height: 24px; border-radius: 3px; background: var(--seal-bg); color: #fdf9f3;
+    font-family: var(--f-serif); font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex: none;
+  }
+  .hud-acts { display: flex; align-items: center; gap: 6px; margin-left: auto; flex: none; }
+  .icon-btn {
+    width: 30px; height: 30px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--hud-line); border-radius: 3px; background: transparent;
+    color: var(--ink-2); cursor: pointer; font-size: 14px; line-height: 1; font-family: var(--f-sans);
+    transition: background .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease);
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-wash); }
+  .icon-btn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .icon-btn:focus-visible, .mini-btn:focus-visible, .seg button:focus-visible,
+  .ctl input:focus-visible, .fchip:focus-visible, .ns-stat:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+  #btn-legend { display: none; }
+  .btn-i { font-style: normal; }
+  /* 浮层里的滚动条也走站内配色：纸槽、铜灰滑块、悬停转铜 */
+  .panel-bd, .drawer-bd, .stage-legend, .net-pop, .search-pop, .path-bar { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+  .panel-bd::-webkit-scrollbar, .drawer-bd::-webkit-scrollbar, .stage-legend::-webkit-scrollbar,
+  .net-pop::-webkit-scrollbar, .search-pop::-webkit-scrollbar, .path-bar::-webkit-scrollbar { width: 8px; height: 8px; }
+  .panel-bd::-webkit-scrollbar-track, .drawer-bd::-webkit-scrollbar-track, .stage-legend::-webkit-scrollbar-track,
+  .net-pop::-webkit-scrollbar-track, .search-pop::-webkit-scrollbar-track, .path-bar::-webkit-scrollbar-track { background: transparent; }
+  .panel-bd::-webkit-scrollbar-thumb, .drawer-bd::-webkit-scrollbar-thumb, .stage-legend::-webkit-scrollbar-thumb,
+  .net-pop::-webkit-scrollbar-thumb, .search-pop::-webkit-scrollbar-thumb, .path-bar::-webkit-scrollbar-thumb {
+    background: var(--line-strong); border: 2px solid transparent; background-clip: padding-box; border-radius: 4px;
+  }
+  .panel-bd::-webkit-scrollbar-thumb:hover, .drawer-bd::-webkit-scrollbar-thumb:hover,
+  .net-pop::-webkit-scrollbar-thumb:hover, .search-pop::-webkit-scrollbar-thumb:hover { background: var(--gold); background-clip: padding-box; }
+  /* ---- 结构速览：世表的网状结构统计（运行时计算），收在右抽屉里 ---- */
   .net-strip {
-    display: flex; gap: 4px 20px; flex-wrap: wrap; align-items: baseline;
-    margin: 0 0 12px; padding: 7px 12px; font-size: 12px; color: var(--muted);
-    background: var(--paper); border: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 5px; align-items: stretch;
+    margin: 0; padding: 0; font-size: 12px; color: var(--muted);
+    background: none; border: 0;
   }
   .net-strip .ns-t { font-family: var(--f-serif); font-weight: 700; font-size: 12.5px; letter-spacing: 1px; color: var(--ink); }
   .net-strip b { font-family: var(--f-serif); font-size: 14px; color: var(--accent-dark); }
-  .net-strip .ns-hint { color: #a39a8c; }
+  .net-strip .ns-hint { color: var(--faint); font-size: 11px; line-height: 1.7; }
   .net-wrap { position: relative; }
-  .ns-stat { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; border-bottom: 1px dotted var(--line-strong); }
+  .ns-stat { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; border-bottom: 1px dotted var(--line-strong); text-align: left; }
   .ns-stat:hover, .ns-stat[aria-expanded="true"] { color: var(--accent); border-bottom-color: var(--accent); }
-  .ns-stat:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-  .net-pop { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(23,25,22,.12); padding: 12px 16px 14px; max-height: 360px; overflow: auto; display: none; }
+  /* 结构发现浮出：从抽屉左缘飞出来压在画布上，不做成模态 */
+  .net-pop {
+    position: absolute; right: calc(var(--drawer-w) + 26px); top: 64px; z-index: 46;
+    width: min(430px, calc(100vw - var(--drawer-w) - 60px));
+    background: var(--hud-solid); border: 1px solid var(--hud-line); border-radius: 4px;
+    box-shadow: 0 18px 48px rgba(23,25,22,.20); padding: 12px 16px 14px;
+    max-height: calc(100% - 130px); overflow: auto; display: none;
+  }
+  .net-pop .np-hd { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; padding-bottom: 7px; border-bottom: 1px solid var(--line); }
+  .net-pop .np-hd h4 { font-family: var(--f-serif); font-size: 13.5px; letter-spacing: 1.5px; margin: 0; color: var(--ink); }
+  .net-pop .np-x { margin-left: auto; }
   body.dark .net-pop { background: var(--paper); }
   .net-pop .np-cap { font-size: 12.5px; line-height: 1.75; color: var(--ink-2); margin: 0 0 10px; }
   .net-pop .np-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-2); padding: 2.5px 0; }
@@ -39,33 +130,36 @@
   .net-pop .np-name { font-family: var(--f-serif); font-size: 13px; color: var(--ink); flex: none; }
   .net-pop .np-meta { font-size: 11.5px; color: var(--muted); text-align: right; }
   .net-pop .np-note { font-size: 11.5px; color: var(--muted); margin: 8px 0 0; }
-  .page-tools input[type="text"] {
-    flex: 1 1 240px; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 2px;
-    font-family: var(--f-serif); font-size: 14px; background: var(--paper) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d726a' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M20 20l-4.8-4.8'/%3E%3C/svg%3E") no-repeat 11px center;
+  .hud-top input[type="text"] {
+    width: 100%; padding: 7px 12px 7px 32px; border: 1px solid var(--hud-line); border-radius: 3px;
+    font-family: var(--f-serif); font-size: 13.5px; background: var(--hud-solid) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d726a' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M20 20l-4.8-4.8'/%3E%3C/svg%3E") no-repeat 10px center;
     color: var(--ink);
   }
-  .page-tools input[type="text"]:focus { outline: none; border-color: var(--accent); background-color: #fff; }
+  .hud-top input[type="text"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
   .mini-btn {
-    font-family: var(--f-sans); font-size: 11.5px; border: 1px solid var(--line);
-    background: transparent; border-radius: 2px; padding: 6px 10px; cursor: pointer;
+    font-family: var(--f-sans); font-size: 11.5px; border: 1px solid var(--hud-line);
+    background: transparent; border-radius: 3px; padding: 6px 10px; cursor: pointer; white-space: nowrap;
     color: var(--ink-2); transition: border-color .15s var(--ease), color .15s var(--ease), background .15s var(--ease);
   }
   .mini-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-wash); }
-  .search-wrap { position: relative; flex: 1 1 240px; min-width: 220px; }
-  .search-wrap input[type="text"] { width: 100%; }
-  .search-pop { position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: var(--paper); border: 1px solid var(--line); border-radius: 2px; box-shadow: 0 10px 30px rgba(23,25,22,.12); max-height: 330px; overflow: auto; z-index: 20; display: none; }
+  .mini-btn.primary { border-color: var(--accent); color: var(--accent-dark); background: var(--accent-wash); font-weight: 600; }
+  .mini-btn.primary:hover { background: var(--accent); color: #fff; }
+  .mini-btn.warn:hover { border-color: var(--vermillion); color: var(--vermillion); background: rgba(201,40,32,.08); }
+  .search-wrap { position: relative; flex: 1 1 260px; min-width: 170px; max-width: 420px; }
+  .search-pop { position: absolute; left: 0; right: 0; top: calc(100% + 5px); background: var(--hud-solid); border: 1px solid var(--hud-line); border-radius: 3px; box-shadow: 0 16px 40px rgba(23,25,22,.20); max-height: min(330px, 60dvh); overflow: auto; z-index: 40; display: none; }
   .sp-item { display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; cursor: pointer; border-bottom: 1px solid var(--line-soft); }
   .sp-item:last-child { border-bottom: none; }
   .sp-item:hover, .sp-item.on { background: var(--paper-2); }
   .sp-name { font-family: var(--f-serif); font-size: 14px; font-weight: 700; letter-spacing: .5px; }
   .sp-meta { font-family: var(--f-sans); font-size: 11px; color: var(--muted); margin-left: auto; text-align: right; }
   .sp-empty { padding: 12px; font-family: var(--f-sans); font-size: 12.5px; color: var(--muted); }
-  /* 更新提示：挪到右上角，避免压住右下的小地图与缩放控件 */
+  /* 更新提示：浮在画布左上、调校栏右侧，不压小地图与缩放 */
   .notice-bar {
-    position: absolute; right: 12px; top: 9px; display: none; align-items: center; gap: 8px;
-    background: rgba(255,254,251,.95); color: var(--muted); border: 1px solid var(--line);
-    font-family: var(--f-sans); font-size: 10.5px; border-radius: 2px;
-    padding: 4px 6px 4px 10px; box-shadow: 0 2px 10px rgba(23,25,22,.05); z-index: 6;
+    position: absolute; left: calc(var(--rail-w) + 26px); top: 62px; display: none; align-items: center; gap: 8px;
+    background: var(--hud-bg); color: var(--muted); border: 1px solid var(--hud-line);
+    font-family: var(--f-sans); font-size: 10.5px; border-radius: 3px;
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    padding: 5px 6px 5px 10px; box-shadow: var(--hud-shadow); z-index: 24;
   }
   .notice-bar::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex: none; }
   .notice-bar button { background: none; border: none; color: var(--faint); cursor: pointer; font-size: 13px; line-height: 1; padding: 0 4px; }
@@ -77,59 +171,240 @@
     --line-strong: #474b41; --seal-bg: #2a6cbe; --accent: #5b8fd0; --accent-dark: #8fc0f0; --accent-wash: #172430;
     --header-bg: rgba(20, 22, 19, .92);
   }
-  body.dark #stage { background: #171915; }
+  body.dark #stage { background-color: #171915; }
   body.dark .stage-hint, body.dark .stage-legend, body.dark .stage-zoom, body.dark .stage-minimap { background: rgba(28,30,26,.94); }
-  body.dark .node rect.card-face { fill: transparent; }
-  body.dark #shitu .node:hover .card-face { fill: #22251f; }
-  body.dark #shitu .node.selected .card-face { fill: #1d2632; }
+  body.dark .node rect.card-face { fill: var(--paper); stroke: var(--line); }
+  body.dark #shitu .node[data-kind="external"] .card-face { fill: var(--paper-2); }
+  body.dark #shitu .node:hover .card-face { fill: #22251f; stroke: var(--accent); }
+  body.dark #shitu .node.selected .card-face { fill: var(--accent-wash); }
   body.dark .person-head .nm, body.dark .card-name { color: var(--ink); }
   body.dark .card-name { fill: #e8e9e3; }
-  body.dark .fold-label { fill: #878c82; }
+  body.dark .fold-label { fill: #9ba095; }
+  body.dark .tog-face { fill: #242721; stroke: #3d4137; }
+  body.dark .card-edge { fill: #b08d3f; }
   body.dark .band-label { fill: #9ba095; stroke: #171915; }
   body.dark line.band-rule { stroke: #34372f; }
   body.dark .notice-bar { background: rgba(28,30,26,.95); color: var(--muted); }
   body.dark .search-pop { background: var(--paper); }
   body.dark .sp-item:hover, body.dark .sp-item.on { background: #242721; }
-  body.dark .page-tools input[type="text"], body.dark .mini-btn, body.dark .fchip { background-color: #1c1e1a; color: var(--ink); }
+  body.dark .hud-top input[type="text"], body.dark .mini-btn, body.dark .fchip { background-color: #1c1e1a; color: var(--ink); }
+  body.dark .mini-btn.primary { background-color: var(--accent-wash); color: var(--accent-dark); }
+  body.dark .icon-btn { color: var(--ink-2); }
+  body.dark .icon-btn.on { color: #10130f; }
   body.dark rect.band-bg { fill: rgba(255,255,255,.035); }
   body.dark .rel-item, body.dark .side-card, body.dark .card-face { background: transparent; }
   .switch { font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
   .switch input { accent-color: var(--accent); }
-  .graph-layout { display: grid; grid-template-columns: 1fr 312px; gap: 18px; align-items: start; }
+  /* 画布铺满整个工作区：没有盒式版面、没有页脚，页面本身不滚动 */
   #stage {
-    position: relative; overflow: hidden;
-    /* 极淡的方格纸纹：让大片留白有质感，又不会抢走细线的注意力 */
-    background:
-      repeating-linear-gradient(0deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px),
-      repeating-linear-gradient(90deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px),
-      #f7f8f5;
-    border: 1px solid var(--line); border-radius: 0;
-    height: clamp(560px, calc(100vh - 232px), 900px);
+    position: absolute; inset: 0; overflow: hidden;
+    background-color: #f7f8f5;
     cursor: grab; touch-action: none;
   }
+  /* 方格纸纹可关：让大片留白有质感，又不抢走细线的注意力 */
+  #stage.grid {
+    background-image:
+      repeating-linear-gradient(0deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(23,25,22,.028) 0 1px, transparent 1px 28px);
+  }
+  /* 两团极淡的色雾缓慢漂移：铜色自左上、黛蓝自右下，给长卷一点空气感 */
+  #stage::before {
+    content: ""; position: absolute; inset: -20%; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(38% 44% at 22% 18%, rgba(176,141,63,.13), transparent 70%),
+      radial-gradient(42% 48% at 82% 88%, rgba(29,79,140,.12), transparent 72%),
+      radial-gradient(30% 36% at 62% 42%, rgba(31,138,102,.07), transparent 70%);
+    animation: drift 46s ease-in-out infinite alternate;
+  }
+  #stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    box-shadow: inset 0 0 140px rgba(23,25,22,.07);
+  }
+  body.dark #stage::before {
+    background:
+      radial-gradient(38% 44% at 22% 18%, rgba(176,141,63,.16), transparent 70%),
+      radial-gradient(42% 48% at 82% 88%, rgba(91,143,208,.16), transparent 72%),
+      radial-gradient(30% 36% at 62% 42%, rgba(31,138,102,.09), transparent 70%);
+  }
+  body.dark #stage::after { box-shadow: inset 0 0 160px rgba(0,0,0,.45); }
+  @keyframes drift {
+    from { transform: translate3d(-2%, -1%, 0) scale(1); }
+    to   { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) { #stage::before { animation: none; } }
   #stage.dragging { cursor: grabbing; }
-  #shitu { display: block; }
-  .stage-hint { position: absolute; left: 12px; top: 9px; font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); background: rgba(247,248,245,.92); border: 1px solid var(--line); border-radius: 2px; padding: 2px 8px; pointer-events: none; }
-  .stage-zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 2px; align-items: center; background: rgba(255,254,251,.94); border: 1px solid var(--line); border-radius: 2px; padding: 3px 4px; }
-  .stage-zoom button { border: none; background: none; font-size: 13px; cursor: pointer; font-family: var(--f-sans); color: var(--ink-2); padding: 2px 7px; }
-  .stage-zoom button:hover { color: var(--accent); }
-  .stage-zoom .pct { font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); min-width: 36px; text-align: center; font-variant-numeric: tabular-nums; }
-  .stage-minimap { position: absolute; right: 12px; bottom: 54px; width: 182px; height: 68px; background: rgba(255,254,251,.95); border: 1px solid var(--line); border-radius: 0; cursor: pointer; overflow: hidden; }
-  .stage-minimap svg { display: block; }
-  .stage-legend { position: absolute; left: 12px; bottom: 12px; background: rgba(255,254,251,.93); border: 1px solid var(--line); border-radius: 0; padding: 7px 10px; font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); line-height: 2; max-width: calc(100% - 230px); }
-  .stage-legend .lg-row { display: flex; gap: 2px 12px; flex-wrap: wrap; align-items: center; }
+  #shitu { display: block; position: relative; z-index: 2; }
+
+  /* ---- 左栏：常驻视图调校 + 图例 ---- */
+  .hud-left {
+    position: absolute; left: 12px; top: 64px; bottom: 52px; width: var(--rail-w);
+    display: flex; flex-direction: column; gap: 10px; z-index: 22;
+    transition: transform .28s var(--ease), opacity .22s var(--ease);
+  }
+  body.rail-off .hud-left { transform: translateX(calc(-100% - 20px)); opacity: 0; pointer-events: none; }
+  /* 桌面收起调校栏时图例留在原位：筛线型是看图的一部分，不该跟着控件一起消失 */
+  @media (min-width: 901px) {
+    body.rail-off .hud-left { transform: none; opacity: 1; }
+    body.rail-off .ctl { transform: translateX(calc(-100% - 20px)); opacity: 0; pointer-events: none; }
+    body.rail-off .stage-legend { pointer-events: auto; }
+    body.rail-off #btn-legend { display: none; }
+  }
+  .ctl { transition: transform .28s var(--ease), opacity .22s var(--ease); }
+  .panel {
+    background: var(--hud-bg); border: 1px solid var(--hud-line); border-radius: 4px;
+    box-shadow: var(--hud-shadow); display: flex; flex-direction: column; min-height: 0;
+    -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .panel-hd {
+    display: flex; align-items: center; gap: 8px; flex: none;
+    padding: 8px 10px; border-bottom: 1px solid var(--hud-line);
+  }
+  .panel-hd h3 {
+    font-family: var(--f-serif); font-size: 12.5px; font-weight: 700; letter-spacing: 2px;
+    margin: 0; color: var(--ink);
+  }
+  .panel-hd .hd-x { margin-left: auto; }
+  .panel-bd { padding: 10px; overflow: auto; min-height: 0; }
+  .ctl { flex: 1 1 auto; }
+  .ctl-grp { margin-bottom: 7px; }
+  .ctl-lab {
+    display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px;
+    font-family: var(--f-sans); font-size: 11px; color: var(--ink-2); letter-spacing: .4px;
+  }
+  .ctl-lab output {
+    margin-left: auto; font-size: 10.5px; color: var(--accent-dark);
+    font-variant-numeric: tabular-nums; font-weight: 600;
+  }
+  /* 滑杆走站内配色：铜色轨道槽 + 黛蓝滑块，不用浏览器默认灰 */
+  .ctl input[type="range"] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 14px;
+    background: transparent; cursor: pointer; display: block; margin: 0;
+  }
+  .ctl input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--accent) 100%); opacity: .38;
+  }
+  .ctl input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 13px; height: 13px; margin-top: -4.5px;
+    border-radius: 50%; background: var(--hud-solid); border: 2px solid var(--accent);
+    box-shadow: 0 1px 4px rgba(23,25,22,.28); transition: transform .12s var(--ease);
+  }
+  .ctl input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.18); border-color: var(--gold-bright); }
+  .ctl input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--line-strong); }
+  .ctl input[type="range"]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
+  .ctl input[type="range"]::-moz-range-thumb {
+    width: 11px; height: 11px; border-radius: 50%; background: var(--hud-solid);
+    border: 2px solid var(--accent); box-shadow: 0 1px 4px rgba(23,25,22,.28);
+  }
+  .seg { display: flex; gap: 0; border: 1px solid var(--hud-line); border-radius: 3px; overflow: hidden; }
+  .seg button {
+    flex: 1 1 0; border: 0; background: transparent; cursor: pointer; padding: 5px 4px;
+    font-family: var(--f-sans); font-size: 11px; color: var(--muted); letter-spacing: .5px;
+    border-right: 1px solid var(--hud-line); transition: background .15s var(--ease), color .15s var(--ease);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button:hover { color: var(--accent); background: var(--accent-wash); }
+  .seg button.on { background: var(--accent); color: #fff; font-weight: 600; }
+  body.dark .seg button.on { color: #10130f; }
+  .ctl-toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 8px; margin: 9px 0 8px; padding-top: 8px; border-top: 1px solid var(--hud-line); }
+  /* 四个动作钉在面板底：滑杆再多、面板再矮，随机 / 重置 / 导出都不必先滚动才够得着 */
+  .ctl-acts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    position: sticky; bottom: -10px; z-index: 2;
+    margin: 0 -10px -10px; padding: 10px;
+    background: var(--hud-solid); border-top: 1px solid var(--hud-line);
+    box-shadow: 0 -10px 14px -12px rgba(23,25,22,.5);
+  }
+  .ctl-acts .mini-btn { padding: 6px 4px; text-align: center; }
+  .rail-open {
+    position: absolute; left: 12px; top: 64px; z-index: 23; display: none;
+  }
+  body.rail-off .rail-open { display: inline-flex; }
+
+  /* ---- 图例：左栏底部，可筛线型 ---- */
+  .stage-legend {
+    flex: none; background: var(--hud-bg); border: 1px solid var(--hud-line); border-radius: 4px;
+    box-shadow: var(--hud-shadow); padding: 8px 10px; font-family: var(--f-sans);
+    font-size: 10.5px; color: var(--muted); line-height: 1.95; max-height: 26%; overflow: auto;
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  }
+  .stage-legend .lg-row { display: flex; gap: 2px 11px; flex-wrap: wrap; align-items: center; }
   .stage-legend .lg-item { cursor: pointer; user-select: none; border: 0; border-radius: 0; padding: 0; white-space: nowrap; }
   .stage-legend .lg-item:hover { color: var(--accent); }
   .stage-legend .lg-item.off { opacity: .32; text-decoration: line-through; }
   .stage-legend .ln { display: inline-block; width: 16px; border-top: 1px solid; margin-right: 4px; vertical-align: 3px; }
   .stage-legend .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 4px; vertical-align: 0; }
-  .side-panel { position: sticky; top: calc(var(--header-h) + 16px); }
-  .side-card { background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 16px 18px; }
-  .side-card + .side-card { margin-top: 12px; }
-  .side-card h3 { font-family: var(--f-serif); font-size: 13px; margin: 0 0 12px; color: var(--ink); letter-spacing: 2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  /* ---- 右抽屉：节点信息 / 主要家族 / 结构速览，点卡片滑出 ---- */
+  .hud-right {
+    position: absolute; right: 12px; top: 64px; bottom: calc(var(--nav-h) + 12px); width: var(--drawer-w);
+    z-index: 26; display: flex; flex-direction: column; overflow: hidden;
+    background: var(--hud-bg); border: 1px solid var(--hud-line); border-radius: 4px;
+    box-shadow: var(--hud-shadow);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2);
+    transform: translateX(calc(100% + 22px)); opacity: 0; pointer-events: none;
+    transition: transform .3s var(--ease), opacity .24s var(--ease);
+  }
+  .hud-right.open { transform: none; opacity: 1; pointer-events: auto; }
+  .drawer-hd {
+    display: flex; align-items: center; gap: 8px; flex: none; padding: 8px 10px;
+    border-bottom: 1px solid var(--hud-line);
+  }
+  .drawer-hd h3 { font-family: var(--f-serif); font-size: 12.5px; letter-spacing: 2px; margin: 0; color: var(--ink); }
+  .drawer-hd .hd-x { margin-left: auto; }
+  .drawer-bd { overflow: auto; padding: 10px; min-height: 0; }
+  .side-card { background: transparent; border: 0; border-radius: 0; padding: 0; }
+  .side-card + .side-card { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hud-line); }
+  .side-card h3 { font-family: var(--f-serif); font-size: 12.5px; margin: 0 0 10px; color: var(--ink); letter-spacing: 2px; padding-bottom: 7px; border-bottom: 1px solid var(--line); }
   .side-card .empty { color: var(--muted); font-size: 12.5px; margin: 0; line-height: 1.9; }
+
+  /* ---- 右下：小地图 + 缩放 + 三个视图动作 ---- */
+  .hud-nav {
+    position: absolute; right: 12px; bottom: 12px; z-index: 24; width: 208px;
+    display: flex; flex-direction: column; gap: 6px; padding: 8px;
+  }
+  .stage-minimap {
+    position: relative; width: 100%; height: 74px; background: var(--hud-solid);
+    border: 1px solid var(--hud-line); border-radius: 3px; cursor: pointer; overflow: hidden;
+  }
+  .stage-minimap svg { display: block; }
+  .stage-zoom { display: flex; gap: 2px; align-items: center; background: var(--hud-solid); border: 1px solid var(--hud-line); border-radius: 3px; padding: 2px 3px; }
+  .stage-zoom button { border: none; background: none; font-size: 14px; cursor: pointer; font-family: var(--f-sans); color: var(--ink-2); padding: 3px 9px; line-height: 1.2; }
+  .stage-zoom button:hover { color: var(--accent); }
+  .stage-zoom .pct { font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); flex: 1; text-align: center; font-variant-numeric: tabular-nums; }
+  .nav-views { display: flex; gap: 4px; }
+  .nav-views .mini-btn { flex: 1 1 0; padding: 6px 2px; text-align: center; font-size: 11px; }
+
+  /* ---- 底部状态条：视野里有多少人、展开到哪、悬停是谁 ---- */
+  .hud-status {
+    position: absolute; left: 12px; right: 232px; bottom: 12px; height: 30px; z-index: 21;
+    display: flex; align-items: center; gap: 12px; padding: 0 11px; overflow: hidden;
+    font-family: var(--f-sans); font-size: 10.5px; color: var(--muted); white-space: nowrap;
+  }
+  .hud-status b { color: var(--accent-dark); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .hud-status .st-hover { color: var(--ink); font-family: var(--f-serif); font-size: 12px; letter-spacing: 1px; }
+  .hud-status .st-links { margin-left: auto; display: flex; gap: 10px; flex: none; }
+  .hud-status .st-links a { color: var(--muted); border-bottom: 1px dotted var(--line-strong); }
+  .hud-status .st-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .hud-status .st-keys { color: var(--faint); }
+  .hud-status .st-keys kbd {
+    font-family: var(--f-sans); font-size: 9.5px; border: 1px solid var(--hud-line);
+    border-bottom-width: 2px; border-radius: 3px; padding: 0 3px; margin: 0 1px; color: var(--ink-2);
+  }
+  /* 轻提示：随机访一位 / 导出成功这类一次性反馈 */
+  .toast {
+    position: absolute; left: 50%; bottom: 54px; transform: translate(-50%, 8px); z-index: 50;
+    background: var(--hud-solid); border: 1px solid var(--hud-line); border-left: 3px solid var(--gold);
+    border-radius: 3px; box-shadow: 0 14px 36px rgba(23,25,22,.20);
+    padding: 8px 14px; font-family: var(--f-sans); font-size: 12px; color: var(--ink);
+    opacity: 0; pointer-events: none; transition: opacity .22s var(--ease), transform .22s var(--ease);
+    max-width: min(440px, calc(100% - 40px));
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast.err { border-left-color: var(--vermillion); }
   .person-head { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
   .person-head .avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+  .person-head .avatar.has-img { background: var(--paper-2); overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+  .person-head .avatar.has-img img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 20%); display: block; }
   .person-head .nm { font-family: var(--f-serif); font-size: 19px; font-weight: 700; letter-spacing: 1.5px; }
   .person-head .meta { font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); line-height: 1.65; }
   .rel-block { margin-top: 14px; }
@@ -152,7 +427,7 @@
   .fchip { font-family: var(--f-serif); font-size: 12.5px; border: 0; border-bottom: 1px dotted var(--line-strong); background: transparent; border-radius: 0; padding: 2px 0; cursor: pointer; color: var(--ink-2); }
   .fchip:hover { border-bottom-color: var(--accent); color: var(--accent); }
   .fchip.on { background: transparent; border-bottom: 1px solid var(--accent); color: var(--accent); font-weight: 600; }
-  .tour-card { position: absolute; left: 50%; bottom: 88px; transform: translateX(-50%); background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 14px 18px; box-shadow: 0 12px 36px rgba(23,25,22,.16); z-index: 5; max-width: 330px; }
+  .tour-card { position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%); background: var(--hud-solid); border: 1px solid var(--hud-line); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 18px; box-shadow: 0 18px 44px rgba(23,25,22,.22); z-index: 44; max-width: min(360px, calc(100% - 32px)); }
   .tour-card .tour-step { font-family: var(--f-sans); font-size: 10px; letter-spacing: 1.5px; color: var(--faint); }
   .tour-card .tour-title { font-family: var(--f-serif); font-size: 15px; font-weight: 700; margin: 4px 0 4px; color: var(--ink); letter-spacing: 1px; }
   .tour-card .tour-text { font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 10px; }
@@ -160,19 +435,27 @@
   .tour-card .tour-skip:hover { color: var(--accent); }
   .node.pop { animation: cardIn .4s ease; }
   @keyframes cardIn { from { opacity: 0; } to { opacity: 1; } }
-  .card-name { font-family: var(--f-serif); font-size: 13px; fill: #171916; font-weight: 600; letter-spacing: 1px; }
-  .card-sub { font-family: var(--f-sans); font-size: 8.5px; fill: #979b92; letter-spacing: 0; }
-  .fold-name { font-family: var(--f-serif); font-size: 9.5px; font-weight: 400; }   /* 对比度达 AA */
-  .fold-label { font-family: var(--f-sans); font-size: 9px; fill: #979b92; }
-  /* 路径查询栏 */
-  .path-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-    padding: 8px 0; margin: 4px 0 0; background: transparent; border: 0; border-bottom: 1px solid var(--line);
-    font-family: var(--f-sans); font-size: 12px; }
-  .path-bar .pb-label { color: var(--accent-dark); font-weight: 600; letter-spacing: 1px; }
-  .path-bar input { width: 132px; padding: 5px 8px; font: inherit; font-size: 12px;
-    border: 1px solid var(--line); border-radius: 2px; background: var(--paper); }
+  .card-name { font-family: var(--f-serif); font-size: 14px; fill: var(--ink); font-weight: 600; letter-spacing: .6px; }
+  .card-name.latin { font-family: var(--f-sans); letter-spacing: 0; }
+  .card-sub { font-family: var(--f-sans); font-size: 9px; fill: var(--faint); letter-spacing: .4px; font-variant-numeric: tabular-nums; }
+  .fold-label { font-family: var(--f-sans); font-size: 9.5px; fill: var(--muted); }
+  .tog-face { fill: var(--paper-2); stroke: var(--line); stroke-width: 1; }
+  .card-edge { fill: var(--gold); }
+  /* 路径查询栏：浮在画布下缘居中，不占版面 */
+  .path-bar {
+    position: absolute; left: 50%; bottom: 52px; transform: translateX(-50%); z-index: 34;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    width: min(780px, calc(100% - 24px)); padding: 9px 12px;
+    background: var(--hud-bg); border: 1px solid var(--hud-line); border-radius: 4px;
+    box-shadow: var(--hud-shadow); font-family: var(--f-sans); font-size: 12px;
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  }
+  .path-bar .pb-label { color: var(--accent-dark); font-weight: 600; letter-spacing: 1px; flex: none; }
+  .path-bar input { width: 128px; padding: 5px 8px; font: inherit; font-size: 12px;
+    border: 1px solid var(--hud-line); border-radius: 3px; background: var(--hud-solid); color: var(--ink); }
+  .path-bar input:focus { outline: none; border-color: var(--accent); }
   .path-bar .pb-arrow { color: var(--faint); }
-  .path-bar .pb-result { color: var(--ink); line-height: 1.9; }
+  .path-bar .pb-result { color: var(--ink); line-height: 1.9; flex: 1 1 200px; min-width: 0; }
   .path-bar .pb-result .hop { color: var(--muted); font-size: 11px; margin: 0 4px; }
   .path-bar .pb-result b { color: var(--accent-dark); font-family: var(--f-serif); letter-spacing: .5px; }
   /* 路径高亮：非路径节点淡出 */
@@ -182,27 +465,35 @@
   .card-bridge-dot { cursor: pointer; }
   .toggle:focus, .card-bridge-dot:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   #shitu.path-mode .edge-hit { pointer-events: none; }
-  /* 流动圆点：干线/母线上滚动的粒子，方向师→生（借鉴 mulu 的流线效果，SVG 实现） */
+  /* 流动圆点：干线/母线上滚动的粒子，方向师→生。
+     周期固定 8px（负向推进＝沿路径方向，循环无缝），只调点长与速度，改周期会跳帧。 */
+  #shitu { --flow-dur: 1.43s; --flow-dot: .4px; --edge-scale: 1; }
   @keyframes edgeflow { to { stroke-dashoffset: -8; } }
   .edge-flow {
     fill: none; stroke-linecap: round;
-    stroke-dasharray: 0.1 7.9;   /* 周期 8px，负向推进 = 沿路径方向流动，循环无缝 */
-    animation: edgeflow 1.4s linear infinite;
+    stroke-dasharray: var(--flow-dot) calc(8px - var(--flow-dot));
+    stroke-width: calc(2.2px * var(--edge-scale));
+    animation: edgeflow var(--flow-dur) linear infinite;
     pointer-events: none;
   }
+  #shitu.flow-off .edge-flow { display: none; }
+  #shitu .edge-line { stroke-width: calc(var(--w, 1.2) * var(--edge-scale) * 1px); }
+  #shitu .edge-trunk { stroke-width: calc(1px * var(--edge-scale)); }
   /* 路径高亮时流动退为氛围层，不与金色路径抢注意力 */
   #shitu.path-mode .edge-flow { opacity: .12; }
   @media (prefers-reduced-motion: reduce) {
     .edge-flow { display: none; }
   }
-  /* 悬停反馈：默认不画卡片，悬停时浮出一层纸白 */
-  #shitu .node .card-face { fill: transparent; stroke: none; }
-  #shitu .node:hover .card-face { fill: #fffefb; stroke: var(--line-strong); stroke-width: 1; }
+  /* 卡片常驻纸白卡面：人名要成「一张名片」，不是一列浮字 */
+  #shitu .node .card-face { fill: var(--paper); stroke: var(--line); stroke-width: 1; }
+  #shitu .node[data-kind="external"] .card-face { fill: var(--paper-2); stroke-dasharray: 3 2; }
+  #shitu .node:hover .card-face { stroke: var(--accent); stroke-width: 1.2; }
   #shitu .node:hover .card-name { fill: var(--accent-dark); }
+  #shitu .node:hover .tog-face { fill: var(--accent-wash); stroke: var(--accent); }
   #shitu .node:focus-visible { outline: 2px solid #c9a227; outline-offset: 2px; }
-  #shitu .node:hover .toggle .fold-label { fill: var(--accent); }
+  #shitu .node:hover .toggle .fold-label { fill: var(--accent-dark); }
   /* 选中态：点了哪张卡，图上要看得出来。 */
-  #shitu .node.selected .card-face { fill: #fffefb; stroke: var(--accent); stroke-width: 1.4; }
+  #shitu .node.selected .card-face { fill: var(--accent-wash); stroke: var(--accent); stroke-width: 1.4; }
   #shitu .node.selected .card-name { fill: var(--accent-dark); }
   /* 轮廓模式：缩到 30% 以下时隐藏文字，只留色块与连线，避免糊成噪点 */
   #shitu.overview .card-name,
@@ -219,87 +510,181 @@
   }
   body.dark #shitu.overview .card-face { fill: #3a3d35; }
   body.dark #shitu.overview .node[data-kind="master"] .card-face { fill: #8a6d3b; }
-  @media (max-width: 1020px) {
-    .graph-layout { grid-template-columns: 1fr; }
-    .side-panel { position: static; }
-    #stage { height: 62vh; min-height: 460px; }
-    .stage-legend { display: none; }
+  /* 中等屏：收窄两栏，把画布让出来 */
+  @media (max-width: 1180px) {
+    body.app { --rail-w: 232px; --drawer-w: 304px; }
+    .hud-title .lead { display: none; }
+    .hud-status .st-keys { display: none; }
+    .net-pop { width: min(380px, calc(100vw - var(--drawer-w) - 50px)); }
+  }
+  @media (max-width: 900px) {
+    body.app { --sheet-h: max(31dvh, 190px); --nav-h: 0px; }
+    .hud-top { height: 46px; gap: 5px; padding: 0 8px; }
+    .hud-title { display: none; }
+    .search-wrap { flex: 1 1 110px; min-width: 100px; max-width: none; }
+    .hud-top input[type="text"] { font-size: 12.5px; padding: 6px 9px 6px 29px; }
+    .hud-acts { gap: 4px; }
+    .hud-acts .btn-t { display: none; }
+    .hud-acts .mini-btn { padding: 6px 8px; font-size: 13px; }
+    #btn-legend { display: inline-flex; }
+    /* 调校栏变成常驻底部工作台：不藏进弹窗，横竖都够得着 */
+    .hud-left {
+      left: 0; right: 0; bottom: 0; top: auto; width: auto;
+      height: var(--sheet-h); gap: 0; border-radius: 0;
+      background: var(--hud-bg); border-top: 1px solid var(--hud-line);
+      box-shadow: 0 -12px 32px rgba(23,25,22,.14);
+      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    }
+    body.rail-off .hud-left { transform: translateY(calc(100% + 20px)); }
+    .ctl { flex: 1 1 auto; border: 0; border-radius: 0; box-shadow: none; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .ctl .panel-hd { padding: 6px 10px; }
+    .ctl .panel-bd { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 14px; align-content: start; padding: 9px 10px 12px; }
+    .ctl-grp { margin-bottom: 0; }
+    .ctl-toggles, .ctl-acts { grid-column: 1 / -1; margin: 2px 0 0; padding-top: 8px; }
+    .ctl-toggles { grid-template-columns: 1fr 1fr; }
+    .ctl-acts {
+      grid-template-columns: repeat(4, 1fr);
+      bottom: -12px; margin: 2px -10px -12px; padding: 8px 10px 12px;
+    }
+    .rail-open { left: 8px; top: auto; bottom: 8px; }
+    body.rail-off .rail-open { bottom: 8px; }
+    /* 图例改浮出：底部工作台里塞不下，也不该塞 */
+    .stage-legend {
+      display: none; position: fixed; left: 8px; right: 8px; bottom: calc(var(--sheet-h) + 10px);
+      max-height: 40dvh; z-index: 42; background: var(--hud-solid);
+    }
+    body.legend-on .stage-legend { display: block; }
+    body.rail-off .stage-legend { bottom: 52px; }
+    .hud-right {
+      left: 8px; right: 8px; top: 54px; bottom: calc(var(--sheet-h) + 10px); width: auto;
+      transform: translateY(-14px);
+    }
+    body.rail-off .hud-right { bottom: 52px; }
+    .hud-right.open { transform: none; }
+    .hud-nav { right: 8px; bottom: calc(var(--sheet-h) + 10px); width: 148px; padding: 6px; }
     .stage-minimap { display: none; }
-    /* 窄屏：操作提示与更新条会互相压盖，直接让位给图本身 */
-    .stage-hint, .notice-bar { display: none !important; }
+    .nav-views { flex-direction: column; }
+    .hud-status { left: 8px; right: 164px; bottom: calc(var(--sheet-h) + 10px); height: 26px; padding: 0 9px; }
+    .hud-status .st-links, .hud-status .st-keys { display: none; }
+    body.rail-off .hud-nav, body.rail-off .hud-status { bottom: 10px; }
+    .notice-bar { display: none !important; }
+    .path-bar { bottom: calc(var(--sheet-h) + 44px); width: calc(100% - 16px); max-height: 34dvh; overflow: auto; }
+    .path-bar input { width: 104px; }
+    .tour-card { bottom: calc(var(--sheet-h) + 48px); }
+    .toast { bottom: calc(var(--sheet-h) + 12px); }
+    .net-pop { left: 8px; right: 8px; top: auto; bottom: calc(var(--sheet-h) + 12px); width: auto; max-height: 48dvh; }
+    body.rail-off .path-bar, body.rail-off .tour-card, body.rail-off .toast, body.rail-off .net-pop { bottom: 52px; }
+  }
+  @media (max-width: 340px) {
+    .ctl .panel-bd { grid-template-columns: 1fr; }
+    .ctl-acts { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
-<body>
+<body class="app">
 <div id="site-header"></div>
-<main class="wrap">
-  <div class="page-head">
-    <h2 class="page-title">师承世表</h2>
-    <span class="lead" id="lead"></span>
+<main id="app">
+  <!-- 画布：铺满整个工作区 -->
+  <div id="stage" class="grid" role="group" aria-label="师承世表图谱：可拖拽平移、滚轮缩放">
+    <svg id="shitu" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
 
-  <div class="page-tools">
+  <!-- 顶栏：找人 + 全局动作 -->
+  <div class="hud hud-top">
+    <span class="fs-brand"><span class="seal-mini" aria-hidden="true">谱</span></span>
+    <div class="hud-title">
+      <h1>师承世表</h1>
+      <span class="lead" id="lead"></span>
+    </div>
     <div class="search-wrap">
-      <input type="text" id="q" placeholder="找学者：输入姓名定位（按 / 快速聚焦）" autocomplete="off">
+      <input type="text" id="q" placeholder="找学者：姓名 / 拼音（按 / 聚焦）" autocomplete="off" aria-label="搜索学者">
       <div class="search-pop" id="search-pop"></div>
     </div>
-    <span class="tool-sep"></span>
-    <button class="mini-btn" id="btn-fullheight" title="把视野缩到正好看到全部年代带">看全高</button>
-    <button class="mini-btn" id="btn-fit" title="缩到能看见整张图">看全貌</button>
-    <button class="mini-btn" id="btn-collapse" title="收起所有已展开的门下">全部收起</button>
-    <span class="tool-sep"></span>
-    <button class="mini-btn primary" id="btn-path">查师承路径</button>
-    <button class="mini-btn" id="btn-zhanghuang" title="一键追 章太炎 → 黄侃 → 陆宗达 → 王宁，看每一代靠什么传下去">章黄一脉</button>
-    <button class="mini-btn" id="btn-tour">操作引导</button>
-    <button class="mini-btn" id="btn-theme">☾ 夜间</button>
-    <span class="tool-sep"></span>
-    <label class="switch"><input type="checkbox" id="show-colleague"> 叠加同事关系</label>
-    <label class="switch"><input type="checkbox" id="only-direct"> 仅直接证据</label>
-    <label class="switch"><input type="checkbox" id="hide-weak" checked> 隐藏弱证据</label>
-  </div>
-
-  <!-- 结构速览：师承图是网不是树，数字运行时计算 -->
-  <div class="net-wrap">
-    <div class="net-strip" id="net-strip"></div>
-    <div class="net-pop" id="net-pop"></div>
-  </div>
-
-  <!-- 师承路径查询：任选两人，高亮他们之间最短的师承链 -->
-  <div class="path-bar" id="path-bar" style="display:none">
-    <span class="pb-label">师承路径</span>
-    <input type="text" id="path-a" placeholder="起点（如 王宁）" autocomplete="off" list="path-names">
-    <span class="pb-arrow">⟶</span>
-    <input type="text" id="path-b" placeholder="终点（如 白如）" autocomplete="off" list="path-names">
-    <datalist id="path-names"></datalist>
-    <button class="mini-btn" id="path-go">查</button>
-    <button class="mini-btn" id="path-clear">清除</button>
-    <span class="pb-result" id="path-result"></span>
-  </div>
-
-  <div class="graph-layout">
-    <div id="stage" role="img" aria-label="师承世表图谱">
-      <svg id="shitu" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="stage-hint">拖拽平移 · 滚轮或双指缩放 · 点姓名看师承与出处</div>
-      <div class="stage-legend" id="stage-legend"></div>
-      <div class="tour-card" id="tour-card">
-        <div class="tour-step">1 / 3</div>
-        <div class="tour-title">把图谱挪一挪</div>
-        <div class="tour-text">按住空白处拖拽，或用滚轮缩放。</div>
-        <button class="mini-btn" id="tour-next">下一步</button>
-        <button class="tour-skip" id="tour-skip">跳过引导</button>
-      </div>
-      <div class="stage-minimap" id="minimap" title="小地图：点击跳转"></div>
-      <div class="notice-bar" id="notice-bar">
-        <span>更新：新增搜索候选、暗色主题、小地图导航</span>
-        <button id="notice-close" aria-label="关闭">×</button>
-      </div>
-      <div class="stage-zoom">
-        <button id="zoom-out" title="缩小" aria-label="缩小">－</button>
-        <span class="pct" id="zoom-pct">100%</span>
-        <button id="zoom-in" title="放大" aria-label="放大">＋</button>
-      </div>
+    <div class="hud-acts">
+      <button class="mini-btn primary" id="btn-path" title="任选两人，高亮最短师承链"><span class="btn-i">⇄</span> <span class="btn-t">查师承路径</span></button>
+      <button class="mini-btn" id="btn-zhanghuang" title="一键追 章太炎 → 黄侃 → 陆宗达 → 王宁，看每一代靠什么传下去"><span class="btn-i">章</span> <span class="btn-t">章黄一脉</span></button>
+      <button class="mini-btn" id="btn-struct" title="结构速览：家族规模、兼师从的桥、库外导师"><span class="btn-i">▤</span> <span class="btn-t">结构</span></button>
+      <button class="icon-btn" id="btn-legend" title="图例与线型筛选" aria-label="图例与线型筛选">◩</button>
+      <button class="icon-btn" id="btn-drawer" title="节点信息抽屉（I）" aria-label="节点信息抽屉" aria-expanded="false">▥</button>
+      <button class="icon-btn" id="btn-tour" title="操作引导（?）" aria-label="操作引导">?</button>
+      <button class="icon-btn" id="btn-fs" title="全屏（F）：连页眉一起让给画布" aria-label="切换全屏">⤢</button>
+      <button class="icon-btn" id="btn-theme" title="夜间 / 日间" aria-label="切换夜间模式">☾</button>
     </div>
-    <aside class="side-panel">
+  </div>
+
+  <!-- 左栏：常驻视图调校 + 图例 -->
+  <button class="mini-btn rail-open" id="btn-rail-open" title="展开视图调校（C）">⟩ 调校</button>
+  <div class="hud-left">
+    <section class="panel ctl" id="ctl-panel" aria-label="视图调校">
+      <div class="panel-hd">
+        <h3>视图调校</h3>
+        <button class="icon-btn hd-x" id="btn-rail" title="收起调校栏（C）" aria-label="收起调校栏">⟨</button>
+      </div>
+      <div class="panel-bd" id="ctl-body">
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>缩放</span><output id="out-zoom" for="ctl-zoom">95%</output></div>
+          <input type="range" id="ctl-zoom" min="12" max="300" step="1" value="95" aria-label="缩放">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>名牌样式</span><output id="out-card">名片</output></div>
+          <div class="seg" id="seg-card" role="group" aria-label="名牌样式">
+            <button type="button" data-v="full" class="on">名片</button><button type="button" data-v="compact">简牌</button>
+          </div>
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>排布密度</span><output id="out-density">标准</output></div>
+          <div class="seg" id="seg-density" role="group" aria-label="排布密度">
+            <button type="button" data-v="loose">疏</button><button type="button" data-v="normal" class="on">标准</button><button type="button" data-v="tight">密</button>
+          </div>
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>年代带高</span><output id="out-band" for="ctl-band">118</output></div>
+          <input type="range" id="ctl-band" min="72" max="220" step="2" value="118" aria-label="年代带高">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>列间距</span><output id="out-gap" for="ctl-gap">16</output></div>
+          <input type="range" id="ctl-gap" min="4" max="60" step="1" value="16" aria-label="列间距">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>师承流线</span><output id="out-flow" for="ctl-flow">1.4×</output></div>
+          <input type="range" id="ctl-flow" min="0" max="30" step="1" value="14" aria-label="师承流线速度，0 为静止">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>粒子大小</span><output id="out-dot" for="ctl-dot">0.4</output></div>
+          <input type="range" id="ctl-dot" min="1" max="30" step="1" value="4" aria-label="流线粒子大小">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>连线浓度</span><output id="out-edge" for="ctl-edge">100%</output></div>
+          <input type="range" id="ctl-edge" min="15" max="100" step="1" value="100" aria-label="连线浓度">
+        </div>
+        <div class="ctl-grp">
+          <div class="ctl-lab"><span>线宽</span><output id="out-ew" for="ctl-ew">1.0×</output></div>
+          <input type="range" id="ctl-ew" min="5" max="25" step="1" value="10" aria-label="线宽倍数">
+        </div>
+        <div class="ctl-toggles">
+          <label class="switch"><input type="checkbox" id="ctl-grid" checked> 方格纸纹</label>
+          <label class="switch"><input type="checkbox" id="show-colleague"> 同事关系</label>
+          <label class="switch"><input type="checkbox" id="only-direct"> 仅直接证据</label>
+          <label class="switch"><input type="checkbox" id="hide-weak" checked> 隐藏弱证据</label>
+        </div>
+        <div class="ctl-acts">
+          <button class="mini-btn" id="btn-random" title="随机挑一位学者，飞过去看他的师承">随机访一位</button>
+          <button class="mini-btn warn" id="btn-reset" title="把九项调校与筛选恢复默认，并回到默认视野">重置</button>
+          <button class="mini-btn" id="btn-svg" title="导出整张世表为 SVG（保留当前展开、筛选与配色）">导出 SVG</button>
+          <button class="mini-btn" id="btn-png" title="把当前这一屏导出为 2 倍分辨率 PNG">导出 PNG</button>
+        </div>
+      </div>
+    </section>
+    <div class="stage-legend" id="stage-legend" aria-label="图例与线型筛选"></div>
+  </div>
+
+  <!-- 右抽屉：节点信息 / 主要家族 / 结构速览 -->
+  <aside class="hud-right" id="drawer" aria-label="节点信息与谱系结构">
+    <div class="drawer-hd">
+      <h3>谱系细读</h3>
+      <button class="icon-btn hd-x" id="btn-drawer-close" title="收起抽屉（Esc）" aria-label="收起抽屉">×</button>
+    </div>
+    <div class="drawer-bd" id="drawer-bd">
       <div class="side-card" id="info-card">
         <h3>节点信息</h3>
         <p class="empty">点击世表中的姓名卡片，这里会显示该学者的受业师与门下，每条附原文证据与来源链接。</p>
@@ -309,20 +694,85 @@
         <p class="empty" style="margin-bottom:8px">门下三人以上的导师，点击在图中单独高亮其谱系。</p>
         <div class="family-chips" id="family-chips"></div>
       </div>
-    </aside>
+      <!-- 结构速览：师承图是网不是树，数字运行时计算 -->
+      <div class="side-card net-wrap" id="struct-card">
+        <h3>结构速览</h3>
+        <div class="net-strip" id="net-strip"></div>
+      </div>
+    </div>
+  </aside>
+  <div class="net-pop" id="net-pop" role="dialog" aria-label="结构发现"></div>
+
+  <!-- 右下：小地图 + 缩放 + 视图动作 -->
+  <div class="hud hud-nav">
+    <div class="stage-minimap" id="minimap" title="小地图：点击跳转"></div>
+    <div class="stage-zoom">
+      <button id="zoom-out" title="缩小（－）" aria-label="缩小">－</button>
+      <span class="pct" id="zoom-pct">100%</span>
+      <button id="zoom-in" title="放大（＋）" aria-label="放大">＋</button>
+    </div>
+    <div class="nav-views">
+      <button class="mini-btn" id="btn-fullheight" title="把视野缩到正好看到全部年代带">看全高</button>
+      <button class="mini-btn" id="btn-fit" title="缩到轮廓模式看整体分布，横向仍可拖拽">看全貌</button>
+      <button class="mini-btn" id="btn-collapse" title="收起所有已展开的门下">全部收起</button>
+    </div>
+  </div>
+
+  <!-- 底部状态条 -->
+  <div class="hud hud-status" id="status">
+    <span>视野内 <b id="st-vis">0</b> 张名片</span>
+    <span>已展开 <b id="st-exp">0</b> 位导师</span>
+    <span class="st-hover" id="st-hover"></span>
+    <span class="st-keys"><kbd>/</kbd>找人 <kbd>F</kbd>全屏 <kbd>C</kbd>调校 <kbd>I</kbd>信息 <kbd>R</kbd>复位 <kbd>?</kbd>引导</span>
+    <span class="st-links">
+      <a href="data-sources.html">数据来源</a>
+      <a href="schema.html">字段口径</a>
+      <a href="portraits.html">先贤影像</a>
+    </span>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="notice-bar" id="notice-bar">
+    <span>更新：全屏工作台 · 左栏视图调校 · 横排名片</span>
+    <button id="notice-close" aria-label="关闭">×</button>
+  </div>
+
+  <!-- 师承路径查询：任选两人，高亮他们之间最短的师承链 -->
+  <div class="path-bar" id="path-bar" style="display:none">
+    <span class="pb-label">师承路径</span>
+    <input type="text" id="path-a" placeholder="起点（如 王宁）" autocomplete="off" list="path-names" aria-label="路径起点">
+    <span class="pb-arrow">⟶</span>
+    <input type="text" id="path-b" placeholder="终点（如 白如）" autocomplete="off" list="path-names" aria-label="路径终点">
+    <datalist id="path-names"></datalist>
+    <button class="mini-btn" id="path-go">查</button>
+    <button class="mini-btn" id="path-clear">清除</button>
+    <button class="mini-btn" id="path-close" title="收起路径栏">×</button>
+    <span class="pb-result" id="path-result"></span>
+  </div>
+
+  <div class="tour-card" id="tour-card">
+    <div class="tour-step">1 / 3</div>
+    <div class="tour-title">把图谱挪一挪</div>
+    <div class="tour-text">按住空白处拖拽，或用滚轮缩放。</div>
+    <button class="mini-btn" id="tour-next">下一步</button>
+    <button class="tour-skip" id="tour-skip">跳过引导</button>
   </div>
 </main>
-<div id="site-footer"></div>
 
 <script src="data/lineage.js"></script>
+<script src="data/media.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
   const data = window.LINEAGE_DATA;
-  document.getElementById("site-header").innerHTML = BNU.header("lineage.html");
-  document.getElementById("site-footer").innerHTML = BNU.footer({
-    scholars: new Array(data.stats.totalScholars || 0).fill({ demo: false })
-  });
+  const headerHost = document.getElementById("site-header");
+  headerHost.innerHTML = BNU.header("lineage.html");
+  // 页眉在窄屏会折成两行，高度交给内容，再回写变量，别让锚点偏移用着一个假数
+  const syncHeaderH = () => document.body.style.setProperty("--header-h", headerHost.offsetHeight + "px");
+  syncHeaderH();
+  window.addEventListener("resize", syncHeaderH);
+  // 全屏工作台不放页脚：出处与口径改挂在底部状态条上，画布一寸不让
   const esc = BNU.esc;
   // 图形用色跟随主题：夜间换浅蓝，金、绿、灰不动
   const accent = () => document.body.classList.contains("dark") ? "#5b8fd0" : "#1d4f8c";
@@ -360,7 +810,12 @@
   /* ================= 顶部一句话 ================= */
   const directEdges = data.edges.filter(e => e.strength === "直接").length;
   const gradeTally = BNU.gradeTally(data.edges);
-  document.getElementById("lead").textContent =
+  const leadEl = document.getElementById("lead");
+  // 顶栏只留读得懂的四项；证据分级与同事关系的细账挂在悬停提示与「结构」抽屉里
+  leadEl.textContent =
+    data.stats.edges + " 条师承 · " + data.stats.scholarNodes + " 位本库学者 · " +
+    data.stats.masterNodes + " 位先贤 · " + data.stats.externalNodes + " 位库外导师";
+  leadEl.title =
     data.stats.edges + " 条师承关系 · " + data.stats.scholarNodes + " 位本库学者 · " +
     data.stats.masterNodes + " 位先贤 · " + data.stats.externalNodes + " 位外源导师 · " +
     "证据分级 强 " + gradeTally["强"] + " · 中 " + gradeTally["中"] + " · 弱 " + gradeTally["弱"] + "（默认隐藏） · " +
@@ -368,7 +823,7 @@
 
   /* ================= 布局（仿 mulu：折叠 + 树形分层 + 直角连线） =================
      核心规则：只有「自己也带学生」的学者才展开为姓名卡片；
-     纯学生折叠成导师卡片下方的圆点阵（门下 N），不画连线——图面因此稀疏清晰。 */
+     纯学生折叠成导师卡片下方的「门下 N」开关，不画连线——图面因此稀疏清晰。 */
   const q = document.getElementById("q");
   const onlyDirect = document.getElementById("only-direct");
   const hideWeak = document.getElementById("hide-weak");
@@ -414,7 +869,6 @@
     if (!strip) return;
     NET.fams = fams; NET.byStu = byStu;
     strip.innerHTML =
-      `<span class="ns-t">结构速览</span>` +
       `<button class="ns-stat" type="button" data-key="fam" aria-expanded="false" aria-controls="net-pop"><b>${fams.length}</b> 个师承家族</button>` +
       `<span>最大分量 <b>${big.length}</b> 人、<b>${rootCount}</b> 个独立源头——多个师门粘连，不是一棵树</span>` +
       `<button class="ns-stat" type="button" data-key="bridge" aria-expanded="false" aria-controls="net-pop"><b>${multi}</b> 位学者师从多人（桥）</button>` +
@@ -484,6 +938,7 @@
     return NET.cache;
   }
 
+  const NET_TITLES = { fam: "家族规模分布", bridge: "兼师从的桥", ext: "库外导师的年代" };
   function renderNetPop(key) {
     const F = netFindings();
     if (key === "fam") {
@@ -505,6 +960,11 @@
         F.decRows.map(r => `<div class="np-row"><span class="np-k">${r.dec}s</span><span class="np-bar" style="width:${Math.max(4, Math.round(r.n / mx * 260))}px"></span><span>${r.n} 条</span></div>`).join("") +
         (F.extNoYear ? `<p class="np-note">另有 ${F.extNoYear} 条外源边年份待补，未计入分布。</p>` : "");
     }
+    netPop.innerHTML =
+      `<div class="np-hd"><h4>${esc(NET_TITLES[key] || "结构发现")}</h4>` +
+      `<button class="icon-btn np-x" id="net-pop-close" aria-label="关闭结构发现">×</button></div>` +
+      netPop.innerHTML;
+    document.getElementById("net-pop-close").addEventListener("click", closeNetPop);
   }
 
   function openNetPop(key) {
@@ -553,8 +1013,13 @@
 
   let cards = [];
   const X = {}, Y = {};
-  const CW = 34, GAP = 14, SLOT = CW + GAP;
-  const BAND_BASE = 1975, BAND_STEP = 5, BAND_H = 150;
+  // 几何量改成可调：左栏「视图调校」实时改这些值再 relayout，不是写死的常量
+  let CW = 96, CH = 46, GAP = 16, BAND_H = 118;
+  const TOG_H = 26;
+  const BAND_BASE = 1975, BAND_STEP = 5;
+  const DENSITY = { loose: { gap: 30, band: 156 }, normal: { gap: 16, band: 118 }, tight: { gap: 7, band: 84 } };
+  const TUNE_DEFAULT = { card: "full", density: "normal", band: 118, gap: 16, flow: 14, dot: 4, edge: 100, ew: 10, grid: true };
+  let tune = Object.assign({}, TUNE_DEFAULT);
   const layout = { contentW: 0, contentH: 0 };
   let mainParentMap = {};   // 主父映射：多导师的学生只挂一个主父（其余为次父边，弱化显示）
 
@@ -656,14 +1121,41 @@
     }
 
     layout.contentW = bx + 60;
-    layout.contentH = (Math.max(...Object.values(Y), 0) + 180);
+    layout.contentH = (Math.max(...Object.values(Y), 0) + CH + TOG_H + 60);
   }
 
   // 展开/收起某导师的门下（点击卡片触发）
   function toggleExpand(tid) {
     setTimeout(saveState, 0);
     popIds = new Set();
-    if (!expanded.has(tid)) {
+    // 展开会改变子树宽度，整张图跟着横移——不锚住的话，点完那张卡就跑出视野了
+    const sx = X[tid] != null ? view.x + X[tid] * view.k : null;
+    const sy = Y[tid] != null ? view.y + Y[tid] * view.k : null;
+    const opening = !expanded.has(tid);
+    const reanchor = () => {
+      if (sx == null || X[tid] == null) return;
+      if (opening) {
+        // 展开：把「导师＋刚露出来的学生」整组框进视口。师承年代差二三十年时，
+        // 只锚住导师会让学生全落在屏幕下方，看出去的还是一片空线。
+        const group = [tid].concat(cards.filter(c => mainParentMap[c.id] === tid).map(c => c.id));
+        const gx = group.map(id => X[id]).filter(v => v != null);
+        const gy = group.map(id => Y[id]).filter(v => v != null);
+        const L = Math.min(...gx) - 24, R = Math.max(...gx) + CW + 24;
+        const T = Math.min(...gy) - 24, B = Math.max(...gy) + CH + TOG_H + 24;
+        const cr = clearRect();
+        const aw = cr.r - cr.l, ah = cr.b - cr.t;
+        view.k = Math.max(0.62, Math.min(view.k, aw / (R - L), ah / (B - T)));
+        // 兜底缩放后仍装不下时，优先保证刚点的那张卡完整可见，剩下的靠拖拽
+        const gw = (R - L) * view.k, gh = (B - T) * view.k;
+        view.x = gw <= aw ? cr.l + (aw - gw) / 2 - L * view.k : cr.l + aw / 2 - (X[tid] + CW / 2) * view.k;
+        view.y = gh <= ah ? cr.t + (ah - gh) / 2 - T * view.k : cr.t - T * view.k;
+      } else {
+        view.x = sx - X[tid] * view.k;
+        view.y = sy - Y[tid] * view.k;
+      }
+      applyView();
+    };
+    if (opening) {
       expanded.add(tid);
       childrenOf[tid].forEach(s => { if (!effCard[s]) popIds.add(s); });
       relayout();
@@ -677,28 +1169,65 @@
         return;
       }
       render();
+      reanchor();
     } else {
       expanded.delete(tid);
       relayout();
       render();
+      reanchor();
     }
   }
 
 
   function cardX(n) { return X[n.id] || 0; }
   function cardY(n) { return Y[n.id] || 0; }
-  // 显示名：去掉括注并最多 4 字（避免长名字撑破年代带）
+  const CJK = /[一-龥]/;
+  // 显示名：中文去括注取本名；外文取「首字母. 姓」，有中文译名的用译名。
+  // 不能按字数截断——slice(0,4) 会把 Alexandra Aikhenvald 切成「Alex」，图上认不出是谁。
   function dispName(n) {
-    return n.name.split("（")[0].slice(0, 4);
+    const raw = String(n.name || "").trim();
+    const head = raw.split("（")[0].trim();
+    if (CJK.test(head)) return head.slice(0, 5);
+    const cn = raw.match(/（([^）]+)）/);
+    if (cn && CJK.test(cn[1])) return cn[1].trim().slice(0, 5);
+    const parts = head.split(/\s+/).filter(Boolean);
+    return parts.length > 1 ? parts[0][0].toUpperCase() + ". " + parts[parts.length - 1] : head;
   }
-  // 卡片高度 = 顶部留白 26 + 名字行数 × 16 + 年份区 12（原公式漏算字号高度，导致末字压年份）
-  function nameH(n) { return 26 + 16 * dispName(n).length + 12; }
+  // 折叠开关：有折叠中的学生，或已展开且确有门下——两者都没有时不画
+  function hasToggle(n) {
+    const kids = childrenOf[n.id] || [];
+    return kids.some(s => !effCard[s]) || (expanded.has(n.id) && kids.length > 0);
+  }
+  // 姓名宽度用 canvas 量：SVG 在轮廓模式下 display:none，getComputedTextLength 会返回 0
+  const measurer = document.createElement("canvas").getContext("2d");
+  const FONT_CJK = '600 14px "Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",Georgia,serif';
+  const FONT_LAT = '600 10.5px "Source Han Sans SC","Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif';
+  // 简牌把任职点与兼师从角标压到同一行，姓名可用宽度要再让出 12px，否则会撞上角标
+  const nameMax = () => CW - (tune.card === "compact" ? 30 : 18);
+  function nameW(nm, latin) {
+    measurer.font = latin ? FONT_LAT : FONT_CJK;
+    return measurer.measureText(nm).width + (latin ? 0 : nm.length * 0.6);
+  }
+  // 外文名先试「首字母. 姓」，放不下就只留姓——宁可少一个首字母，也不要把字号压到 8px
+  function nameFont(nm) {
+    const latin = !CJK.test(nm);
+    const base = latin ? 10.5 : 14;
+    const MAX = nameMax();
+    let text = nm, w = nameW(text, latin);
+    if (latin && w > MAX && nm.includes(". ")) {
+      const sur = nm.slice(nm.indexOf(". ") + 2);
+      const sw = nameW(sur, true);
+      if (sw < w) { text = sur; w = sw; }
+    }
+    return { text, latin, size: w > MAX ? Math.max(8, base * MAX / w) : base };
+  }
 
   /* ================= 视图 ================= */
   const svg = document.getElementById("shitu");
   const stage = document.getElementById("stage");
   const view = { x: 0, y: 0, k: 1 };
   let gRoot = null;
+  let gEdgesEl = null, gColleagueEl = null;
 
   function applyView() {
     if (gRoot) gRoot.setAttribute("transform", "translate(" + view.x + "," + view.y + ") scale(" + view.k + ")");
@@ -706,45 +1235,117 @@
     const ov = view.k < 0.30;
     const svg = document.getElementById("shitu");
     if (svg) svg.classList.toggle("overview", ov);
-    document.getElementById("zoom-pct").textContent = Math.round(view.k * 100) + "%";
+    const pct = Math.round(view.k * 100);
+    document.getElementById("zoom-pct").textContent = pct + "%";
+    const zs = document.getElementById("ctl-zoom");
+    if (zs && document.activeElement !== zs) zs.value = String(Math.min(300, Math.max(12, pct)));
+    const zo = document.getElementById("out-zoom");
+    if (zo) zo.textContent = pct + "%";
     if (typeof drawMinimap === "function" && gRoot) drawMinimap();
+    updateStatus();
     if (typeof saveState === "function") saveState();
+  }
+
+  /* ---- 底部状态条：视野里到底看得见几个人，比缩放百分比更有用 ---- */
+  let hoverName = "";
+  function updateStatus() {
+    const vis = document.getElementById("st-vis");
+    if (!vis) return;
+    const w = stage.clientWidth, h = stage.clientHeight;
+    let n = 0;
+    for (let i = 0; i < cards.length; i++) {
+      const id = cards[i].id;
+      if (X[id] == null || Y[id] == null) continue;
+      const sx = view.x + X[id] * view.k, sy = view.y + Y[id] * view.k;
+      if (sx + CW * view.k > 0 && sx < w && sy + CH * view.k > 0 && sy < h) n++;
+    }
+    vis.textContent = String(n);
+    document.getElementById("st-exp").textContent = String(expanded.size);
+    document.getElementById("st-hover").textContent = hoverName;
+  }
+
+  /* ---- 调校参数落到画布：CSS 变量管线与粒子，几何量管布局 ---- */
+  function applyTune() {
+    CH = tune.card === "compact" ? 30 : 46;
+    GAP = tune.gap; BAND_H = tune.band;
+    if (tune.flow > 0) svg.style.setProperty("--flow-dur", (2.0 / (tune.flow / 10)).toFixed(2) + "s");
+    svg.style.setProperty("--flow-dot", (tune.dot / 10).toFixed(1) + "px");
+    svg.style.setProperty("--edge-scale", (tune.ew / 10).toFixed(2));
+    svg.classList.toggle("flow-off", tune.flow === 0);
+    stage.classList.toggle("grid", tune.grid);
+    // 浓度直接改组透明度：拖滑杆时不必重绘上千个图元
+    if (gEdgesEl) gEdgesEl.style.opacity = String(tune.edge / 100);
+    if (gColleagueEl) gColleagueEl.style.opacity = String(tune.edge / 100);
+  }
+  // 改几何时保住视野中心：不然拖一下「年代带高」，正在看的那一脉就跑了
+  function retune(relayoutToo) {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    const cx = (w / 2 - view.x) / view.k, cy = (h / 2 - view.y) / view.k;
+    applyTune();
+    if (relayoutToo) relayout();
+    render();
+    view.x = w / 2 - cx * view.k;
+    view.y = h / 2 - cy * view.k;
+    applyView();
   }
   // 看全高：k 取「视口高 / 内容高」，横向仍可拖，但所有年代带都在视野内
   function fitFullHeight() {
     const w = stage.clientWidth, h = stage.clientHeight;
     view.k = Math.max(0.18, Math.min(1.1, h / layout.contentH * 0.96));
-    view.x = 30;
+    view.x = viewPad().left;
     view.y = Math.max(8, (h - layout.contentH * view.k) / 2);
     applyView();
   }
   function fitView() {
     const w = stage.clientWidth, h = stage.clientHeight;
-    view.k = Math.min(1.1, Math.min(w / layout.contentW, h / layout.contentH) * 0.94);
+    // 世表是横向长卷（宽高比十几比一），真按「两边都塞下」算会缩到 4%，卡片薄成一条虚线。
+    // 兜到 12%：整体分布仍看得见，横向继续拖。
+    view.k = Math.max(0.12, Math.min(1.1, Math.min(w / layout.contentW, h / layout.contentH) * 0.94));
     view.x = Math.max(10, (w - layout.contentW * view.k) / 2);
     view.y = Math.max(10, (h - layout.contentH * view.k) / 2);
     applyView();
   }
+  // 浮层之间的「净空」：顶栏、调校栏、抽屉、状态条都压在画布上，
+  // 默认视野与展开取景都按这块矩形算，人才不会一开机就躲在浮层底下
+  function clearRect() {
+    const sr = stage.getBoundingClientRect();
+    const w = sr.width, h = sr.height;
+    const wide = window.matchMedia("(min-width: 901px)").matches;
+    let l = 16, t = 64, r = w - 16, b = h - 50;
+    if (!document.body.classList.contains("rail-off")) {
+      const rr = document.querySelector(".hud-left").getBoundingClientRect();
+      if (rr.width > 2) {
+        if (wide) l = Math.max(l, rr.right - sr.left + 16);
+        else b = Math.min(b, rr.top - sr.top - 12);
+      }
+    }
+    const dr = document.getElementById("drawer");
+    if (wide && dr.classList.contains("open")) {
+      r = Math.min(r, dr.getBoundingClientRect().left - sr.left - 16);
+    }
+    return { l, t, r: Math.max(r, l + 140), b: Math.max(b, t + 140) };
+  }
+  function viewPad() {
+    const cr = clearRect();
+    return { left: cr.l + 8, top: cr.t };
+  }
   // 默认视图：接近 100%（卡片清晰可读），锚定到最早有人物的年代带；靠拖拽/小地图浏览长卷
   function fitHeight() {
     const w = stage.clientWidth, h = stage.clientHeight;
-    // 窄屏（手机/半屏）按 0.95 只看得见两三张卡，按视口宽度降档
-    view.k = w < 560 ? 0.62 : (w < 900 ? 0.78 : 0.95);
+    const pad = viewPad();
+    // 卡片改成横排姓名后字号是硬指标：窄屏再降档就低于 11px 读不动了，宁可少看几列
+    view.k = w < 560 ? 0.82 : (w < 900 ? 0.9 : 0.95);
     const roots = data.nodes.filter(n => effCard[n.id] && mainParentMap[n.id] == null && X[n.id] != null)
       .sort((a, b) => X[a.id] - X[b.id]);
     const anchor = roots[0] || data.nodes.find(n => effCard[n.id] && X[n.id] != null);
-    if (anchor) {
-      view.x = Math.min(40, w / 2 - (X[anchor.id] + CW / 2) * view.k);
-    } else {
-      view.x = 40;
-    }
-    // 纵向不要锚在 1920 那种空年代带上：把「当前横向窗口里最靠上的一张卡」顶到视口上方 40px，
+    view.x = anchor ? Math.min(pad.left, w / 2 - (X[anchor.id] + CW / 2) * view.k) : pad.left;
+    // 纵向不要锚在 1920 那种空年代带上：把「当前横向窗口里最靠上的一张卡」顶到净空上沿，
     // 首屏直接看到人和线，而不是半屏空白（空带仍可通过拖拽/看全高回看）
     const x0 = (0 - view.x) / view.k, x1 = (w - view.x) / view.k;
     const ys = data.nodes
       .filter(n => effCard[n.id] && Y[n.id] != null && X[n.id] >= x0 - 60 && X[n.id] <= x1)
       .map(n => Y[n.id]);
-    view.y = ys.length ? 40 - Math.min(...ys) * view.k : 30;
+    view.y = ys.length ? pad.top - Math.min(...ys) * view.k : 30;
     applyView();
   }
   function zoomAt(cx, cy, factor) {
@@ -830,6 +1431,10 @@
     gRoot = el("g", {}, svg);
     const gBands = el("g", {}, gRoot), gColleague = el("g", {}, gRoot),
           gEdges = el("g", {}, gRoot), gNodes = el("g", {}, gRoot);
+    // 连线浓度整组调，不去改每条边自己的 opacity——那套值还要留给悬停增亮用
+    gEdgesEl = gEdges; gColleagueEl = gColleague;
+    gEdges.style.opacity = String(tune.edge / 100);
+    gColleague.style.opacity = String(tune.edge / 100);
 
     // 年代带背景（隔带底纹）+ 左侧年代标签（mulu 的年代骨架）
     layout.bands.forEach((k, i) => {
@@ -849,8 +1454,8 @@
         const a = nodeById[ce.a], b = nodeById[ce.b];
         if (!a || !b || !effCard[a.id] || !effCard[b.id]) return;
         if (familyMentor && ce.a !== familyMentor && ce.b !== familyMentor) return;
-        const ax = cardX(a) + CW / 2, ay = cardY(a) + nameH(a) / 2;
-        const bx = cardX(b) + CW / 2, by = cardY(b) + nameH(b) / 2;
+        const ax = cardX(a) + CW / 2, ay = cardY(a) + CH / 2;
+        const bx = cardX(b) + CW / 2, by = cardY(b) + CH / 2;
         el("line", { x1: ax, y1: ay, x2: bx, y2: by, stroke: "#9aa0a6", "stroke-width": 0.8, opacity: 0.25 }, gColleague);
       });
     }
@@ -867,7 +1472,7 @@
     Object.keys(byParent).forEach(mid => {
       const m = nodeById[mid];
       const trunkX = cardX(m) + CW / 2;
-      const yTop = cardY(m) + nameH(m) + (m.asMentor > 0 ? 26 : 0);
+      const yTop = cardY(m) + CH + (hasToggle(m) ? TOG_H : 0) + 2;
       const segs = byParent[mid].map(e => {
         const s = nodeById[e.student];
         return { sx: cardX(s) + CW / 2, sy: cardY(s) - 4, e, s };
@@ -884,13 +1489,13 @@
       const busXs = mainSegs.map(g => g.sx).concat([trunkX]);
       const busL = Math.min(...busXs), busR = Math.max(...busXs);
       // 导师 → 母线的短竖线
-      el("line", { x1: trunkX, y1: yTop, x2: trunkX, y2: busY, stroke: trunkColor, "stroke-width": 1, opacity: 0.6 }, gEdges);
+      el("line", { x1: trunkX, y1: yTop, x2: trunkX, y2: busY, stroke: trunkColor, "class": "edge-trunk", opacity: 0.6 }, gEdges);
       // 横向母线（只有跨列时才画）
       if (busR - busL > 0.5) {
-        el("line", { x1: busL, y1: busY, x2: busR, y2: busY, stroke: trunkColor, "stroke-width": 1, opacity: 0.6 }, gEdges);
+        el("line", { x1: busL, y1: busY, x2: busR, y2: busY, stroke: trunkColor, "class": "edge-trunk", opacity: 0.6 }, gEdges);
       }
       // 流动圆点叠加层：只铺在干线与母线上（非每条分支），粒子从导师处向外流——师→生
-      const flow = { "class": "edge-flow", stroke: trunkColor, "stroke-width": 2.2, opacity: 0.5 };
+      const flow = { "class": "edge-flow", stroke: trunkColor, opacity: 0.5 };
       el("line", { ...flow, x1: trunkX, y1: yTop, x2: trunkX, y2: busY }, gEdges);
       // 母线分两半、起点都定在干线处：负向 dashoffset 即从干线向两侧推进
       if (busR - trunkX > 0.5) el("line", { ...flow, x1: trunkX, y1: busY, x2: busR, y2: busY }, gEdges);
@@ -900,8 +1505,8 @@
       if (secSegs.length) {
         const secXs = secSegs.map(g => g.sx).concat([trunkX]);
         el("line", { x1: Math.min(...secXs), y1: secY, x2: Math.max(...secXs), y2: secY,
-                     stroke: "#8a6d3b", "stroke-width": 1, "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
-        el("line", { x1: trunkX, y1: busY, x2: trunkX, y2: secY, stroke: "#8a6d3b", "stroke-width": 1, "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
+                     stroke: "#8a6d3b", "class": "edge-trunk", "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
+        el("line", { x1: trunkX, y1: busY, x2: trunkX, y2: secY, stroke: "#8a6d3b", "class": "edge-trunk", "stroke-dasharray": "3,3", opacity: 0.3 }, gEdges);
       }
       // 各分支：从母线的学生自己那一列垂下
       segs.forEach(seg => {
@@ -913,9 +1518,10 @@
         const d = "M " + seg.sx + " " + baseY + " L " + seg.sx + " " + seg.sy;
         const path = el("path", {
           d: d, fill: "none", stroke: weak ? "#b9beb6" : (isExtNode(m) ? "#9aa0a6" : st.color),
-          "stroke-width": st.w, "stroke-dasharray": weak ? "2,4" : (isExtNode(m) ? "3,3" : (st.dash || "none")),
+          "class": "edge-line", "stroke-dasharray": weak ? "2,4" : (isExtNode(m) ? "3,3" : (st.dash || "none")),
           opacity: op, cursor: "pointer",
         }, gEdges);
+        path.style.setProperty("--w", st.w);   // 线宽倍数走 CSS 变量，保留各关系类型自己的粗细差
         path.style.pointerEvents = "stroke";
         // 可见线只有 1.2–1.7px，直接点很难命中；下面垫一条 11px 透明线做热区
         const hit = el("path", {
@@ -935,7 +1541,7 @@
       });
     });
 
-    // 节点卡片：竖排姓名 + 任职圆点 + 门下圆点阵
+    // 节点卡片：横排姓名 + 任职圆点 + 门下开关
     const kw = q.value.trim();
     // 家族高亮模式：只画该导师与其学生卡片
     const cardsToDraw = familyMentor
@@ -943,21 +1549,22 @@
       : cards;
     cardsToDraw.forEach(n => {
       const foldedKids = childrenOf[n.id].filter(s => !effCard[s]);
-      const x = cardX(n), y = cardY(n), h = nameH(n);
+      const x = cardX(n), y = cardY(n), h = CH;
+      const compact = tune.card === "compact";
+      const markY = compact ? 7 : 10;      // 简牌只有一行，任职点与角标都上移到这一行
       const os = ORG_STATUS[n.kind] || ORG_STATUS.external;
       const g = el("g", { "class": "node" + (popIds.has(n.id) ? " pop" : "") + (pathIds.has(n.id) ? " on-path" : "") + (bridgeIds.has(n.id) ? " on-bridge" : ""), "data-kind": n.kind || "scholar", transform: "translate(" + x + "," + y + ")", cursor: "pointer" }, gNodes);
       nodeEl[n.id] = g;
-      // 卡片下方「展开/收起」区的高度：弟子少时逐行列姓名，比圆点阵更高
-      const foldRows = foldedKids.length <= 3
-        ? (foldedKids.length ? 16 + foldedKids.length * 12 + 14 : 0)
-        : (foldedKids.length ? (foldedKids.length > 11 ? 36 : 26) : (expanded.has(n.id) && childrenOf[n.id].length ? 26 : 0));
-      el("rect", { x: -6, y: -4, width: CW + 12, height: h + 8 + foldRows, fill: "transparent", "pointer-events": "all" }, g);
+      const foldRows = hasToggle(n) ? TOG_H : 0;
+      el("rect", { x: -5, y: -4, width: CW + 10, height: h + 8 + foldRows, fill: "transparent", "pointer-events": "all" }, g);
       if (pathIds.has(n.id)) {   // 路径节点：垫一层暖色光晕，缩小时也能一眼找到
-        el("rect", { x: -8, y: -8, width: CW + 16, height: h + 16, rx: 3,
+        el("rect", { x: -7, y: -7, width: CW + 14, height: h + 14, rx: 4,
                      fill: "rgba(201,162,39,.14)", stroke: "#c9a227", "stroke-width": 1 }, g);
       }
-      el("rect", { x: 0, y: 0, width: CW, height: h, rx: 2, "class": "card-face" }, g);
-      const orgDot = el("circle", { cx: CW / 2 + 1, cy: 5, r: 2, fill: os.hollow ? "var(--paper)" : os.color, stroke: os.color, "stroke-width": 1 }, g);
+      el("rect", { x: 0, y: 0, width: CW, height: h, rx: 3, "class": "card-face" }, g);
+      // 先贤是谱系的源头，卡左压一道铜色边条，缩到轮廓模式也认得出
+      if (n.kind === "master") el("rect", { x: 0, y: 0, width: 3, height: h, rx: 1.5, "class": "card-edge" }, g);
+      const orgDot = el("circle", { cx: n.kind === "master" ? (compact ? 10 : 12) : (compact ? 8 : 10), cy: markY, r: compact ? 2.2 : 2.6, fill: os.hollow ? "var(--paper)" : os.color, stroke: os.color, "stroke-width": 1 }, g);
       const orgTip = el("title", {}, orgDot);   // 圆点是纯颜色编码，补文字说明（色觉障碍友好）
       orgTip.textContent = n.kind === "master" ? "先贤（曾执教本校）"
         : n.kind === "external" ? "外处他任 / 外源（不在本库任职）"
@@ -966,7 +1573,7 @@
       const otherMentors = mentorsOf[n.id].filter(m => m !== mainParentMap[n.id]);
       if (otherMentors.length) {
         const bd = el("path", {
-          d: `M ${CW - 5.5} 2.8 L ${CW - 2.3} 6 L ${CW - 5.5} 9.2 L ${CW - 8.7} 6 Z`,
+          d: `M ${CW - 10} ${markY - 3.6} L ${CW - 6.4} ${markY} L ${CW - 10} ${markY + 3.6} L ${CW - 13.6} ${markY} Z`,
           "class": "card-bridge-dot", fill: "#c9a227", stroke: "#8a6d1f", "stroke-width": .6,
         }, g);
         const btip = el("title", {}, bd);
@@ -980,63 +1587,36 @@
         });
         bd.addEventListener("click", ev => { ev.stopPropagation(); jumpBridge(n.id, otherMentors); });
       }
-      dispName(n).split("").forEach((ch, i) => {
-        const t = el("text", { x: CW / 2 + 1, y: 26 + i * 16, "class": "card-name", "text-anchor": "middle" }, g);
-        t.textContent = ch;
-      });
-      if (n.year) {
-        const yt = el("text", { x: CW / 2 + 1, y: h - 8, "class": "card-sub", "text-anchor": "middle" }, g);
+      const nm = dispName(n), nf = nameFont(nm);
+      const t = el("text", {
+        x: CW / 2 + (n.kind === "master" ? 1.5 : 0), y: compact ? 20 : (n.year ? 25 : 31),
+        "class": "card-name" + (nf.latin ? " latin" : ""), "text-anchor": "middle",
+      }, g);
+      t.style.fontSize = nf.size.toFixed(2) + "px";   // 走内联样式：字号属性会被 .card-name 的 CSS 盖掉
+      t.textContent = nf.text;
+      if (n.year && !compact) {
+        const yt = el("text", { x: CW / 2, y: h - 5, "class": "card-sub", "text-anchor": "middle" }, g);
         yt.textContent = n.year;
       }
-      // 卡片下方的「展开/收起」独立开关：圆点阵 + 标签，点它才改图结构。
-      // 无折叠项且未展开时不画（学生全部以卡片可见时，开关本身没有存在的意义）
-      if (foldedKids.length || (expanded.has(n.id) && childrenOf[n.id].length)) {
+      // 卡片下方的「展开/收起」开关：有边框的胶囊，紧贴在所属卡片下沿——
+      // 从前是裸文字，夹在两张卡之间看不出属于谁。折叠者姓名放进悬停提示，不再逐行铺在图上。
+      if (foldRows) {
         const tg = el("g", { "class": "toggle", cursor: "pointer" }, g);
-        if (foldedKids.length) {
-          // 弟子少（≤3 人）时直接列出姓名——只画 1~3 个 2px 圆点，用户根本看不出下面有人
-          if (foldedKids.length <= 3) {
-            foldedKids.forEach((sid, i) => {
-              const kid = nodeById[sid];
-              const nm = el("text", {
-                x: CW / 2 + 2, y: h + 16 + i * 12, "class": "fold-name",
-                "text-anchor": "middle",
-                fill: kid.kind === "external" ? "#a9ada4" : "#6d726a",
-              }, tg);
-              nm.textContent = dispName(kid);
-            });
-            const fl0 = el("text", { x: CW / 2 + 2, y: h + 16 + foldedKids.length * 12 + 4,
-                                     "class": "fold-label", "text-anchor": "middle" }, tg);
-            fl0.textContent = "展开 ▾";
-            el("rect", { x: -6, y: h + 2, width: CW + 12, height: 16 + foldedKids.length * 12 + 14,
-                         fill: "transparent", "pointer-events": "all" }, tg);
-          } else {
-            const perRow = 11;
-            foldedKids.slice(0, 22).forEach((sid, i) => {
-              const kid = nodeById[sid];
-              const row = Math.floor(i / perRow), col = i % perRow;
-              const dot = el("circle", {
-                cx: 5 + col * 6.4, cy: h + 8 + row * 8, r: 2.2,
-                fill: kid.kind === "external" ? "#c7cac2" : accent(),
-              }, tg);
-              const ttl = el("title", {}, dot);            // 悬停显示折叠的是谁
-              ttl.textContent = kid.name;
-            });
-            const fl = el("text", { x: CW / 2 + 2, y: h + (foldedKids.length > perRow ? 30 : 20), "class": "fold-label", "text-anchor": "middle" }, tg);
-            fl.textContent = "门下 " + n.asMentor + " ▾";
-            el("rect", { x: -6, y: h + 2, width: CW + 12, height: (foldedKids.length > perRow ? 36 : 26), fill: "transparent", "pointer-events": "all" }, tg);
-          }
-        } else {
-          const fl2 = el("text", { x: CW / 2 + 2, y: h + 20, "class": "fold-label", "text-anchor": "middle" }, tg);
-          fl2.textContent = "收起 ▴";
-          el("rect", { x: -6, y: h + 2, width: CW + 12, height: 26, fill: "transparent", "pointer-events": "all" }, tg);
-        }
+        const tw = 64, tx = (CW - tw) / 2, ty = h + 5;
+        el("rect", { x: tx, y: ty, width: tw, height: 17, rx: 8.5, "class": "tog-face" }, tg);
+        const fl = el("text", { x: CW / 2, y: ty + 12, "class": "fold-label", "text-anchor": "middle" }, tg);
+        fl.textContent = foldedKids.length ? "门下 " + n.asMentor + " ▾" : "收起 ▴";
+        el("rect", { x: tx - 5, y: ty - 3, width: tw + 10, height: 23, fill: "transparent", "pointer-events": "all" }, tg);
         tg.addEventListener("click", ev => { ev.stopPropagation(); toggleExpand(n.id); });
         tg.setAttribute("tabindex", "0");          // 键盘可达：Tab 聚焦后 Enter/Space 等同点击
         tg.setAttribute("role", "button");
         const ttip = el("title", {}, tg);
-        ttip.textContent = foldedKids.length && !childrenOf[n.id].some(s => mentorsOf[s][0] === n.id)
+        const act = foldedKids.length && !childrenOf[n.id].some(s => mentorsOf[s][0] === n.id)
           ? "门下学生兼师从多人、挂在主导师树下——点击前往其位置"
           : (expanded.has(n.id) ? "收起门下学生" : "展开门下学生");
+        ttip.textContent = foldedKids.length
+          ? "折叠中：" + foldedKids.map(s => (nodeById[s] || {}).name || s).join("、") + "。" + act
+          : act;
         tg.setAttribute("aria-label", ttip.textContent);
         tg.setAttribute("aria-expanded", expanded.has(n.id) ? "true" : "false");
         tg.addEventListener("keydown", ev => {
@@ -1045,17 +1625,21 @@
         });
       }
       if (kw && hitName(n, kw)) {
-        // 高亮框要连弟子区一起框住，否则看起来「只高亮了卡片、下面没高亮」
-        el("rect", { x: -4.5, y: -4.5, width: CW + 9, height: h + 9 + foldRows, rx: 3,
+        // 高亮框要连开关一起框住，否则看起来「只高亮了卡片、下面没高亮」
+        el("rect", { x: -4.5, y: -4.5, width: CW + 9, height: h + 9 + foldRows, rx: 4,
                      fill: "none", stroke: "#c9a227", "stroke-width": 2 }, g);
       }
       // 键盘可达：Tab 走到卡片，Enter/Space 等同点击
       g.setAttribute("tabindex", "0");
       g.setAttribute("role", "button");
-      g.setAttribute("aria-label", n.name + "，" + (n.kind === "master" ? "先贤" : n.kind === "external" ? "外源导师" : "本库学者") + "，门下 " + n.asMentor + " 人");
+      g.setAttribute("aria-label", n.name + "，" + (n.kind === "master" ? "先贤" : n.kind === "external" ? "外源导师" : "本库学者") + (n.year ? "，入谱 " + n.year + " 年" : "") + "，门下 " + n.asMentor + " 人");
       // 单击卡片 = 只看右侧信息，不动图结构；展开/收起交给下方 tg 开关
       const activate = () => { showNode(n.id); };
       g.addEventListener("click", ev => { ev.stopPropagation(); activate(); });
+      g.addEventListener("mouseenter", () => { hoverName = n.name; updateStatus(); });
+      g.addEventListener("mouseleave", () => { if (hoverName === n.name) { hoverName = ""; updateStatus(); } });
+      g.addEventListener("focus", () => { hoverName = n.name; updateStatus(); });
+      g.addEventListener("blur", () => { if (hoverName === n.name) { hoverName = ""; updateStatus(); } });
       g.addEventListener("keydown", ev => {
         if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); activate(); }
       });
@@ -1078,9 +1662,9 @@
       `<div class="lg-row">` +
       Object.values(ORG_STATUS).map(o =>
         `<span><span class="dot" style="background:${o.hollow ? "#fbfaf7" : o.color};border:1.5px solid ${o.color}"></span>${esc(o.label)}</span>`).join("") +
-      `<span style="color:#a39a8c">｜ 名片下方圆点＝折叠的门下学生</span>` +
-      `<span style="color:#a39a8c">｜ 右上 ◆＝兼师从（点击定位另一位导师）</span>` +
-      `<span style="color:#a39a8c">｜ 自带门下的学者常驻展开，「收起」只折纯学生</span></div>`;
+      `<span style="color:var(--faint)">｜ 名片下方「门下 N」＝可展开的学生，悬停看姓名</span>` +
+      `<span style="color:var(--faint)">｜ 右上 ◆＝兼师从（点击定位另一位导师）</span>` +
+      `<span style="color:var(--faint)">｜ 左栏「视图调校」可改密度、名牌、流线与线宽</span></div>`;
     lg.querySelectorAll(".lg-item[data-type]").forEach(item => {
       item.addEventListener("click", () => {
         const t = item.dataset.type;
@@ -1114,7 +1698,7 @@
   function drawMinimap() {
     const mm = document.getElementById("minimap");
     if (!mm) return;
-    const MW = 182, MH = 68;
+    const MW = mm.clientWidth || 190, MH = mm.clientHeight || 74;
     mm.innerHTML = "";
     const sx = MW / (layout.contentW || 1), sy = MH / (layout.contentH || 1);
     const sc = Math.min(sx, sy);
@@ -1150,8 +1734,46 @@
     };
   }
 
-  /* ================= 侧栏 ================= */
+  /* ================= 右抽屉：节点信息 / 家族 / 结构 ================= */
   const infoCard = document.getElementById("info-card");
+  const drawer = document.getElementById("drawer");
+  const drawerBd = document.getElementById("drawer-bd");
+  const btnDrawer = document.getElementById("btn-drawer");
+
+  function openDrawer(scrollTo) {
+    drawer.classList.add("open");
+    btnDrawer.classList.add("on");
+    btnDrawer.setAttribute("aria-expanded", "true");
+    if (scrollTo) {
+      const target = document.getElementById(scrollTo);
+      if (target) drawerBd.scrollTop = Math.max(0, target.offsetTop - drawerBd.offsetTop - 6);
+    }
+    // 顶栏、调校栏、抽屉、状态条都浮在画布上：把选中卡挪进它们中间那块「净空」，别让人点了个看不见
+    if (selectedId && X[selectedId] != null) {
+      const cr = clearRect();
+      const cw = CW * view.k, ch = CH * view.k;
+      const l = view.x + X[selectedId] * view.k, t = view.y + Y[selectedId] * view.k;
+      const aw = cr.r - cr.l, ah = cr.b - cr.t;
+      if (cw < aw) view.x += l < cr.l ? cr.l - l : (l + cw > cr.r ? cr.r - l - cw : 0);
+      else view.x += cr.l + aw / 2 - (l + cw / 2);
+      if (ch < ah) view.y += t < cr.t ? cr.t - t : (t + ch > cr.b ? cr.b - t - ch : 0);
+      else view.y += cr.t + ah / 2 - (t + ch / 2);
+      applyView();
+    }
+  }
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    btnDrawer.classList.remove("on");
+    btnDrawer.setAttribute("aria-expanded", "false");
+    closeNetPop();
+  }
+  const drawerOpen = () => drawer.classList.contains("open");
+  btnDrawer.addEventListener("click", () => { drawerOpen() ? closeDrawer() : openDrawer(); });
+  document.getElementById("btn-drawer-close").addEventListener("click", closeDrawer);
+  document.getElementById("btn-struct").addEventListener("click", () => {
+    if (drawerOpen() && drawerBd.scrollTop > 40) { closeDrawer(); return; }
+    openDrawer("struct-card");
+  });
 
   function evidenceHtml(list) {
     if (!list || !list.length) return '<div class="ri-ev">无来源信息</div>';
@@ -1194,6 +1816,10 @@
       history.replaceState(null, "", u);
     } catch (e) { /* file:// 下可能受限，忽略 */ }
     const color = n.kind === "master" ? "#b08d3f" : (n.kind === "external" ? "#9aa0a6" : BNU.disciplineColor(n.discipline));
+    const portrait = BNU.portrait(id);
+    const avatar = portrait
+      ? `<div class="avatar has-img" style="--focus:${esc(portrait.focus)}" title="肖像来源见「先贤影像」页"><img src="${esc(portrait.file)}" alt="${esc(n.name)}肖像"></div>`
+      : `<div class="avatar" style="background:${color}">${esc(n.name.slice(0, 1))}</div>`;
     const kindLabel = n.kind === "master" ? "先贤" : (n.kind === "external" ? "外源导师" : "本库学者");
     const meta = [n.title, n.org, n.discipline].filter(Boolean).map(esc).join(" · ") || "—";
     const mentors = data.edges.filter(e => e.student === id);
@@ -1208,7 +1834,7 @@
     infoCard.innerHTML = `
       <h3>节点信息</h3>
       <div class="person-head">
-        <div class="avatar" style="background:${color}">${esc(n.name.slice(0, 1))}</div>
+        ${avatar}
         <div>
           <div class="nm">${esc(n.name)} <span style="font-size:12px;color:var(--muted)">${esc(kindLabel)}</span></div>
           <div class="meta">${meta}${n.year ? " · 入谱 " + n.year + " 年" : ""}</div>
@@ -1224,6 +1850,8 @@
         ${students.length ? relRows(students, "mentor") : '<p class="empty">暂无记载。</p>'}
       </div>
       ${n.kind === "external" ? "" : `<a href="detail.html?id=${encodeURIComponent(id)}" style="font-size:13px">查看学者详情 →</a>`}`;
+    openDrawer();
+    drawerBd.scrollTop = 0;
   }
   function showEdge(e) {
     markSelected(null);
@@ -1238,6 +1866,8 @@
         <div class="ri-ev" style="color:var(--muted)">来源：${esc((e.sources || []).join("；"))}</div>
       </div>
       <p class="empty" style="margin-top:8px">点击姓名卡片可查看该学者的完整师承。</p>`;
+    openDrawer();
+    drawerBd.scrollTop = 0;
   }
 
   /* ================= 师承路径查询：任选两人，找最短师承链 ================= */
@@ -1297,7 +1927,7 @@
       return;
     }
     if (chain.length === 1) { out.innerHTML = '<span style="color:var(--muted)">是同一人</span>'; return; }
-    // 高亮：路径上若有人被折叠成圆点，就把他整条祖先链逐层展开，直到显示为卡片
+    // 高亮：路径上若有人被折叠进「门下 N」，就把他整条祖先链逐层展开，直到显示为卡片
     pathIds = new Set(chain.map(x => x.id));
     const toExpand = new Set();
     const walkUp = (id, seen) => {
@@ -1424,11 +2054,11 @@
   }
 
   function flyTo(id) {
-    const w = stage.clientWidth, h = stage.clientHeight;
+    const cr = clearRect();
     // 从「看全貌 / 看全高」状态下搜索时，先恢复到可读缩放，否则飞过去还是一团糊
     if (view.k < 0.5) view.k = 0.95;
-    view.x = w / 2 - (X[id] + CW / 2) * view.k;
-    view.y = h / 2 - (Y[id] + 20) * view.k;
+    view.x = (cr.l + cr.r) / 2 - (X[id] + CW / 2) * view.k;
+    view.y = (cr.t + cr.b) / 2 - (Y[id] + 20) * view.k;
     applyView();
   }
   function updatePop() {
@@ -1451,7 +2081,7 @@
   function choosePop(i) {
     const n = popHits[i];
     if (!n) return;
-    // 纯学生（无门下）默认折叠成圆点，先展开其祖先链，否则飞过去只有个无字圆点
+    // 纯学生（无门下）默认折叠在导师的「门下 N」里，先展开其祖先链，否则飞过去找不到这张卡
     if (!effCard[n.id]) {
       const walkUp = (id, seen) => {
         data.edges.filter(e => e.student === id).forEach(e => {
@@ -1474,13 +2104,36 @@
     if (idx >= 0) choosePop(idx);
   });
   q.addEventListener("input", updatePop);
-  // 全局快捷键：/ 聚焦搜索框，? 呼出操作引导，Esc 清除（输入框内不拦截）
+  // 全局快捷键：/ 搜索、? 引导、F 全屏、R 复位视野、I 细读抽屉、C 调校栏、+/− 缩放、方向键平移
   document.addEventListener("keydown", ev => {
     const t = ev.target;
     const typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
-    if (typing) return;
-    if (ev.key === "/") { ev.preventDefault(); document.getElementById("q").focus(); }
-    else if (ev.key === "?") { ev.preventDefault(); showTour(); }
+    if (typing || ev.isComposing || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    const k = ev.key;
+    const zoomBy = f => {
+      const w = stage.clientWidth, h = stage.clientHeight;
+      const cx = (w / 2 - view.x) / view.k, cy = (h / 2 - view.y) / view.k;
+      view.k = Math.max(0.12, Math.min(3, view.k * f));
+      view.x = w / 2 - cx * view.k; view.y = h / 2 - cy * view.k;
+      applyView();
+    };
+    if (k === "/") { ev.preventDefault(); document.getElementById("q").focus(); }
+    else if (k === "?") { ev.preventDefault(); showTour(); }
+    else if (k === "f" || k === "F") { ev.preventDefault(); toggleFS(); }
+    else if (k === "r" || k === "R") { ev.preventDefault(); fitHeight(); toast("视野已复位到最早的一代"); }
+    else if (k === "i" || k === "I") { ev.preventDefault(); drawerOpen() ? closeDrawer() : openDrawer(); }
+    else if (k === "c" || k === "C") { ev.preventDefault(); setRail(!document.body.classList.contains("rail-off")); }
+    else if (k === "+" || k === "=") { ev.preventDefault(); zoomBy(1.2); }
+    else if (k === "-" || k === "_") { ev.preventDefault(); zoomBy(1 / 1.2); }
+    else if (k === "ArrowLeft" || k === "ArrowRight" || k === "ArrowUp" || k === "ArrowDown") {
+      ev.preventDefault();
+      const d = ev.shiftKey ? 240 : 80;
+      if (k === "ArrowLeft") view.x += d;
+      if (k === "ArrowRight") view.x -= d;
+      if (k === "ArrowUp") view.y += d;
+      if (k === "ArrowDown") view.y -= d;
+      applyView();
+    }
   });
 
   // Esc：清掉右侧选中 + 搜索候选，回到「未选中」状态
@@ -1498,6 +2151,7 @@
     clearPath(true);
     clearBridge();
     if (familyMentor) { familyMentor = null; syncFamChips(); render(); }   // 家族高亮也一并退出
+    if (drawerOpen()) closeDrawer();
   });
 
   q.addEventListener("keydown", ev => {
@@ -1521,6 +2175,7 @@
         localStorage.setItem(STATE_KEY, JSON.stringify({
           expanded: [...expanded],
           view: { x: view.x, y: view.y, k: view.k },
+          tune: tune,
         }));
       } catch (e) { /* 隐私模式/配额满时静默失败 */ }
     }, 200);
@@ -1577,13 +2232,226 @@
   const btnTheme = document.getElementById("btn-theme");
   function applyTheme(dark) {
     document.body.classList.toggle("dark", dark);
-    btnTheme.textContent = dark ? "☀ 日间" : "☾ 夜间";
+    btnTheme.textContent = dark ? "☀" : "☾";
+    btnTheme.title = dark ? "切回日间" : "切到夜间";
+    btnTheme.setAttribute("aria-label", btnTheme.title);
+    btnTheme.classList.toggle("on", dark);
     try { localStorage.setItem("lineage-theme", dark ? "dark" : "light"); } catch (e) {}
   }
   let darkMode = false;
   try { darkMode = localStorage.getItem("lineage-theme") === "dark"; } catch (e) {}
   applyTheme(darkMode);
   btnTheme.addEventListener("click", () => { darkMode = !darkMode; applyTheme(darkMode); render(); });
+
+  /* ================= 视图调校：左栏常驻，动一下就生效 ================= */
+  const toastEl = document.getElementById("toast");
+  let toastTimer = null;
+  function toast(msg, isErr) {
+    toastEl.textContent = msg;
+    toastEl.classList.toggle("err", !!isErr);
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+  }
+
+  const CTL = {
+    zoom: document.getElementById("ctl-zoom"), band: document.getElementById("ctl-band"),
+    gap: document.getElementById("ctl-gap"), flow: document.getElementById("ctl-flow"),
+    dot: document.getElementById("ctl-dot"), edge: document.getElementById("ctl-edge"),
+    ew: document.getElementById("ctl-ew"), grid: document.getElementById("ctl-grid"),
+  };
+  const OUT = {
+    zoom: document.getElementById("out-zoom"), card: document.getElementById("out-card"),
+    density: document.getElementById("out-density"), band: document.getElementById("out-band"),
+    gap: document.getElementById("out-gap"), flow: document.getElementById("out-flow"),
+    dot: document.getElementById("out-dot"), edge: document.getElementById("out-edge"),
+    ew: document.getElementById("out-ew"),
+  };
+  const DENSITY_LABEL = { loose: "疏", normal: "标准", tight: "密" };
+  function syncTuneUI() {
+    CTL.band.value = String(tune.band); CTL.gap.value = String(tune.gap);
+    CTL.flow.value = String(tune.flow); CTL.dot.value = String(tune.dot);
+    CTL.edge.value = String(tune.edge); CTL.ew.value = String(tune.ew);
+    CTL.grid.checked = tune.grid;
+    OUT.band.textContent = String(tune.band);
+    OUT.gap.textContent = String(tune.gap);
+    OUT.flow.textContent = tune.flow === 0 ? "静止" : (tune.flow / 10).toFixed(1) + "×";
+    OUT.dot.textContent = (tune.dot / 10).toFixed(1);
+    OUT.edge.textContent = tune.edge + "%";
+    OUT.ew.textContent = (tune.ew / 10).toFixed(1) + "×";
+    OUT.card.textContent = tune.card === "compact" ? "简牌" : "名片";
+    // 密度是预设：手调过带高或列间距就不再属于任何一档，标「自定」而不是假装还是标准
+    const hit = Object.keys(DENSITY).find(k => DENSITY[k].band === tune.band && DENSITY[k].gap === tune.gap);
+    tune.density = hit || "custom";
+    OUT.density.textContent = hit ? DENSITY_LABEL[hit] : "自定";
+    document.querySelectorAll("#seg-card button").forEach(b => b.classList.toggle("on", b.dataset.v === tune.card));
+    document.querySelectorAll("#seg-density button").forEach(b => b.classList.toggle("on", b.dataset.v === tune.density));
+  }
+  // 几何类调校要 relayout + render：用 rAF 合并拖动时的连续事件，一帧只重排一次
+  let retuneQueued = false;
+  function scheduleRetune() {
+    if (retuneQueued) return;
+    retuneQueued = true;
+    requestAnimationFrame(() => { retuneQueued = false; retune(true); });
+  }
+  CTL.zoom.addEventListener("input", () => {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    const cx = (w / 2 - view.x) / view.k, cy = (h / 2 - view.y) / view.k;
+    view.k = Number(CTL.zoom.value) / 100;
+    view.x = w / 2 - cx * view.k; view.y = h / 2 - cy * view.k;
+    applyView();
+  });
+  CTL.band.addEventListener("input", () => { tune.band = Number(CTL.band.value); syncTuneUI(); scheduleRetune(); });
+  CTL.gap.addEventListener("input", () => { tune.gap = Number(CTL.gap.value); syncTuneUI(); scheduleRetune(); });
+  CTL.flow.addEventListener("input", () => { tune.flow = Number(CTL.flow.value); syncTuneUI(); applyTune(); saveState(); });
+  CTL.dot.addEventListener("input", () => { tune.dot = Number(CTL.dot.value); syncTuneUI(); applyTune(); saveState(); });
+  CTL.edge.addEventListener("input", () => { tune.edge = Number(CTL.edge.value); syncTuneUI(); applyTune(); saveState(); });
+  CTL.ew.addEventListener("input", () => { tune.ew = Number(CTL.ew.value); syncTuneUI(); applyTune(); saveState(); });
+  CTL.grid.addEventListener("input", () => { tune.grid = CTL.grid.checked; applyTune(); saveState(); });
+  document.getElementById("seg-card").addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-v]"); if (!b) return;
+    tune.card = b.dataset.v; syncTuneUI(); scheduleRetune(); saveState();
+  });
+  document.getElementById("seg-density").addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-v]"); if (!b) return;
+    const d = DENSITY[b.dataset.v]; if (!d) return;
+    tune.density = b.dataset.v; tune.band = d.band; tune.gap = d.gap;
+    syncTuneUI(); scheduleRetune(); saveState();
+  });
+
+  /* ---- 随机访一位 / 重置 ---- */
+  function ancestorsOf(id) {
+    const walk = (x, seen) => {
+      data.edges.filter(e => e.student === x).forEach(e => {
+        if (seen.has(e.mentor)) return;
+        seen.add(e.mentor); expanded.add(e.mentor); walk(e.mentor, seen);
+      });
+    };
+    walk(id, new Set());
+  }
+  function randomVisit() {
+    const pool = data.nodes.filter(n => n.kind !== "external");
+    if (!pool.length) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    if (!effCard[pick.id]) { ancestorsOf(pick.id); relayout(); render(); }
+    showNode(pick.id);
+    if (X[pick.id] != null) flyTo(pick.id);
+    toast("随机访一位：" + pick.name + (pick.year ? "（入谱 " + pick.year + " 年）" : "（年份待补）"));
+  }
+  function resetAll() {
+    tune = Object.assign({}, TUNE_DEFAULT);
+    showColleague.checked = false; onlyDirect.checked = false; hideWeak.checked = true;
+    syncTuneUI(); applyTune();
+    relayout(); render(); fitHeight();
+    toast("九项调校与三个筛选已回默认，视野复位（展开的门下保留）");
+  }
+  document.getElementById("btn-random").addEventListener("click", randomVisit);
+  document.getElementById("btn-reset").addEventListener("click", resetAll);
+
+  /* ---- 导出：SVG 出整张世表，PNG 出当前这一屏 ---- */
+  // 样式都写在页面 CSS 里，直接序列化会丢光；逐元素把计算后的呈现属性内联进副本
+  const EXPORT_PROPS = ["fill", "stroke", "stroke-width", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
+    "opacity", "font-family", "font-size", "font-weight", "letter-spacing", "text-anchor", "paint-order", "display", "visibility"];
+  function serializeSVG(full) {
+    const wasOverview = svg.classList.contains("overview");
+    if (wasOverview) svg.classList.remove("overview");   // 轮廓模式下文字是 display:none，导出要还原
+    const live = [...svg.querySelectorAll("*")];
+    const styles = live.map(e => {
+      const cs = getComputedStyle(e);
+      return EXPORT_PROPS.map(p => p + ":" + cs.getPropertyValue(p)).join(";");
+    });
+    if (wasOverview) svg.classList.add("overview");
+    const clone = svg.cloneNode(true);
+    [...clone.querySelectorAll("*")].forEach((e, i) => { if (styles[i]) e.setAttribute("style", styles[i]); });
+    clone.removeAttribute("class"); clone.removeAttribute("style");
+    clone.setAttribute("xmlns", SVGNS);
+    const W = full ? Math.ceil(layout.contentW) : stage.clientWidth;
+    const H = full ? Math.ceil(layout.contentH) : stage.clientHeight;
+    clone.setAttribute("width", W); clone.setAttribute("height", H);
+    clone.setAttribute("viewBox", "0 0 " + W + " " + H);
+    if (full) clone.querySelector("g").setAttribute("transform", "translate(0,0) scale(1)");
+    const bg = document.createElementNS(SVGNS, "rect");
+    bg.setAttribute("width", W); bg.setAttribute("height", H);
+    bg.setAttribute("fill", getComputedStyle(stage).backgroundColor);
+    clone.insertBefore(bg, clone.firstChild);
+    return { text: new XMLSerializer().serializeToString(clone), W, H };
+  }
+  function download(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000);
+  }
+  const stamp = () => new Date().toISOString().slice(0, 10);
+  function exportSVG() {
+    try {
+      const { text, W, H } = serializeSVG(true);
+      download(new Blob([text], { type: "image/svg+xml;charset=utf-8" }), "师承世表_" + stamp() + ".svg");
+      toast("已导出整张世表 SVG（" + W + "×" + H + "，含当前展开与配色）");
+    } catch (e) { toast("SVG 导出失败：" + e.message, true); }
+  }
+  function exportPNG() {
+    let s;
+    try { s = serializeSVG(false); } catch (e) { toast("PNG 导出失败：" + e.message, true); return; }
+    const S = 2, img = new Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = s.W * S; c.height = s.H * S;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = getComputedStyle(stage).backgroundColor;
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.drawImage(img, 0, 0, c.width, c.height);
+      c.toBlob(b => {
+        if (!b) { toast("PNG 导出失败：画布无法编码", true); return; }
+        download(b, "师承世表_此屏_" + stamp() + ".png");
+        toast("已导出此屏 PNG（" + c.width + "×" + c.height + "）");
+      }, "image/png");
+    };
+    img.onerror = () => toast("PNG 导出失败：浏览器无法栅格化该 SVG", true);
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s.text);
+  }
+  document.getElementById("btn-svg").addEventListener("click", exportSVG);
+  document.getElementById("btn-png").addEventListener("click", exportPNG);
+
+  /* ---- 左栏 / 图例 开合 ---- */
+  const setRail = off => document.body.classList.toggle("rail-off", off);
+  document.getElementById("btn-rail").addEventListener("click", () => setRail(true));
+  document.getElementById("btn-rail-open").addEventListener("click", () => setRail(false));
+  document.getElementById("btn-legend").addEventListener("click", () => document.body.classList.toggle("legend-on"));
+
+  /* ---- 真全屏：连页眉一起让给画布；API 不可用时退化为隐藏页眉 ---- */
+  const btnFS = document.getElementById("btn-fs");
+  function setFS(on) {
+    document.body.classList.toggle("fs", on);
+    btnFS.textContent = on ? "⤡" : "⤢";
+    btnFS.title = on ? "退出全屏（F）" : "全屏（F）：连页眉一起让给画布";
+    btnFS.setAttribute("aria-label", btnFS.title);
+    btnFS.classList.toggle("on", on);
+  }
+  function toggleFS() {
+    const el = document.documentElement;
+    const cur = document.fullscreenElement || document.webkitFullscreenElement;
+    if (cur) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+    if (el.requestFullscreen) {
+      el.requestFullscreen().then(() => setFS(true)).catch(() => setFS(!document.body.classList.contains("fs")));
+    } else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); setFS(true); }
+    else setFS(!document.body.classList.contains("fs"));
+  }
+  btnFS.addEventListener("click", toggleFS);
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(t =>
+    document.addEventListener(t, () => setFS(!!(document.fullscreenElement || document.webkitFullscreenElement))));
+
+  document.getElementById("path-close").addEventListener("click", () => {
+    document.getElementById("path-bar").style.display = "none";
+    clearPath(true);
+  });
+
+  // 窄屏顶栏只剩一百来像素，提示语得跟着短，不然被截成半句话
+  const narrowMQ = window.matchMedia("(max-width: 900px)");
+  const setPlaceholder = () => { q.placeholder = narrowMQ.matches ? "找学者" : "找学者：姓名 / 拼音（按 / 聚焦）"; };
+  setPlaceholder();
+  narrowMQ.addEventListener("change", setPlaceholder);
 
   /* ================= 更新公告 + 操作引导按钮 ================= */
   const notice = document.getElementById("notice-bar");
@@ -1650,9 +2518,9 @@
 
   // 新手引导（3 步，看过即不再显示）
   const TOUR = [
-    ["把图谱挪一挪", "按住空白处拖拽，或用滚轮缩放。"],
-    ["「门下」开关展开学生", "点导师卡片＝看右侧信息；展开门下要点卡片下方的「门下 N ▾」开关，再点收起。兼师从多处的导师，点开关会直接飞往学生在主导师树下的位置。点连线可查证据出处。"],
-    ["左下图例可筛选", "点图例中的关系类型可隐藏对应连线；勾选「叠加同事关系」查看同机构学者网络。"],
+    ["整屏都是世表", "按住空白处拖拽，滚轮缩放；键盘 F 进真全屏（连页眉也让给画布），R 复位视野，方向键平移。"],
+    ["「门下」开关展开学生", "点导师卡片＝看右侧「谱系细读」；展开门下要点卡片下方的「门下 N ▾」开关，再点收起。兼师从多处的导师，点开关会直接飞往学生在主导师树下的位置。点连线可查证据出处。"],
+    ["左栏随手调校", "九项滑杆改缩放、名牌、密度、年代带、列距、流线与线宽，动一下就生效；下面可导整张 SVG 或此屏 PNG。左下图例点关系类型可隐藏对应连线。"],
   ];
   let tourStep = 0;
   const tourCard = document.getElementById("tour-card");
@@ -1681,6 +2549,14 @@
   if (savedState && !deepId) {
     savedState.expanded.forEach(id => { if (nodeById[id]) expanded.add(id); });
   }
+  if (savedState && savedState.tune) {
+    Object.keys(TUNE_DEFAULT).forEach(k => {
+      const v = savedState.tune[k];
+      if (typeof v === typeof TUNE_DEFAULT[k] && (typeof v !== "number" || isFinite(v))) tune[k] = v;
+    });
+  }
+  syncTuneUI();
+  applyTune();   // 必须先落到几何量，relayout 才按调校后的带高/列距排版
 
   relayout();
   render();
@@ -1708,7 +2584,9 @@
   }
 
   window.__lineage = { data, X, Y, view, layout, effCard, expanded, fitView, fitHeight, relayout, toggleExpand, collapseAll, showNode, markSelected,
-    getSelectedId: () => selectedId };
+    getSelectedId: () => selectedId,
+    getTune: () => Object.assign({}, tune), applyTune, retune, syncTuneUI, randomVisit, resetAll,
+    serializeSVG, exportSVG, exportPNG, toggleFS, openDrawer, closeDrawer, drawerOpen, flyTo, toast };
 })();
 </script>
 </body>

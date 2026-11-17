@@ -31,6 +31,7 @@
     ["index.html", "学者名录"],
     ["lineage.html", "师承世表"],
     ["masters.html", "先贤名师"],
+    ["portraits.html", "先贤影像"],
     ["timeline.html", "学科时间线"],
     ["map.html", "学人地图"],
     ["build-guide.html", "构建方法"],
@@ -63,6 +64,31 @@
     },
     isLibraryHome(url) {
       return /^https?:\/\/etdlib\.bnu\.edu\.cn\/?$/.test(url || "");
+    },
+    // 字段表列多，窄屏靠 .tscroll 逐行成卡片；表头文字抄进 data-th 当小标签
+    tables(root) {
+      (root || document).querySelectorAll("table.gt").forEach(t => {
+        if (t.parentNode.classList && t.parentNode.classList.contains("tscroll")) return;
+        const heads = [].map.call(t.querySelectorAll("th"), th => th.textContent.trim());
+        t.querySelectorAll("tr").forEach(tr => {
+          if (tr.querySelector("th")) { tr.classList.add("gt-head"); return; }
+          [].forEach.call(tr.children, (td, i) => { if (heads[i]) td.setAttribute("data-th", heads[i]); });
+        });
+        const box = document.createElement("div");
+        box.className = "tscroll";
+        t.parentNode.insertBefore(box, t);
+        box.appendChild(t);
+      });
+    },
+    // 先贤肖像：只读 data/media.js，未采集到的人物返回 null，由调用方回落到首字头像
+    portrait(id) {
+      const M = window.BNU_MEDIA;
+      if (!M || !M.items) return null;
+      if (!BNU._portraitMap) {
+        BNU._portraitMap = {};
+        M.items.forEach(it => { BNU._portraitMap[it.personId] = it; });
+      }
+      return BNU._portraitMap[id] || null;
     },
     demoBadge(s) {
       return s.demo ? '<span class="badge-demo">示例数据</span>' : "";

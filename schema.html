@@ -55,7 +55,7 @@
   <div class="chart-box">
     <h2>参照系：五套规范，各借一物</h2>
     <p class="chart-desc">
-      课程对元数据的要求是「对标国标、行标、经典案例」。本库收的是人物与关系，不是图像或古籍实物，
+      课程对元数据的要求是「对标国标、行标、经典案例」。本库的主体是人物与关系，影像是人物的见证物而不是独立藏品，
       所以选了五套有公开出处、能逐条映射的参照——不为「对标」而编造适用性，不适用就如实写不适用。
       本页是站内速查版；更细的 CIDOC-CRM 映射、受控词表全文与脱敏政策见仓库根目录《字段字典.md》（提交文档版）。
     </p>
@@ -79,7 +79,7 @@
       <tr>
         <td><strong>图像元数据元素集</strong>（课程讲义所举：题名、交替题名、创建者、主题、描述、风格、颜色、关联、时空范围、权限、出处、标签、注释等二十余项）</td>
         <td>文化行业图像资源著录框架，与 Dublin Core 同源的扩展元素集</td>
-        <td>逐元素映射自查（见「通用元素映射」表）；本库不收图像，图像专有元素如实标「不适用」</td>
+        <td>逐元素映射自查（见「通用元素映射」表）；先贤肖像已启用图像著录（<code>data/media.js</code>，35 帧），风格与颜色两项不采集——它们是图像鉴赏维度，本库不作检索维度</td>
       </tr>
       <tr>
         <td><strong>古籍著录惯例</strong>（题名 · 著者 · 年代）</td>
@@ -122,6 +122,7 @@
     <p style="font-size:14px;line-height:1.95;margin:0 0 8px">
       <strong>先贤表</strong>（<code>data/scholars.js</code> 的 <code>masters</code>，38 条）：结构同学者表，<code>title</code> 固定为「先贤」，另设 <code>master</code> 标志。名单与生平依据文学院官网「先贤名师」栏目整理；生卒年多数有载（34/38 有卒年），其余字段按原文有则录、无则空。
       其中 26 位已在世表立节点，其余 12 位（鲁迅、余嘉锡、黎锦熙、刘半农、刘盼遂、顾随、谭丕模、穆木天、沈从文、黄药眠、李何林、叶丁易）暂无核验入谱的师承边，仅在「先贤名师」名录页展示。
+      38 位中 35 位已配本人肖像，另立影像表著录（见下节「影像表字段」），3 位记「肖像待补」并列已查渠道。
     </p>
     <p style="font-size:14px;line-height:1.95;margin:0">
       <strong>外源备录</strong>（学者表中 <code>external:true</code> 的 6 条）：人物不在官网师资名录，但作为某条师承边的导师端身份可核——为「不混入名录、也不丢证据」而单列。世表以 <code>ext-</code> 空心灰点入谱，覆盖率统计一律不计入。
@@ -175,23 +176,54 @@
 
   <div class="chart-box">
     <h2>通用元素映射：图像元素集 ↔ 本库字段</h2>
-    <p class="chart-desc">课程讲义列举的图像元数据元素集逐项对照。图像专有元素如实标「不适用」——不适用也是结论，造一个空字段冒充覆盖才是造假。</p>
+    <p class="chart-desc">课程讲义列举的图像元数据元素集逐项对照。人物条目与影像条目分列两栏：影像已启用（35 帧先贤肖像），但只著录可核的部分——风格、颜色这类鉴赏维度不采集，不造一个空字段冒充覆盖。</p>
     <table class="gt">
-      <tr><th style="width:110px">元素</th><th style="width:250px">本库对应</th><th>说明</th></tr>
-      <tr><td>题名</td><td><code>name</code> · <code>works[].title</code></td><td>学者条目以姓名立目；著作另录题名</td></tr>
-      <tr><td>交替题名</td><td>无对应字段</td><td>史料中的字、号、别称随证据原文保留；未单列字段，不造无用字段</td></tr>
-      <tr><td>创建者</td><td>采集流程本身</td><td>学者条目的「创建者」是整理行为，见「构建方法」页；作品创建者即学者本人</td></tr>
-      <tr><td>主题</td><td><code>discipline</code> · <code>interests[]</code></td><td>学科取值域与映射见「分类依据」页</td></tr>
-      <tr><td>描述</td><td><code>career[]</code> · <code>note</code></td><td>履历逐条转录；备注存原文摘录与口径说明</td></tr>
-      <tr><td>风格</td><td>不适用</td><td>本库不收图像资源</td></tr>
-      <tr><td>颜色</td><td>不适用</td><td>本库不收图像资源</td></tr>
-      <tr><td>关联</td><td><code>edges</code> · <code>colleagueEdges</code></td><td>人—人师承、人—所同事，是本库的主体内容</td></tr>
-      <tr><td>时空范围</td><td><code>birth</code> · <code>death</code> · <code>birthplace</code> · <code>studyProv</code> · <code>edge.year</code></td><td>省级粒度；生卒年仅原文明写</td></tr>
-      <tr><td>权限</td><td>全站统一声明</td><td>见「数据来源」页「版权与使用」：仅教学展示，来源版权归各来源，可联系更正下架</td></tr>
-      <tr><td>出处</td><td><code>source</code> · <code>evidence[].url</code> · <code>sources[]</code></td><td>逐条可回链；CALIS 边链接只到库首页，如实标注</td></tr>
-      <tr><td>标签</td><td><code>interests[]</code> · <code>kind</code></td><td>研究方向标签；世表节点三分类</td></tr>
-      <tr><td>注释</td><td><code>note</code></td><td>同名辨析、口径说明等核对线索</td></tr>
+      <tr><th style="width:110px">元素</th><th style="width:250px">人物条目对应</th><th style="width:210px">影像条目对应</th><th>说明</th></tr>
+      <tr><td>题名</td><td><code>name</code> · <code>works[].title</code></td><td><code>media.title</code></td><td>学者以姓名立目；影像题名为「××肖像」，不代拟标题</td></tr>
+      <tr><td>交替题名</td><td>无对应字段</td><td>无对应字段</td><td>史料中的字、号、别称随证据原文保留；未单列字段，不造无用字段</td></tr>
+      <tr><td>创建者</td><td>采集流程本身</td><td>不采集（摄影者未署名）</td><td>发布页均未标注摄影者，故记发布机构而不推测作者；学者条目的「创建者」是整理行为，见「构建方法」页</td></tr>
+      <tr><td>主题</td><td><code>discipline</code> · <code>interests[]</code></td><td><code>media.personId</code> → 人物条目</td><td>影像的主题即所摄人物，靠 ID 挂回学者/先贤表，不另写一份人物信息</td></tr>
+      <tr><td>描述</td><td><code>career[]</code> · <code>note</code></td><td><code>media.note</code></td><td>影像备注只写核对线索（如照片内桌牌姓名可佐证身份），不写观感评述</td></tr>
+      <tr><td>风格</td><td>不适用</td><td>不采集</td><td>摄影风格属鉴赏维度，本库不作检索维度，也不由整理者主观判定</td></tr>
+      <tr><td>颜色</td><td>不适用</td><td>不采集</td><td>同上；页面只记原图色彩状态不作标注，黑白照不上色</td></tr>
+      <tr><td>关联</td><td><code>edges</code> · <code>colleagueEdges</code></td><td><code>media.personId</code></td><td>人—人师承、人—所同事是主体内容；影像单向挂到人物，不参与关系判定</td></tr>
+      <tr><td>时空范围</td><td><code>birth</code> · <code>death</code> · <code>birthplace</code> · <code>studyProv</code> · <code>edge.year</code></td><td><code>media.date</code>（35 帧全空）</td><td>省级粒度；生卒年仅原文明写。拍摄年代发布页一律未载，全部留空而不按人物生卒年倒推</td></tr>
+      <tr><td>权限</td><td>全站统一声明</td><td><code>sources[].license</code> · <code>policy</code></td><td>见「数据来源」页「版权与使用」与<a href="portraits.html">「先贤影像」署名清单</a>：版权归原发布机构，仅教学展示，可告知后下架</td></tr>
+      <tr><td>出处</td><td><code>source</code> · <code>evidence[].url</code> · <code>sources[]</code></td><td><code>media.sourceUrl</code> · <code>media.imageUrl</code></td><td>逐条可回链：影像同时记发布页与原图直链；CALIS 边链接只到库首页，如实标注</td></tr>
+      <tr><td>标签</td><td><code>interests[]</code> · <code>kind</code></td><td><code>media.type</code> · <code>media.src</code></td><td>影像类型当前仅 <code>portrait</code>；来源机构代码兼作筛选维度</td></tr>
+      <tr><td>注释</td><td><code>note</code></td><td><code>media.note</code> · <code>gaps[]</code></td><td>同名辨析、口径说明等核对线索；未获肖像者另记查检渠道，留空也是记录</td></tr>
     </table>
+  </div>
+
+  <div class="chart-box">
+    <h2>影像表字段（data/media.js）</h2>
+    <p class="chart-desc">
+      35 帧先贤肖像，另记 3 位未获肖像者的查检记录。影像与人物分表：生成数据不混入 <code>scholars.js</code>，靠 <code>personId</code> 关联，删图不动人物著录。
+      口径全文与逐张署名见<a href="portraits.html">「先贤影像」页</a>。
+    </p>
+    <table class="gt">
+      <tr><th style="width:110px">字段</th><th style="width:82px">类型</th><th style="width:56px">必填</th><th>取值规范</th><th style="width:180px">对标</th></tr>
+      <tr><td><code>id</code></td><td>字符串</td><td class="req req-yes">必填</td><td>影像主键 <code>media-NNN</code>，与人物 ID 各自独立</td><td>本站自编</td></tr>
+      <tr><td><code>personId</code></td><td>ID</td><td class="req req-yes">必填</td><td>指向 <code>masters[].id</code>；一人一帧，构建时校验人物存在且不重复</td><td>Dublin Core·关联</td></tr>
+      <tr><td><code>type</code></td><td>字符串</td><td class="req req-yes">必填</td><td>当前取值域仅 <code>portrait</code>（本人肖像）。书影、手迹、合影未采集，不预留空类型冒充覆盖</td><td>图像元素集·标签</td></tr>
+      <tr><td><code>title</code></td><td>字符串</td><td class="req req-yes">必填</td><td>「姓名 + 肖像」，不改写、不代拟</td><td>图像元素集·题名</td></tr>
+      <tr><td><code>file</code></td><td>字符串</td><td class="req req-yes">必填</td><td>站内相对路径 <code>assets/portraits/mNNN.jpg</code>，全部本地化，不热链原站</td><td>本站机制字段</td></tr>
+      <tr><td><code>w</code> / <code>h</code></td><td>整数</td><td class="req req-yes">必填</td><td>站内展示尺寸（长边 ≤ 480）</td><td>技术元数据（非描述元素）</td></tr>
+      <tr><td><code>nativeW</code> / <code>nativeH</code></td><td>整数</td><td class="req req-yes">必填</td><td>原图尺寸，与展示尺寸并列保留：官网小图按原样展示，<strong>不插值放大</strong>，页面对低分辨率如实标注</td><td>可溯源要求</td></tr>
+      <tr><td><code>src</code></td><td>字符串</td><td class="req req-yes">必填</td><td>来源机构代码，取值域 6 项：<code>wxy</code> · <code>wenku</code> · <code>art</code> · <code>mdw</code> · <code>icip</code> · <code>cw</code>；机构全称、栏目、许可与来源层级由 <code>sources</code> 表统一给出</td><td>图像元素集·出处；来源分级体系</td></tr>
+      <tr><td><code>sourceUrl</code></td><td>字符串</td><td class="req req-yes">必填</td><td>原发布页 URL——肖像与同页小传一并核对身份，复核时可沿同一条路再走一遍</td><td>Dublin Core·来源</td></tr>
+      <tr><td><code>imageUrl</code></td><td>字符串</td><td class="req req-yes">必填</td><td>原图直链，保留以便核对像素与下架</td><td>图像元素集·出处</td></tr>
+      <tr><td><code>date</code></td><td>字符串</td><td class="req req-no">可选</td><td>拍摄年代；<strong>当前 35 帧全为空</strong>——发布页均未标注，不按人物生卒年倒推</td><td>图像元素集·时空范围</td></tr>
+      <tr><td><code>fetched</code></td><td>字符串</td><td class="req req-yes">必填</td><td>采集日期 <code>YYYY-MM-DD</code></td><td>可溯源要求（构建方法页红线）</td></tr>
+      <tr><td><code>focus</code></td><td>字符串</td><td class="req req-no">可选</td><td>CSS <code>object-position</code> 取值，仅决定方框裁切时人脸的位置，不修改原图像素</td><td>本站展示字段</td></tr>
+      <tr><td><code>note</code></td><td>字符串</td><td class="req req-no">可选</td><td>身份核对线索，如「照片内桌牌书『王富仁』，与同页小传互证」</td><td>Dublin Core·注释</td></tr>
+      <tr><td><code>gaps[]</code></td><td>对象数组</td><td class="req req-no">可选</td><td>未获肖像者：<code>{personId,name,searched[]}</code>，逐条列出已查渠道与所见（如「追思会报道 23 张配图均为与会者」）。3 位：朱金顺、郭志刚、韩格平</td><td>「宁可留空，也不推断」红线</td></tr>
+    </table>
+    <div class="warn" style="margin-top:14px">
+      <strong>影像的三条边界：</strong>只作人物见证，不作师承证据——配图不改变任何一条边的证据分级；
+      不用 AI 生成或修复真人肖像，不插值放大；版权归原发布机构，署名引用、可告知后下架。
+      查不到就记「肖像待补」，不用合影里的旁人、不用站点二维码充数。
+    </div>
   </div>
 
   <div class="chart-box">
@@ -234,6 +266,8 @@
     `现算自当前数据版本（${window.LINEAGE_DATA.generatedAt}）：在录 ${pop.length} 位学者中，出生年份有值 ${pop.filter(s => s.birth).length} 位、` +
     `主要求学地有值 ${pop.filter(s => s.studyProv).length} 位；237 条边证据强度整理者标注为直接 ${E.filter(e => e.strength === "直接").length} · ` +
     `间接 ${E.filter(e => e.strength === "间接").length} · 弱 ${E.filter(e => /^弱/.test(e.strength)).length}（折算徽标：强 ${st["强"]} · 中 ${st["中"]} · 弱 ${st["弱"]}）。`;
+
+  BNU.tables();
 })();
 </script>
 </body>

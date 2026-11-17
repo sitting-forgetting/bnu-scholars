@@ -49,6 +49,7 @@
   a.pchip:hover { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-dark); }
   .pchip .sub { font-family: var(--f-sans); font-size: 11px; color: var(--muted); }
   .pchip.master { background: #fdf9f1; border-color: #e8d9c3; }
+  a.pchip.master:hover { border-color: var(--gold); background: var(--gold-wash); color: var(--gold-deep); }
   .pchip.master .sub { color: var(--gold-deep); }
   #rank { width: 100%; height: 440px; }
 
@@ -265,16 +266,15 @@
       const label = key === "birthplace" ? "籍贯" : "主要求学地";
       title.textContent = prov;
       document.getElementById("prov-n").textContent = `${list.length} 人 · 按${label}`;
-      desc.textContent = `点击姓名进入学者详情页；先贤名师无独立详情页，仅列名。`;
+      desc.textContent = `点击姓名进入详情页；先贤名师标金色，详情页含生平与肖像出处。`;
       box.innerHTML = list
         .sort((a, b) => a.name.localeCompare(b.name, "zh"))
         .map(x => {
           const isMaster = x._kind === "master";
           const meta = [x.title, x.discipline].filter(Boolean).join(" · ");
           const inner = `${BNU.esc(x.name)}${meta ? `<span class="sub">${BNU.esc(meta)}</span>` : ""}`;
-          return isMaster
-            ? `<span class="pchip master" title="先贤名师">${inner}</span>`
-            : `<a class="pchip" href="detail.html?id=${encodeURIComponent(x.id)}">${inner}</a>`;
+          return `<a class="pchip${isMaster ? " master" : ""}"${isMaster ? ' title="先贤名师"' : ""}
+            href="detail.html?id=${encodeURIComponent(x.id)}">${inner}</a>`;
         }).join("");
       panel.style.display = "block";
     }

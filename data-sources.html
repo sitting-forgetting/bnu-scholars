@@ -156,11 +156,30 @@
   </div>
 
   <div class="chart-box">
+    <h2>影像来源与许可</h2>
+    <p class="chart-desc">
+      先贤肖像是本库唯一的图像资源，单立一表（<code>data/media.js</code>），逐张记发布页与原图直链。
+      它与文字证据分工明确：<strong>图像只作人物见证，不作师承证据</strong>——配上照片不会让任何一条边的证据变强。
+      逐张署名、原图尺寸与留空记录见<a href="portraits.html">「先贤影像」页</a>。
+    </p>
+    <table class="gt" id="img-src-table">
+      <tr><th style="width:250px">来源机构</th><th style="width:190px">栏目</th><th style="width:60px">帧数</th><th style="width:130px">来源层级</th><th>许可</th></tr>
+    </table>
+    <p style="font-size:13.5px;line-height:1.95;margin:10px 0 0;color:var(--ink-2)" id="img-note"></p>
+    <div class="warn">
+      <strong>三条不做：</strong>不用 AI 生成或修复真人肖像；不把官网小图插值放大（原图尺寸如实并列著录）；
+      不用合影里的旁人、站点二维码或同姓他人的照片充数——查不到就记「肖像待补」，并写清查过哪些渠道。
+    </div>
+  </div>
+
+  <div class="chart-box">
     <h2>版权与使用</h2>
     <p style="font-size:14px;line-height:1.9;margin:0">
       本站是北师大中文系学者公开学术信息的聚合整理与阅读索引，仅用于数字人文课程的教学展示。
       学者履历、成果等信息来源于学院官网与公开学术数据库，原文及数据版权归各来源所有。
-      如您是信息来源方，认为本站展示存在不当之处，欢迎联系更正或下架。
+      先贤肖像版权归原发布机构或摄影者所有，本站仅作署名引用并本地存档以免热链，逐张标注出处；
+      拍摄年代凡发布页未载者一律留空，不推测。
+      如您是信息来源方或肖像权利人，认为本站展示存在不当之处，欢迎联系更正或下架。
     </p>
   </div>
 </main>
@@ -169,12 +188,39 @@
 <script src="vendor/echarts.min.js"></script>
 <script src="data/scholars.js"></script>
 <script src="data/lineage.js"></script>
+<script src="data/media.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
   const data = window.BNU_DATA;
   document.getElementById("site-header").innerHTML = BNU.header("data-sources.html");
   document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  // 影像来源清单：直接读 media.js，帧数随采集结果变动，不写死
+  const M = window.BNU_MEDIA;
+  const bySrc = {};
+  M.items.forEach(it => { bySrc[it.src] = (bySrc[it.src] || 0) + 1; });
+  const imgTable = document.getElementById("img-src-table");
+  imgTable.insertAdjacentHTML("beforeend", Object.keys(M.sources)
+    .sort((a, b) => (bySrc[b] || 0) - (bySrc[a] || 0))
+    .map(k => {
+      const s = M.sources[k];
+      const cls = s.tier.indexOf("一手") === 0 ? "g-strong" : "g-mid";
+      return `<tr>
+        <td><a href="${BNU.esc(s.home)}" target="_blank" rel="noopener">${BNU.esc(s.name)}</a></td>
+        <td>${BNU.esc(s.col)}</td>
+        <td>${bySrc[k] || 0}</td>
+        <td><span class="grade ${cls}" style="margin-left:0">${BNU.esc(s.tier)}</span></td>
+        <td>${BNU.esc(s.license)}</td>
+      </tr>`;
+    }).join(""));
+  const masterTotal = (data.masters || []).length;
+  const low = M.items.filter(it => Math.max(it.nativeW, it.nativeH) < 240).length;
+  document.getElementById("img-note").innerHTML =
+    `按表核算：${masterTotal} 位先贤著录，${M.items.length} 帧已核肖像，${M.gaps.length} 位待补，来自 ${Object.keys(bySrc).length} 家机构。` +
+    `其中 ${low} 帧原图长边不足 240 像素——官网就是这么小，页面按原尺寸展示并标注，不作放大。` +
+    `拍摄年代 0 帧有载，全部留空。`;
+  BNU.tables();
 
   const gt = BNU.gradeTally(window.LINEAGE_DATA.edges);
   document.getElementById("grade-tally").textContent =

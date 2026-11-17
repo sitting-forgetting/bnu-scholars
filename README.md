@@ -19,6 +19,7 @@
 | `build-guide.html` | 构建说明 |
 | `data-sources.html` | 数据来源 |
 | `schema.html` | 字段口径与元数据对标 |
+| `portraits.html` | 先贤影像（35 帧肖像署名与许可） |
 
 ## 数据与规范文档
 

@@ -19,6 +19,13 @@
     background: var(--c, var(--seal)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2);
     letter-spacing: 0;
   }
+  .face-big {
+    display: block; width: 84px; height: 110px; flex: none; overflow: hidden;
+    border: 1px solid var(--line); background: linear-gradient(180deg, #f3f1ea, #e9e7df);
+    transition: border-color .16s var(--ease);
+  }
+  .face-big:hover { border-color: var(--accent); }
+  .face-big img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 20%); display: block; filter: saturate(.94); }
   .hero-main .eyebrow { font-size: 10px; letter-spacing: 2.6px; }
   .hero-main h1 {
     font-family: var(--f-serif); font-size: 34px; font-weight: 700; margin: 6px 0 4px;
@@ -100,6 +107,7 @@
 
 <script src="data/scholars.js"></script>
 <script src="data/lineage.js"></script>
+<script src="data/media.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
@@ -191,11 +199,17 @@
   const kindTag = s._kind === "master" ? '<span class="master-tag">先贤名师</span>'
     : s._kind === "external" ? '<span class="master-tag">外源导师</span>' : "";
 
+  const portrait = BNU.portrait(id);
+  const heroFace = portrait
+    ? `<a class="face-big" style="--focus:${BNU.esc(portrait.focus)}" href="portraits.html"
+          title="肖像出处与许可见「先贤影像」页"><img src="${BNU.esc(portrait.file)}" alt="${BNU.esc(s.name)}肖像"></a>`
+    : `<div class="seal-big" style="--c:${color}">${BNU.esc(s.name.slice(0, 1))}</div>`;
+
   box.innerHTML = `
     <div class="hero-panel">
-      <div class="seal-big" style="--c:${color}">${BNU.esc(s.name.slice(0, 1))}</div>
+      ${heroFace}
       <div class="hero-main">
-        <div class="eyebrow">${kindLabel}${s.org ? " · " + BNU.esc(s.org) : ""}</div>
+        <div class="eyebrow">${kindLabel}${s.org && s.org !== kindLabel ? " · " + BNU.esc(s.org) : ""}</div>
         <h1>${BNU.esc(s.name)}${kindTag}</h1>
         <div class="hero-meta">${BNU.esc([s.title, s.discipline, s.birthplace ? "籍贯 " + s.birthplace : ""].filter(Boolean).join(" · ")) || "—"}</div>
       </div>
@@ -240,6 +254,10 @@
       <dl class="kv">
         ${s.source ? `<dt>来源网址</dt><dd class="src-url"><a href="${BNU.esc(s.source)}" target="_blank" rel="noopener">${BNU.esc(s.source)}</a></dd>` : ""}
         <dt>采集日期</dt><dd>${BNU.esc(s.fetched) || "—"}</dd>
+        ${portrait ? `<dt>肖像出处</dt><dd>${BNU.esc(window.BNU_MEDIA.sources[portrait.src].name)} · ${BNU.esc(window.BNU_MEDIA.sources[portrait.src].col)}
+          <div style="margin-top:4px">${BNU.esc(window.BNU_MEDIA.sources[portrait.src].license)} ·
+          <a href="${BNU.esc(portrait.sourceUrl)}" target="_blank" rel="noopener">原发布页</a> ·
+          <a href="portraits.html">影像口径与署名清单 →</a></div></dd>` : ""}
       </dl>
     </div>`;
 })();
