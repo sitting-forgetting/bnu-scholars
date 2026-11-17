@@ -120,8 +120,9 @@
   }
   document.title = `${s.name} · 京师学林`;
 
-  // 边有两处来源：scholars.js 的 mentorEdges（采集表 61 条）与 lineage.js 的 edges
-  // （含全网检索与直录边）。只读前者会让详情页的关系比世表少很多，故合并去重。
+  // 边有两处来源：lineage.js 的 edges（世表 237 条，带年份与证据分级）与 scholars.js 的
+  // mentorEdges（85 条世表定稿前的快照，无年份/分级，证据与世表逐条相同）。合并去重时
+  // 世表版优先、快照只兜底，详情页展示的年份因此一律来自主数据。
   function mergeEdges() {
     const seen = new Set();
     const out = [];
@@ -131,8 +132,8 @@
       seen.add(k);
       out.push(e);
     };
-    (data.mentorEdges || []).forEach(push);
     ((window.LINEAGE_DATA && window.LINEAGE_DATA.edges) || []).forEach(push);
+    (data.mentorEdges || []).forEach(push);
     return out;
   }
   const edges = mergeEdges().filter(e => e.student === id || e.mentor === id);

@@ -18,6 +18,7 @@
 | `detail.html` | 学者详情 |
 | `build-guide.html` | 构建说明 |
 | `data-sources.html` | 数据来源 |
+| `schema.html` | 字段口径与元数据对标 |
 
 ## 数据与规范文档
 

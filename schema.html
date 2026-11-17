@@ -97,7 +97,8 @@
       <tr><td><code>id</code></td><td>字符串</td><td class="req req-yes">必填</td><td>站内主键：学者 <code>bnu-NNN</code> · 先贤 <code>master-NNN</code> · 世表外源节点 <code>ext-NNN</code>；构建校验唯一性</td><td>本站自编，无外部对标</td></tr>
       <tr><td><code>name</code></td><td>字符串</td><td class="req req-yes">必填</td><td>姓名原字照录，不改写、不用别称替代</td><td>Dublin Core·题名（人以姓名立目）；CBDB·姓名</td></tr>
       <tr><td><code>gender</code></td><td>字符串</td><td class="req req-no">可选</td><td>官网或公开材料明写才录</td><td>图像元素集·（人物条目不强制）</td></tr>
-      <tr><td><code>birth</code> / <code>death</code></td><td>整数/字符串</td><td class="req req-no">可选</td><td>仅当简历原文写明「××年生」等才录生年；卒年仅先贤表系统性记录</td><td>Dublin Core·时空覆盖（人物以生卒年定位）</td></tr>
+      <tr><td><code>birth</code></td><td>整数</td><td class="req req-no">可选</td><td>生年：仅原文写明「××年生」等才录，不推测。官网教师页基本不公布生年——学者表 190 位仅 9 位有载；先贤表 37/38 有载</td><td>Dublin Core·时空覆盖（人物以生卒年定位）</td></tr>
+      <tr><td><code>death</code></td><td>整数</td><td class="req req-no">可选</td><td>卒年：仅先贤表系统性记录（34/38 有载）。官网在录教师不公布卒年，<code>scholars</code> 数组不设该键；世表节点为渲染需要另冗余一份（22 个有值）</td><td>同上</td></tr>
       <tr><td><code>title</code></td><td>字符串</td><td class="req req-no">可选</td><td>取值域：教授 · 副教授 · 讲师 · 助理教授 · 研究员 · 副研究员 · 退休 · 先贤；仅录原文明写，不从「博导」反推（规则详见「分类依据」页③）</td><td>分类体系（见「分类依据」页）</td></tr>
       <tr><td><code>discipline</code></td><td>字符串</td><td class="req req-no">可选</td><td>取值域为学科目录「中国语言文学」下设二级学科 + 「其他」；由研究所映射而来，映射表见「分类依据」页②</td><td>《学位授予和人才培养学科目录》0501</td></tr>
       <tr><td><code>org</code></td><td>字符串</td><td class="req req-no">可选</td><td>官网「师资队伍」栏目的分组：12 个研究所之一，或「离退休老师」「跨院」</td><td>官网组织架构（见「分类依据」页①）</td></tr>
@@ -144,6 +145,7 @@
     <p style="font-size:13.5px;line-height:1.9;margin:10px 0 0;color:var(--ink-2)">
       <strong>世表节点冗余字段</strong>（<code>nodes</code>）：<code>kind</code>（scholar / external / master 三分类，即图像元素集·标签的站内落地）、<code>py</code>（拼音）、<code>ab</code>（缩写）、<code>asMentor</code> / <code>asStudent</code>（两端边数，构建时预聚合）、<code>year</code>（结缘年份，世表纵向定位用，缺者置顶并标「待补」）。
       <strong>同事边</strong>（<code>colleagueEdges</code>，791 条）：<code>a</code> / <code>b</code> / <code>org</code> / <code>label</code> / <code>evidence</code>——同一研究所即一条，默认关闭显示。
+      <strong>旧版快照与预留组</strong>（<code>scholars.js</code> 顶层）：<code>mentorEdges</code>（85 条）是世表定稿前的师承边快照——两端 ID、类型与证据和世表逐条相同，但无 <code>year</code> / <code>strength</code> / <code>sources</code> 字段，现仅供详情页合并边时兜底；<code>coauthorEdges</code>（0 条）为合著关系预留组，尚未采集（缺口口径见「数据来源」页④）。
     </p>
   </div>
 
