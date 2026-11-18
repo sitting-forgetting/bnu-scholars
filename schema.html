@@ -148,6 +148,9 @@
       <strong>同事边</strong>（<code>colleagueEdges</code>，791 条）：<code>a</code> / <code>b</code> / <code>org</code> / <code>label</code> / <code>evidence</code>——同一研究所即一条，默认关闭显示。
       <strong>旧版快照与预留组</strong>（<code>scholars.js</code> 顶层）：<code>mentorEdges</code>（85 条）是世表定稿前的师承边快照——两端 ID、类型与证据和世表逐条相同，但无 <code>year</code> / <code>strength</code> / <code>sources</code> 字段，现仅供详情页合并边时兜底；<code>coauthorEdges</code>（0 条）为合著关系预留组，尚未采集（缺口口径见「数据来源」页④）。
     </p>
+    <p style="font-size:13.5px;line-height:1.9;margin:10px 0 0;color:var(--ink-2)">
+      <strong>语义网导出</strong>（<code>data/lineage.jsonld</code>，<a href="data/lineage.jsonld" target="_blank" rel="noopener">查看/下载</a>）：同一份图谱的 JSON-LD 版。<code>@context</code> 对齐三套词表——schema.org、CIDOC-CRM 与本站 <code>bnu:</code> 词汇：人物 = <code>schema:Person</code> ∪ <code>crm:E21_Person</code>，师承边 = <code>crm:E7_Activity</code> ∪ <code>schema:Event</code>（导师 <code>crm:P14_carried_out_by</code>、学生 <code>crm:P11_had_participant</code>），年份为 <code>xsd:gYear</code>，证据原文与来源链接逐条保留。人与边均有独立 URI：人物 = <code>lineage.html?id={id}</code>，边 = 同页 <code>#edge-{导师id}</code>（同对学生唯一，已校验）。由 <code>scripts/build_jsonld.js</code> 从同一份采集数据生成（2026-11-18，数据 v20261102，524 KB），可随时复跑更新。
+    </p>
   </div>
 
   <div class="chart-box">
