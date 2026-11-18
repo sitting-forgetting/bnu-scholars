@@ -433,6 +433,18 @@
   .tour-card .tour-text { font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 10px; }
   .tour-card .tour-skip { background: none; border: none; font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); cursor: pointer; margin-left: 10px; }
   .tour-card .tour-skip:hover { color: var(--accent); }
+  /* 深链定位条：?id= 进入时告诉来访者「在看谁、祖链展到哪」，并链回首页章黄叙事 */
+  #deep-bar { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); z-index: 45; display: flex; align-items: center; gap: 12px; background: var(--hud-solid); border: 1px solid var(--hud-line); border-radius: 4px; padding: 8px 10px 8px 14px; box-shadow: 0 10px 30px rgba(23, 25, 22, .16); max-width: min(92vw, 760px); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+  #deep-bar[hidden] { display: none; }
+  #deep-bar b { font-family: var(--f-serif); font-size: 14px; color: var(--ink); letter-spacing: .5px; }
+  #deep-bar .db-tag { font-family: var(--f-sans); font-size: 10px; letter-spacing: 1.5px; color: var(--gold); border: 1px solid var(--gold); border-radius: 2px; padding: 1px 7px; margin-right: 8px; }
+  #deep-bar a { color: var(--accent); text-decoration: none; }
+  #deep-bar a:hover { text-decoration: underline; }
+  #deep-bar-close { background: none; border: 0; font-size: 15px; line-height: 1; color: var(--muted); cursor: pointer; padding: 2px 4px; }
+  #deep-bar-close:hover { color: var(--accent); }
+  body.dark #deep-bar { background-color: #1c1e1a; color: #c9cdc2; }
+  @media (max-width: 900px) { #deep-bar { top: 58px; } }
+  @media (max-width: 720px) { #deep-bar { left: 12px; right: 12px; transform: none; flex-wrap: wrap; white-space: normal; } }
   .node.pop { animation: cardIn .4s ease; }
   @keyframes cardIn { from { opacity: 0; } to { opacity: 1; } }
   .card-name { font-family: var(--f-serif); font-size: 14px; fill: var(--ink); font-weight: 600; letter-spacing: .6px; }
@@ -757,6 +769,11 @@
     <div class="tour-text">按住空白处拖拽，或用滚轮缩放。</div>
     <button class="mini-btn" id="tour-next">下一步</button>
     <button class="tour-skip" id="tour-skip">跳过引导</button>
+  </div>
+  <div id="deep-bar" hidden role="status" aria-label="深链定位信息">
+    <span id="deep-bar-txt"></span>
+    <span id="deep-bar-link"></span>
+    <button id="deep-bar-close" aria-label="关闭定位条">×</button>
   </div>
 </main>
 
@@ -1847,7 +1864,7 @@
       </div>
       <div class="rel-block">
         <div class="rb-title">门下（${students.length}）</div>
-        ${students.length ? relRows(students, "mentor") : '<p class="empty">暂无记载。</p>'}
+        ${students.length ? '<p style="font-size:11.5px;color:var(--muted);margin:-2px 0 10px">门下按本库收录口径统计，未必是全量门生。</p>' + relRows(students, "mentor") : '<p class="empty">暂无记载。</p>'}
       </div>
       ${n.kind === "external" ? "" : `<a href="detail.html?id=${encodeURIComponent(id)}" style="font-size:13px">查看学者详情 →</a>`}`;
     openDrawer();
@@ -2455,7 +2472,8 @@
 
   /* ================= 更新公告 + 操作引导按钮 ================= */
   const notice = document.getElementById("notice-bar");
-  try { if (!localStorage.getItem("lineage-notice-closed")) notice.style.display = "flex"; } catch (e) { notice.style.display = "flex"; }
+  const deepId = new URLSearchParams(location.search).get("id");   // 深链定位：?id=xxx。带着 id 来的访客有明确目的，公告与新手引导都不弹，画布直接给定位视图
+  try { if (deepId || localStorage.getItem("lineage-notice-closed")) notice.style.display = "none"; else notice.style.display = "flex"; } catch (e) { notice.style.display = deepId ? "none" : "flex"; }
   document.getElementById("notice-close").addEventListener("click", () => {
     notice.style.display = "none";
     try { localStorage.setItem("lineage-notice-closed", "1"); } catch (e) {}
@@ -2541,11 +2559,10 @@
     localStorage.setItem("lineage-tour-done", "1");
     tourCard.style.display = "none";
   });
-  showTour();
+  if (deepId) tourCard.style.display = "none"; else showTour();   // 深链进入跳过引导（? 键随时可唤出）
 
   // 恢复上次的展开集合与视野（深链接优先，见下）
   const savedState = loadState();
-  const deepId = new URLSearchParams(location.search).get("id");
   if (savedState && !deepId) {
     savedState.expanded.forEach(id => { if (nodeById[id]) expanded.add(id); });
   }
@@ -2580,7 +2597,37 @@
       if (!effCard[target]) { walkUp2(target, new Set()); relayout(); render(); }
       showNode(target);
       if (X[target] != null) flyTo(target);
+      showDeepBar(target);
     }
+  }
+
+  // 深链定位条：告诉来访者「你在看谁、祖链展到哪了」，并把世表与首页的章黄叙事缝起来。
+  // 主链取每步年份最早的一条导师边（与画布的全量祖先展开并行不悖，条上只标主干）。
+  function showDeepBar(targetId) {
+    const n = nodeById[targetId];
+    if (!n) return;
+    const chain = [];
+    let cur = targetId;
+    const seen = new Set([targetId]);
+    while (chain.length < 6) {
+      const cand = data.edges.filter(e => e.student === cur && !seen.has(e.mentor))
+        .sort((a, b) => (parseInt(a.year, 10) || 9999) - (parseInt(b.year, 10) || 9999))[0];
+      if (!cand) break;
+      seen.add(cand.mentor);
+      chain.push(cand.mentor);
+      cur = cand.mentor;
+    }
+    const names = chain.map(mid => (nodeById[mid] || {}).name || mid);
+    const root = names[names.length - 1] || "";
+    const isZhang = root === "章太炎";
+    const bar = document.getElementById("deep-bar");
+    document.getElementById("deep-bar-txt").innerHTML =
+      (isZhang ? `<span class="db-tag">章黄一脉 · 第 ${chain.length + 1} 传</span>` : "") +
+      `已定位：<b>${esc(n.name)}</b>` +
+      (names.length ? `｜ 上溯：${names.map(esc).join(" → ")}` : "");
+    document.getElementById("deep-bar-link").innerHTML = isZhang ? `<a href="index.html#tradition">回看「章黄一脉」四传叙事 →</a>` : "";
+    bar.hidden = false;
+    document.getElementById("deep-bar-close").onclick = () => { bar.hidden = true; };
   }
 
   window.__lineage = { data, X, Y, view, layout, effCard, expanded, fitView, fitHeight, relayout, toggleExpand, collapseAll, showNode, markSelected,

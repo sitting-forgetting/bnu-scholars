@@ -95,6 +95,9 @@
     .hero-main h1 { font-size: 27px; }
     .rel-list.two { grid-template-columns: 1fr; }
   }
+  .caliber-note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+  .empty-note { font-size: 13px; color: var(--muted); line-height: 1.9; margin: 0; }
+  .empty-note a { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -194,6 +197,12 @@
   const works = (s.works || []).map(w => `<li>${BNU.esc(w.title)}${w.year ? `（${w.year}）` : ""}</li>`).join("");
   const career = (s.career || []).slice().sort((a, b) => (a.year || 0) - (b.year || 0))
     .map(e => `<div class="tl-item"><span class="year">${e.year || "—"}</span><span class="evt">${BNU.esc(e.text)}</span></div>`).join("");
+  // 空字段就地解释：缺席的原因写在缺席现场，而不是让评审去三跳之外的数据来源页找答案
+  const emptyNote = s._kind === "external"
+    ? `外源导师仅作谱系身份锚点，履历与代表作不在采集范围（<a href="data-sources.html">见数据来源页</a>）。`
+    : s._kind === "master"
+      ? (s.note ? "" : `先贤材料以官网先贤栏生平为准，履历与代表作未另采集（<a href="data-sources.html">见数据来源页</a>）。`)
+      : ((career || works || s.note) ? "" : `官网未系统著录履历与代表作，本库不做补写——留空即结论（<a href="data-sources.html">见数据来源页</a>）。`);
 
   const kindLabel = s._kind === "master" ? "先贤名师" : s._kind === "external" ? "外源导师" : "本库学者";
   const kindTag = s._kind === "master" ? '<span class="master-tag">先贤名师</span>'
@@ -242,11 +251,13 @@
       <div class="rel-sec">
         <div class="rs-head"><b>门下</b><span>${students.length} 位学生</span></div>
         <div class="rel-list${students.length > 6 ? " two" : ""}">${students.length ? students.map(relOf).join("") : '<p style="color:var(--muted);font-size:13px;margin:8px 0">无记录</p>'}</div>
+        ${students.length ? '<p class="caliber-note">门下按本库收录口径统计（在录师资＋外源导师端），未必是全量门生。</p>' : ""}
       </div>
     </div>` : ""}
 
     ${career ? `<div class="panel"><h2>履历</h2><div class="timeline-list" style="margin-top:4px">${career}</div></div>` : ""}
     ${works ? `<div class="panel"><h2>代表作</h2><ul style="margin:0;padding-left:20px">${works}</ul></div>` : ""}
+    ${emptyNote ? `<div class="panel"><h2>履历 · 代表作</h2><p class="empty-note">${emptyNote}</p></div>` : ""}
     ${s.note ? `<div class="panel"><h2>${s._kind === "master" ? "生平" : "简介"}</h2><div class="bio-box">${BNU.esc(s.note)}</div></div>` : ""}
 
     <div class="panel">
