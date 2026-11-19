@@ -53,9 +53,9 @@
   "@id": "https://sitting-forgetting.github.io/bnu-scholars/data/lineage.jsonld",
   "@type": "schema:Dataset",
   "name": "京师学林 · 北师大中文系师承谱系（Linked Data 导出）",
-  "description": "237 条师承传承事件（每条挂证据原文与来源 URL）与 308 位谱系人物。与 site/data/lineage.js 同源生成，只含库内已存储字段，不做推断性补写；无年份的边保持无 startDate（留空即结论）。",
-  "dateModified": "2026-11-02",
-  "version": "v20261102",
+  "description": "242 条师承传承事件（每条挂证据原文与来源 URL）与 313 位谱系人物。与 site/data/lineage.js 同源生成，只含库内已存储字段，不做推断性补写；无年份的边保持无 startDate（留空即结论）。",
+  "dateModified": "2026-11-18",
+  "version": "v20261118",
   "usageInfo": "https://sitting-forgetting.github.io/bnu-scholars/data-sources.html",
   "@graph": [
     {
@@ -689,9 +689,14 @@
         "语言学及应用语言学",
         "历史语言学、汉语方言学"
       ],
+      "inLineageYear": {
+        "@value": "2016",
+        "@type": "xsd:gYear"
+      },
       "description": "籍贯据官网简介原文：广东汕头人（钟蔚苹讲师\n个人简介\n广东汕头人，中山大学中）",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/llyyxyjs/6529f887eed64df091652d0f074df8a8.htm",
-      "fetched": "2026-10-21"
+      "fetched": "2026-10-21",
+      "asStudent": 1
     },
     {
       "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-029",
@@ -1217,9 +1222,14 @@
       "knowsAbout": [
         "比较文学与世界文学"
       ],
+      "inLineageYear": {
+        "@value": "2024",
+        "@type": "xsd:gYear"
+      },
       "description": "籍贯据官网简介原文：河北涿州人（付亚亮讲师\n个人简介\n河北涿州人，意大利比萨）",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/bjwxysjwxyjs/a396f68953a546af9d0438169046ccb4.htm",
-      "fetched": "2026-10-21"
+      "fetched": "2026-10-21",
+      "asStudent": 1
     },
     {
       "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-054",
@@ -1459,9 +1469,14 @@
         "中国古代文学",
         "汉魏六朝文学"
       ],
+      "inLineageYear": {
+        "@value": "2013",
+        "@type": "xsd:gYear"
+      },
       "description": "籍贯据人工核实：我院台湾籍教师吴沂澐受邀出席，她表示，很荣幸参加庆祝中华人民共和国成立75周年招待会，躬逢盛宴，激情满怀，祝福伟大的祖国繁荣昌盛！　｜籍贯（台湾籍）　｜北京师范大学文学院官网新闻　｜https://wxy.bnu.edu.cn/syxwdt/8445e16dcfd74b28bfd996d8d7fe010b.htm",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/zggdwxyjs/aff2631328d141cebb3786d205ef7e91.htm",
-      "fetched": "2026-10-21"
+      "fetched": "2026-10-21",
+      "asStudent": 1
     },
     {
       "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-065",
@@ -2354,9 +2369,14 @@
       "knowsAbout": [
         "民俗学（民间文学）"
       ],
+      "inLineageYear": {
+        "@value": "2016",
+        "@type": "xsd:gYear"
+      },
       "description": "籍贯据人工核实：唐璐璐,女,湖南慈利人,艺术学博士,北京外国语大学艺术研究院讲师。研究方向为艺术理论,文化遗产研究。　｜籍贯　｜中国民俗学网官方公众号「民俗学论坛」栏目「新青年｜唐璐璐：《文化遗产的观念》（译著）」主编推介　｜http://mp.weixin.qq.com/s?__biz=MzA5NzU1MjUxOA==&mid=26",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/mjwxyjs/a6d3d4b09556409fa5d858dd0fadff16.htm",
-      "fetched": "2026-10-21"
+      "fetched": "2026-10-21",
+      "asStudent": 1
     },
     {
       "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-105",
@@ -2482,7 +2502,7 @@
         "@value": "2004",
         "@type": "xsd:gYear"
       },
-      "description": "籍贯据人工核实：赵宁宁,女,广东珠海人,教育学博士,北京师范大学文学院副教授（联系方式已按隐私政策脱敏，见原刊作者简介）。　｜籍贯　｜期刊作者简介栏（《北京师范大学学报(社会科学版)》2023年第1期《义务教育语文课程标准(2022年版)》解读）　｜http://mp.weixin.qq.com/s?__biz=",
+      "description": "籍贯据人工核实：赵宁宁,女,广东珠海人,教育学博士,北京师范大学文学院副教授,E-mail: （邮箱已脱敏）。　｜籍贯　｜期刊作者简介栏（《北京师范大学学报(社会科学版)》2023年第1期《义务教育语文课程标准(2022年版)》解读）　｜http://mp.weixin.qq.com/s?__biz=",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/ywjyyjs/fe35b99af7004732ae55b306b248c831.htm",
       "fetched": "2026-10-21",
       "asStudent": 2
@@ -3620,8 +3640,13 @@
       "knowsAbout": [
         "数字人文与数字出版，现任北京师范大学文理学院中文系副教授、硕士研究生导师，兼任北京师范大学珠海校区图书馆数字人文中心主任"
       ],
+      "inLineageYear": {
+        "@value": "2021",
+        "@type": "xsd:gYear"
+      },
       "recordSource": "https://fas.bnu.edu.cn/jyjg/xsgk/zwx1/xsszzw/fx2/c927fd9ef7104e4f8b775af450e69dbb.htm",
-      "fetched": "2026-10-21"
+      "fetched": "2026-10-21",
+      "asStudent": 1
     },
     {
       "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-182",
@@ -3856,6 +3881,21 @@
         "crm:E21_Person",
         "schema:Person"
       ],
+      "name": "Andrea Torre",
+      "kind": "external",
+      "jobTitle": "外源导师（待入藏）",
+      "inLineageYear": {
+        "@value": "2021",
+        "@type": "xsd:gYear"
+      },
+      "asMentor": 1
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-005",
+      "@type": [
+        "crm:E21_Person",
+        "schema:Person"
+      ],
       "name": "Antoine Compagnon",
       "kind": "external",
       "jobTitle": "外源导师（待入藏）",
@@ -3871,7 +3911,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-005",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-006",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3891,7 +3931,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-006",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-007",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3911,7 +3951,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-007",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-008",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3931,7 +3971,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-008",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-009",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3947,7 +3987,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-009",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-010",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3967,7 +4007,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-010",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-011",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -3987,7 +4027,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-011",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-012",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4007,7 +4047,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-012",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-013",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4027,7 +4067,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-013",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-014",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4047,7 +4087,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-014",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-015",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4067,7 +4107,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-015",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-016",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4087,7 +4127,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-016",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-017",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4107,7 +4147,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-017",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-018",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4127,7 +4167,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-018",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-019",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4147,7 +4187,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-019",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-020",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4163,7 +4203,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-020",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-021",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4179,7 +4219,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-021",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-022",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4199,7 +4239,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-022",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-023",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4219,7 +4259,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-023",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-024",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4239,7 +4279,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-024",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-025",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4259,7 +4299,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-025",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-026",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4279,7 +4319,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-026",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-027",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4299,7 +4339,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-027",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-028",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4319,7 +4359,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-028",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-029",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4335,7 +4375,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-029",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-030",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4355,7 +4395,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-030",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-031",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4375,7 +4415,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-031",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-032",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4395,7 +4435,27 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-032",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-033",
+      "@type": [
+        "crm:E21_Person",
+        "schema:Person"
+      ],
+      "name": "叶朗",
+      "kind": "external",
+      "jobTitle": "外源导师（待入藏）",
+      "knowsAbout": [
+        "美学 / 艺术学理论"
+      ],
+      "inLineageYear": {
+        "@value": "2013",
+        "@type": "xsd:gYear"
+      },
+      "description": "北京大学哲学、社会科学资深教授（1960 年北大哲学系毕业，1986 年起任教授），兼任北京大学艺术学院名誉院长、北京大学文化产业研究院院长；研究美学原理与中国美学，著《中国美学史大纲》《美在意象》。",
+      "bioConfidence": "高",
+      "asMentor": 1
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-034",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4415,7 +4475,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-033",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-035",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4435,7 +4495,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-034",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-036",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4455,7 +4515,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-035",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-037",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4475,7 +4535,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-036",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-038",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4495,7 +4555,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-037",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-039",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4515,7 +4575,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-038",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-040",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4535,7 +4595,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-039",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-041",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4555,7 +4615,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-040",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-042",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4575,7 +4635,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-041",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-043",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4595,7 +4655,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-042",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-044",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4615,7 +4675,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-043",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-045",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4635,7 +4695,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-044",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-046",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4655,7 +4715,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-045",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-047",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4675,7 +4735,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-046",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-048",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4691,7 +4751,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-047",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-049",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4711,7 +4771,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-048",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-050",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4727,7 +4787,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-049",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-051",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4743,7 +4803,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-050",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-052",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4763,7 +4823,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-051",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-053",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4779,7 +4839,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-052",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-054",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4799,7 +4859,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-053",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-055",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4819,7 +4879,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-054",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-056",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4839,7 +4899,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-055",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-057",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4859,7 +4919,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-056",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-058",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4875,7 +4935,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-057",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-059",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4895,7 +4955,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-058",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-060",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4915,7 +4975,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-059",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-061",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4935,7 +4995,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-060",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-062",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4955,7 +5015,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-061",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-063",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4975,7 +5035,22 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-062",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-064",
+      "@type": [
+        "crm:E21_Person",
+        "schema:Person"
+      ],
+      "name": "江建俊",
+      "kind": "external",
+      "jobTitle": "外源导师（待入藏）",
+      "inLineageYear": {
+        "@value": "2010",
+        "@type": "xsd:gYear"
+      },
+      "asMentor": 1
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-065",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -4995,7 +5070,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-063",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-066",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5015,7 +5090,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-064",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-067",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5035,7 +5110,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-065",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-068",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5055,7 +5130,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-066",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-069",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5075,7 +5150,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-067",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-070",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5095,7 +5170,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-068",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-071",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5115,7 +5190,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-069",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-072",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5135,7 +5210,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-070",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-073",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5155,7 +5230,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-071",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-074",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5175,7 +5250,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-072",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-075",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5195,7 +5270,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-073",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-076",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5215,7 +5290,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-074",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-077",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5231,7 +5306,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-075",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-078",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5247,7 +5322,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-076",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-079",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5267,7 +5342,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-077",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-080",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5287,7 +5362,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-078",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-081",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5307,7 +5382,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-079",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-082",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5327,7 +5402,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-080",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-083",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5347,7 +5422,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-081",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-084",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5367,7 +5442,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-082",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-085",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5387,7 +5462,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-083",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-086",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5407,7 +5482,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-084",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-087",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5427,7 +5502,27 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-085",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-088",
+      "@type": [
+        "crm:E21_Person",
+        "schema:Person"
+      ],
+      "name": "郭必之（Bit Chee KWOK）",
+      "kind": "external",
+      "jobTitle": "外源导师（待入藏）",
+      "knowsAbout": [
+        "历史语言学 / 方言学（闽语）"
+      ],
+      "inLineageYear": {
+        "@value": "2013",
+        "@type": "xsd:gYear"
+      },
+      "description": "历史语言学、方言学学者，BA / MPhil（香港中文大学）、PhD（香港大学）；曾任教香港科技大学、中央研究院、香港城市大学，现任香港中文大学中国语言及文学系教授、博士生导师；研究闽南方言、历史语言学。",
+      "bioConfidence": "高",
+      "asMentor": 1
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-089",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5447,7 +5542,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-086",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-090",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5467,7 +5562,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-087",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-091",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5487,7 +5582,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-088",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-092",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5507,7 +5602,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-089",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-093",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5527,7 +5622,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-090",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-094",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5547,7 +5642,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-091",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-095",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5567,7 +5662,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-092",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-096",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5587,7 +5682,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-093",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-097",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5607,7 +5702,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-094",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-098",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5627,7 +5722,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-095",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-099",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5647,7 +5742,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-096",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-100",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5667,7 +5762,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-097",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-101",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5687,7 +5782,7 @@
       "asMentor": 1
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-098",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-102",
       "@type": [
         "crm:E21_Person",
         "schema:Person"
@@ -5703,6 +5798,26 @@
         "@type": "xsd:gYear"
       },
       "description": "华南师范大学教育科学学院二级教授、博士生导师（1957年11月—，四川洪雅人），课程与教学论学科学术带头人，曾任教育科学学院课程与教学系主任，国家教育学类专业首届教学指导委员会委员，中国教育学会课程学术委员会副理事长，首倡'大课程论'，研究课程与教学论、教育文化学与教师教育学",
+      "bioConfidence": "高",
+      "asMentor": 1
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-103",
+      "@type": [
+        "crm:E21_Person",
+        "schema:Person"
+      ],
+      "name": "龙乐思（Miguel Baptista Nunes）",
+      "kind": "external",
+      "jobTitle": "外源导师（待入藏）",
+      "knowsAbout": [
+        "信息管理 / 信息系统 / 数字人文（VR+文化）"
+      ],
+      "inLineageYear": {
+        "@value": "2018",
+        "@type": "xsd:gYear"
+      },
+      "description": "葡萄牙籍信息管理学者（1963— ），谢菲尔德大学信息研究博士（2000）、信息管理硕士（1994）；1997—2017 任教于谢菲尔德大学信息学院，2016—2019 任中山大学信息管理学院院长，2019 年创立该校 VR+文化实验室；现任澳门城市大学商学院信息系统教授。研究方向：信息系统建模、知识管理、教育信息学、数字人文。",
       "bioConfidence": "高",
       "asMentor": 1
     },
@@ -6642,7 +6757,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-003#edge-ext-080",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-003#edge-ext-083",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -6653,7 +6768,7 @@
         "name": "刘利"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-080",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-083",
         "name": "赵振铎"
       },
       "relType": "博士",
@@ -6898,7 +7013,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-009#edge-ext-038",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-009#edge-ext-040",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -6909,7 +7024,7 @@
         "name": "胡佳佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-038",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-040",
         "name": "宋继华"
       },
       "relType": "硕士",
@@ -6963,7 +7078,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-010#edge-ext-030",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-010#edge-ext-031",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -6974,7 +7089,7 @@
         "name": "董婧宸"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-030",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-031",
         "name": "刘家和"
       },
       "relType": "博士",
@@ -7226,7 +7341,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-016#edge-ext-073",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-016#edge-ext-076",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7237,7 +7352,7 @@
         "name": "孙银新"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-073",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-076",
         "name": "葛本仪"
       },
       "relType": "博士",
@@ -7258,7 +7373,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-041",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-043",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7269,7 +7384,7 @@
         "name": "李晋霞"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-041",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-043",
         "name": "张国宪"
       },
       "relType": "博士",
@@ -7290,7 +7405,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-054",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-056",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7301,7 +7416,7 @@
         "name": "李晋霞"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-054",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-056",
         "name": "李宇明"
       },
       "relType": "硕士",
@@ -7318,7 +7433,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-083",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-017#edge-ext-086",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7329,7 +7444,7 @@
         "name": "李晋霞"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-083",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-086",
         "name": "邢福义"
       },
       "relType": "博士后",
@@ -7406,7 +7521,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-019#edge-ext-043",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-019#edge-ext-045",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7417,7 +7532,7 @@
         "name": "聂大昕"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-043",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-045",
         "name": "张英"
       },
       "relType": "博士",
@@ -7434,7 +7549,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-019#edge-ext-095",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-019#edge-ext-099",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7445,12 +7560,12 @@
         "name": "聂大昕"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-095",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-099",
         "name": "马颂仁（Pierre Marsone）"
       },
       "relType": "就学期间受教",
       "strength": "直接",
-      "channel": "师承方式：联合培养导师（巴黎 EPHE）",
+      "channel": "师承方式：联合培养导师",
       "source": [
         "学校官方公众号（北师大全球华语对比研究中心《清末民初语法研究》推介）"
       ],
@@ -7491,7 +7606,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-020#edge-ext-076",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-020#edge-ext-079",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7502,7 +7617,7 @@
         "name": "曾静涵"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-076",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-079",
         "name": "袁毓林"
       },
       "relType": "博士",
@@ -7561,7 +7676,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-027",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-028",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7572,7 +7687,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-027",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-028",
         "name": "冉友侨"
       },
       "relType": "硕士",
@@ -7589,7 +7704,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-029",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-030",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7600,7 +7715,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-029",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-030",
         "name": "刘君惠"
       },
       "relType": "硕士",
@@ -7617,7 +7732,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-042",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-044",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7628,7 +7743,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-042",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-044",
         "name": "张振德"
       },
       "relType": "硕士",
@@ -7645,7 +7760,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-058",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-060",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7656,7 +7771,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-058",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-060",
         "name": "杜道生"
       },
       "relType": "硕士",
@@ -7673,7 +7788,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-065",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-068",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7684,7 +7799,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-065",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-068",
         "name": "潘悟云"
       },
       "relType": "博士",
@@ -7705,7 +7820,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-085",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-022#edge-ext-089",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7716,7 +7831,7 @@
         "name": "张维佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-085",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-089",
         "name": "郭诚永"
       },
       "relType": "硕士",
@@ -7765,7 +7880,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-023#edge-ext-040",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-023#edge-ext-042",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7776,7 +7891,7 @@
         "name": "张和友"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-040",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-042",
         "name": "张一舟"
       },
       "relType": "硕士",
@@ -7835,7 +7950,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-025#edge-ext-025",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-025#edge-ext-026",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7846,7 +7961,7 @@
         "name": "周士宏"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-025",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-026",
         "name": "傅爱兰"
       },
       "relType": "博士",
@@ -7867,7 +7982,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-026#edge-ext-034",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-026#edge-ext-036",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7878,7 +7993,7 @@
         "name": "王庆"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-034",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-036",
         "name": "周流溪"
       },
       "relType": "博士",
@@ -7899,7 +8014,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-027#edge-ext-026",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-027#edge-ext-027",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7910,7 +8025,7 @@
         "name": "汪高武"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-026",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-027",
         "name": "党建武"
       },
       "relType": "博士",
@@ -7931,7 +8046,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-027#edge-ext-036",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-027#edge-ext-038",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7942,7 +8057,7 @@
         "name": "汪高武"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-036",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-038",
         "name": "孔江平"
       },
       "relType": "博士",
@@ -7963,7 +8078,40 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-029#edge-ext-088",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-028#edge-ext-088",
+      "@type": [
+        "crm:E7_Activity",
+        "schema:Event"
+      ],
+      "name": "郭必之（Bit Chee KWOK） → 钟蔚苹（博士 · 2016）",
+      "student": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-028",
+        "name": "钟蔚苹"
+      },
+      "mentor": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-088",
+        "name": "郭必之（Bit Chee KWOK）"
+      },
+      "relType": "博士",
+      "strength": "直接",
+      "startDate": {
+        "@value": "2016",
+        "@type": "xsd:gYear"
+      },
+      "channel": "香港城市大学中文及历史学系博士（2016）",
+      "source": [
+        "香港城市大学官方机构库 CityUHK Scholars 学位论文记录 Supervisor 字段"
+      ],
+      "evidence": [
+        {
+          "@type": "bnu:Evidence",
+          "description": "City University of Hong Kong, Student thesis (Doctoral Thesis): Weiping ZHONG, The Interface between Phonological and Morphological Strata in Southern Min Dialects: A Case Study of Xiamen, Shantou and Haikou Dialects, Dept. of Chinese and History, Date of Award 8 Jun 2016. Supervisor field: \"Bit Chee KWOK (Supervisor)\".",
+          "url": "https://scholars.cityu.edu.hk/en/studentTheses/閩南語文白異讀與構詞的互動以廈門汕頭海口三點為例/"
+        }
+      ]
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-029#edge-ext-092",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -7974,7 +8122,7 @@
         "name": "余德江"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-088",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-092",
         "name": "陈保亚"
       },
       "relType": "博士",
@@ -7995,7 +8143,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-030#edge-ext-049",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-030#edge-ext-051",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8006,7 +8154,7 @@
         "name": "王莉宁"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-049",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-051",
         "name": "曹志耘"
       },
       "relType": "博士",
@@ -8023,7 +8171,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-031#edge-ext-008",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-031#edge-ext-009",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8034,12 +8182,12 @@
         "name": "胡韧奋"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-008",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-009",
         "name": "Jack Mostow"
       },
       "relType": "就学期间受教",
       "strength": "直接",
-      "channel": "师承方式：访学导师（卡内基梅隆）",
+      "channel": "师承方式：访学导师",
       "source": [
         "学校官网（北师大中文信息处理研究所师资页）"
       ],
@@ -8052,7 +8200,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-031#edge-ext-048",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-031#edge-ext-050",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8063,12 +8211,12 @@
         "name": "胡韧奋"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-048",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-050",
         "name": "晋耀红"
       },
       "relType": "就学期间受教",
       "strength": "直接",
-      "channel": "师承方式：硕/博阶段导师（原文未细分）",
+      "channel": "师承方式：硕/博阶段导师，原文未细分",
       "source": [
         "学校官网（北师大中文信息处理研究所师资页）"
       ],
@@ -8097,7 +8245,7 @@
       },
       "relType": "就学期间受教",
       "strength": "直接",
-      "channel": "师承方式：硕/博阶段导师（原文未细分）",
+      "channel": "师承方式：硕/博阶段导师，原文未细分",
       "source": [
         "学校官网（北师大中文信息处理研究所师资页）"
       ],
@@ -8174,7 +8322,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-035#edge-ext-066",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-035#edge-ext-069",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8185,7 +8333,7 @@
         "name": "陈太胜"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-066",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-069",
         "name": "王一川"
       },
       "relType": "博士",
@@ -8238,7 +8386,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-037#edge-ext-004",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-037#edge-ext-005",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8249,7 +8397,7 @@
         "name": "钱翰"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-004",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-005",
         "name": "Antoine Compagnon"
       },
       "relType": "博士",
@@ -8270,7 +8418,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-037#edge-ext-070",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-037#edge-ext-073",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8281,7 +8429,7 @@
         "name": "钱翰"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-070",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-073",
         "name": "罗芃"
       },
       "relType": "博士",
@@ -8340,7 +8488,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-039#edge-ext-014",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-039#edge-ext-015",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8351,7 +8499,7 @@
         "name": "吕黎"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-014",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-015",
         "name": "William Moebius"
       },
       "relType": "博士",
@@ -8464,7 +8612,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-044#edge-ext-087",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-044#edge-ext-091",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8475,7 +8623,7 @@
         "name": "刘洪涛"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-087",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-091",
         "name": "钱谷融"
       },
       "relType": "博士",
@@ -8496,7 +8644,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-045#edge-ext-059",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-045#edge-ext-061",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8507,7 +8655,7 @@
         "name": "曹顺庆"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-059",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-061",
         "name": "杨明照"
       },
       "relType": "硕士",
@@ -8528,7 +8676,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-046#edge-ext-069",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-046#edge-ext-072",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8539,7 +8687,7 @@
         "name": "姚建彬"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-069",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-072",
         "name": "章安祺"
       },
       "relType": "博士",
@@ -8560,7 +8708,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-047#edge-ext-019",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-047#edge-ext-020",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8571,7 +8719,7 @@
         "name": "张源"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-019",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-020",
         "name": "乐黛云"
       },
       "relType": "受业",
@@ -8620,7 +8768,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-049#edge-ext-081",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-049#edge-ext-084",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8631,7 +8779,7 @@
         "name": "张欣"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-081",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-084",
         "name": "车槿山"
       },
       "relType": "博士",
@@ -8766,7 +8914,40 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-054#edge-ext-093",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-053#edge-ext-004",
+      "@type": [
+        "crm:E7_Activity",
+        "schema:Event"
+      ],
+      "name": "Andrea Torre → 付亚亮（博士 · 2024）",
+      "student": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-053",
+        "name": "付亚亮"
+      },
+      "mentor": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-004",
+        "name": "Andrea Torre"
+      },
+      "relType": "博士",
+      "strength": "直接",
+      "startDate": {
+        "@value": "2024",
+        "@type": "xsd:gYear"
+      },
+      "channel": "比萨高等师范学校意大利学与近代语文学博士（第 35 届，2024）；relatore 字段仅列一人，无联合导师",
+      "source": [
+        "Scuola Normale Superiore 机构库 IRIS 学位论文记录 relatore/supervisore 字段"
+      ],
+      "evidence": [
+        {
+          "@type": "bnu:Evidence",
+          "description": "IRIS Scuola Normale Superiore record: \"Tradurre il Rinascimento europeo in Cina: il Jifa 記法 ... di Matteo Ricci\", Fu Yaliang, Ciclo 35, Data di discussione 14-giu-2024. Relatore/i interno/i: TORRE, Andrea. Supervisore interno: TORRE, Andrea.",
+          "url": "https://ricerca.sns.it/handle/11384/157749"
+        }
+      ]
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-054#edge-ext-097",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8777,7 +8958,7 @@
         "name": "康震"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-093",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-097",
         "name": "霍松林"
       },
       "relType": "博士",
@@ -8830,7 +9011,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-033",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-035",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8841,7 +9022,7 @@
         "name": "马东瑶"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-033",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-035",
         "name": "周强"
       },
       "relType": "博士",
@@ -8862,7 +9043,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-045",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-047",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8873,7 +9054,7 @@
         "name": "马东瑶"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-045",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-047",
         "name": "张鸣"
       },
       "relType": "硕士",
@@ -8890,7 +9071,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-082",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-085",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8901,7 +9082,7 @@
         "name": "马东瑶"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-082",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-085",
         "name": "邓小南"
       },
       "relType": "受业",
@@ -8922,7 +9103,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-092",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-056#edge-ext-096",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -8933,7 +9114,7 @@
         "name": "马东瑶"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-092",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-096",
         "name": "陶文鹏"
       },
       "relType": "问学",
@@ -9144,7 +9325,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-063#edge-ext-031",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-063#edge-ext-032",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9155,7 +9336,7 @@
         "name": "颜子楠"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-031",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-032",
         "name": "卢庆滨（Andrew Lo）"
       },
       "relType": "博士",
@@ -9172,6 +9353,39 @@
           "@type": "bnu:Evidence",
           "description": "作为《诗人高启》的译者，颜子楠教授于英国伦敦大学亚非学院获得博士学位，其博士生导师卢庆滨（Andrew Lo）先生，从本科至博士一直就读于美国普林斯顿大学，是高友工（Yu-Kung Kao）、浦安迪（Andrew Plaks）教授的高足。",
           "url": "https://m.qlwb.com.cn/detail/23806627.html"
+        }
+      ]
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-064#edge-ext-064",
+      "@type": [
+        "crm:E7_Activity",
+        "schema:Event"
+      ],
+      "name": "江建俊 → 吴沂澐（硕士 · 2013）",
+      "student": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-064",
+        "name": "吴沂澐"
+      },
+      "mentor": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-064",
+        "name": "江建俊"
+      },
+      "relType": "硕士",
+      "strength": "直接",
+      "startDate": {
+        "@value": "2013",
+        "@type": "xsd:gYear"
+      },
+      "channel": "台湾成功大学中国文学系硕士（2013）",
+      "source": [
+        "成功大学机构库学位论文题录 Advisor 字段"
+      ],
+      "evidence": [
+        {
+          "@type": "bnu:Evidence",
+          "description": "National Cheng Kung University Electronic Theses and Dissertations: Author 吳沂澐 Wu, Chi-Yun; Thesis Title 游在魏晉士人中的情意顯現 / The Emotion and Culture Implications of \"Yo\" in Wei-Jin Dynasty; Advisor: 江建俊 Chiang, Chieng-Chun; Degree: 碩士 Master; Department: 文學院-中國文學系.",
+          "url": "https://thesis.lib.ncku.edu.tw/thesis/detail/d09529b442fedf9b6574e1f9ba13d4e2"
         }
       ]
     },
@@ -9572,7 +9786,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-076#edge-ext-078",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-076#edge-ext-081",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9583,7 +9797,7 @@
         "name": "熊修雨"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-078",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-081",
         "name": "许志英"
       },
       "relType": "博士",
@@ -9604,7 +9818,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-077#edge-ext-050",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-077#edge-ext-052",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9615,7 +9829,7 @@
         "name": "谭五昌"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-050",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-052",
         "name": "曹文轩"
       },
       "relType": "博士",
@@ -9636,7 +9850,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-078#edge-ext-089",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-078#edge-ext-093",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9647,7 +9861,7 @@
         "name": "林分份"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-089",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-093",
         "name": "陈平原"
       },
       "relType": "博士",
@@ -9732,7 +9946,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-080#edge-ext-086",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-080#edge-ext-090",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9743,7 +9957,7 @@
         "name": "白惠元"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-086",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-090",
         "name": "金惠敏"
       },
       "relType": "博士后",
@@ -9764,7 +9978,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-080#edge-ext-091",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-080#edge-ext-095",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9775,7 +9989,7 @@
         "name": "白惠元"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-091",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-095",
         "name": "陈晓明"
       },
       "relType": "博士",
@@ -9828,7 +10042,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-082#edge-ext-032",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-082#edge-ext-034",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9839,7 +10053,7 @@
         "name": "肖汉"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-032",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-034",
         "name": "吴岩"
       },
       "relType": "博士",
@@ -9924,7 +10138,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-085#edge-ext-005",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-085#edge-ext-006",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9935,7 +10149,7 @@
         "name": "刘一昕"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-005",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-006",
         "name": "Christopher Rosenmeier"
       },
       "relType": "博士",
@@ -9956,7 +10170,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-085#edge-ext-009",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-085#edge-ext-010",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -9967,7 +10181,7 @@
         "name": "刘一昕"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-009",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-010",
         "name": "Julian Ward"
       },
       "relType": "博士",
@@ -10084,7 +10298,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-089#edge-ext-077",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-089#edge-ext-080",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10095,7 +10309,7 @@
         "name": "王媛"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-077",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-080",
         "name": "袁行霈"
       },
       "relType": "博士",
@@ -10180,7 +10394,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-091#edge-ext-055",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-091#edge-ext-057",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10191,7 +10405,7 @@
         "name": "田胜利"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-055",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-057",
         "name": "李炳海"
       },
       "relType": "博士",
@@ -10212,7 +10426,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-091#edge-ext-084",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-091#edge-ext-087",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10223,7 +10437,7 @@
         "name": "田胜利"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-084",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-087",
         "name": "郭丹"
       },
       "relType": "硕士",
@@ -10240,7 +10454,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-092#edge-ext-057",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-092#edge-ext-059",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10251,7 +10465,7 @@
         "name": "杨胜祥"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-057",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-059",
         "name": "杜泽逊"
       },
       "relType": "博士",
@@ -10368,7 +10582,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-096#edge-ext-021",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-096#edge-ext-022",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10379,7 +10593,7 @@
         "name": "西川"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-021",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-022",
         "name": "伯特·斯特恩（Herbert/Bert Stern）"
       },
       "relType": "就学期间受教",
@@ -10420,14 +10634,13 @@
         "@value": "2012",
         "@type": "xsd:gYear"
       },
-      "channel": "抽检修正 2026-11-12：原录「博士」，唯一证据为博士后研究报告，据证据改录「博士后」",
       "source": [
         "学者库既有边（学位论文题录）"
       ],
       "evidence": [
         {
           "@type": "bnu:Evidence",
-          "description": "“70后”作家小说研究（博士后研究工作报告）（2012）｜北师大图书馆学位论文库题录",
+          "description": "“70后”作家小说研究（博士后研究工作报告）（2012）｜北师大图书馆学位论文库题录；抽检修正 2026-11-12：原录「博士」，唯一证据为博士后研究报告，据证据改录「博士后」",
           "url": "https://etdlib.bnu.edu.cn/"
         }
       ]
@@ -10497,7 +10710,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-100#edge-ext-018",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-100#edge-ext-019",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10508,7 +10721,7 @@
         "name": "杨利慧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-018",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-019",
         "name": "乌丙安"
       },
       "relType": "硕士",
@@ -10625,7 +10838,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-006",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-007",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10636,7 +10849,7 @@
         "name": "彭牧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-006",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-007",
         "name": "Dan Ben-Amos"
       },
       "relType": "博士",
@@ -10657,7 +10870,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-007",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-008",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10668,7 +10881,7 @@
         "name": "彭牧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-007",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-008",
         "name": "David Hufford"
       },
       "relType": "博士",
@@ -10689,7 +10902,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-011",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-012",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10700,7 +10913,7 @@
         "name": "彭牧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-011",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-012",
         "name": "Nathan Sivin"
       },
       "relType": "博士",
@@ -10721,7 +10934,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-060",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-062",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10732,7 +10945,7 @@
         "name": "彭牧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-060",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-062",
         "name": "段宝林"
       },
       "relType": "硕士",
@@ -10753,7 +10966,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-063",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-102#edge-ext-066",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10764,7 +10977,7 @@
         "name": "彭牧"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-063",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-066",
         "name": "汪景寿"
       },
       "relType": "硕士",
@@ -10785,7 +10998,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-103#edge-ext-010",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-103#edge-ext-011",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10796,7 +11009,7 @@
         "name": "ThomasDuBois（杜博思）"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-010",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-011",
         "name": "Kathryn Bernhardt"
       },
       "relType": "博士",
@@ -10817,7 +11030,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-103#edge-ext-012",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-103#edge-ext-013",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10828,7 +11041,7 @@
         "name": "ThomasDuBois（杜博思）"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-012",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-013",
         "name": "Philip C. C. Huang（黄宗智）"
       },
       "relType": "博士",
@@ -10845,6 +11058,39 @@
           "@type": "bnu:Evidence",
           "description": "当时我正在加州大学洛杉矶分校(UCLA)，在黄宗智教授指导下撰写博士论文。其间，我在济南生活了两年，对华北平原的乡村有着浓厚的兴趣。",
           "url": "https://www.80065.cn/m/view.php?aid=221331"
+        }
+      ]
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-104#edge-ext-033",
+      "@type": [
+        "crm:E7_Activity",
+        "schema:Event"
+      ],
+      "name": "叶朗 → 唐璐璐（博士 · 2016）",
+      "student": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-104",
+        "name": "唐璐璐"
+      },
+      "mentor": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-033",
+        "name": "叶朗"
+      },
+      "relType": "博士",
+      "strength": "直接",
+      "startDate": {
+        "@value": "2016",
+        "@type": "xsd:gYear"
+      },
+      "channel": "北京大学艺术学院艺术学理论博士（2012.8—2016.7）",
+      "source": [
+        "北京大学研究生院官方优博名单\"导师\"栏"
+      ],
+      "evidence": [
+        {
+          "@type": "bnu:Evidence",
+          "description": "北京大学研究生院《2016年度北京大学优秀博士学位论文名单》第55行：\"55 艺术学院 唐璐璐 艺术学理论 文化遗产保护与旅游开发的协调机制研究——基于比利时布鲁日案例 叶朗\"。表头：\"序号／系所名称／作者姓名／专业名称／论文题目／导师\"。",
+          "url": "https://grs.pku.edu.cn/tzgg/50118yjsy260200.htm"
         }
       ]
     },
@@ -10977,7 +11223,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-110#edge-ext-015",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-110#edge-ext-016",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -10988,7 +11234,7 @@
         "name": "赵宁宁"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-015",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-016",
         "name": "丛立新"
       },
       "relType": "博士",
@@ -11009,7 +11255,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-110#edge-ext-098",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-110#edge-ext-102",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11020,7 +11266,7 @@
         "name": "赵宁宁"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-098",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-102",
         "name": "黄甫全"
       },
       "relType": "硕士",
@@ -11105,7 +11351,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-113#edge-ext-016",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-113#edge-ext-017",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11116,7 +11362,7 @@
         "name": "黄开发"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-016",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-017",
         "name": "严恩图"
       },
       "relType": "就学期间受教",
@@ -11197,7 +11443,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-114#edge-ext-052",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-114#edge-ext-054",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11208,7 +11454,7 @@
         "name": "毛峰"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-052",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-054",
         "name": "李丽中"
       },
       "relType": "硕士",
@@ -11293,7 +11539,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-116#edge-ext-079",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-116#edge-ext-082",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11304,7 +11550,7 @@
         "name": "刁晏斌"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-079",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-082",
         "name": "许绍早"
       },
       "relType": "硕士",
@@ -11325,7 +11571,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-116#edge-ext-094",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-116#edge-ext-098",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11336,7 +11582,7 @@
         "name": "刁晏斌"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-094",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-098",
         "name": "马庆株"
       },
       "relType": "博士",
@@ -11385,7 +11631,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-118#edge-ext-053",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-118#edge-ext-055",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11396,7 +11642,7 @@
         "name": "李正荣"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-053",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-055",
         "name": "李兆林"
       },
       "relType": "硕士",
@@ -11482,7 +11728,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-119#edge-ext-035",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-119#edge-ext-037",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11493,7 +11739,7 @@
         "name": "李国英"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-035",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-037",
         "name": "周祖谟"
       },
       "relType": "博士",
@@ -11580,7 +11826,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-121#edge-ext-017",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-121#edge-ext-018",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11591,7 +11837,7 @@
         "name": "张哲俊"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-017",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-018",
         "name": "严绍璗"
       },
       "relType": "博士",
@@ -11742,7 +11988,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-125#edge-ext-023",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-125#edge-ext-024",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11753,7 +11999,7 @@
         "name": "张柠"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-023",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-024",
         "name": "倪蕊琴"
       },
       "relType": "硕士",
@@ -11838,7 +12084,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-128#edge-ext-097",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-128#edge-ext-101",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11849,7 +12095,7 @@
         "name": "邹红"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-097",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-101",
         "name": "黄会林"
       },
       "relType": "硕士",
@@ -11930,7 +12176,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-130#edge-ext-068",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-130#edge-ext-071",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11941,7 +12187,7 @@
         "name": "方维规"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-068",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-071",
         "name": "瓦格纳（东德柏林洪堡大学）"
       },
       "relType": "硕士",
@@ -11958,7 +12204,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-130#edge-ext-072",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-130#edge-ext-075",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -11969,7 +12215,7 @@
         "name": "方维规"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-072",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-075",
         "name": "胡戈·狄泽林克（Hugo Dyserinck）"
       },
       "relType": "博士",
@@ -11990,7 +12236,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-131#edge-ext-047",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-131#edge-ext-049",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12001,7 +12247,7 @@
         "name": "荣晶"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-047",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-049",
         "name": "徐通锵"
       },
       "relType": "博士",
@@ -12412,7 +12658,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-142#edge-ext-075",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-142#edge-ext-078",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12423,7 +12669,7 @@
         "name": "王泉根"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-075",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-078",
         "name": "蒋风"
       },
       "relType": "硕士",
@@ -12500,7 +12746,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-148#edge-ext-037",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-148#edge-ext-039",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12511,7 +12757,7 @@
         "name": "钱振纲"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-037",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-039",
         "name": "孙昌熙"
       },
       "relType": "硕士",
@@ -12656,7 +12902,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-155#edge-ext-074",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-155#edge-ext-077",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12667,7 +12913,7 @@
         "name": "韩兆琦"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-074",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-077",
         "name": "蒋天枢"
       },
       "relType": "受业",
@@ -12800,7 +13046,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-160#edge-ext-061",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-160#edge-ext-063",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12811,7 +13057,7 @@
         "name": "崔枢华"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-061",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-063",
         "name": "殷孟伦"
       },
       "relType": "受业",
@@ -12828,7 +13074,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-160#edge-ext-096",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-160#edge-ext-100",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12839,7 +13085,7 @@
         "name": "崔枢华"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-096",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-100",
         "name": "鲁国尧"
       },
       "relType": "博士",
@@ -12954,7 +13200,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-163#edge-ext-020",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-163#edge-ext-021",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -12965,7 +13211,7 @@
         "name": "刘象愚"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-020",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-021",
         "name": "伊哈布·哈桑（Ihab Hassan）"
       },
       "relType": "问学",
@@ -13108,7 +13354,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-168#edge-ext-013",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-168#edge-ext-014",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13119,7 +13365,7 @@
         "name": "潘家荣"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-013",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-014",
         "name": "R.M.W. Dixon"
       },
       "relType": "博士",
@@ -13140,7 +13386,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-169#edge-ext-028",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-169#edge-ext-029",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13151,7 +13397,7 @@
         "name": "周荐"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-028",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-029",
         "name": "刘叔新"
       },
       "relType": "硕士",
@@ -13196,7 +13442,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-171#edge-ext-062",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-171#edge-ext-065",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13207,7 +13453,7 @@
         "name": "郭承禹"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-062",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-065",
         "name": "江荻"
       },
       "relType": "博士",
@@ -13298,7 +13544,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-174#edge-ext-024",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-174#edge-ext-025",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13309,7 +13555,7 @@
         "name": "李琨"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-024",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-025",
         "name": "傅亚庶"
       },
       "relType": "博士",
@@ -13330,7 +13576,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-175#edge-ext-022",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-175#edge-ext-023",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13341,7 +13587,7 @@
         "name": "李晓进"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-022",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-023",
         "name": "倪梁康"
       },
       "relType": "博士",
@@ -13394,7 +13640,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-177#edge-ext-064",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-177#edge-ext-067",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13405,7 +13651,7 @@
         "name": "林佳"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-064",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-067",
         "name": "涂险峰"
       },
       "relType": "博士",
@@ -13426,7 +13672,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-178#edge-ext-056",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-178#edge-ext-058",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13437,7 +13683,7 @@
         "name": "王小岩"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-056",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-058",
         "name": "李玫"
       },
       "relType": "硕士",
@@ -13454,7 +13700,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-179#edge-ext-071",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-179#edge-ext-074",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13465,7 +13711,7 @@
         "name": "翁明鹏"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-071",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-074",
         "name": "胡大雷"
       },
       "relType": "博士后",
@@ -13482,7 +13728,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-179#edge-ext-090",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-179#edge-ext-094",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13493,7 +13739,7 @@
         "name": "翁明鹏"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-090",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-094",
         "name": "陈斯鹏"
       },
       "relType": "博士",
@@ -13502,7 +13748,7 @@
         "@value": "2020",
         "@type": "xsd:gYear"
       },
-      "channel": "师承方式：硕博连读；2017 年转博后导师仍为陈斯鹏",
+      "channel": "师承方式：硕博连读，导师同为陈斯鹏",
       "source": [
         "学校官网师资介绍页（广西师大文学院，经freekaoyan转载）"
       ],
@@ -13547,7 +13793,40 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-182#edge-ext-067",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-181#edge-ext-103",
+      "@type": [
+        "crm:E7_Activity",
+        "schema:Event"
+      ],
+      "name": "龙乐思（Miguel Baptista Nunes） → 张宁（博士 · 2021）",
+      "student": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-181",
+        "name": "张宁"
+      },
+      "mentor": {
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-103",
+        "name": "龙乐思（Miguel Baptista Nunes）"
+      },
+      "relType": "博士",
+      "strength": "直接",
+      "startDate": {
+        "@value": "2021",
+        "@type": "xsd:gYear"
+      },
+      "channel": "中山大学信息管理学院图书馆学博士（2017—2021）；博士课题即其 2019 年创办的 VR+文化实验室首个项目",
+      "source": [
+        "导师本人 CV（澳门城市大学官网 PDF，2026-01 版）Attachment B 直接著录"
+      ],
+      "evidence": [
+        {
+          "@type": "bnu:Evidence",
+          "description": "José Miguel Baptista Nunes, CV, Attachment B \"PhD Research Supervision\", in the School of Information Management, Sun Yat-sen University, item 3: \"Zhang, Ning - Research of Designing a Virtual Reality Enabled System Model for Chinese Ancient Book Reading Promotion (2021). Ning is currently a lecturer at the Beijing Normal University (Zhuhai).\"",
+          "url": "https://fob.cityu.edu.mo/uploads/ueditor/file/20260129/1769652698883349.pdf"
+        }
+      ]
+    },
+    {
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-182#edge-ext-070",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13558,7 +13837,7 @@
         "name": "高亮"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-067",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-070",
         "name": "王承略"
       },
       "relType": "博士",
@@ -13579,7 +13858,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-183#edge-ext-046",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-183#edge-ext-048",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13590,7 +13869,7 @@
         "name": "刘锐"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-046",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-048",
         "name": "徐杰"
       },
       "relType": "博士",
@@ -13607,7 +13886,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-184#edge-ext-039",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-184#edge-ext-041",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13618,7 +13897,7 @@
         "name": "林颖政"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-039",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-041",
         "name": "岑溢成"
       },
       "relType": "博士",
@@ -13639,7 +13918,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-185#edge-ext-051",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-185#edge-ext-053",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13650,7 +13929,7 @@
         "name": "王路"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-051",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-053",
         "name": "朱崇科"
       },
       "relType": "博士",
@@ -13731,7 +14010,7 @@
       ]
     },
     {
-      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-187#edge-ext-044",
+      "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=bnu-187#edge-ext-046",
       "@type": [
         "crm:E7_Activity",
         "schema:Event"
@@ -13742,7 +14021,7 @@
         "name": "赵芳媛"
       },
       "mentor": {
-        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-044",
+        "@id": "https://sitting-forgetting.github.io/bnu-scholars/lineage.html?id=ext-046",
         "name": "张荣强"
       },
       "relType": "博士后",

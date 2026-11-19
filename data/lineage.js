@@ -1,6 +1,6 @@
 /* 由 scripts/build_lineage_data.py 自动生成，请勿手改 */
 window.LINEAGE_DATA = {
- "generatedAt": "2026-11-02",
+ "generatedAt": "2026-11-18",
  "nodes": [
   {
    "id": "bnu-001",
@@ -410,7 +410,7 @@ window.LINEAGE_DATA = {
   {
    "id": "bnu-028",
    "asMentor": 0,
-   "asStudent": 0,
+   "asStudent": 1,
    "name": "钟蔚苹",
    "kind": "scholar",
    "title": "讲师",
@@ -418,7 +418,7 @@ window.LINEAGE_DATA = {
    "discipline": "语言学及应用语言学",
    "birth": null,
    "death": null,
-   "year": null,
+   "year": 2016,
    "py": "zhongweiping",
    "ab": "zwp"
   },
@@ -785,7 +785,7 @@ window.LINEAGE_DATA = {
   {
    "id": "bnu-053",
    "asMentor": 0,
-   "asStudent": 0,
+   "asStudent": 1,
    "name": "付亚亮",
    "kind": "scholar",
    "title": "讲师",
@@ -793,7 +793,7 @@ window.LINEAGE_DATA = {
    "discipline": "比较文学与世界文学",
    "birth": null,
    "death": null,
-   "year": null,
+   "year": 2024,
    "py": "fuyaliang",
    "ab": "fyl"
   },
@@ -950,7 +950,7 @@ window.LINEAGE_DATA = {
   {
    "id": "bnu-064",
    "asMentor": 0,
-   "asStudent": 0,
+   "asStudent": 1,
    "name": "吴沂澐",
    "kind": "scholar",
    "title": "讲师",
@@ -958,7 +958,7 @@ window.LINEAGE_DATA = {
    "discipline": "中国古代文学",
    "birth": null,
    "death": null,
-   "year": null,
+   "year": 2013,
    "py": "wuyiyun",
    "ab": "wyy"
   },
@@ -1550,7 +1550,7 @@ window.LINEAGE_DATA = {
   {
    "id": "bnu-104",
    "asMentor": 0,
-   "asStudent": 0,
+   "asStudent": 1,
    "name": "唐璐璐",
    "kind": "scholar",
    "title": "",
@@ -1558,7 +1558,7 @@ window.LINEAGE_DATA = {
    "discipline": "民俗学（民间文学）",
    "birth": null,
    "death": null,
-   "year": null,
+   "year": 2016,
    "py": "tanglulu",
    "ab": "tll"
   },
@@ -2540,7 +2540,7 @@ window.LINEAGE_DATA = {
   {
    "id": "bnu-181",
    "asMentor": 0,
-   "asStudent": 0,
+   "asStudent": 1,
    "name": "张宁",
    "kind": "scholar",
    "title": "副教授",
@@ -2548,7 +2548,7 @@ window.LINEAGE_DATA = {
    "discipline": "",
    "birth": null,
    "death": null,
-   "year": null,
+   "year": 2021,
    "py": "zhangning",
    "ab": "zn"
   },
@@ -2725,6 +2725,21 @@ window.LINEAGE_DATA = {
    "id": "ext-004",
    "asMentor": 1,
    "asStudent": 0,
+   "name": "Andrea Torre",
+   "kind": "external",
+   "title": "外源导师（待入藏）",
+   "org": "",
+   "discipline": "",
+   "year": 2021,
+   "identity": "",
+   "field": "",
+   "bioConfidence": "无",
+   "bioSource": ""
+  },
+  {
+   "id": "ext-005",
+   "asMentor": 1,
+   "asStudent": 0,
    "name": "Antoine Compagnon",
    "kind": "external",
    "title": "外源导师（待入藏）",
@@ -2737,7 +2752,7 @@ window.LINEAGE_DATA = {
    "bioSource": "http://college-de-france.fr/en/news/modern-and-contemporary-literature-history-criticism-theory-opening-lecture-by-pr-antoine-compagnon"
   },
   {
-   "id": "ext-005",
+   "id": "ext-006",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Christopher Rosenmeier",
@@ -2752,7 +2767,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://www.ed.ac.uk/profile/christopher-rosenmeier"
   },
   {
-   "id": "ext-006",
+   "id": "ext-007",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Dan Ben-Amos",
@@ -2767,7 +2782,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://almanac.upenn.edu/articles/dan-ben-amos-near-eastern-languages-civilizations"
   },
   {
-   "id": "ext-007",
+   "id": "ext-008",
    "asMentor": 1,
    "asStudent": 0,
    "name": "David Hufford",
@@ -2782,7 +2797,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://www.wikiwand.com/en/articles/David_Hufford"
   },
   {
-   "id": "ext-008",
+   "id": "ext-009",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Jack Mostow",
@@ -2797,7 +2812,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://www.cs.cmu.edu/~mostow"
   },
   {
-   "id": "ext-009",
+   "id": "ext-010",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Julian Ward",
@@ -2812,7 +2827,7 @@ window.LINEAGE_DATA = {
    "bioSource": "http://edwebprofiles.ed.ac.uk/profile/julian-ward"
   },
   {
-   "id": "ext-010",
+   "id": "ext-011",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Kathryn Bernhardt",
@@ -2827,7 +2842,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://history.ucla.edu/faculty/kathryn-bernhardt"
   },
   {
-   "id": "ext-011",
+   "id": "ext-012",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Nathan Sivin",
@@ -2842,7 +2857,7 @@ window.LINEAGE_DATA = {
    "bioSource": "http://almanac.upenn.edu/articles/nathan-sivin-history-and-sociology-of-science"
   },
   {
-   "id": "ext-012",
+   "id": "ext-013",
    "asMentor": 1,
    "asStudent": 0,
    "name": "Philip C. C. Huang（黄宗智）",
@@ -2859,7 +2874,7 @@ window.LINEAGE_DATA = {
    "ab": "hzz"
   },
   {
-   "id": "ext-013",
+   "id": "ext-014",
    "asMentor": 1,
    "asStudent": 0,
    "name": "R.M.W. Dixon",
@@ -2874,7 +2889,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://www.wikiwand.com/en/R._M._W._Dixon"
   },
   {
-   "id": "ext-014",
+   "id": "ext-015",
    "asMentor": 1,
    "asStudent": 0,
    "name": "William Moebius",
@@ -2889,7 +2904,7 @@ window.LINEAGE_DATA = {
    "bioSource": "https://keywords.nyupress.org/author/wmoebius"
   },
   {
-   "id": "ext-015",
+   "id": "ext-016",
    "asMentor": 1,
    "asStudent": 0,
    "name": "丛立新",
@@ -2906,7 +2921,7 @@ window.LINEAGE_DATA = {
    "ab": "clx"
   },
   {
-   "id": "ext-016",
+   "id": "ext-017",
    "asMentor": 1,
    "asStudent": 0,
    "name": "严恩图",
@@ -2923,7 +2938,7 @@ window.LINEAGE_DATA = {
    "ab": "yet"
   },
   {
-   "id": "ext-017",
+   "id": "ext-018",
    "asMentor": 1,
    "asStudent": 0,
    "name": "严绍璗",
@@ -2940,7 +2955,7 @@ window.LINEAGE_DATA = {
    "ab": "ysd"
   },
   {
-   "id": "ext-018",
+   "id": "ext-019",
    "asMentor": 1,
    "asStudent": 0,
    "name": "乌丙安",
@@ -2957,7 +2972,7 @@ window.LINEAGE_DATA = {
    "ab": "wba"
   },
   {
-   "id": "ext-019",
+   "id": "ext-020",
    "asMentor": 1,
    "asStudent": 0,
    "name": "乐黛云",
@@ -2974,7 +2989,7 @@ window.LINEAGE_DATA = {
    "ab": "ydy"
   },
   {
-   "id": "ext-020",
+   "id": "ext-021",
    "asMentor": 1,
    "asStudent": 0,
    "name": "伊哈布·哈桑（Ihab Hassan）",
@@ -2991,7 +3006,7 @@ window.LINEAGE_DATA = {
    "ab": "yhbhs"
   },
   {
-   "id": "ext-021",
+   "id": "ext-022",
    "asMentor": 1,
    "asStudent": 0,
    "name": "伯特·斯特恩（Herbert/Bert Stern）",
@@ -3008,7 +3023,7 @@ window.LINEAGE_DATA = {
    "ab": "btste"
   },
   {
-   "id": "ext-022",
+   "id": "ext-023",
    "asMentor": 1,
    "asStudent": 0,
    "name": "倪梁康",
@@ -3025,7 +3040,7 @@ window.LINEAGE_DATA = {
    "ab": "nlk"
   },
   {
-   "id": "ext-023",
+   "id": "ext-024",
    "asMentor": 1,
    "asStudent": 0,
    "name": "倪蕊琴",
@@ -3042,7 +3057,7 @@ window.LINEAGE_DATA = {
    "ab": "nrq"
   },
   {
-   "id": "ext-024",
+   "id": "ext-025",
    "asMentor": 1,
    "asStudent": 0,
    "name": "傅亚庶",
@@ -3059,7 +3074,7 @@ window.LINEAGE_DATA = {
    "ab": "fys"
   },
   {
-   "id": "ext-025",
+   "id": "ext-026",
    "asMentor": 1,
    "asStudent": 0,
    "name": "傅爱兰",
@@ -3076,7 +3091,7 @@ window.LINEAGE_DATA = {
    "ab": "fal"
   },
   {
-   "id": "ext-026",
+   "id": "ext-027",
    "asMentor": 1,
    "asStudent": 0,
    "name": "党建武",
@@ -3093,7 +3108,7 @@ window.LINEAGE_DATA = {
    "ab": "djw"
   },
   {
-   "id": "ext-027",
+   "id": "ext-028",
    "asMentor": 1,
    "asStudent": 0,
    "name": "冉友侨",
@@ -3110,7 +3125,7 @@ window.LINEAGE_DATA = {
    "ab": "ryq"
   },
   {
-   "id": "ext-028",
+   "id": "ext-029",
    "asMentor": 1,
    "asStudent": 0,
    "name": "刘叔新",
@@ -3127,7 +3142,7 @@ window.LINEAGE_DATA = {
    "ab": "lsx"
   },
   {
-   "id": "ext-029",
+   "id": "ext-030",
    "asMentor": 1,
    "asStudent": 0,
    "name": "刘君惠",
@@ -3144,7 +3159,7 @@ window.LINEAGE_DATA = {
    "ab": "ljh"
   },
   {
-   "id": "ext-030",
+   "id": "ext-031",
    "asMentor": 1,
    "asStudent": 0,
    "name": "刘家和",
@@ -3161,7 +3176,7 @@ window.LINEAGE_DATA = {
    "ab": "ljh"
   },
   {
-   "id": "ext-031",
+   "id": "ext-032",
    "asMentor": 1,
    "asStudent": 0,
    "name": "卢庆滨（Andrew Lo）",
@@ -3178,7 +3193,24 @@ window.LINEAGE_DATA = {
    "ab": "lqb"
   },
   {
-   "id": "ext-032",
+   "id": "ext-033",
+   "asMentor": 1,
+   "asStudent": 0,
+   "name": "叶朗",
+   "kind": "external",
+   "title": "外源导师（待入藏）",
+   "org": "",
+   "discipline": "",
+   "year": 2013,
+   "identity": "北京大学哲学、社会科学资深教授（1960 年北大哲学系毕业，1986 年起任教授），兼任北京大学艺术学院名誉院长、北京大学文化产业研究院院长；研究美学原理与中国美学，著《中国美学史大纲》《美在意象》。",
+   "field": "美学 / 艺术学理论",
+   "bioConfidence": "高",
+   "bioSource": "https://phil.pku.edu.cn/szdw/ltxry/69Religiousstudies526211.htm",
+   "py": "yelang",
+   "ab": "yl"
+  },
+  {
+   "id": "ext-034",
    "asMentor": 1,
    "asStudent": 0,
    "name": "吴岩",
@@ -3195,7 +3227,7 @@ window.LINEAGE_DATA = {
    "ab": "wy"
   },
   {
-   "id": "ext-033",
+   "id": "ext-035",
    "asMentor": 1,
    "asStudent": 0,
    "name": "周强",
@@ -3212,7 +3244,7 @@ window.LINEAGE_DATA = {
    "ab": "zq"
   },
   {
-   "id": "ext-034",
+   "id": "ext-036",
    "asMentor": 1,
    "asStudent": 0,
    "name": "周流溪",
@@ -3229,7 +3261,7 @@ window.LINEAGE_DATA = {
    "ab": "zlx"
   },
   {
-   "id": "ext-035",
+   "id": "ext-037",
    "asMentor": 1,
    "asStudent": 0,
    "name": "周祖谟",
@@ -3246,7 +3278,7 @@ window.LINEAGE_DATA = {
    "ab": "zzm"
   },
   {
-   "id": "ext-036",
+   "id": "ext-038",
    "asMentor": 1,
    "asStudent": 0,
    "name": "孔江平",
@@ -3263,7 +3295,7 @@ window.LINEAGE_DATA = {
    "ab": "kjp"
   },
   {
-   "id": "ext-037",
+   "id": "ext-039",
    "asMentor": 1,
    "asStudent": 0,
    "name": "孙昌熙",
@@ -3280,7 +3312,7 @@ window.LINEAGE_DATA = {
    "ab": "scx"
   },
   {
-   "id": "ext-038",
+   "id": "ext-040",
    "asMentor": 1,
    "asStudent": 0,
    "name": "宋继华",
@@ -3297,7 +3329,7 @@ window.LINEAGE_DATA = {
    "ab": "sjh"
   },
   {
-   "id": "ext-039",
+   "id": "ext-041",
    "asMentor": 1,
    "asStudent": 0,
    "name": "岑溢成",
@@ -3314,7 +3346,7 @@ window.LINEAGE_DATA = {
    "ab": "cyc"
   },
   {
-   "id": "ext-040",
+   "id": "ext-042",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张一舟",
@@ -3331,7 +3363,7 @@ window.LINEAGE_DATA = {
    "ab": "zyz"
   },
   {
-   "id": "ext-041",
+   "id": "ext-043",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张国宪",
@@ -3348,7 +3380,7 @@ window.LINEAGE_DATA = {
    "ab": "zgx"
   },
   {
-   "id": "ext-042",
+   "id": "ext-044",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张振德",
@@ -3365,7 +3397,7 @@ window.LINEAGE_DATA = {
    "ab": "zzd"
   },
   {
-   "id": "ext-043",
+   "id": "ext-045",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张英",
@@ -3382,7 +3414,7 @@ window.LINEAGE_DATA = {
    "ab": "zy"
   },
   {
-   "id": "ext-044",
+   "id": "ext-046",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张荣强",
@@ -3399,7 +3431,7 @@ window.LINEAGE_DATA = {
    "ab": "zrq"
   },
   {
-   "id": "ext-045",
+   "id": "ext-047",
    "asMentor": 1,
    "asStudent": 0,
    "name": "张鸣",
@@ -3416,7 +3448,7 @@ window.LINEAGE_DATA = {
    "ab": "zm"
   },
   {
-   "id": "ext-046",
+   "id": "ext-048",
    "asMentor": 1,
    "asStudent": 0,
    "name": "徐杰",
@@ -3433,7 +3465,7 @@ window.LINEAGE_DATA = {
    "ab": "xj"
   },
   {
-   "id": "ext-047",
+   "id": "ext-049",
    "asMentor": 1,
    "asStudent": 0,
    "name": "徐通锵",
@@ -3450,7 +3482,7 @@ window.LINEAGE_DATA = {
    "ab": "xtq"
   },
   {
-   "id": "ext-048",
+   "id": "ext-050",
    "asMentor": 1,
    "asStudent": 0,
    "name": "晋耀红",
@@ -3467,7 +3499,7 @@ window.LINEAGE_DATA = {
    "ab": "jyh"
   },
   {
-   "id": "ext-049",
+   "id": "ext-051",
    "asMentor": 1,
    "asStudent": 0,
    "name": "曹志耘",
@@ -3484,7 +3516,7 @@ window.LINEAGE_DATA = {
    "ab": "czy"
   },
   {
-   "id": "ext-050",
+   "id": "ext-052",
    "asMentor": 1,
    "asStudent": 0,
    "name": "曹文轩",
@@ -3501,7 +3533,7 @@ window.LINEAGE_DATA = {
    "ab": "cwx"
   },
   {
-   "id": "ext-051",
+   "id": "ext-053",
    "asMentor": 1,
    "asStudent": 0,
    "name": "朱崇科",
@@ -3518,7 +3550,7 @@ window.LINEAGE_DATA = {
    "ab": "zck"
   },
   {
-   "id": "ext-052",
+   "id": "ext-054",
    "asMentor": 1,
    "asStudent": 0,
    "name": "李丽中",
@@ -3535,7 +3567,7 @@ window.LINEAGE_DATA = {
    "ab": "llz"
   },
   {
-   "id": "ext-053",
+   "id": "ext-055",
    "asMentor": 1,
    "asStudent": 0,
    "name": "李兆林",
@@ -3552,7 +3584,7 @@ window.LINEAGE_DATA = {
    "ab": "lzl"
   },
   {
-   "id": "ext-054",
+   "id": "ext-056",
    "asMentor": 1,
    "asStudent": 0,
    "name": "李宇明",
@@ -3569,7 +3601,7 @@ window.LINEAGE_DATA = {
    "ab": "lym"
   },
   {
-   "id": "ext-055",
+   "id": "ext-057",
    "asMentor": 1,
    "asStudent": 0,
    "name": "李炳海",
@@ -3586,7 +3618,7 @@ window.LINEAGE_DATA = {
    "ab": "lbh"
   },
   {
-   "id": "ext-056",
+   "id": "ext-058",
    "asMentor": 1,
    "asStudent": 0,
    "name": "李玫",
@@ -3603,7 +3635,7 @@ window.LINEAGE_DATA = {
    "ab": "lm"
   },
   {
-   "id": "ext-057",
+   "id": "ext-059",
    "asMentor": 1,
    "asStudent": 0,
    "name": "杜泽逊",
@@ -3620,7 +3652,7 @@ window.LINEAGE_DATA = {
    "ab": "dzx"
   },
   {
-   "id": "ext-058",
+   "id": "ext-060",
    "asMentor": 1,
    "asStudent": 0,
    "name": "杜道生",
@@ -3637,7 +3669,7 @@ window.LINEAGE_DATA = {
    "ab": "dds"
   },
   {
-   "id": "ext-059",
+   "id": "ext-061",
    "asMentor": 1,
    "asStudent": 0,
    "name": "杨明照",
@@ -3654,7 +3686,7 @@ window.LINEAGE_DATA = {
    "ab": "ymz"
   },
   {
-   "id": "ext-060",
+   "id": "ext-062",
    "asMentor": 1,
    "asStudent": 0,
    "name": "段宝林",
@@ -3671,7 +3703,7 @@ window.LINEAGE_DATA = {
    "ab": "dbl"
   },
   {
-   "id": "ext-061",
+   "id": "ext-063",
    "asMentor": 1,
    "asStudent": 0,
    "name": "殷孟伦",
@@ -3688,7 +3720,24 @@ window.LINEAGE_DATA = {
    "ab": "yml"
   },
   {
-   "id": "ext-062",
+   "id": "ext-064",
+   "asMentor": 1,
+   "asStudent": 0,
+   "name": "江建俊",
+   "kind": "external",
+   "title": "外源导师（待入藏）",
+   "org": "",
+   "discipline": "",
+   "year": 2010,
+   "identity": "",
+   "field": "",
+   "bioConfidence": "无",
+   "bioSource": "",
+   "py": "jiangjianjun",
+   "ab": "jjj"
+  },
+  {
+   "id": "ext-065",
    "asMentor": 1,
    "asStudent": 0,
    "name": "江荻",
@@ -3705,7 +3754,7 @@ window.LINEAGE_DATA = {
    "ab": "jd"
   },
   {
-   "id": "ext-063",
+   "id": "ext-066",
    "asMentor": 1,
    "asStudent": 0,
    "name": "汪景寿",
@@ -3722,7 +3771,7 @@ window.LINEAGE_DATA = {
    "ab": "wjs"
   },
   {
-   "id": "ext-064",
+   "id": "ext-067",
    "asMentor": 1,
    "asStudent": 0,
    "name": "涂险峰",
@@ -3739,7 +3788,7 @@ window.LINEAGE_DATA = {
    "ab": "txf"
   },
   {
-   "id": "ext-065",
+   "id": "ext-068",
    "asMentor": 1,
    "asStudent": 0,
    "name": "潘悟云",
@@ -3756,7 +3805,7 @@ window.LINEAGE_DATA = {
    "ab": "pwy"
   },
   {
-   "id": "ext-066",
+   "id": "ext-069",
    "asMentor": 1,
    "asStudent": 0,
    "name": "王一川",
@@ -3773,7 +3822,7 @@ window.LINEAGE_DATA = {
    "ab": "wyc"
   },
   {
-   "id": "ext-067",
+   "id": "ext-070",
    "asMentor": 1,
    "asStudent": 0,
    "name": "王承略",
@@ -3790,7 +3839,7 @@ window.LINEAGE_DATA = {
    "ab": "wcl"
   },
   {
-   "id": "ext-068",
+   "id": "ext-071",
    "asMentor": 1,
    "asStudent": 0,
    "name": "瓦格纳（东德柏林洪堡大学）",
@@ -3807,7 +3856,7 @@ window.LINEAGE_DATA = {
    "ab": "wgnddblhbdx"
   },
   {
-   "id": "ext-069",
+   "id": "ext-072",
    "asMentor": 1,
    "asStudent": 0,
    "name": "章安祺",
@@ -3824,7 +3873,7 @@ window.LINEAGE_DATA = {
    "ab": "zaq"
   },
   {
-   "id": "ext-070",
+   "id": "ext-073",
    "asMentor": 1,
    "asStudent": 0,
    "name": "罗芃",
@@ -3841,7 +3890,7 @@ window.LINEAGE_DATA = {
    "ab": "lp"
   },
   {
-   "id": "ext-071",
+   "id": "ext-074",
    "asMentor": 1,
    "asStudent": 0,
    "name": "胡大雷",
@@ -3858,7 +3907,7 @@ window.LINEAGE_DATA = {
    "ab": "hdl"
   },
   {
-   "id": "ext-072",
+   "id": "ext-075",
    "asMentor": 1,
    "asStudent": 0,
    "name": "胡戈·狄泽林克（Hugo Dyserinck）",
@@ -3875,7 +3924,7 @@ window.LINEAGE_DATA = {
    "ab": "hgdzlk"
   },
   {
-   "id": "ext-073",
+   "id": "ext-076",
    "asMentor": 1,
    "asStudent": 0,
    "name": "葛本仪",
@@ -3892,7 +3941,7 @@ window.LINEAGE_DATA = {
    "ab": "gby"
   },
   {
-   "id": "ext-074",
+   "id": "ext-077",
    "asMentor": 1,
    "asStudent": 0,
    "name": "蒋天枢",
@@ -3909,7 +3958,7 @@ window.LINEAGE_DATA = {
    "ab": "jts"
   },
   {
-   "id": "ext-075",
+   "id": "ext-078",
    "asMentor": 1,
    "asStudent": 0,
    "name": "蒋风",
@@ -3926,7 +3975,7 @@ window.LINEAGE_DATA = {
    "ab": "jf"
   },
   {
-   "id": "ext-076",
+   "id": "ext-079",
    "asMentor": 1,
    "asStudent": 0,
    "name": "袁毓林",
@@ -3943,7 +3992,7 @@ window.LINEAGE_DATA = {
    "ab": "yyl"
   },
   {
-   "id": "ext-077",
+   "id": "ext-080",
    "asMentor": 1,
    "asStudent": 0,
    "name": "袁行霈",
@@ -3960,7 +4009,7 @@ window.LINEAGE_DATA = {
    "ab": "yxp"
   },
   {
-   "id": "ext-078",
+   "id": "ext-081",
    "asMentor": 1,
    "asStudent": 0,
    "name": "许志英",
@@ -3977,7 +4026,7 @@ window.LINEAGE_DATA = {
    "ab": "xzy"
   },
   {
-   "id": "ext-079",
+   "id": "ext-082",
    "asMentor": 1,
    "asStudent": 0,
    "name": "许绍早",
@@ -3994,7 +4043,7 @@ window.LINEAGE_DATA = {
    "ab": "xsz"
   },
   {
-   "id": "ext-080",
+   "id": "ext-083",
    "asMentor": 1,
    "asStudent": 0,
    "name": "赵振铎",
@@ -4011,7 +4060,7 @@ window.LINEAGE_DATA = {
    "ab": "zzd"
   },
   {
-   "id": "ext-081",
+   "id": "ext-084",
    "asMentor": 1,
    "asStudent": 0,
    "name": "车槿山",
@@ -4028,7 +4077,7 @@ window.LINEAGE_DATA = {
    "ab": "cjs"
   },
   {
-   "id": "ext-082",
+   "id": "ext-085",
    "asMentor": 1,
    "asStudent": 0,
    "name": "邓小南",
@@ -4045,7 +4094,7 @@ window.LINEAGE_DATA = {
    "ab": "dxn"
   },
   {
-   "id": "ext-083",
+   "id": "ext-086",
    "asMentor": 1,
    "asStudent": 0,
    "name": "邢福义",
@@ -4062,7 +4111,7 @@ window.LINEAGE_DATA = {
    "ab": "xfy"
   },
   {
-   "id": "ext-084",
+   "id": "ext-087",
    "asMentor": 1,
    "asStudent": 0,
    "name": "郭丹",
@@ -4079,7 +4128,24 @@ window.LINEAGE_DATA = {
    "ab": "gd"
   },
   {
-   "id": "ext-085",
+   "id": "ext-088",
+   "asMentor": 1,
+   "asStudent": 0,
+   "name": "郭必之（Bit Chee KWOK）",
+   "kind": "external",
+   "title": "外源导师（待入藏）",
+   "org": "",
+   "discipline": "",
+   "year": 2013,
+   "identity": "历史语言学、方言学学者，BA / MPhil（香港中文大学）、PhD（香港大学）；曾任教香港科技大学、中央研究院、香港城市大学，现任香港中文大学中国语言及文学系教授、博士生导师；研究闽南方言、历史语言学。",
+   "field": "历史语言学 / 方言学（闽语）",
+   "bioConfidence": "高",
+   "bioSource": "https://www.chi.cuhk.edu.hk/?p=2210",
+   "py": "guobizhi",
+   "ab": "gbz"
+  },
+  {
+   "id": "ext-089",
    "asMentor": 1,
    "asStudent": 0,
    "name": "郭诚永",
@@ -4096,7 +4162,7 @@ window.LINEAGE_DATA = {
    "ab": "gcy"
   },
   {
-   "id": "ext-086",
+   "id": "ext-090",
    "asMentor": 1,
    "asStudent": 0,
    "name": "金惠敏",
@@ -4113,7 +4179,7 @@ window.LINEAGE_DATA = {
    "ab": "jhm"
   },
   {
-   "id": "ext-087",
+   "id": "ext-091",
    "asMentor": 1,
    "asStudent": 0,
    "name": "钱谷融",
@@ -4130,7 +4196,7 @@ window.LINEAGE_DATA = {
    "ab": "qgr"
   },
   {
-   "id": "ext-088",
+   "id": "ext-092",
    "asMentor": 1,
    "asStudent": 0,
    "name": "陈保亚",
@@ -4147,7 +4213,7 @@ window.LINEAGE_DATA = {
    "ab": "cby"
   },
   {
-   "id": "ext-089",
+   "id": "ext-093",
    "asMentor": 1,
    "asStudent": 0,
    "name": "陈平原",
@@ -4164,7 +4230,7 @@ window.LINEAGE_DATA = {
    "ab": "cpy"
   },
   {
-   "id": "ext-090",
+   "id": "ext-094",
    "asMentor": 1,
    "asStudent": 0,
    "name": "陈斯鹏",
@@ -4181,7 +4247,7 @@ window.LINEAGE_DATA = {
    "ab": "csp"
   },
   {
-   "id": "ext-091",
+   "id": "ext-095",
    "asMentor": 1,
    "asStudent": 0,
    "name": "陈晓明",
@@ -4198,7 +4264,7 @@ window.LINEAGE_DATA = {
    "ab": "cxm"
   },
   {
-   "id": "ext-092",
+   "id": "ext-096",
    "asMentor": 1,
    "asStudent": 0,
    "name": "陶文鹏",
@@ -4215,7 +4281,7 @@ window.LINEAGE_DATA = {
    "ab": "twp"
   },
   {
-   "id": "ext-093",
+   "id": "ext-097",
    "asMentor": 1,
    "asStudent": 0,
    "name": "霍松林",
@@ -4232,7 +4298,7 @@ window.LINEAGE_DATA = {
    "ab": "hsl"
   },
   {
-   "id": "ext-094",
+   "id": "ext-098",
    "asMentor": 1,
    "asStudent": 0,
    "name": "马庆株",
@@ -4249,7 +4315,7 @@ window.LINEAGE_DATA = {
    "ab": "mqz"
   },
   {
-   "id": "ext-095",
+   "id": "ext-099",
    "asMentor": 1,
    "asStudent": 0,
    "name": "马颂仁（Pierre Marsone）",
@@ -4266,7 +4332,7 @@ window.LINEAGE_DATA = {
    "ab": "msr"
   },
   {
-   "id": "ext-096",
+   "id": "ext-100",
    "asMentor": 1,
    "asStudent": 0,
    "name": "鲁国尧",
@@ -4283,7 +4349,7 @@ window.LINEAGE_DATA = {
    "ab": "lgy"
   },
   {
-   "id": "ext-097",
+   "id": "ext-101",
    "asMentor": 1,
    "asStudent": 0,
    "name": "黄会林",
@@ -4300,7 +4366,7 @@ window.LINEAGE_DATA = {
    "ab": "hhl"
   },
   {
-   "id": "ext-098",
+   "id": "ext-102",
    "asMentor": 1,
    "asStudent": 0,
    "name": "黄甫全",
@@ -4315,6 +4381,23 @@ window.LINEAGE_DATA = {
    "bioSource": "http://ctld.scnu.edu.cn/mingshifengfan/2016/0707/5.html",
    "py": "huangfuquan",
    "ab": "hfq"
+  },
+  {
+   "id": "ext-103",
+   "asMentor": 1,
+   "asStudent": 0,
+   "name": "龙乐思（Miguel Baptista Nunes）",
+   "kind": "external",
+   "title": "外源导师（待入藏）",
+   "org": "",
+   "discipline": "",
+   "year": 2018,
+   "identity": "葡萄牙籍信息管理学者（1963— ），谢菲尔德大学信息研究博士（2000）、信息管理硕士（1994）；1997—2017 任教于谢菲尔德大学信息学院，2016—2019 任中山大学信息管理学院院长，2019 年创立该校 VR+文化实验室；现任澳门城市大学商学院信息系统教授。研究方向：信息系统建模、知识管理、教育信息学、数字人文。",
+   "field": "信息管理 / 信息系统 / 数字人文（VR+文化）",
+   "bioConfidence": "高",
+   "bioSource": "https://fob.cityu.edu.mo/uploads/ueditor/file/20260129/1769652698883349.pdf",
+   "py": "longlesi",
+   "ab": "lls"
   },
   {
    "id": "ext-刘宁",
@@ -4897,7 +4980,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-003",
-   "mentor": "ext-080",
+   "mentor": "ext-083",
    "year": 1995,
    "type": "博士",
    "strength": "直接",
@@ -5033,7 +5116,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-009",
-   "mentor": "ext-038",
+   "mentor": "ext-040",
    "year": 2006,
    "type": "硕士",
    "strength": "直接",
@@ -5067,7 +5150,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-010",
-   "mentor": "ext-030",
+   "mentor": "ext-031",
    "year": 2018,
    "type": "博士",
    "strength": "直接",
@@ -5208,7 +5291,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-016",
-   "mentor": "ext-073",
+   "mentor": "ext-076",
    "year": 1998,
    "type": "博士",
    "strength": "直接",
@@ -5225,7 +5308,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-017",
-   "mentor": "ext-041",
+   "mentor": "ext-043",
    "year": 2002,
    "type": "博士",
    "strength": "直接",
@@ -5242,7 +5325,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-017",
-   "mentor": "ext-054",
+   "mentor": "ext-056",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5259,7 +5342,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-017",
-   "mentor": "ext-083",
+   "mentor": "ext-086",
    "year": null,
    "type": "博士后",
    "strength": "直接",
@@ -5310,7 +5393,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-019",
-   "mentor": "ext-043",
+   "mentor": "ext-045",
    "year": null,
    "type": "博士",
    "strength": "直接",
@@ -5327,7 +5410,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-019",
-   "mentor": "ext-095",
+   "mentor": "ext-099",
    "year": null,
    "type": "就学期间受教",
    "strength": "直接",
@@ -5340,7 +5423,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官方公众号（北师大全球华语对比研究中心《清末民初语法研究》推介）"
    ],
-   "channel": "师承方式：联合培养导师（巴黎 EPHE）"
+   "channel": "师承方式：联合培养导师"
   },
   {
    "student": "bnu-020",
@@ -5361,7 +5444,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-020",
-   "mentor": "ext-076",
+   "mentor": "ext-079",
    "year": 2017,
    "type": "博士",
    "strength": "直接",
@@ -5400,7 +5483,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-027",
+   "mentor": "ext-028",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5417,7 +5500,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-029",
+   "mentor": "ext-030",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5434,7 +5517,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-042",
+   "mentor": "ext-044",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5451,7 +5534,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-058",
+   "mentor": "ext-060",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5468,7 +5551,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-065",
+   "mentor": "ext-068",
    "year": 1996,
    "type": "博士",
    "strength": "直接",
@@ -5485,7 +5568,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-022",
-   "mentor": "ext-085",
+   "mentor": "ext-089",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -5519,7 +5602,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-023",
-   "mentor": "ext-040",
+   "mentor": "ext-042",
    "year": 2001,
    "type": "硕士",
    "strength": "直接",
@@ -5558,7 +5641,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-025",
-   "mentor": "ext-025",
+   "mentor": "ext-026",
    "year": 2005,
    "type": "博士",
    "strength": "直接",
@@ -5575,7 +5658,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-026",
-   "mentor": "ext-034",
+   "mentor": "ext-036",
    "year": 2004,
    "type": "博士",
    "strength": "直接",
@@ -5592,7 +5675,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-027",
-   "mentor": "ext-026",
+   "mentor": "ext-027",
    "year": 2010,
    "type": "博士",
    "strength": "弱（不建议入图谱）",
@@ -5609,7 +5692,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-027",
-   "mentor": "ext-036",
+   "mentor": "ext-038",
    "year": 2010,
    "type": "博士",
    "strength": "弱（不建议入图谱）",
@@ -5625,8 +5708,25 @@ window.LINEAGE_DATA = {
    "channel": ""
   },
   {
-   "student": "bnu-029",
+   "student": "bnu-028",
    "mentor": "ext-088",
+   "year": 2016,
+   "type": "博士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "City University of Hong Kong, Student thesis (Doctoral Thesis): Weiping ZHONG, The Interface between Phonological and Morphological Strata in Southern Min Dialects: A Case Study of Xiamen, Shantou and Haikou Dialects, Dept. of Chinese and History, Date of Award 8 Jun 2016. Supervisor field: \"Bit Chee KWOK (Supervisor)\".",
+     "url": "https://scholars.cityu.edu.hk/en/studentTheses/閩南語文白異讀與構詞的互動以廈門汕頭海口三點為例/"
+    }
+   ],
+   "sources": [
+    "香港城市大学官方机构库 CityUHK Scholars 学位论文记录 Supervisor 字段"
+   ],
+   "channel": "香港城市大学中文及历史学系博士（2016）"
+  },
+  {
+   "student": "bnu-029",
+   "mentor": "ext-092",
    "year": 2020,
    "type": "博士",
    "strength": "直接",
@@ -5643,7 +5743,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-030",
-   "mentor": "ext-049",
+   "mentor": "ext-051",
    "year": null,
    "type": "博士",
    "strength": "间接",
@@ -5660,7 +5760,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-031",
-   "mentor": "ext-008",
+   "mentor": "ext-009",
    "year": null,
    "type": "就学期间受教",
    "strength": "直接",
@@ -5673,11 +5773,11 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": "师承方式：访学导师（卡内基梅隆）"
+   "channel": "师承方式：访学导师"
   },
   {
    "student": "bnu-031",
-   "mentor": "ext-048",
+   "mentor": "ext-050",
    "year": null,
    "type": "就学期间受教",
    "strength": "直接",
@@ -5690,7 +5790,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": "师承方式：硕/博阶段导师（原文未细分）"
+   "channel": "师承方式：硕/博阶段导师，原文未细分"
   },
   {
    "student": "bnu-031",
@@ -5707,7 +5807,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网（北师大中文信息处理研究所师资页）"
    ],
-   "channel": "师承方式：硕/博阶段导师（原文未细分）"
+   "channel": "师承方式：硕/博阶段导师，原文未细分"
   },
   {
    "student": "bnu-033",
@@ -5745,7 +5845,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-035",
-   "mentor": "ext-066",
+   "mentor": "ext-069",
    "year": 2002,
    "type": "博士",
    "strength": "直接",
@@ -5779,7 +5879,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-037",
-   "mentor": "ext-004",
+   "mentor": "ext-005",
    "year": 2006,
    "type": "博士",
    "strength": "弱（不建议入图谱）",
@@ -5796,7 +5896,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-037",
-   "mentor": "ext-070",
+   "mentor": "ext-073",
    "year": 2006,
    "type": "博士",
    "strength": "直接",
@@ -5835,7 +5935,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-039",
-   "mentor": "ext-014",
+   "mentor": "ext-015",
    "year": 2007,
    "type": "博士",
    "strength": "直接",
@@ -5903,7 +6003,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-044",
-   "mentor": "ext-087",
+   "mentor": "ext-091",
    "year": 1992,
    "type": "博士",
    "strength": "间接",
@@ -5920,7 +6020,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-045",
-   "mentor": "ext-059",
+   "mentor": "ext-061",
    "year": 1980,
    "type": "硕士",
    "strength": "直接",
@@ -5937,7 +6037,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-046",
-   "mentor": "ext-069",
+   "mentor": "ext-072",
    "year": 2001,
    "type": "博士",
    "strength": "直接",
@@ -5954,7 +6054,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-047",
-   "mentor": "ext-019",
+   "mentor": "ext-020",
    "year": null,
    "type": "受业",
    "strength": "直接",
@@ -5988,7 +6088,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-049",
-   "mentor": "ext-081",
+   "mentor": "ext-084",
    "year": 2002,
    "type": "博士",
    "strength": "直接",
@@ -6070,8 +6170,25 @@ window.LINEAGE_DATA = {
    "channel": ""
   },
   {
+   "student": "bnu-053",
+   "mentor": "ext-004",
+   "year": 2024,
+   "type": "博士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "IRIS Scuola Normale Superiore record: \"Tradurre il Rinascimento europeo in Cina: il Jifa 記法 ... di Matteo Ricci\", Fu Yaliang, Ciclo 35, Data di discussione 14-giu-2024. Relatore/i interno/i: TORRE, Andrea. Supervisore interno: TORRE, Andrea.",
+     "url": "https://ricerca.sns.it/handle/11384/157749"
+    }
+   ],
+   "sources": [
+    "Scuola Normale Superiore 机构库 IRIS 学位论文记录 relatore/supervisore 字段"
+   ],
+   "channel": "比萨高等师范学校意大利学与近代语文学博士（第 35 届，2024）；relatore 字段仅列一人，无联合导师"
+  },
+  {
    "student": "bnu-054",
-   "mentor": "ext-093",
+   "mentor": "ext-097",
    "year": 2000,
    "type": "博士",
    "strength": "直接",
@@ -6105,7 +6222,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-056",
-   "mentor": "ext-033",
+   "mentor": "ext-035",
    "year": 2002,
    "type": "博士",
    "strength": "直接",
@@ -6122,7 +6239,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-056",
-   "mentor": "ext-045",
+   "mentor": "ext-047",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -6139,7 +6256,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-056",
-   "mentor": "ext-082",
+   "mentor": "ext-085",
    "year": 2002,
    "type": "受业",
    "strength": "直接",
@@ -6156,7 +6273,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-056",
-   "mentor": "ext-092",
+   "mentor": "ext-096",
    "year": null,
    "type": "问学",
    "strength": "直接",
@@ -6280,7 +6397,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-063",
-   "mentor": "ext-031",
+   "mentor": "ext-032",
    "year": 2011,
    "type": "博士",
    "strength": "直接",
@@ -6294,6 +6411,23 @@ window.LINEAGE_DATA = {
     "官方媒体"
    ],
    "channel": ""
+  },
+  {
+   "student": "bnu-064",
+   "mentor": "ext-064",
+   "year": 2013,
+   "type": "硕士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "National Cheng Kung University Electronic Theses and Dissertations: Author 吳沂澐 Wu, Chi-Yun; Thesis Title 游在魏晉士人中的情意顯現 / The Emotion and Culture Implications of \"Yo\" in Wei-Jin Dynasty; Advisor: 江建俊 Chiang, Chieng-Chun; Degree: 碩士 Master; Department: 文學院-中國文學系.",
+     "url": "https://thesis.lib.ncku.edu.tw/thesis/detail/d09529b442fedf9b6574e1f9ba13d4e2"
+    }
+   ],
+   "sources": [
+    "成功大学机构库学位论文题录 Advisor 字段"
+   ],
+   "channel": "台湾成功大学中国文学系硕士（2013）"
   },
   {
    "student": "bnu-065",
@@ -6511,7 +6645,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-076",
-   "mentor": "ext-078",
+   "mentor": "ext-081",
    "year": 2002,
    "type": "博士",
    "strength": "间接",
@@ -6528,7 +6662,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-077",
-   "mentor": "ext-050",
+   "mentor": "ext-052",
    "year": 2004,
    "type": "博士",
    "strength": "直接",
@@ -6545,7 +6679,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-078",
-   "mentor": "ext-089",
+   "mentor": "ext-093",
    "year": 2008,
    "type": "博士",
    "strength": "直接",
@@ -6596,7 +6730,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-080",
-   "mentor": "ext-086",
+   "mentor": "ext-090",
    "year": 2018,
    "type": "博士后",
    "strength": "间接",
@@ -6613,7 +6747,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-080",
-   "mentor": "ext-091",
+   "mentor": "ext-095",
    "year": 2016,
    "type": "博士",
    "strength": "间接",
@@ -6647,7 +6781,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-082",
-   "mentor": "ext-032",
+   "mentor": "ext-034",
    "year": 2019,
    "type": "博士",
    "strength": "直接",
@@ -6698,7 +6832,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-085",
-   "mentor": "ext-005",
+   "mentor": "ext-006",
    "year": 2020,
    "type": "博士",
    "strength": "直接",
@@ -6715,7 +6849,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-085",
-   "mentor": "ext-009",
+   "mentor": "ext-010",
    "year": 2020,
    "type": "博士",
    "strength": "直接",
@@ -6783,7 +6917,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-089",
-   "mentor": "ext-077",
+   "mentor": "ext-080",
    "year": 2009,
    "type": "博士",
    "strength": "直接",
@@ -6834,7 +6968,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-091",
-   "mentor": "ext-055",
+   "mentor": "ext-057",
    "year": 2014,
    "type": "博士",
    "strength": "直接",
@@ -6851,7 +6985,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-091",
-   "mentor": "ext-084",
+   "mentor": "ext-087",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -6868,7 +7002,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-092",
-   "mentor": "ext-057",
+   "mentor": "ext-059",
    "year": 2024,
    "type": "博士",
    "strength": "直接",
@@ -6936,7 +7070,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-096",
-   "mentor": "ext-021",
+   "mentor": "ext-022",
    "year": 1984,
    "type": "就学期间受教",
    "strength": "直接",
@@ -6959,14 +7093,14 @@ window.LINEAGE_DATA = {
    "strength": "直接",
    "evidence": [
     {
-     "text": "“70后”作家小说研究（博士后研究工作报告）（2012）｜北师大图书馆学位论文库题录",
+     "text": "“70后”作家小说研究（博士后研究工作报告）（2012）｜北师大图书馆学位论文库题录；抽检修正 2026-11-12：原录「博士」，唯一证据为博士后研究报告，据证据改录「博士后」",
      "url": "https://etdlib.bnu.edu.cn/"
     }
    ],
    "sources": [
     "学者库既有边（学位论文题录）"
    ],
-   "channel": "抽检修正 2026-11-12：原录「博士」，唯一证据为博士后研究报告，据证据改录「博士后」"
+   "channel": ""
   },
   {
    "student": "bnu-098",
@@ -7004,7 +7138,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-100",
-   "mentor": "ext-018",
+   "mentor": "ext-019",
    "year": 1991,
    "type": "硕士",
    "strength": "直接",
@@ -7072,23 +7206,6 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-102",
-   "mentor": "ext-006",
-   "year": 2008,
-   "type": "博士",
-   "strength": "直接",
-   "evidence": [
-    {
-     "text": "博士论文《共同的实践、秘传的知识与“拜”：中国农村的幽冥想象》Shared Practice, Esoteric Knowledge, and Bai: Envisioning the Yin World in Rural China,导师 Drs. David Hufford, Dan Ben-Amos, Nathan Sivin）",
-     "url": "https://chinafolklore.org/forum/viewthread.php?tid=2328"
-    }
-   ],
-   "sources": [
-    "官方媒体"
-   ],
-   "channel": ""
-  },
-  {
-   "student": "bnu-102",
    "mentor": "ext-007",
    "year": 2008,
    "type": "博士",
@@ -7106,7 +7223,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-102",
-   "mentor": "ext-011",
+   "mentor": "ext-008",
    "year": 2008,
    "type": "博士",
    "strength": "直接",
@@ -7123,7 +7240,24 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-102",
-   "mentor": "ext-060",
+   "mentor": "ext-012",
+   "year": 2008,
+   "type": "博士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "博士论文《共同的实践、秘传的知识与“拜”：中国农村的幽冥想象》Shared Practice, Esoteric Knowledge, and Bai: Envisioning the Yin World in Rural China,导师 Drs. David Hufford, Dan Ben-Amos, Nathan Sivin）",
+     "url": "https://chinafolklore.org/forum/viewthread.php?tid=2328"
+    }
+   ],
+   "sources": [
+    "官方媒体"
+   ],
+   "channel": ""
+  },
+  {
+   "student": "bnu-102",
+   "mentor": "ext-062",
    "year": 1997,
    "type": "硕士",
    "strength": "弱（不建议入图谱）",
@@ -7140,7 +7274,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-102",
-   "mentor": "ext-063",
+   "mentor": "ext-066",
    "year": 1997,
    "type": "硕士",
    "strength": "弱（不建议入图谱）",
@@ -7157,7 +7291,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-103",
-   "mentor": "ext-010",
+   "mentor": "ext-011",
    "year": 2001,
    "type": "博士",
    "strength": "直接",
@@ -7174,7 +7308,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-103",
-   "mentor": "ext-012",
+   "mentor": "ext-013",
    "year": 2001,
    "type": "博士",
    "strength": "直接",
@@ -7188,6 +7322,23 @@ window.LINEAGE_DATA = {
     "官方媒体"
    ],
    "channel": ""
+  },
+  {
+   "student": "bnu-104",
+   "mentor": "ext-033",
+   "year": 2016,
+   "type": "博士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "北京大学研究生院《2016年度北京大学优秀博士学位论文名单》第55行：\"55 艺术学院 唐璐璐 艺术学理论 文化遗产保护与旅游开发的协调机制研究——基于比利时布鲁日案例 叶朗\"。表头：\"序号／系所名称／作者姓名／专业名称／论文题目／导师\"。",
+     "url": "https://grs.pku.edu.cn/tzgg/50118yjsy260200.htm"
+    }
+   ],
+   "sources": [
+    "北京大学研究生院官方优博名单\"导师\"栏"
+   ],
+   "channel": "北京大学艺术学院艺术学理论博士（2012.8—2016.7）"
   },
   {
    "student": "bnu-106",
@@ -7259,7 +7410,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-110",
-   "mentor": "ext-015",
+   "mentor": "ext-016",
    "year": 2007,
    "type": "博士",
    "strength": "弱（不建议入图谱）",
@@ -7276,7 +7427,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-110",
-   "mentor": "ext-098",
+   "mentor": "ext-102",
    "year": 2004,
    "type": "硕士",
    "strength": "弱（不建议入图谱）",
@@ -7327,7 +7478,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-113",
-   "mentor": "ext-016",
+   "mentor": "ext-017",
    "year": 1985,
    "type": "就学期间受教",
    "strength": "直接",
@@ -7378,7 +7529,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-114",
-   "mentor": "ext-052",
+   "mentor": "ext-054",
    "year": 1993,
    "type": "硕士",
    "strength": "直接",
@@ -7429,7 +7580,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-116",
-   "mentor": "ext-079",
+   "mentor": "ext-082",
    "year": 1986,
    "type": "硕士",
    "strength": "直接",
@@ -7446,7 +7597,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-116",
-   "mentor": "ext-094",
+   "mentor": "ext-098",
    "year": 2004,
    "type": "博士",
    "strength": "直接",
@@ -7480,7 +7631,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-118",
-   "mentor": "ext-053",
+   "mentor": "ext-055",
    "year": 1987,
    "type": "硕士",
    "strength": "直接",
@@ -7531,7 +7682,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-119",
-   "mentor": "ext-035",
+   "mentor": "ext-037",
    "year": 1991,
    "type": "博士",
    "strength": "直接",
@@ -7582,7 +7733,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-121",
-   "mentor": "ext-017",
+   "mentor": "ext-018",
    "year": 1998,
    "type": "博士",
    "strength": "直接",
@@ -7672,7 +7823,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-125",
-   "mentor": "ext-023",
+   "mentor": "ext-024",
    "year": 1991,
    "type": "硕士",
    "strength": "直接",
@@ -7723,7 +7874,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-128",
-   "mentor": "ext-097",
+   "mentor": "ext-101",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -7774,7 +7925,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-130",
-   "mentor": "ext-068",
+   "mentor": "ext-071",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -7791,7 +7942,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-130",
-   "mentor": "ext-072",
+   "mentor": "ext-075",
    "year": 1991,
    "type": "博士",
    "strength": "直接",
@@ -7808,7 +7959,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-131",
-   "mentor": "ext-047",
+   "mentor": "ext-049",
    "year": 1997,
    "type": "博士",
    "strength": "直接",
@@ -8044,7 +8195,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-142",
-   "mentor": "ext-075",
+   "mentor": "ext-078",
    "year": null,
    "type": "硕士",
    "strength": "间接",
@@ -8095,7 +8246,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-148",
-   "mentor": "ext-037",
+   "mentor": "ext-039",
    "year": 1985,
    "type": "硕士",
    "strength": "直接",
@@ -8180,7 +8331,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-155",
-   "mentor": "ext-074",
+   "mentor": "ext-077",
    "year": null,
    "type": "受业",
    "strength": "直接",
@@ -8265,7 +8416,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-160",
-   "mentor": "ext-061",
+   "mentor": "ext-063",
    "year": null,
    "type": "受业",
    "strength": "直接",
@@ -8282,7 +8433,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-160",
-   "mentor": "ext-096",
+   "mentor": "ext-100",
    "year": null,
    "type": "博士",
    "strength": "直接",
@@ -8355,7 +8506,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-163",
-   "mentor": "ext-020",
+   "mentor": "ext-021",
    "year": null,
    "type": "问学",
    "strength": "直接",
@@ -8445,7 +8596,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-168",
-   "mentor": "ext-013",
+   "mentor": "ext-014",
    "year": 2012,
    "type": "博士",
    "strength": "直接",
@@ -8462,7 +8613,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-169",
-   "mentor": "ext-028",
+   "mentor": "ext-029",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -8496,7 +8647,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-171",
-   "mentor": "ext-062",
+   "mentor": "ext-065",
    "year": 2020,
    "type": "博士",
    "strength": "直接",
@@ -8552,7 +8703,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-174",
-   "mentor": "ext-024",
+   "mentor": "ext-025",
    "year": 2006,
    "type": "博士",
    "strength": "直接",
@@ -8569,7 +8720,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-175",
-   "mentor": "ext-022",
+   "mentor": "ext-023",
    "year": 2009,
    "type": "博士",
    "strength": "直接",
@@ -8603,7 +8754,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-177",
-   "mentor": "ext-064",
+   "mentor": "ext-067",
    "year": 2021,
    "type": "博士",
    "strength": "直接",
@@ -8620,7 +8771,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-178",
-   "mentor": "ext-056",
+   "mentor": "ext-058",
    "year": null,
    "type": "硕士",
    "strength": "直接",
@@ -8637,7 +8788,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-179",
-   "mentor": "ext-071",
+   "mentor": "ext-074",
    "year": null,
    "type": "博士后",
    "strength": "间接",
@@ -8654,7 +8805,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-179",
-   "mentor": "ext-090",
+   "mentor": "ext-094",
    "year": 2020,
    "type": "博士",
    "strength": "间接",
@@ -8667,7 +8818,7 @@ window.LINEAGE_DATA = {
    "sources": [
     "学校官网师资介绍页（广西师大文学院，经freekaoyan转载）"
    ],
-   "channel": "师承方式：硕博连读；2017 年转博后导师仍为陈斯鹏"
+   "channel": "师承方式：硕博连读，导师同为陈斯鹏"
   },
   {
    "student": "bnu-180",
@@ -8687,8 +8838,25 @@ window.LINEAGE_DATA = {
    "channel": ""
   },
   {
+   "student": "bnu-181",
+   "mentor": "ext-103",
+   "year": 2021,
+   "type": "博士",
+   "strength": "直接",
+   "evidence": [
+    {
+     "text": "José Miguel Baptista Nunes, CV, Attachment B \"PhD Research Supervision\", in the School of Information Management, Sun Yat-sen University, item 3: \"Zhang, Ning - Research of Designing a Virtual Reality Enabled System Model for Chinese Ancient Book Reading Promotion (2021). Ning is currently a lecturer at the Beijing Normal University (Zhuhai).\"",
+     "url": "https://fob.cityu.edu.mo/uploads/ueditor/file/20260129/1769652698883349.pdf"
+    }
+   ],
+   "sources": [
+    "导师本人 CV（澳门城市大学官网 PDF，2026-01 版）Attachment B 直接著录"
+   ],
+   "channel": "中山大学信息管理学院图书馆学博士（2017—2021）；博士课题即其 2019 年创办的 VR+文化实验室首个项目"
+  },
+  {
    "student": "bnu-182",
-   "mentor": "ext-067",
+   "mentor": "ext-070",
    "year": 2020,
    "type": "博士",
    "strength": "间接",
@@ -8705,7 +8873,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-183",
-   "mentor": "ext-046",
+   "mentor": "ext-048",
    "year": null,
    "type": "博士",
    "strength": "直接",
@@ -8722,7 +8890,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-184",
-   "mentor": "ext-039",
+   "mentor": "ext-041",
    "year": 2012,
    "type": "博士",
    "strength": "直接",
@@ -8739,7 +8907,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-185",
-   "mentor": "ext-051",
+   "mentor": "ext-053",
    "year": null,
    "type": "博士",
    "strength": "直接",
@@ -8790,7 +8958,7 @@ window.LINEAGE_DATA = {
   },
   {
    "student": "bnu-187",
-   "mentor": "ext-044",
+   "mentor": "ext-046",
    "year": 2020,
    "type": "博士后",
    "strength": "直接",
@@ -18437,24 +18605,24 @@ window.LINEAGE_DATA = {
   }
  ],
  "stats": {
-  "edges": 237,
+  "edges": 242,
   "fromLibrary": 85,
-  "fromSearch": 152,
+  "fromSearch": 157,
   "scholarNodes": 178,
   "masterNodes": 26,
-  "externalNodes": 104,
+  "externalNodes": 109,
   "colleagueEdges": 791,
   "totalScholars": 196,
-  "extWithBio": 100,
+  "extWithBio": 103,
   "relTypes": {
-   "研究生": 1,
+   "博士": 134,
+   "硕士": 66,
    "受业": 14,
-   "博士": 130,
-   "硕士": 65,
    "博士后": 10,
    "就学期间受教": 9,
    "硕士、博士": 5,
-   "问学": 3
+   "问学": 3,
+   "研究生": 1
   }
  }
 };
