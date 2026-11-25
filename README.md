@@ -12,6 +12,7 @@
 | `masters.html` | 先贤名师 |
 | `map.html` | 学人地图 |
 | `lineage.html` | 师承世表 |
+| `compass.html` | 学脉罗盘（12 题兴趣索引） |
 | `network.html` | 师承网络 |
 | `timeline.html` | 时间线 |
 | `taxonomy.html` | 分类体系 |

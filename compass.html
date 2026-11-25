@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学脉罗盘 · 京师学林</title>
+<link rel="stylesheet" href="css/shared.css">
+<style>
+  /* ---- 卷首 ---- */
+  .cp-hero {
+    display: grid; grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 48px; align-items: center;
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
+    padding: 36px 0 34px; margin: 0 0 28px;
+  }
+  .cp-hero h1 {
+    font-family: var(--f-serif); font-size: 40px; line-height: 1.38;
+    letter-spacing: 2.5px; margin: 12px 0 12px; color: var(--ink);
+  }
+  .cp-lede {
+    font-size: 14.5px; line-height: 2.05; color: var(--ink-2);
+    max-width: 680px; margin: 0;
+  }
+  .cp-meta {
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted);
+    letter-spacing: .4px; margin-top: 16px;
+  }
+  .cp-meta i { font-style: normal; color: var(--faint); padding: 0 6px; }
+  .cp-compass { width: 220px; height: 220px; justify-self: end; }
+  .cp-compass .needle {
+    transform-origin: 100px 100px;
+    transform: rotate(var(--needle, 36deg));
+    transition: transform .9s var(--ease);
+  }
+  .cp-compass .tick { stroke: var(--line-strong); stroke-width: 1; }
+  .cp-compass .tick.major { stroke: var(--ink-2); stroke-width: 1.6; }
+
+  /* ---- 答题区 ---- */
+  .cp-stage {
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 34px 42px 30px; position: relative;
+  }
+  .cp-stage::before {
+    content: ""; position: absolute; left: 0; top: 34px; width: 2px; height: 48px;
+    background: var(--accent);
+  }
+  .cp-progress {
+    display: flex; gap: 4px; margin: 10px 0 28px;
+  }
+  .cp-progress i {
+    flex: 1; height: 2px; background: var(--line-soft); transition: background .2s var(--ease);
+  }
+  .cp-progress i.on { background: var(--accent); }
+  .cp-qno {
+    font-family: var(--f-sans); font-size: 11px; letter-spacing: 2.2px;
+    color: var(--gold-deep); font-weight: 600;
+  }
+  .cp-q {
+    font-family: var(--f-serif); font-size: 25px; line-height: 1.65;
+    letter-spacing: 1px; margin: 8px 0 24px; color: var(--ink);
+  }
+  .cp-q:focus, .cp-result h2:focus { outline: none; }
+  .cp-opts { border-top: 1px solid var(--line); }
+  .cp-opt {
+    display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px;
+    width: 100%; text-align: left; align-items: start;
+    background: transparent; border: 0; border-bottom: 1px solid var(--line);
+    padding: 15px 8px; cursor: pointer;
+    font-family: var(--f-serif); font-size: 15px; line-height: 1.9;
+    color: var(--ink-2); transition: background .14s var(--ease), color .14s var(--ease);
+  }
+  .cp-opt:hover { background: var(--accent-wash); color: var(--ink); }
+  .cp-opt .k {
+    width: 21px; height: 21px; margin-top: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--f-sans); font-size: 10.5px; color: var(--faint);
+    border: 1px solid var(--line); border-radius: 2px;
+    transition: all .14s var(--ease);
+  }
+  .cp-opt[aria-pressed="true"] { background: var(--accent-wash); color: var(--ink); }
+  .cp-opt[aria-pressed="true"] .k {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  .cp-note {
+    margin-top: 18px; padding: 13px 16px 13px 18px;
+    background: var(--gold-wash); border-left: 2px solid var(--gold);
+    font-size: 13px; line-height: 1.95; color: var(--ink-2);
+    animation: cp-rise .2s var(--ease) both;
+  }
+  .cp-note b {
+    display: block; font-family: var(--f-sans); font-size: 10.5px;
+    letter-spacing: 1.4px; color: var(--gold-deep); margin-bottom: 2px; font-weight: 700;
+  }
+  @keyframes cp-rise { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+  .cp-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; margin-top: 22px; min-height: 34px;
+  }
+  .cp-btn {
+    font-family: var(--f-sans); font-size: 13px; letter-spacing: .3px;
+    padding: 9px 18px; border-radius: 2px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--ink-2);
+    transition: all .15s var(--ease);
+  }
+  .cp-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cp-btn.primary {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  .cp-btn.primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; }
+  .cp-kbd {
+    font-family: var(--f-sans); font-size: 10.5px; color: var(--faint); letter-spacing: .3px;
+  }
+
+  /* ---- 结果 ---- */
+  .cp-result-head {
+    display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+    gap: 24px; align-items: center;
+    border-bottom: 1px solid var(--line); padding-bottom: 20px;
+  }
+  .cp-result h2 {
+    font-family: var(--f-serif); font-size: 46px; line-height: 1.3;
+    letter-spacing: 5px; margin: 6px 0 6px; color: var(--ink);
+  }
+  .cp-sub { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.8; }
+  .cp-desc { font-size: 14.5px; line-height: 2.08; margin: 20px 0 14px; color: var(--ink-2); }
+  .cp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cp-tags span {
+    font-family: var(--f-sans); font-size: 11px; color: var(--muted);
+    border: 1px solid var(--line-soft); padding: 1px 8px; border-radius: 2px;
+  }
+  .cp-grid {
+    display: grid; grid-template-columns: 1.08fr .92fr; gap: 0;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    margin: 24px 0 20px;
+  }
+  .cp-panel { padding: 20px 24px 20px 0; }
+  .cp-panel + .cp-panel { border-left: 1px solid var(--line); padding-left: 24px; padding-right: 0; }
+  .cp-panel h3 {
+    font-family: var(--f-sans); font-size: 10.5px; letter-spacing: 2px;
+    color: var(--gold-deep); margin: 0 0 10px; font-weight: 700;
+  }
+  .cp-person {
+    display: flex; align-items: center; gap: 11px;
+    padding: 8px 0; border-bottom: 1px dotted var(--line);
+    color: var(--ink); text-decoration: none;
+  }
+  .cp-person:last-child { border-bottom: 0; }
+  .cp-person:hover { color: var(--accent-dark); }
+  .cp-ava {
+    width: 30px; height: 30px; flex: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .cp-person .nm { font-size: 15px; font-weight: 700; letter-spacing: .8px; }
+  .cp-person .mt {
+    display: block; font-family: var(--f-sans); font-size: 10.5px;
+    color: var(--muted); line-height: 1.5; margin-top: 1px;
+  }
+  .cp-person .go { margin-left: auto; color: var(--faint); font-family: var(--f-sans); font-size: 12px; }
+  .cp-edge { font-size: 14px; line-height: 1.95; color: var(--ink-2); margin: 0 0 6px; }
+  .cp-edge b { color: var(--ink); font-weight: 700; }
+  .cp-edge .meta { display: block; font-family: var(--f-sans); font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .cp-links { display: flex; flex-direction: column; gap: 5px; margin-top: 12px; }
+  .cp-links a { font-family: var(--f-sans); font-size: 12.5px; }
+  .cp-bars { margin: 18px 0 4px; }
+  .cp-bar {
+    display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 12px;
+    align-items: center; font-size: 12px; color: var(--muted); margin: 7px 0;
+  }
+  .cp-bar .track { display: block; height: 5px; background: var(--line-soft); overflow: hidden; }
+  .cp-bar .fill { display: block; height: 100%; transition: width .7s var(--ease); }
+  .cp-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .cp-fine {
+    font-size: 11.5px; line-height: 1.95; color: var(--muted);
+    border-top: 1px solid var(--line-soft); padding-top: 12px; margin: 22px 0 0;
+  }
+  .cp-err { padding: 30px 0; color: var(--muted); font-size: 14px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 880px) {
+    .cp-hero { grid-template-columns: 1fr; gap: 20px; padding: 28px 0 26px; }
+    .cp-compass { width: 130px; height: 130px; justify-self: start; }
+    .cp-hero h1 { font-size: 32px; letter-spacing: 1.5px; }
+    .cp-stage { padding: 26px 24px 24px; }
+    .cp-q { font-size: 21px; }
+    .cp-result h2 { font-size: 36px; letter-spacing: 3px; }
+    .cp-result-head { grid-template-columns: 1fr; }
+    .cp-result-head .cp-compass { display: none; }
+    .cp-grid { grid-template-columns: 1fr; }
+    .cp-panel { padding-right: 0; }
+    .cp-panel + .cp-panel { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 18px; }
+  }
+  @media (max-width: 560px) {
+    .cp-hero h1 { font-size: 27px; }
+    .cp-lede { font-size: 13.5px; }
+    .cp-stage { padding: 22px 18px; }
+    .cp-stage::before { top: 22px; }
+    .cp-q { font-size: 19px; line-height: 1.75; }
+    .cp-opt { font-size: 14px; padding: 13px 6px; }
+    .cp-result h2 { font-size: 30px; }
+    .cp-bar { grid-template-columns: 104px minmax(0, 1fr); gap: 8px; font-size: 11.5px; }
+    .cp-actions .cp-btn { flex: 1 1 auto; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-compass .needle, .cp-bar .fill, .cp-progress i { transition: none; }
+    .cp-note { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap narrow">
+
+  <section class="cp-hero">
+    <div>
+      <div class="eyebrow">学脉罗盘 · 十二题</div>
+      <h1>你的第一反应，靠近哪条学脉？</h1>
+      <p class="cp-lede">
+        不是性格测试，也不给你贴标签。十二道具体的选择题，问的都是中文系日常里真实发生的事：拿到一部旧书、听到一个陌生句子、下一次田野、报一个课题。答完，你会得到一条学脉、三位可以点开的人，以及一条能继续追的师承边。
+      </p>
+      <p class="cp-meta">约 3 分钟<i>·</i>12 题<i>·</i>结果可存图<i>·</i>不采集任何个人信息</p>
+    </div>
+    <svg class="cp-compass" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <circle cx="100" cy="100" r="86" fill="none" stroke="var(--line)"/>
+      <circle cx="100" cy="100" r="62" fill="none" stroke="var(--line-soft)" stroke-dasharray="1 5"/>
+      <g class="tick">
+        <line x1="100" y1="10" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="190"/>
+        <line x1="10" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="190" y2="100"/>
+        <line x1="36.4" y1="36.4" x2="43.5" y2="43.5"/><line x1="156.5" y1="156.5" x2="163.6" y2="163.6"/>
+        <line x1="163.6" y1="36.4" x2="156.5" y2="43.5"/><line x1="43.5" y1="156.5" x2="36.4" y2="163.6"/>
+      </g>
+      <g class="tick major">
+        <line x1="100" y1="14" x2="100" y2="26"/><line x1="100" y1="174" x2="100" y2="186"/>
+        <line x1="14" y1="100" x2="26" y2="100"/><line x1="174" y1="100" x2="186" y2="100"/>
+      </g>
+      <g class="needle">
+        <path d="M100 30 L109 100 L100 114 L91 100 Z" fill="var(--accent)"/>
+        <path d="M100 170 L104 116 L100 108 L96 116 Z" fill="var(--line-strong)"/>
+      </g>
+      <circle cx="100" cy="100" r="4.5" fill="var(--seal)"/>
+      <text x="100" y="72" text-anchor="middle" font-family="var(--f-serif)" font-size="11" fill="var(--muted)">学</text>
+    </svg>
+  </section>
+
+  <p class="sr-only" id="cp-status" aria-live="polite"></p>
+  <section class="cp-stage" id="cp-stage">
+    <div class="cp-err">正在载入题库……</div>
+  </section>
+</main>
+<div id="site-footer"></div>
+
+<script src="data/scholars.js"></script>
+<script src="data/lineage.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const stage = document.getElementById("cp-stage");
+  const data = window.BNU_DATA;
+  const lineage = window.LINEAGE_DATA;
+  if (!data || !data.scholars) {
+    stage.innerHTML = '<div class="cp-err">学者数据未载入，请刷新页面重试。</div>';
+    return;
+  }
+  document.getElementById("site-header").innerHTML = BNU.header("compass.html");
+  document.getElementById("site-footer").innerHTML = BNU.footer(data);
+
+  const STORE = "bnu_compass_v1";
+  const LETTERS = ["A", "B", "C", "D"];
+  const status = document.getElementById("cp-status");
+  function announce(msg) { if (status) status.textContent = msg; }
+
+  const DIRS = {
+    hy: {
+      name: "汉语言文字学", disc: "汉语言文字学", color: "#c92820", angle: 0,
+      desc: "以字词为起点，向上追问语言系统，向下落实文献与教学。库内的章黄一脉——章太炎、黄侃、陆宗达、王宁——把「点书、系联、训释」一代代传成了可操作的方法。",
+      tags: ["训诂学", "文字学", "古汉语", "汉字标准化"],
+      people: ["bnu-001", "bnu-119", "bnu-008"],
+    },
+    gd: {
+      name: "中国古代文学", disc: "中国古代文学", color: "#2f6fb0", angle: 36,
+      desc: "从先秦到明清，把作品放回它自己的时代读，也读后人怎么读它。诗、文、小说、戏曲都在范围内，版本与文献是绕不开的基本功。",
+      tags: ["唐宋文学", "明清小说", "诗文批评", "文献"],
+      people: ["bnu-054", "bnu-189", "bnu-055"],
+    },
+    xd: {
+      name: "中国现当代文学", disc: "中国现当代文学", color: "#b5533c", angle: 72,
+      desc: "从晚清到今天，文学始终在回应社会。这里既做文学史与作家研究，也做批评、影视与科幻等正在发生的新对象。",
+      tags: ["现代文学史", "当代批评", "影视", "科幻"],
+      people: ["bnu-069", "bnu-070", "bnu-072"],
+    },
+    yy: {
+      name: "语言学及应用语言学", disc: "语言学及应用语言学", color: "#4f7a80", angle: 108,
+      desc: "关心语言本身怎么运作：语法、语用、方言、历史演变；也关心语言怎么被使用、教学和计算。",
+      tags: ["语法", "语用", "方言", "语言智能"],
+      people: ["bnu-025", "bnu-028", "bnu-031"],
+    },
+    wy: {
+      name: "文艺学", disc: "文艺学", color: "#8b7bb0", angle: 144,
+      desc: "追问文学为什么成立：形式、修辞、文体、理论。既读作品，也读解释作品的那些概念。",
+      tags: ["文学理论", "文体学", "《文心雕龙》", "批评"],
+      people: ["bnu-033", "bnu-035", "bnu-036"],
+    },
+    bj: {
+      name: "比较文学与世界文学", disc: "比较文学与世界文学", color: "#1f8a66", angle: 180,
+      desc: "把中国文学放进世界文学的坐标里，做跨语言、跨文化的比较与翻译研究。",
+      tags: ["比较诗学", "世界文学", "翻译", "跨文化"],
+      people: ["bnu-044", "bnu-047", "bnu-046"],
+    },
+    ms: {
+      name: "民俗学（民间文学）", disc: "民俗学（民间文学）", color: "#c9a227", angle: 216,
+      desc: "走向田野，记录还在发生的口头传统、仪式与生活世界，也回到文献里追踪它们的来路。",
+      tags: ["民间文学", "民俗史", "田野调查", "非遗"],
+      people: ["bnu-099", "bnu-100", "bnu-101"],
+    },
+    wx: {
+      name: "文献学", disc: "文献学", color: "#8a6d3b", angle: 252,
+      desc: "从版本、目录、校勘、辑佚入手，先把材料弄对，再谈解释。库内可见启功→李山的博士师承，这条学问从这里生根。",
+      tags: ["版本", "目录", "校勘", "古籍整理"],
+      people: ["bnu-086", "bnu-088", "bnu-089"],
+    },
+    cy: {
+      name: "创意写作", disc: "其他（创意写作）", color: "#7b4b6e", angle: 288,
+      desc: "把写作本身当作研究对象，也当作实践。小说、诗歌、剧本，在写与改中理解文学。",
+      tags: ["小说", "诗歌", "剧本", "工作坊"],
+      people: ["bnu-093", "bnu-095", "bnu-096"],
+    },
+    yw: {
+      name: "语文教育", disc: "其他（语文教育）", color: "#3c6e71", angle: 324,
+      desc: "把文学与语言研究的成果，转化成课堂上真实发生的学习。课程、教材、评价、教师发展都在范围内。",
+      tags: ["语文课程", "教材", "阅读教学", "教师发展"],
+      people: ["bnu-108", "bnu-111", "bnu-112"],
+    },
+  };
+
+  // 每题四个选项：d = 主方向（2 分），s = 邻近方向（1 分），n = 选择后的提示
+  const QUESTIONS = [
+    {
+      q: "一部没有标点的宋人笔记放到你桌上，你最先想做什么？",
+      opts: [
+        { t: "查版本、递藏、避讳字，先弄清它从哪来、被谁改过", d: "wx", s: "gd", n: "版本、递藏、避讳，是文献学判断「这份材料可不可信」的起点。" },
+        { t: "通读一遍，把它放回唐宋诗文的地图里", d: "gd", s: "wx", n: "把作品放回文学史坐标，是古代文学最基本的读法。" },
+        { t: "挑出俗字、异体字和音注，看语言怎么变", d: "hy", s: "yy", n: "从字词和音注入手，是汉语言文字学的看家功夫。" },
+        { t: "看后人怎么引用、重印、改编它", d: "xd", s: "wx", n: "关心后世的引用与改编，问题就落到了现当代的接受史。" },
+      ],
+    },
+    {
+      q: "老师抛出一个没见过的句子，你的第一反应是？",
+      opts: [
+        { t: "它合不合语法？换个人说还成立吗？", d: "yy", s: "hy", n: "先检验语法合法性，是语言学式的提问。" },
+        { t: "它美在哪？这个比喻为什么让人心里一动？", d: "wy", s: "bj", n: "先问「为什么动人」，是文艺学的入口。" },
+        { t: "它在原书上下文里什么意思？历代注家怎么解？", d: "gd", s: "wx", n: "先回到原书与历代注家，是古代文学的读法。" },
+        { t: "谁说的、说给谁听、在什么场合说的？", d: "ms", s: "xd", n: "先问场合、听众与讲述人，是民俗学的田野敏感。" },
+      ],
+    },
+    {
+      q: "给你一个月做田野调查，你更想——",
+      opts: [
+        { t: "录一位老人把同一个故事讲三遍，比较不同讲述人的版本", d: "ms", s: "xd", n: "比较不同讲述人的版本，是民间文学的口述传统研究。" },
+        { t: "去一个方言点记音，整理声韵调系统", d: "yy", s: "hy", n: "记音、归纳音系，是方言与历史语言学的田野。" },
+        { t: "找作家手稿、书信、日记，还原写作现场", d: "xd", s: "wx", n: "手稿、书信、日记，是现当代文学研究的一手材料。" },
+        { t: "访书院祠堂、抄碑刻，做考订", d: "wx", s: "gd", n: "碑刻与祠堂，是文献学在地面上的档案。" },
+      ],
+    },
+    {
+      q: "你更愿意把时间花在——",
+      opts: [
+        { t: "一个字一个字校勘，最后写一条扎实的校记", d: "hy", s: "wx", n: "逐字校勘，是文献学也是汉语史的基本功。" },
+        { t: "自己动手写，哪怕先写坏几篇", d: "cy", s: "xd", n: "自己动手写，是创意写作的起点。" },
+        { t: "建一个可复用的语料库或工具，让研究更快", d: "yy", s: "hy", n: "建语料库与工具，是语言学的工程化路径。" },
+        { t: "写一篇评论，把当下现象讲清楚", d: "xd", s: "cy", n: "写当下评论，是现当代文学的公共面向。" },
+      ],
+    },
+    {
+      q: "读到一首好诗，你最想追问——",
+      opts: [
+        { t: "它的格律、用韵、字词训释", d: "hy", s: "wx", n: "格律、用韵、训释，是汉语言文字学的解法。" },
+        { t: "它属于哪个诗派，和前后代诗人怎么接", d: "gd", s: "wy", n: "诗派与代际关系，是古代文学史的骨架。" },
+        { t: "它为什么打动人，意象和修辞如何运作", d: "wy", s: "bj", n: "意象与修辞，是文艺学的分析对象。" },
+        { t: "它被谁翻译过，在别国怎么读", d: "bj", s: "gd", n: "翻译与异国接受，是比较文学的题目。" },
+      ],
+    },
+    {
+      q: "面对「文学是什么」，你更认同——",
+      opts: [
+        { t: "文学是语言的艺术，得从语言形式本身入手", d: "wy", s: "hy", n: "从语言形式入手，是文艺学的形式主义传统。" },
+        { t: "文学是历史中的行动，要放回现场看它怎么发生", d: "xd", s: "gd", n: "把文学放回历史现场，是现当代文学史的做法。" },
+        { t: "文学在世界中流通，必须跨语言比较", d: "bj", s: "wy", n: "跨语言流通，是比较文学的视野。" },
+        { t: "文学首先是一种写作实践，我也想写", d: "cy", s: "xd", n: "把写作当作实践，是创意写作的立场。" },
+      ],
+    },
+    {
+      q: "系里让你参与一个中学语文教研项目，你最想负责——",
+      opts: [
+        { t: "设计整本书阅读课程，跟踪学生一学期的变化", d: "yw", s: "xd", n: "课程与学习追踪，是语文教育的核心工作。" },
+        { t: "编选注本与拓展阅读，把版本和注释做准", d: "wx", s: "gd", n: "注本与拓展阅读，靠的是文献学功底。" },
+        { t: "研究学生怎么写作文、语言能力怎么发展", d: "yy", s: "yw", n: "作文与语言发展，是语言学在课堂里的应用。" },
+        { t: "带学生做戏剧、朗诵、创意写作", d: "cy", s: "yw", n: "戏剧、朗诵、写作工作坊，是创意写作进课堂。" },
+      ],
+    },
+    {
+      q: "十年后，你希望自己的代表作是——",
+      opts: [
+        { t: "一部带详细校注的古籍整理本", d: "wx", s: "gd", n: "古籍整理，是文献学的标准产出。" },
+        { t: "一本自己的小说或诗集", d: "cy", s: "xd", n: "小说或诗集，是创意写作的产出。" },
+        { t: "一套同行真会用的语料库或工具", d: "hy", s: "yy", n: "语料库与工具，是数字人文与语言学的产出。" },
+        { t: "一套能带进中学课堂的读本或课程", d: "yw", s: "wx", n: "中学读本与课程，是语文教育的产出。" },
+      ],
+    },
+    {
+      q: "一部小说突然爆火，你更想——",
+      opts: [
+        { t: "看它的叙事技巧为什么有效", d: "wy", s: "xd", n: "叙事技巧，是文艺学的分析入口。" },
+        { t: "看中学生会不会喜欢，怎么把它带进课堂", d: "yw", s: "xd", n: "课堂接受，是语文教育关心的问题。" },
+        { t: "看它与外国作品的谱系关系", d: "bj", s: "wy", n: "与外国作品的谱系，是比较文学的比较。" },
+        { t: "看它借用了哪些民间故事母题", d: "ms", s: "gd", n: "民间母题，是民俗学的追踪对象。" },
+      ],
+    },
+    {
+      q: "一位老教授去世，留下一箱未整理的手稿，你先做什么？",
+      opts: [
+        { t: "先编目、辨版本、查往来书信", d: "wx", s: "gd", n: "编目、辨版本、查书信，是文献学的第一步。" },
+        { t: "先读内容，判断它在学术史上的位置", d: "gd", s: "wx", n: "判断学术史位置，是古代文学史的训练。" },
+        { t: "先辨认字迹、术语和修改痕迹", d: "hy", s: "wx", n: "辨字迹与修改痕迹，是汉语言文字学的细读。" },
+        { t: "先联系家属做口述史，保存记忆", d: "ms", s: "xd", n: "口述史与记忆保存，是民俗学的田野伦理。" },
+      ],
+    },
+    {
+      q: "你要报一个课题，最想选——",
+      opts: [
+        { t: "一个理论概念在中国语境中的旅行", d: "bj", s: "wy", n: "概念旅行，是比较文学与理论的关键词。" },
+        { t: "一种语言现象在全国方言点的分布", d: "yy", s: "hy", n: "方言分布，是语言地理学的问题。" },
+        { t: "一位作家的全集编年与佚文辑考", d: "xd", s: "wx", n: "全集编年与佚文，是现当代文学的史料工作。" },
+        { t: "一部经典在历代注本中的解释变化", d: "wx", s: "gd", n: "历代注本，是文献学与解释史的交汇。" },
+      ],
+    },
+    {
+      q: "你最不能忍受哪种错误？",
+      opts: [
+        { t: "引文没核对版本，转引二手", d: "wx", s: "hy", n: "版本与转引，是文献学最不能让步的地方。" },
+        { t: "把一篇课文讲得学生听不懂", d: "yw", s: "xd", n: "学生听不懂，是语文教育要负责的效果。" },
+        { t: "用理论硬套作品，过度解释", d: "wy", s: "bj", n: "理论硬套，是文艺学最警惕的过度解释。" },
+        { t: "把后代观念安到古人头上", d: "gd", s: "wx", n: "时代错置，是古代文学最基本的戒律。" },
+      ],
+    },
+  ];
+
+  const ORDER = Object.keys(DIRS);
+  const TOTAL = QUESTIONS.length;
+
+  const state = { i: 0, answers: new Array(TOTAL).fill(null) };
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!saved || !Array.isArray(saved.answers) || saved.answers.length !== TOTAL) return;
+      saved.answers.forEach((v, i) => {
+        if (v === null || (Number.isInteger(v) && v >= 0 && v < 4)) state.answers[i] = v;
+      });
+      const first = state.answers.findIndex(v => v === null);
+      state.i = first === -1 ? TOTAL - 1 : first;
+    } catch (e) { /* 无痕模式或损坏数据，忽略 */ }
+  }
+
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify({ answers: state.answers })); } catch (e) {}
+  }
+
+  function clear() {
+    try { localStorage.removeItem(STORE); } catch (e) {}
+  }
+
+  function rank() {
+    const score = {}, pri = {};
+    ORDER.forEach(k => { score[k] = 0; pri[k] = 0; });
+    state.answers.forEach((v, i) => {
+      if (v === null) return;
+      const o = QUESTIONS[i].opts[v];
+      if (!o) return;
+      score[o.d] += 2; pri[o.d] += 1;
+      if (o.s && o.s !== o.d) score[o.s] += 1;
+    });
+    return ORDER.map(k => ({ k, score: score[k], pri: pri[k] }))
+      .sort((a, b) => b.score - a.score || b.pri - a.pri || ORDER.indexOf(a.k) - ORDER.indexOf(b.k));
+  }
+
+  function dirCount(k) {
+    const d = DIRS[k];
+    return data.scholars.filter(s => !s.demo && !s.external && s.discipline === d.disc).length;
+  }
+
+  function coveredCount() {
+    return data.scholars.filter(s => !s.demo && !s.external && ORDER.some(k => DIRS[k].disc === s.discipline)).length;
+  }
+
+  function findEdge(k) {
+    if (!lineage || !Array.isArray(lineage.edges)) return null;
+    const map = {};
+    (lineage.nodes || []).forEach(n => { map[n.id] = n; });
+    const disc = DIRS[k].disc;
+    let best = null;
+    lineage.edges.forEach(e => {
+      const a = map[e.mentor], b = map[e.student];
+      if (!a || !b) return;
+      const same = a.discipline === disc && b.discipline === disc;
+      const involved = a.discipline === disc || b.discipline === disc;
+      if (!involved) return;
+      let sc = (same ? 4 : 0)
+        + (b.discipline === disc ? 2 : 0)
+        + (a.discipline === disc ? 1 : 0)
+        + (e.strength === "直接" ? 2 : 0)
+        + (e.year ? 1 : 0);
+      if (!best || sc > best.sc) best = { e, a, b, same, sc };
+    });
+    return best;
+  }
+
+  function renderQuestion(focus) {
+    const q = QUESTIONS[state.i];
+    const picked = state.answers[state.i];
+    stage.innerHTML = `
+      <div class="cp-qno">第 ${state.i + 1} / ${TOTAL} 题</div>
+      <div class="cp-progress" role="progressbar" aria-valuemin="1" aria-valuemax="${TOTAL}" aria-valuenow="${state.i + 1}" aria-label="答题进度">
+        ${QUESTIONS.map((_, j) => `<i class="${j <= state.i ? "on" : ""}"></i>`).join("")}
+      </div>
+      <h2 class="cp-q" id="cp-q" tabindex="-1">${q.q}</h2>
+      <div class="cp-opts" role="group" aria-labelledby="cp-q">
+        ${q.opts.map((o, j) => `
+          <button class="cp-opt" type="button" data-j="${j}" aria-pressed="${picked === j}">
+            <span class="k">${LETTERS[j]}</span><span>${o.t}</span>
+          </button>`).join("")}
+      </div>
+      ${picked !== null ? `<div class="cp-note"><b>为什么这样问</b>${q.opts[picked].n}</div>` : ""}
+      <div class="cp-foot">
+        <div>${state.i > 0
+          ? '<button class="cp-btn" type="button" id="cp-back">← 上一题</button>'
+          : '<span class="cp-kbd">按 1–4 选择</span>'}</div>
+        <div>${picked !== null
+          ? `<button class="cp-btn primary" type="button" id="cp-next">${state.i === TOTAL - 1 ? "看结果" : "下一题"} →</button>`
+          : '<span class="cp-kbd">选择后显示提示</span>'}</div>
+      </div>`;
+
+    if (focus === "q") {
+      announce(`第 ${state.i + 1} 题，共 ${TOTAL} 题。${q.q}`);
+      const h = document.getElementById("cp-q");
+      if (h) h.focus({ preventScroll: true });
+    } else if (focus === "next") {
+      const n = document.getElementById("cp-next");
+      if (n) n.focus({ preventScroll: true });
+    }
+  }
+
+  function scholarRow(id) {
+    const s = data.scholars.find(x => x.id === id);
+    if (!s) return "";
+    const k = ORDER.find(key => DIRS[key].disc === s.discipline);
+    const d = DIRS[k] || {};
+    const color = d.color || BNU.disciplineColor(s.discipline);
+    const first = (s.interests || [])[0] || "";
+    const short = first && first.length <= 12 && !/^(从事|主要|关注)/.test(first) ? first : "";
+    const meta = [s.title, d.name || s.discipline, short].filter(Boolean).join(" · ");
+    return `
+      <a class="cp-person" href="detail.html?id=${encodeURIComponent(s.id)}">
+        <span class="cp-ava" style="background:${color}">${BNU.esc(s.name.slice(0, 1))}</span>
+        <span><span class="nm">${BNU.esc(s.name)}</span><span class="mt">${BNU.esc(meta)}</span></span>
+        <span class="go">→</span>
+      </a>`;
+  }
+
+  function renderResult(focus) {
+    const r = rank();
+    const top = r[0], second = r[1];
+    const D = DIRS[top.k], S = DIRS[second.k];
+    const tie = top.score === second.score && top.pri === second.pri;
+    const gap = top.score - second.score;
+    const sub = tie
+      ? `与「${S.name}」并列；两个方向在你这里同样成立。`
+      : (gap === 0
+        ? `与「${S.name}」几乎并列；总分相同，主选分布略有不同。`
+        : (gap <= 2
+          ? `次近：${S.name}；两者只差 ${gap} 分，不必急着二选一。`
+          : `另一条可能的路：${S.name}。`));
+
+    const edge = findEdge(top.k);
+    const cross = edge && edge.a.discipline && edge.b.discipline && edge.a.discipline !== edge.b.discipline;
+    const edgeHtml = edge ? `
+      <p class="cp-edge"><b>${BNU.esc(edge.a.name)}</b> → <b>${BNU.esc(edge.b.name)}</b>
+        <span class="meta">${cross ? "跨方向 · " : ""}${BNU.esc(edge.e.type || "师承")}${edge.e.year ? " · " + edge.e.year : ""}</span>
+      </p>
+      <div class="cp-links">
+        <a href="lineage.html?id=${encodeURIComponent(edge.b.id)}">在世表中定位这条边 →</a>
+        <a href="index.html?d=${encodeURIComponent(D.disc)}">看本方向 ${dirCount(top.k)} 位在库学者 →</a>
+      </div>` : `
+      <p class="cp-edge">本方向暂无可展开的师承边，但这不妨碍你从学者名录进入。</p>
+      <div class="cp-links"><a href="index.html?d=${encodeURIComponent(D.disc)}">看本方向 ${dirCount(top.k)} 位在库学者 →</a></div>`;
+
+    stage.innerHTML = `
+      <div class="cp-result">
+        <div class="cp-result-head">
+          <div>
+            <div class="eyebrow">你的学脉偏向</div>
+            <h2>${D.name}</h2>
+            <p class="cp-sub">${sub}</p>
+          </div>
+          <svg class="cp-compass" viewBox="0 0 200 200" style="--needle:${D.angle}deg" aria-hidden="true" focusable="false">
+            <circle cx="100" cy="100" r="86" fill="none" stroke="var(--line)"/>
+            <circle cx="100" cy="100" r="62" fill="none" stroke="var(--line-soft)" stroke-dasharray="1 5"/>
+            <g class="needle">
+              <path d="M100 30 L109 100 L100 114 L91 100 Z" fill="${D.color}"/>
+              <path d="M100 170 L104 116 L100 108 L96 116 Z" fill="var(--line-strong)"/>
+            </g>
+            <circle cx="100" cy="100" r="4.5" fill="var(--seal)"/>
+          </svg>
+        </div>
+
+        <p class="cp-desc">${D.desc}</p>
+        <div class="cp-tags">${D.tags.map(t => `<span>${t}</span>`).join("")}</div>
+
+        <div class="cp-grid">
+          <section class="cp-panel">
+            <h3>三位可以点开的人</h3>
+            ${D.people.map(scholarRow).join("")}
+          </section>
+          <section class="cp-panel">
+            <h3>从这条学脉往里走</h3>
+            ${edgeHtml}
+          </section>
+        </div>
+
+        <div class="cp-bars" aria-label="相对倾向">
+          ${r.slice(0, 4).map((x, i) => `
+            <div class="cp-bar">
+              <span>${DIRS[x.k].name}</span>
+              <span class="track"><span class="fill" style="width:${Math.max(4, Math.round(x.score / r[0].score * 100))}%;background:${DIRS[x.k].color}"></span></span>
+            </div>`).join("")}
+        </div>
+
+        <div class="cp-actions">
+          <button class="cp-btn primary" type="button" id="cp-save">保存结果卡</button>
+          <button class="cp-btn" type="button" id="cp-restart">再测一次</button>
+          <a class="cp-btn" href="lineage.html">去师承世表 →</a>
+        </div>
+
+        <p class="cp-fine">
+          结果只由这 12 道题的选择累加而来：主选记 2 分，邻近方向记 1 分；条形只表示相对倾向，不是百分比，也不代表能力或水平。推荐仅基于库内 ${coveredCount()} 位有学科归属的学者，外源导师与未标学科者不计入。这是一个兴趣索引，不构成专业分流建议；真正的研究方向，要和读书、上课、写论文一起长出来。
+        </p>
+      </div>`;
+
+    if (focus) {
+      announce(`结果：${D.name}。${sub}`);
+      const h = stage.querySelector("h2");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    }
+  }
+
+  function goResult(focus) {
+    save();
+    renderResult(focus);
+  }
+
+  function select(j, viaKeyboard) {
+    state.answers[state.i] = j;
+    save();
+    renderQuestion(viaKeyboard ? "next" : null);
+    const q = QUESTIONS[state.i];
+    announce(`已选择 ${LETTERS[j]}。${q.opts[j].n}`);
+  }
+
+  function next() {
+    if (state.answers[state.i] === null) return;
+    if (state.i === TOTAL - 1) { goResult(true); return; }
+    state.i += 1;
+    renderQuestion("q");
+  }
+
+  function back() {
+    if (state.i === 0) return;
+    state.i -= 1;
+    renderQuestion("q");
+  }
+
+  stage.addEventListener("click", e => {
+    const opt = e.target.closest(".cp-opt");
+    if (opt) { select(+opt.dataset.j, false); return; }
+    if (e.target.closest("#cp-next")) { next(); return; }
+    if (e.target.closest("#cp-back")) { back(); return; }
+    if (e.target.closest("#cp-restart")) {
+      clear();
+      state.answers = new Array(TOTAL).fill(null);
+      state.i = 0;
+      renderQuestion("q");
+      return;
+    }
+    if (e.target.closest("#cp-save")) { saveCard(); return; }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.target.matches("input, textarea, select")) return;
+    if (/^[1-4]$/.test(e.key) && stage.querySelector(".cp-opt")) {
+      e.preventDefault();
+      select(+e.key - 1, true);
+      return;
+    }
+    // 焦点在按钮/链接上时交给原生 Enter 点击，避免与选项选择冲突
+    if (e.key === "Enter" && !e.target.closest("button, a") && stage.querySelector("#cp-next")) {
+      e.preventDefault();
+      next();
+    }
+  });
+
+  /* ---------- 结果卡 ---------- */
+  function wrapText(ctx, text, maxWidth) {
+    const lines = [];
+    let line = "";
+    for (const ch of text) {
+      const test = line + ch;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = ch;
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function saveCard() {
+    const r = rank();
+    const top = r[0], second = r[1];
+    const D = DIRS[top.k];
+    const c = document.createElement("canvas");
+    c.width = 1080; c.height = 1440;
+    const x = c.getContext("2d");
+    const serif = '"Songti SC","Noto Serif SC","STSong",serif';
+    const sans = '"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif';
+
+    x.fillStyle = "#f6f7f5"; x.fillRect(0, 0, 1080, 1440);
+    x.fillStyle = "#fffefb"; x.fillRect(36, 36, 1008, 1368);
+    x.strokeStyle = "#dcded7"; x.lineWidth = 1; x.strokeRect(36.5, 36.5, 1007, 1367);
+
+    x.fillStyle = "#171916"; x.font = `700 38px ${serif}`; x.fillText("京师学林", 96, 128);
+    x.fillStyle = "#6d726a"; x.font = `22px ${sans}`; x.fillText("学脉罗盘 · 十二题", 96, 168);
+    x.textAlign = "right"; x.fillText("BNU SCHOLARS", 984, 128); x.textAlign = "left";
+
+    x.strokeStyle = "#171916"; x.lineWidth = 2; x.beginPath(); x.moveTo(96, 202); x.lineTo(984, 202); x.stroke();
+
+    x.fillStyle = "#8a6d3b"; x.font = `700 25px ${sans}`; x.fillText("我 的 学 脉 偏 向", 96, 278);
+
+    const nameSize = D.name.length >= 9 ? 68 : (D.name.length >= 7 ? 78 : 94);
+    x.fillStyle = "#171916"; x.font = `700 ${nameSize}px ${serif}`;
+    x.fillText(D.name, 96, 382);
+
+    x.fillStyle = "#6d726a"; x.font = `26px ${serif}`;
+    const gap = top.score - second.score;
+    const sub = (top.score === second.score && top.pri === second.pri)
+      ? `与「${DIRS[second.k].name}」并列`
+      : (gap === 0
+        ? `与「${DIRS[second.k].name}」几乎并列`
+        : (gap <= 2 ? `次近：${DIRS[second.k].name}` : `另一条可能的路：${DIRS[second.k].name}`));
+    x.fillText(sub, 96, 432);
+
+    x.strokeStyle = D.color; x.lineWidth = 3; x.beginPath(); x.moveTo(96, 468); x.lineTo(186, 468); x.stroke();
+
+    x.fillStyle = "#40453e"; x.font = `31px ${serif}`;
+    const lines = wrapText(x, D.desc, 882).slice(0, 5);
+    lines.forEach((ln, i) => x.fillText(ln, 96, 528 + i * 54));
+
+    let y = 528 + lines.length * 54 + 18;
+    x.fillStyle = "#6d726a"; x.font = `20px ${sans}`;
+    x.fillText(D.tags.map(t => "# " + t).join("    "), 96, y);
+
+    y += 58;
+    x.strokeStyle = "#e8e9e4"; x.lineWidth = 1; x.beginPath(); x.moveTo(96, y); x.lineTo(984, y); x.stroke();
+
+    y += 46;
+    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("三 位 可 以 点 开 的 人", 96, y);
+    y += 48;
+    const names = D.people.map(id => {
+      const s = data.scholars.find(v => v.id === id);
+      return s ? s.name : "";
+    }).filter(Boolean);
+    x.fillStyle = "#171916"; x.font = `36px ${serif}`;
+    x.fillText(names.join("　·　"), 96, y);
+
+    y += 58;
+    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("从 这 条 学 脉 往 里 走", 96, y);
+    y += 42;
+    const edge = findEdge(top.k);
+    x.fillStyle = "#40453e"; x.font = `28px ${serif}`;
+    const edgeText = edge
+      ? `${edge.a.name} → ${edge.b.name}　${edge.a.discipline && edge.b.discipline && edge.a.discipline !== edge.b.discipline ? "跨方向 · " : ""}${edge.e.type || "师承"}${edge.e.year ? " · " + edge.e.year : ""}`
+      : "本方向暂无可展开的师承边";
+    x.fillText(edgeText, 96, y);
+
+    // 相对倾向：只画前三条，避免把结果卡做成报表
+    y += 78;
+    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("相 对 倾 向", 96, y);
+    const topScore = r[0].score || 1;
+    r.slice(0, 3).forEach((row, i) => {
+      const yy = y + 42 + i * 40;
+      x.fillStyle = "#6d726a"; x.font = `20px ${sans}`;
+      x.fillText(DIRS[row.k].name, 96, yy + 6);
+      x.fillStyle = "#e8e9e4"; x.fillRect(330, yy - 4, 420, 7);
+      x.fillStyle = DIRS[row.k].color;
+      x.fillRect(330, yy - 4, Math.max(10, Math.round(420 * row.score / topScore)), 7);
+    });
+
+    x.strokeStyle = "#dcded7"; x.lineWidth = 1; x.beginPath(); x.moveTo(96, 1250); x.lineTo(984, 1250); x.stroke();
+    x.fillStyle = "#6d726a"; x.font = `24px ${sans}`;
+    x.fillText("sitting-forgetting.github.io/bnu-scholars", 96, 1304);
+    x.fillStyle = "#979b92"; x.font = `20px ${sans}`;
+    x.fillText("2026 · 数字人文课程作品", 96, 1344);
+
+    x.fillStyle = "#004DA0"; x.fillRect(888, 1276, 84, 84);
+    x.fillStyle = "#fdf9f3"; x.font = `700 52px ${serif}`; x.textAlign = "center";
+    x.fillText("学", 930, 1340); x.textAlign = "left";
+
+    const filename = `京师学林_学脉罗盘_${D.name}.png`;
+    c.toBlob(blob => {
+      if (!blob) return;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    }, "image/png");
+  }
+
+  load();
+  // 供回归测试读取题面与计分映射；不含用户数据
+  window.__COMPASS_META__ = {
+    questions: QUESTIONS.map(q => ({ opts: q.opts.map(o => ({ d: o.d, s: o.s })) })),
+    dirs: ORDER.map(k => ({ k, name: DIRS[k].name })),
+  };
+  if (state.answers.every(v => v !== null)) {
+    renderResult(false);
+  } else {
+    renderQuestion("q");
+  }
+})();
+</script>
+</body>
+</html>

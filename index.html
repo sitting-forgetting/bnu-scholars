@@ -107,6 +107,37 @@
   .path:hover .go::after { transform: translateX(3px); }
   .path::after { display: none; }
 
+  /* ---- 学脉罗盘入口 ---- */
+  .compass-band {
+    display: flex; align-items: center; justify-content: space-between; gap: 28px;
+    border-bottom: 1px solid var(--line); background: transparent;
+    padding: 22px 24px 22px 0; transition: background .16s var(--ease);
+  }
+  .compass-band:hover { background: var(--paper); text-decoration: none; }
+  .compass-band .cb-left { display: flex; align-items: flex-start; gap: 22px; min-width: 0; }
+  .compass-band .cb-no {
+    font-family: var(--f-serif); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    color: var(--accent); padding-top: 3px;
+  }
+  .compass-band .cb-eyebrow {
+    display: block;
+    font-family: var(--f-sans); font-size: 10.5px; letter-spacing: 2.6px;
+    color: var(--gold-deep); font-weight: 600; margin-bottom: 5px;
+  }
+  .compass-band .cb-title {
+    display: block;
+    font-family: var(--f-serif); font-size: 19px; font-weight: 700; letter-spacing: 1.6px;
+    color: var(--ink); line-height: 1.6;
+  }
+  .compass-band .cb-desc { display: block; font-size: 13px; color: var(--muted); line-height: 1.9; margin-top: 3px; }
+  .compass-band .cb-go {
+    font-family: var(--f-sans); font-size: 13px; color: var(--ink-2);
+    white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .compass-band:hover .cb-go { color: var(--accent); }
+  .compass-band .cb-go::after { content: "→"; transition: transform .18s var(--ease); }
+  .compass-band:hover .cb-go::after { transform: translateX(3px); }
+
   /* ---- 传统学术资源·章黄一脉 ---- */
   .tradition { margin: 64px 0 0; border-top: 1px solid var(--ink); padding-top: 30px; }
   .tr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -163,6 +194,12 @@
     .path { border-right: 0; border-bottom: 1px solid var(--line); }
     .path:last-child { border-bottom: 0; }
     .list-head .page-title { font-size: 26px; }
+    .compass-band { padding: 18px 2px; gap: 12px; align-items: flex-start; }
+    .compass-band .cb-left { gap: 12px; }
+    .compass-band .cb-no { padding-top: 1px; }
+    .compass-band .cb-title { font-size: 16px; letter-spacing: .8px; }
+    .compass-band .cb-desc { font-size: 12.5px; line-height: 1.8; }
+    .compass-band .cb-go { font-size: 12px; padding-top: 2px; }
     .tr-jump summary { grid-template-columns: 1fr auto; gap: 4px 10px; }
     .tr-jump .no, .tr-jump .names, .tr-jump .carrier { grid-column: 1; }
     .tr-jump .chev { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
@@ -224,6 +261,18 @@
       <span class="go">查出处</span>
     </a>
   </section>
+
+  <a class="compass-band" href="compass.html">
+    <span class="cb-left">
+      <span class="cb-no">05</span>
+      <span>
+        <span class="cb-eyebrow">学脉罗盘 · 十二题</span>
+        <span class="cb-title">你遇到材料时，第一反应靠近哪条学脉？</span>
+        <span class="cb-desc">十二道具体的选择题，答完给你一条学脉、三位可以点开的学者、一条能继续追的师承边。约 3 分钟。</span>
+      </span>
+    </span>
+    <span class="cb-go">测一测</span>
+  </a>
 
   <section class="tradition" id="tradition">
     <div class="tr-head">
