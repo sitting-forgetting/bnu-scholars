@@ -1,6 +1,6 @@
 /* 由 scripts/build_data.py 自动生成，请勿手改；更新数据请改 Excel 后重新运行脚本 */
 window.BNU_DATA = {
- "generatedAt": "2026-11-18",
+ "generatedAt": "2026-11-26",
  "scholars": [
   {
    "id": "bnu-001",
@@ -1069,7 +1069,7 @@ window.BNU_DATA = {
    "name": "曹顺庆",
    "gender": "",
    "birth": null,
-   "title": "副教授",
+   "title": "教授",
    "discipline": "比较文学与世界文学",
    "interests": [],
    "birthplace": "湖北省",
@@ -1080,7 +1080,7 @@ window.BNU_DATA = {
    "homepage": "",
    "source": "https://wxy.bnu.edu.cn/yjdw/bjwxysjwxyjs/e094970c7e094c0cb01d58ffd1926551.htm",
    "fetched": "2026-10-21",
-   "note": "籍贯据官网简介原文：湖北荆州人（文化与文论\n个人简介：\n湖北荆州人，满族，19）",
+   "note": "籍贯据官网简介原文：湖北荆州人（文化与文论\n个人简介：\n湖北荆州人，满族，19）；职称据官网简介更正为教授（1990年晋升教授，现任北京师范大学教授）",
    "org": "比较文学与世界文学研究所",
    "demo": false
   },

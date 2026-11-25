@@ -17,8 +17,20 @@
     content: ""; position: absolute; left: 0; top: 22px; bottom: 20px; width: 2px;
     background: var(--accent); pointer-events: none;
   }
-  .intro-box p { margin: 0; font-size: 14px; line-height: 2.1; color: var(--ink-2); }
+  .intro-box p { margin: 0 0 10px; font-size: 14px; line-height: 2.05; color: var(--ink-2); }
+  .intro-box p:last-child { margin-bottom: 0; }
   .intro-box .em { color: var(--accent-dark); font-weight: 600; }
+  .intro-box .no { color: #9c3a32; font-weight: 600; }
+
+  /* ---- 页内锚点 ---- */
+  .anchors { display: flex; gap: 22px; flex-wrap: wrap; margin: 0 0 22px;
+    font-family: var(--f-sans); font-size: 13px; }
+  .anchors a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-soft); padding-bottom: 2px; }
+  .anchors a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .sec-title { font-family: var(--f-serif); font-size: 22px; font-weight: 700; color: var(--ink);
+    letter-spacing: 3px; margin: 44px 0 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .sec-desc { font-size: 13.5px; color: var(--ink-2); line-height: 2.0; margin: 0 0 20px; }
 
   .grid-note {
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -34,6 +46,7 @@
     background: var(--gold); border-radius: 0;
   }
 
+  /* ---- 名师网格 ---- */
   .master-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 12px; }
   .master-card {
     position: relative; background: var(--paper); border: 1px solid var(--line);
@@ -80,86 +93,228 @@
     position: absolute; top: 0; height: 1px; border-radius: 0;
     background: var(--gold);
   }
-  .m-life span::after {
-    content: ""; position: absolute; right: -1px; top: -3px; width: 1px; height: 7px;
-    background: var(--gold); border-radius: 0;
+  .m-life span.open { background: linear-gradient(90deg, var(--gold), transparent); }
+  .m-bio {
+    font-size: 12.5px; color: var(--ink-2); line-height: 1.9; margin: 0;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .m-life .open { background: var(--gold); }
-  .master-card .m-bio {
-    font-size: 12.5px; line-height: 1.95; color: var(--muted);
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-    overflow: hidden; margin-bottom: 14px; min-height: 72px;
+  .m-foot {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 14px;
+    padding-top: 10px; border-top: 1px dashed var(--line);
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted);
   }
-  .master-card .m-foot {
-    margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line-soft);
-    display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    font-family: var(--f-sans); font-size: 11px; color: var(--muted);
-  }
-  .master-card .m-foot .disc { display: inline-flex; align-items: center; gap: 5px; }
-  .master-card .m-foot .disc b { font-weight: 600; color: var(--accent); }
-  .master-card .m-foot .read { color: var(--accent); opacity: 0; transform: translateX(-4px); transition: all .18s var(--ease); }
-  .master-card:hover .m-foot .read { opacity: 1; transform: none; }
+  .m-foot .disc { color: var(--accent-dark); }
+  .m-foot .disc b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .m-foot .read { color: var(--faint); transition: color .15s; }
+  .master-card:hover .m-foot .read { color: var(--accent); }
 
-  /* 详情弹层 */
+  /* ---- 生平弹层 ---- */
   .modal-mask {
-    display: none; position: fixed; inset: 0; background: rgba(23, 25, 22, .46);
-    -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
-    z-index: 100; align-items: center; justify-content: center; padding: 24px;
+    position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center;
+    background: rgba(30, 28, 24, .44); padding: 24px;
   }
   .modal-mask.show { display: flex; animation: fadein .18s ease; }
-  @keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
   .modal {
-    background: var(--paper); border: 1px solid var(--line); border-radius: 3px; max-width: 660px; width: 100%;
-    max-height: 84vh; overflow: auto; padding: 0; position: relative;
-    box-shadow: 0 20px 60px rgba(23,25,22,.2); animation: rise .26s var(--ease) both;
+    background: var(--paper); border: 1px solid var(--line-strong); border-radius: 3px;
+    max-width: 720px; width: 100%; max-height: 88vh; overflow: auto; position: relative;
   }
   .modal .m-head {
-    padding: 30px 34px 22px; border-bottom: 1px solid var(--line);
-    background: transparent; border-radius: 0; display: flex; gap: 20px; align-items: flex-start;
+    display: flex; gap: 20px; padding: 28px 34px 22px;
+    border-bottom: 1px solid var(--line);
   }
   .modal .m-head .m-face { width: 104px; height: 136px; }
   .modal .m-head .mh-text { min-width: 0; flex: 1; }
   .modal .m-imgsrc {
-    font-family: var(--f-sans); font-size: 11px; color: var(--muted); margin-top: 9px; line-height: 1.8;
+    margin-top: 10px; font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); line-height: 1.8;
   }
   .modal .m-imgsrc a { color: var(--accent); }
   .modal h2 {
-    margin: 0; font-family: var(--f-serif); font-size: 26px; color: var(--ink);
-    letter-spacing: 3px; font-weight: 700;
+    font-family: var(--f-serif); font-size: 27px; font-weight: 700; letter-spacing: 3px;
+    color: var(--ink); margin: 0;
   }
   .modal .m-years {
-    font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin-top: 6px;
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--muted); margin-top: 6px;
     font-variant-numeric: tabular-nums;
   }
   .modal .m-body { padding: 24px 34px 30px; }
   .modal .m-bio-full { font-size: 14.5px; line-height: 2.1; color: var(--ink-2); white-space: pre-wrap; }
   .modal .m-life { margin: 16px 0 0; }
   .modal .m-src {
-    margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line-soft);
-    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); word-break: break-all;
+    margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); word-break: break-all; line-height: 1.8;
   }
   .modal .close {
-    position: absolute; top: 14px; right: 16px; width: 28px; height: 28px; border-radius: 2px;
-    font-size: 18px; color: var(--muted); cursor: pointer; border: 1px solid var(--line); background: transparent;
-    line-height: 1; display: flex; align-items: center; justify-content: center;
+    position: absolute; right: 14px; top: 12px; width: 34px; height: 34px;
+    border: 1px solid var(--line); background: transparent; color: var(--muted);
+    font-size: 18px; cursor: pointer; border-radius: 3px; transition: all .15s;
   }
   .modal .close:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
   .modal .go-lineage {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
-    font-family: var(--f-sans); font-size: 12.5px; color: var(--accent);
+    display: inline-block; margin-top: 16px; font-family: var(--f-sans); font-size: 12.5px;
+    color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);
   }
-  @media (max-width: 620px) {
+  @media (max-width: 720px) {
     .modal .m-head { padding: 24px 22px 18px; }
     .modal .m-body { padding: 20px 22px 26px; }
     .modal h2 { font-size: 23px; }
   }
+
+  /* ---- 影像工具区 ---- */
+  .tally { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; }
+  .tally .t {
+    flex: 1 1 120px; min-width: 110px; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 3px; padding: 14px 16px 12px; text-align: left;
+  }
+  .tally .t.gold { border-top: 2px solid var(--gold); }
+  .tally .t.seal { border-top: 2px solid var(--seal); }
+  .tally .n { font-family: var(--f-serif); font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .tally .n small { font-size: 14px; }
+  .tally .l { font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+  .toolbar {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 12px 16px; margin-bottom: 8px;
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--ink-2);
+  }
+  .toolbar .fld { display: inline-flex; align-items: center; gap: 8px; }
+  .toolbar label { color: var(--muted); }
+  .toolbar input[type="search"], .toolbar select {
+    font-family: var(--f-sans); font-size: 12.5px; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px;
+  }
+  .toolbar input[type="search"] { width: 150px; }
+  .toolbar .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .toolbar .seg button {
+    border: 0; background: #fff; color: var(--ink-2); font-size: 12px; padding: 5px 12px; cursor: pointer;
+  }
+  .toolbar .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .toolbar .chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .toolbar .reset {
+    margin-left: auto; border: 1px solid var(--line); background: #fff; color: var(--muted);
+    font-size: 12px; padding: 5px 12px; border-radius: 3px; cursor: pointer;
+  }
+  .toolbar .reset:hover { color: var(--accent); border-color: var(--accent); }
+  .result-note { font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin: 4px 0 14px; }
+  .empty-note { font-size: 13px; color: var(--muted); margin: 20px 0; }
+
+  /* ---- 影像网格 ---- */
+  .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--cell, 190px), 1fr)); gap: 14px; }
+  .pcard {
+    position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 8px; cursor: pointer;
+    text-align: left; transition: border-color .16s var(--ease);
+    animation: fadein .35s ease backwards;
+  }
+  .pcard:hover { border-color: var(--line-strong); background: #fff; }
+  .pcard .idx {
+    position: absolute; right: 12px; top: 10px; font-family: var(--f-sans);
+    font-size: 10.5px; color: var(--faint); letter-spacing: 1px; font-variant-numeric: tabular-nums;
+  }
+  .pcard .frame {
+    height: var(--fh, 210px); border: 1px solid var(--line); background: linear-gradient(180deg, #f3f1ea, #e9e7df);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .pcard .frame img { width: 100%; height: 100%; object-fit: contain; display: block; filter: saturate(.94); }
+  .pcard.gap { cursor: default; }
+  .pcard.gap .frame {
+    border-style: dashed; border-color: var(--line-strong);
+    background: repeating-linear-gradient(135deg, #f2f2ee 0 7px, #ecece7 7px 14px);
+  }
+  .seal-miss {
+    font-family: var(--f-sans); font-size: 12px; color: #9c3a32; letter-spacing: 3px;
+    writing-mode: vertical-rl;
+  }
+  .pcard .cap { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .pcard .nm { font-family: var(--f-serif); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 2px; }
+  .pcard .yr { font-family: var(--f-sans); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pcard .src { font-family: var(--f-sans); font-size: 11px; color: var(--accent-dark); }
+  .pcard .px { font-family: var(--f-sans); font-size: 10.5px; color: var(--faint); }
+  .pcard .why { font-family: var(--f-sans); font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+  /* ---- 灯箱 ---- */
+  .lb-mask {
+    position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center;
+    background: rgba(30, 28, 24, .52); padding: 20px;
+  }
+  .lb-mask.show { display: flex; animation: fadein .18s ease; }
+  .lb {
+    background: var(--paper); border: 1px solid var(--line-strong); border-radius: 3px;
+    max-width: 860px; width: 100%; max-height: 90vh; overflow: auto; position: relative;
+    display: grid; grid-template-columns: minmax(240px, 340px) 1fr;
+  }
+  .lb .lb-img { background: #111; display: flex; align-items: center; justify-content: center; min-height: 320px; }
+  .lb .lb-img img { width: 100%; height: 100%; max-height: 90vh; object-fit: contain; display: block; }
+  .lb .lb-meta { padding: 26px 28px 24px; min-width: 0; }
+  .lb h2 { font-family: var(--f-serif); font-size: 24px; letter-spacing: 3px; margin: 0 0 4px; }
+  .lb .sub { font-family: var(--f-sans); font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .lb dl { display: grid; grid-template-columns: 76px 1fr; gap: 7px 12px; margin: 0; font-size: 12.5px; line-height: 1.8; }
+  .lb dt { font-family: var(--f-sans); color: var(--muted); }
+  .lb dd { margin: 0; color: var(--ink-2); word-break: break-all; }
+  .lb dd a { color: var(--accent); }
+  .lb .lic {
+    margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line);
+    font-family: var(--f-sans); font-size: 11.5px; color: var(--muted); line-height: 1.8;
+  }
+  .lb .nav-row { display: flex; align-items: center; gap: 14px; margin-top: 18px; font-family: var(--f-sans); font-size: 12px; }
+  .lb .nav-row button {
+    border: 1px solid var(--line); background: #fff; color: var(--ink-2); padding: 5px 12px;
+    border-radius: 3px; cursor: pointer; font-size: 12px;
+  }
+  .lb .nav-row button:hover { color: var(--accent); border-color: var(--accent); }
+  .lb .nav-row .pos { color: var(--faint); margin-left: auto; }
+  .lb .nav-row a.pos { color: var(--accent); margin-left: 0; }
+  .lb .close {
+    position: absolute; right: 14px; top: 12px; z-index: 2; width: 34px; height: 34px;
+    border: 1px solid var(--line); background: var(--paper); color: var(--muted);
+    font-size: 18px; cursor: pointer; border-radius: 3px; transition: all .15s;
+  }
+  .lb .close:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
+  @media (max-width: 720px) {
+    .lb { grid-template-columns: 1fr; }
+    .lb .lb-img { min-height: 240px; max-height: 46vh; }
+    .lb .lb-img img { max-height: 46vh; }
+  }
+
+  /* ---- 图表与表格 ---- */
+  .chart-box { margin: 46px 0 0; padding-top: 26px; border-top: 1px solid var(--line); }
+  .chart-box h2 { font-family: var(--f-serif); font-size: 20px; font-weight: 700; letter-spacing: 2px; color: var(--ink); margin: 0 0 8px; }
+  .chart-desc { font-size: 13px; color: var(--ink-2); line-height: 2.0; margin: 0 0 18px; max-width: 760px; }
+  .chart-desc code, .gt code { font-size: 12px; }
+  .dist .row { display: grid; grid-template-columns: 210px 1fr 60px; align-items: center; gap: 12px; margin-bottom: 9px; }
+  .dist .lab { font-family: var(--f-sans); font-size: 12.5px; color: var(--ink-2); }
+  .dist .lab em { display: block; font-style: normal; font-size: 11px; color: var(--muted); }
+  .dist .bar { height: 10px; background: var(--line-soft); border-radius: 0; overflow: hidden; }
+  .dist .bar i { display: block; height: 100%; background: var(--gold); }
+  .dist .bar.cw i { background: var(--accent); }
+  .dist .n { font-family: var(--f-sans); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+  .warn {
+    margin-top: 14px; padding: 12px 16px; border-left: 2px solid var(--gold);
+    background: rgba(201, 138, 46, .06); font-size: 12.5px; color: var(--ink-2); line-height: 1.9;
+  }
+  .gt { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  /* 表格横滚（common.js 自动为 .gt 套 .tscroll 包装） */
+  .tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tscroll .gt { min-width: 560px; }
+  @media (max-width: 720px) {
+    .toolbar { gap: 10px; }
+    .toolbar input[type="search"] { width: 120px; }
+  }
+  .gt th {
+    text-align: left; font-family: var(--f-sans); font-weight: 600; color: var(--ink);
+    border-bottom: 1px solid var(--line-strong); padding: 8px 10px 8px 0;
+  }
+  .gt td { border-bottom: 1px solid var(--line-soft); padding: 9px 10px 9px 0; color: var(--ink-2); vertical-align: top; line-height: 1.8; }
+  .gt td.num, .gt .num { font-variant-numeric: tabular-nums; }
+  .gt a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  .gt a:hover { border-bottom-style: solid; }
 </style>
 </head>
 <body>
 <div id="site-header"></div>
 <main class="wrap">
   <h2 class="page-title">先贤名师</h2>
-  <p class="page-desc">北师大中文系学科奠基人。名单与生平依据文学院官网「先贤名师」栏目整理，共 38 位；其中 35 位已配本人肖像，逐张与发布页小传核对，出处与许可见<a href="portraits.html">「先贤影像」</a>。</p>
+  <p class="page-desc">北师大中文系学科奠基人。名单与生平依据文学院官网「先贤名师」栏目整理，共 38 位；其中 35 位已配本人肖像，逐张与发布页小传核对。生平与影像合为一页：上半部看人，下半部看照片的来历。</p>
 
   <div class="intro-box">
     <p>
@@ -168,18 +323,136 @@
       <span class="em">钟敬文</span>被誉为「中国民俗学之父」，<span class="em">陆宗达</span>承章黄之学而开现代训诂学一脉，
       <span class="em">启功</span>则是文献学与文物鉴定的一代宗师。他们的师承与授业，构成今日学科谱系的根。
     </p>
+    <p>
+      <span class="em">图像是见证，不是证据。</span>师承关系的判定只看文字证据与来源链接，
+      「强 / 中 / 弱」分级不会因为某人配了照片而升高一级。<span class="no">不用 AI 生成或修复真实学者的肖像</span>——
+      近现代人物有摄影存世，生成一张「看起来像」的脸就是伪造史料；小尺寸原图按原样展示，不作插值放大。
+      图片版权归原发布机构或摄影者所有，本站仅作教学展示与署名引用；查不到可引用肖像的，宁可留空，也不拿他人照片或生成图顶上。
+    </p>
   </div>
 
+  <nav class="anchors" aria-label="页内导航">
+    <a href="#sec-masters">① 三十八位名师</a>
+    <a href="#sec-portraits">② 影像浏览与检索</a>
+    <a href="#sec-dist">③ 影像从哪里来</a>
+    <a href="#sec-fields">④ 影像字段口径</a>
+    <a href="#sec-credits">⑤ 署名与许可清单</a>
+    <a href="#sec-gaps">⑥ 留空的三位</a>
+  </nav>
+
+  <h3 class="sec-title" id="sec-masters">三十八位名师</h3>
   <div class="grid-note">
     <span class="axis-demo"><i></i> 卡片中的细线为生卒区间，横轴范围 1870 — 2026</span>
     <span>·</span>
     <span>按生年排序，生年不详者置于末尾</span>
+    <span>·</span>
+    <span>点击卡片读生平全文</span>
+  </div>
+  <div class="master-grid" id="master-grid"></div>
+
+  <h3 class="sec-title" id="sec-portraits">影像浏览</h3>
+  <p class="sec-desc">
+    每一帧都来自发布该人物的机构页面本身——文学院「先贤名师」栏目、图书馆「京师文库」、
+    民俗典籍文字研究中心「学脉承传」——并逐张与同页小传比对身份。图像在这里只做一件事：让谱系上的一个名字重新长出一张脸。
+  </p>
+
+  <div class="tally" id="tally"></div>
+
+  <div class="toolbar" role="region" aria-label="影像筛选">
+    <span class="fld">
+      <label for="q">检索</label>
+      <input type="search" id="q" placeholder="姓名 / 机构" autocomplete="off">
+    </span>
+    <span class="fld">
+      <label for="f-src">来源</label>
+      <select id="f-src"><option value="">全部机构</option></select>
+    </span>
+    <span class="fld">
+      <label for="f-sort">排序</label>
+      <select id="f-sort">
+        <option value="birth">按生年</option>
+        <option value="name">按姓名</option>
+        <option value="src">按来源机构</option>
+        <option value="size">按原图尺寸</option>
+      </select>
+    </span>
+    <span class="fld">
+      <label id="size-label">图幅</label>
+      <span class="seg" role="group" aria-labelledby="size-label">
+        <button type="button" data-size="s" aria-pressed="false">小</button>
+        <button type="button" data-size="m" aria-pressed="true">中</button>
+        <button type="button" data-size="l" aria-pressed="false">大</button>
+      </span>
+    </span>
+    <label class="chk"><input type="checkbox" id="f-gap" checked>显示待补条目</label>
+    <label class="chk"><input type="checkbox" id="f-px" checked>显示原图尺寸</label>
+    <button type="button" class="reset" id="reset">重置</button>
   </div>
 
-  <div class="master-grid" id="master-grid"></div>
+  <p class="result-note" id="result-note"></p>
+  <div class="pgrid" id="pgrid"></div>
+  <p class="empty-note" id="empty" hidden>没有匹配的先贤。试试清空检索词，或把来源改回「全部机构」。</p>
+
+  <div class="chart-box" id="sec-dist">
+    <h2>影像从哪里来</h2>
+    <p class="chart-desc">
+      按发布机构统计。机构自述页（学院、中心、图书馆）是一手来源：照片与人物小传由同一机构在同一页发布，
+      身份可当场互证；行业机构（中国作家网）为二手，仅在一手渠道确无肖像时使用。
+    </p>
+    <div class="dist" id="dist"></div>
+    <div class="warn" id="dist-note"></div>
+  </div>
+
+  <div class="chart-box" id="sec-fields">
+    <h2>影像字段：一张照片要能回答的八个问题</h2>
+    <p class="chart-desc">
+      数据文件 <code>data/media.js</code>，与人物表以 <code>personId</code> 关联，不改动既有 <code>scholars.js</code> / <code>lineage.js</code>。
+      字段对标课程讲义「图像元数据元素集」，逐元素映射见<a href="schema.html">「字段口径」页</a>。
+    </p>
+    <table class="gt">
+      <tr><th style="width:104px">字段</th><th style="width:88px">类型</th><th style="width:56px">必填</th><th>取值规范</th><th style="width:150px">对标元素</th></tr>
+      <tr><td><code>title</code></td><td>字符串</td><td>必填</td><td>「姓名＋肖像」，不另拟标题</td><td>题名</td></tr>
+      <tr><td><code>personId</code></td><td>ID</td><td>必填</td><td>关联先贤表节点，一张图只挂一个人</td><td>关联对象</td></tr>
+      <tr><td><code>type</code></td><td>字符串</td><td>必填</td><td>当前受控词表只有 <code>portrait</code>（肖像）；书影、手迹未采集</td><td>资源类型</td></tr>
+      <tr><td><code>src</code> / <code>sourceUrl</code></td><td>字符串</td><td>必填</td><td>发布机构代码 + 该人物所在页面 URL（不是图片直链）</td><td>出处</td></tr>
+      <tr><td><code>imageUrl</code></td><td>字符串</td><td>必填</td><td>原图直链，供复核者回到原始文件比对</td><td>标识符</td></tr>
+      <tr><td><code>nativeW</code> / <code>nativeH</code></td><td>整数</td><td>必填</td><td>原图像素尺寸；站内展示版长边不超过 480px，只缩不放</td><td>格式与尺寸</td></tr>
+      <tr><td><code>date</code></td><td>整数</td><td>可选</td><td>拍摄年代。<strong>本批全部留空</strong>——发布页均未标注拍摄时间，不据人物生卒推测</td><td>时空范围</td></tr>
+      <tr><td><code>license</code> / <code>note</code></td><td>字符串</td><td>必填</td><td>许可口径 + 身份核对说明（凭什么认定照片里是这个人）</td><td>权限 / 注释</td></tr>
+    </table>
+    <p class="chart-desc" style="margin-top:10px">
+      「风格」「颜色」两个图像专有元素本站不采集：它们服务于图像检索系统，而本库的检索入口是人物与师承，
+      造两个空字段冒充覆盖没有意义。这一判断写在「字段口径」页的通用元素映射表里。
+    </p>
+  </div>
+
+  <div class="chart-box" id="sec-credits">
+    <h2>署名与许可清单</h2>
+    <p class="chart-desc">逐件列出，供权利人与复核者核对。点击人物名可在上方灯箱查看该帧的完整元数据。</p>
+    <table class="gt" id="credits">
+      <thead><tr><th style="width:44px">#</th><th style="width:88px">人物</th><th style="width:210px">发布机构与栏目</th><th style="width:150px">许可口径</th><th>原页</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="chart-box" id="sec-gaps">
+    <h2>留空的三位，以及查过哪里</h2>
+    <p class="chart-desc">
+      留空不是遗漏，是查检后的结论。下面列出已经查过的一手渠道，复核时可以顺着同一条路再走一遍。
+    </p>
+    <table class="gt" id="gaps">
+      <thead><tr><th style="width:88px">人物</th><th style="width:110px">生卒</th><th>已查渠道</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="warn">
+      这三位在库中仍有完整的生平与师承记录，缺的只是肖像。若你手上有可署名引用的照片来源，
+      请经<a href="build-guide.html">「构建方法」页的数据引用与更正通道</a>告知，核对后补入并在此署名。
+    </div>
+  </div>
 </main>
 <div id="site-footer"></div>
 
+<!-- 生平弹层 -->
 <div class="modal-mask" id="modal-mask" role="dialog" aria-modal="true" aria-labelledby="m-name">
   <div class="modal">
     <button class="close" id="modal-close" aria-label="关闭">×</button>
@@ -200,20 +473,42 @@
   </div>
 </div>
 
+<!-- 影像灯箱 -->
+<div class="lb-mask" id="lb-mask" role="dialog" aria-modal="true" aria-labelledby="lb-name">
+  <div class="lb" id="lb">
+    <button class="close" id="lb-close" aria-label="关闭">×</button>
+    <div class="lb-img"><img id="lb-img" alt=""></div>
+    <div class="lb-meta">
+      <h2 id="lb-name"></h2>
+      <div class="sub" id="lb-sub"></div>
+      <dl id="lb-dl"></dl>
+      <div class="lic" id="lb-lic"></div>
+      <div class="nav-row">
+        <button type="button" id="lb-prev">← 上一位</button>
+        <button type="button" id="lb-next">下一位 →</button>
+        <a class="pos" id="lb-lineage" href="#">在世表中查看 →</a>
+        <span class="pos" id="lb-pos"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="data/scholars.js"></script>
 <script src="data/lineage.js"></script>
 <script src="data/media.js"></script>
 <script src="js/common.js"></script>
 <script>
 (function () {
+  const esc = BNU.esc;
   const data = window.BNU_DATA;
+  const MEDIA = window.BNU_MEDIA;
+  const masters = (data.masters || []).slice().sort((a, b) => (a.birth || 9999) - (b.birth || 9999));
   document.getElementById("site-header").innerHTML = BNU.header("masters.html");
   document.getElementById("site-footer").innerHTML = BNU.footer(data);
 
   const ld = window.LINEAGE_DATA;
   const nodeById = {};
   (ld && ld.nodes || []).forEach(n => { nodeById[n.id] = n; });
-  // 门下人数：以世表数据为准（比采集表 61 条完整）
   const studentsOf = {};
   (ld && ld.edges || []).forEach(e => {
     (studentsOf[e.mentor] = studentsOf[e.mentor] || []).push(e.student);
@@ -229,7 +524,6 @@
     return `<div class="m-life"><span class="${death ? "" : "open"}" style="left:${left.toFixed(2)}%;width:${w.toFixed(2)}%"></span></div>`;
   };
 
-  // 生卒年显示：两者都有用「1881—1936」；只有生年表示在世，用「1943—」；都没有则「生卒待考」
   const fmtYears = m => {
     if (m.birth && m.death) return `${m.birth}—${m.death}`;
     if (m.birth) return `${m.birth}—`;
@@ -237,32 +531,30 @@
     return "生卒待考";
   };
 
-  // 肖像：取自已核对的影像表；未采集到者显示「待补」占位，不用首字头像冒充照片
   const faceHtml = m => {
     const p = BNU.portrait(m.id);
     return p
-      ? `<div class="m-face" style="--focus:${p.focus}"><img src="${BNU.esc(p.file)}" alt="${BNU.esc(m.name)}肖像" loading="lazy" decoding="async"></div>`
+      ? `<div class="m-face" style="--focus:${p.focus}"><img src="${esc(p.file)}" alt="${esc(m.name)}肖像" loading="lazy" decoding="async"></div>`
       : `<div class="m-face none" title="已查一手渠道，未获可署名引用的本人肖像"><b>肖像待补</b></div>`;
   };
 
-  // 按生年排序；生年不详的排到最后（不占据开头位置）
-  const masters = (data.masters || []).slice().sort((a, b) => (a.birth || 9999) - (b.birth || 9999));
+  /* ============ ① 名师网格 + 生平弹层 ============ */
   const grid = document.getElementById("master-grid");
   grid.innerHTML = masters.map((m, i) => {
     const n = (studentsOf[m.id] || []).length;
     return `
     <div class="master-card" data-i="${i}" tabindex="0" role="button"
-         aria-label="${BNU.esc(m.name)}，${fmtYears(m)}，查看生平">
+         aria-label="${esc(m.name)}，${fmtYears(m)}，查看生平">
       <span class="idx">${String(i + 1).padStart(2, "0")}</span>
       <div class="m-top">
         ${faceHtml(m)}
         <div style="min-width:0">
-          <div class="m-name">${BNU.esc(m.name)}</div>
-          <div class="m-years">${fmtYears(m)}${m.birthplace ? " · " + BNU.esc(m.birthplace) : ""}</div>
+          <div class="m-name">${esc(m.name)}</div>
+          <div class="m-years">${fmtYears(m)}${m.birthplace ? " · " + esc(m.birthplace) : ""}</div>
         </div>
       </div>
       ${lifeBar(m.birth, m.death)}
-      <div class="m-bio">${BNU.esc(m.note || "")}</div>
+      <div class="m-bio">${esc(m.note || "")}</div>
       <div class="m-foot">
         <span class="disc">${n ? `门下 <b>${n}</b> 人` : (nodeById[m.id] ? "已入谱系" : "未入谱系")}</span>
         <span class="read">读生平 →</span>
@@ -277,8 +569,8 @@
     document.getElementById("m-face-slot").innerHTML = faceHtml(m);
     const p = BNU.portrait(m.id);
     document.getElementById("m-imgsrc").innerHTML = p
-      ? `肖像：${BNU.esc(window.BNU_MEDIA.sources[p.src].name)} · ${BNU.esc(window.BNU_MEDIA.sources[p.src].license)}　<a href="portraits.html">影像出处与许可 →</a>`
-      : `肖像待补：已查一手渠道未获可引用照片，<a href="portraits.html">查检记录 →</a>`;
+      ? `肖像：${esc(MEDIA.sources[p.src].name)} · ${esc(MEDIA.sources[p.src].license)}　<a href="#sec-credits">影像出处与许可 →</a>`
+      : `肖像待补：已查一手渠道未获可引用照片，<a href="#sec-gaps">查检记录 →</a>`;
     document.getElementById("m-years").textContent =
       `${fmtYears(m)}${m.birthplace ? " · " + m.birthplace : ""}`;
     document.getElementById("m-life-modal").outerHTML =
@@ -289,7 +581,7 @@
     document.getElementById("m-extra").innerHTML = n
       ? `<a class="go-lineage" href="lineage.html?id=${encodeURIComponent(m.id)}">在世表中查看门下 ${n} 人 →</a>` : "";
     document.getElementById("m-src").innerHTML = m.source
-      ? `来源：<a href="${BNU.esc(m.source)}" target="_blank" rel="noopener">${BNU.esc(m.source)}</a>`
+      ? `来源：<a href="${esc(m.source)}" target="_blank" rel="noopener">${esc(m.source)}</a>`
       : "来源：文学院官网「先贤名师」";
     mask.classList.add("show");
   }
@@ -304,7 +596,224 @@
   const close = () => mask.classList.remove("show");
   document.getElementById("modal-close").onclick = close;
   mask.onclick = e => { if (e.target === mask) close(); };
-  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !document.getElementById("lb-mask").classList.contains("show")) close();
+  });
+
+  /* ============ ② 影像浏览 + 灯箱 ============ */
+  const byId = {};
+  masters.forEach(m => { byId[m.id] = m; });
+  const inGraph = {};
+  ((ld && ld.nodes) || []).forEach(n => { inGraph[n.id] = 1; });
+
+  const items = MEDIA.items.map(it => {
+    const m = byId[it.personId] || {};
+    return Object.assign({}, it, { birth: m.birth || 0, death: m.death || "", birthplace: m.birthplace || "" });
+  });
+  const gaps = MEDIA.gaps.map(g => {
+    const m = byId[g.personId] || {};
+    return Object.assign({}, g, { birth: m.birth || 0, death: m.death || "" });
+  });
+  const srcName = k => (MEDIA.sources[k] || {}).name || k;
+  const years = r => r.birth && r.death ? `${r.birth}—${r.death}` : (r.birth ? `${r.birth}—` : "生卒待考");
+
+  const instCount = Object.keys(MEDIA.sources).filter(k => items.some(i => i.src === k)).length;
+  const firstHand = items.filter(i => MEDIA.sources[i.src].tier.indexOf("一手") === 0).length;
+  document.getElementById("tally").innerHTML = [
+    ["", masters.length, "位先贤著录"],
+    ["gold", items.length, "帧已核肖像"],
+    ["seal", gaps.length, "位肖像待补"],
+    ["", instCount, "家发布机构"],
+    ["", Math.round(items.length / masters.length * 100) + "<small>%</small>", "配图覆盖率"],
+  ].map(([cls, n, l]) => `<div class="t ${cls}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+
+  const sel = document.getElementById("f-src");
+  Object.keys(MEDIA.sources).forEach(k => {
+    const n = items.filter(i => i.src === k).length;
+    if (!n) return;
+    const o = document.createElement("option");
+    o.value = k; o.textContent = `${MEDIA.sources[k].name}（${n}）`;
+    sel.appendChild(o);
+  });
+
+  const SIZES = { s: [148, 150], m: [190, 210], l: [246, 288] };
+  const state = { q: "", src: "", sort: "birth", size: "m", gap: true, px: true };
+  const pgrid = document.getElementById("pgrid");
+  let visible = [];
+
+  function match(r) {
+    if (state.src && r.src !== state.src) return false;
+    if (!state.q) return true;
+    const q = state.q.toLowerCase();
+    return (r.name || "").toLowerCase().includes(q)
+      || (r.src ? srcName(r.src) : "").toLowerCase().includes(q)
+      || (r.birthplace || "").toLowerCase().includes(q);
+  }
+  function sortRows(rows) {
+    const s = state.sort;
+    return rows.sort((a, b) => {
+      if (s === "name") return a.name.localeCompare(b.name, "zh-Hans-CN");
+      if (s === "src") return (a.src || "zz").localeCompare(b.src || "zz") || (a.birth || 9999) - (b.birth || 9999);
+      if (s === "size") return (b.nativeW * b.nativeH) - (a.nativeW * a.nativeH);
+      return (a.birth || 9999) - (b.birth || 9999);
+    });
+  }
+
+  function render() {
+    const [cell, fh] = SIZES[state.size];
+    pgrid.style.setProperty("--cell", cell + "px");
+    pgrid.style.setProperty("--fh", fh + "px");
+    const ok = sortRows(items.filter(match));
+    const gs = state.gap && !state.src ? sortRows(gaps.filter(match)) : [];
+    visible = ok;
+    pgrid.innerHTML = ok.map((r, i) => `
+      <button type="button" class="pcard" data-i="${i}" style="animation-delay:${Math.min(i * 14, 280)}ms"
+              aria-label="${esc(r.name)}肖像，查看元数据">
+        <span class="idx">${String(i + 1).padStart(2, "0")}</span>
+        <span class="frame"><img src="${esc(r.file)}" alt="${esc(r.name)}肖像" loading="lazy" decoding="async" width="${r.w}" height="${r.h}"></span>
+        <span class="cap">
+          <span class="nm">${esc(r.name)}</span>
+          <span class="yr">${years(r)}</span>
+          <span class="src ${r.src === "cw" ? "cw" : ""}">${esc(srcName(r.src).replace("北京师范大学", "北师大"))}</span>
+          ${state.px ? `<span class="px">原图 ${r.nativeW}×${r.nativeH}${r.nativeW > r.w ? " · 站内缩至 " + r.w + "×" + r.h : " · 原样展示"}</span>` : ""}
+        </span>
+      </button>`).join("")
+      + gs.map(g => `
+      <div class="pcard gap">
+        <span class="frame"><span class="seal-miss">肖像待补</span></span>
+        <span class="cap">
+          <span class="nm">${esc(g.name)}</span>
+          <span class="yr">${years(g)}</span>
+          <span class="why">已查 ${g.searched.length} 处一手渠道，未获可署名引用的本人肖像。</span>
+        </span>
+      </div>`).join("");
+    document.getElementById("empty").hidden = ok.length + gs.length > 0;
+    document.getElementById("result-note").innerHTML =
+      `当前显示 <b>${ok.length}</b> 帧肖像${gs.length ? ` 与 <b>${gs.length}</b> 位待补条目` : ""}`
+      + `，共 ${items.length} 帧 / ${masters.length} 位。点击任一肖像查看出处、许可与身份核对说明。`;
+  }
+
+  const lbMask = document.getElementById("lb-mask");
+  let cur = -1;
+  function openLb(i) {
+    if (!visible.length) return;
+    cur = (i + visible.length) % visible.length;
+    const r = visible[cur];
+    const s = MEDIA.sources[r.src];
+    document.getElementById("lb-img").src = r.file;
+    document.getElementById("lb-img").alt = r.name + "肖像";
+    document.getElementById("lb-name").textContent = r.name;
+    document.getElementById("lb-sub").textContent = `${years(r)}${r.birthplace ? " · " + r.birthplace : ""} · ${inGraph[r.personId] ? "已入谱系" : "未入谱系"}`;
+    document.getElementById("lb-dl").innerHTML = [
+      ["题名", esc(r.title)],
+      ["资源类型", "肖像（portrait）"],
+      ["发布机构", `${esc(s.name)}<br><span style="color:var(--muted);font-size:12px">${esc(s.col)} · ${esc(s.tier)}</span>`],
+      ["拍摄年代", r.date ? esc(r.date) : '<span style="color:var(--muted)">发布页未标注，留空不推测</span>'],
+      ["原图尺寸", `<span class="num">${r.nativeW}×${r.nativeH}</span> px` + (r.nativeW > r.w ? `，站内展示 ${r.w}×${r.h} px（等比缩小）` : "，站内原样展示，未放大")],
+      ["采集日期", esc(r.fetched)],
+      ["身份核对", esc(r.note)],
+      ["原页", `<a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(r.sourceUrl)}</a>`],
+      ["原图", `<a href="${esc(r.imageUrl)}" target="_blank" rel="noopener">查看发布机构原始文件 ↗</a>`],
+    ].map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+    document.getElementById("lb-lic").innerHTML =
+      `<strong>${esc(s.license)}</strong>　${esc(MEDIA.policy.takedown)}`;
+    document.getElementById("lb-pos").textContent = `${cur + 1} / ${visible.length}`;
+    const lin = document.getElementById("lb-lineage");
+    if (inGraph[r.personId]) {
+      lin.href = "lineage.html?id=" + encodeURIComponent(r.personId);
+      lin.textContent = "在世表中查看 →";
+      lin.style.display = "";
+    } else { lin.style.display = "none"; }
+    lbMask.classList.add("show");
+    document.getElementById("lb-close").focus();
+  }
+  const closeLb = () => { lbMask.classList.remove("show"); cur = -1; };
+  pgrid.addEventListener("click", e => {
+    const c = e.target.closest(".pcard[data-i]");
+    if (c) openLb(+c.dataset.i);
+  });
+  document.getElementById("lb-close").onclick = closeLb;
+  document.getElementById("lb-prev").onclick = () => openLb(cur - 1);
+  document.getElementById("lb-next").onclick = () => openLb(cur + 1);
+  lbMask.onclick = e => { if (e.target === lbMask) closeLb(); };
+  document.addEventListener("keydown", e => {
+    if (!lbMask.classList.contains("show")) return;
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowLeft") { e.preventDefault(); openLb(cur - 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); openLb(cur + 1); }
+  });
+
+  document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
+  sel.addEventListener("change", e => { state.src = e.target.value; render(); });
+  document.getElementById("f-sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+  document.getElementById("f-gap").addEventListener("change", e => { state.gap = e.target.checked; render(); });
+  document.getElementById("f-px").addEventListener("change", e => { state.px = e.target.checked; render(); });
+  document.querySelectorAll(".seg button").forEach(b => {
+    b.addEventListener("click", () => {
+      state.size = b.dataset.size;
+      document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      render();
+    });
+  });
+  document.getElementById("reset").addEventListener("click", () => {
+    Object.assign(state, { q: "", src: "", sort: "birth", size: "m", gap: true, px: true });
+    document.getElementById("q").value = "";
+    sel.value = ""; document.getElementById("f-sort").value = "birth";
+    document.getElementById("f-gap").checked = true; document.getElementById("f-px").checked = true;
+    document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.size === "m")));
+    render();
+  });
+
+  /* ---- 来源分布 ---- */
+  const counts = Object.keys(MEDIA.sources).map(k => ({ k, n: items.filter(i => i.src === k).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
+  const max = Math.max.apply(null, counts.map(c => c.n));
+  document.getElementById("dist").innerHTML = counts.map(c => {
+    const s = MEDIA.sources[c.k];
+    return `<div class="row">
+      <span class="lab">${esc(s.name)}<em>${esc(s.col)}</em></span>
+      <span class="bar ${c.k === "cw" ? "cw" : ""}"><i style="width:${(c.n / max * 100).toFixed(1)}%"></i></span>
+      <span class="n">${c.n} 帧</span>
+    </div>`;
+  }).join("");
+  document.getElementById("dist-note").innerHTML =
+    `<strong>${firstHand} 帧来自机构自述页，${items.length - firstHand} 帧来自行业机构。</strong>`
+    + `前者照片与小传同页发布，身份可当场互证；后者仅用于一手渠道确无肖像的 ${items.length - firstHand} 位，`
+    + `其中王富仁一帧的画面内桌签写明姓名，身份即由照片自身佐证。`;
+
+  /* ---- 署名清单 ---- */
+  document.querySelector("#credits tbody").innerHTML = sortRows(items.slice()).map((r, i) => {
+    const s = MEDIA.sources[r.src];
+    return `<tr>
+      <td class="num">${String(i + 1).padStart(2, "0")}</td>
+      <td><a href="#" data-jump="${esc(r.personId)}">${esc(r.name)}</a></td>
+      <td>${esc(s.name)}<br><span style="color:var(--muted);font-size:12px">${esc(s.col)}</span></td>
+      <td>${esc(s.license)}</td>
+      <td><a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(r.sourceUrl.replace(/^https?:\/\//, ""))}</a></td>
+    </tr>`;
+  }).join("");
+  document.querySelector("#credits tbody").addEventListener("click", e => {
+    const a = e.target.closest("a[data-jump]");
+    if (!a) return;
+    e.preventDefault();
+    const i = visible.findIndex(v => v.personId === a.dataset.jump);
+    if (i >= 0) { openLb(i); } else {
+      Object.assign(state, { q: "", src: "" });
+      document.getElementById("q").value = ""; sel.value = "";
+      render();
+      openLb(visible.findIndex(v => v.personId === a.dataset.jump));
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  /* ---- 待补表 ---- */
+  document.querySelector("#gaps tbody").innerHTML = gaps.map(g => `<tr>
+    <td>${esc(g.name)}</td>
+    <td class="num">${years(g)}</td>
+    <td>${g.searched.map(s => esc(s)).join("；")}</td>
+  </tr>`).join("");
+
+  render();
+  BNU.tables();
 })();
 </script>
 </body>

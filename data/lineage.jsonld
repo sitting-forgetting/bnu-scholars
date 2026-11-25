@@ -54,8 +54,8 @@
   "@type": "schema:Dataset",
   "name": "京师学林 · 北师大中文系师承谱系（Linked Data 导出）",
   "description": "242 条师承传承事件（每条挂证据原文与来源 URL）与 313 位谱系人物。与 site/data/lineage.js 同源生成，只含库内已存储字段，不做推断性补写；无年份的边保持无 startDate（留空即结论）。",
-  "dateModified": "2026-11-18",
-  "version": "v20261118",
+  "dateModified": "2026-11-26",
+  "version": "v20261126",
   "usageInfo": "https://sitting-forgetting.github.io/bnu-scholars/data-sources.html",
   "@graph": [
     {
@@ -1041,7 +1041,7 @@
       ],
       "name": "曹顺庆",
       "kind": "scholar",
-      "jobTitle": "副教授",
+      "jobTitle": "教授",
       "affiliation": "比较文学与世界文学研究所",
       "knowsAbout": [
         "比较文学与世界文学"
@@ -1050,7 +1050,7 @@
         "@value": "1980",
         "@type": "xsd:gYear"
       },
-      "description": "籍贯据官网简介原文：湖北荆州人（文化与文论\n个人简介：\n湖北荆州人，满族，19）",
+      "description": "籍贯据官网简介原文：湖北荆州人（文化与文论\n个人简介：\n湖北荆州人，满族，19）；职称据官网简介更正为教授（1990年晋升教授，现任北京师范大学教授）",
       "recordSource": "https://wxy.bnu.edu.cn/yjdw/bjwxysjwxyjs/e094970c7e094c0cb01d58ffd1926551.htm",
       "fetched": "2026-10-21",
       "asStudent": 1

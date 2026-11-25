@@ -1,6 +1,6 @@
 /* 由 scripts/build_lineage_data.py 自动生成，请勿手改 */
 window.LINEAGE_DATA = {
- "generatedAt": "2026-11-18",
+ "generatedAt": "2026-11-26",
  "nodes": [
   {
    "id": "bnu-001",
@@ -668,7 +668,7 @@ window.LINEAGE_DATA = {
    "asStudent": 1,
    "name": "曹顺庆",
    "kind": "scholar",
-   "title": "副教授",
+   "title": "教授",
    "org": "比较文学与世界文学研究所",
    "discipline": "比较文学与世界文学",
    "birth": null,

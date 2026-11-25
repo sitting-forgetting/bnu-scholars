@@ -191,7 +191,7 @@
       <tr><td>颜色</td><td>不适用</td><td>不采集</td><td>同上；页面只记原图色彩状态不作标注，黑白照不上色</td></tr>
       <tr><td>关联</td><td><code>edges</code> · <code>colleagueEdges</code></td><td><code>media.personId</code></td><td>人—人师承、人—所同事是主体内容；影像单向挂到人物，不参与关系判定</td></tr>
       <tr><td>时空范围</td><td><code>birth</code> · <code>death</code> · <code>birthplace</code> · <code>studyProv</code> · <code>edge.year</code></td><td><code>media.date</code>（35 帧全空）</td><td>省级粒度；生卒年仅原文明写。拍摄年代发布页一律未载，全部留空而不按人物生卒年倒推</td></tr>
-      <tr><td>权限</td><td>全站统一声明</td><td><code>sources[].license</code> · <code>policy</code></td><td>见「数据来源」页「版权与使用」与<a href="portraits.html">「先贤影像」署名清单</a>：版权归原发布机构，仅教学展示，可告知后下架</td></tr>
+      <tr><td>权限</td><td>全站统一声明</td><td><code>sources[].license</code> · <code>policy</code></td><td>见「数据来源」页「版权与使用」与<a href="masters.html#sec-credits">「先贤影像」署名清单</a>：版权归原发布机构，仅教学展示，可告知后下架</td></tr>
       <tr><td>出处</td><td><code>source</code> · <code>evidence[].url</code> · <code>sources[]</code></td><td><code>media.sourceUrl</code> · <code>media.imageUrl</code></td><td>逐条可回链：影像同时记发布页与原图直链；CALIS 边链接只到库首页，如实标注</td></tr>
       <tr><td>标签</td><td><code>interests[]</code> · <code>kind</code></td><td><code>media.type</code> · <code>media.src</code></td><td>影像类型当前仅 <code>portrait</code>；来源机构代码兼作筛选维度</td></tr>
       <tr><td>注释</td><td><code>note</code></td><td><code>media.note</code> · <code>gaps[]</code></td><td>同名辨析、口径说明等核对线索；未获肖像者另记查检渠道，留空也是记录</td></tr>
@@ -202,7 +202,7 @@
     <h2>影像表字段（data/media.js）</h2>
     <p class="chart-desc">
       35 帧先贤肖像，另记 3 位未获肖像者的查检记录。影像与人物分表：生成数据不混入 <code>scholars.js</code>，靠 <code>personId</code> 关联，删图不动人物著录。
-      口径全文与逐张署名见<a href="portraits.html">「先贤影像」页</a>。
+      口径全文与逐张署名见<a href="masters.html#sec-portraits">「先贤影像」节</a>。
     </p>
     <table class="gt">
       <tr><th style="width:110px">字段</th><th style="width:82px">类型</th><th style="width:56px">必填</th><th>取值规范</th><th style="width:180px">对标</th></tr>

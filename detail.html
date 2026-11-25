@@ -210,7 +210,7 @@
 
   const portrait = BNU.portrait(id);
   const heroFace = portrait
-    ? `<a class="face-big" style="--focus:${BNU.esc(portrait.focus)}" href="portraits.html"
+    ? `<a class="face-big" style="--focus:${BNU.esc(portrait.focus)}" href="masters.html#sec-portraits"
           title="肖像出处与许可见「先贤影像」页"><img src="${BNU.esc(portrait.file)}" alt="${BNU.esc(s.name)}肖像"></a>`
     : `<div class="seal-big" style="--c:${color}">${BNU.esc(s.name.slice(0, 1))}</div>`;
 
@@ -268,7 +268,7 @@
         ${portrait ? `<dt>肖像出处</dt><dd>${BNU.esc(window.BNU_MEDIA.sources[portrait.src].name)} · ${BNU.esc(window.BNU_MEDIA.sources[portrait.src].col)}
           <div style="margin-top:4px">${BNU.esc(window.BNU_MEDIA.sources[portrait.src].license)} ·
           <a href="${BNU.esc(portrait.sourceUrl)}" target="_blank" rel="noopener">原发布页</a> ·
-          <a href="portraits.html">影像口径与署名清单 →</a></div></dd>` : ""}
+          <a href="masters.html#sec-portraits">影像口径与署名清单 →</a></div></dd>` : ""}
       </dl>
     </div>`;
 })();

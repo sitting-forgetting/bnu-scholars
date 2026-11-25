@@ -1,4 +1,4 @@
-/* 京师学林 · 先贤影像元数据（由采集脚本生成，勿手改；口径见 portraits.html 与 schema.html） */
+/* 京师学林 · 先贤影像元数据（由采集脚本生成，勿手改；口径见 masters.html「影像浏览」节与 schema.html） */
 window.BNU_MEDIA = {
  "generatedAt": "2026-11-14",
  "scope": "先贤名师肖像（38 位）",
