@@ -31,7 +31,7 @@
     ["index.html", "学者名录"],
     ["lineage.html", "师承世表"],
     ["masters.html", "先贤名师"],
-    ["compass.html", "学脉罗盘"],
+    ["compass.html", "学术兴趣测试"],
     ["timeline.html", "学科时间线"],
     ["map.html", "学人地图"],
     ["build-guide.html", "构建方法"],

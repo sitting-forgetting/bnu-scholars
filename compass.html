@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>学脉罗盘 · 京师学林</title>
+<title>学术兴趣测试 · 京师学林</title>
 <link rel="stylesheet" href="css/shared.css">
 <style>
   /* ---- 卷首 ---- */
@@ -82,17 +82,116 @@
   .cp-opt[aria-pressed="true"] .k {
     background: var(--accent); border-color: var(--accent); color: #fff;
   }
-  .cp-note {
-    margin-top: 18px; padding: 13px 16px 13px 18px;
-    background: var(--gold-wash); border-left: 2px solid var(--gold);
-    font-size: 13px; line-height: 1.95; color: var(--ink-2);
-    animation: cp-rise .2s var(--ease) both;
+  /* ---- 人物海报卡：校徽为顶点，两线落到左右下角成三角，三角内嵌校园照 ---- */
+  .cp-master {
+    container-type: inline-size;
+    position: relative; overflow: hidden; isolation: isolate;
+    aspect-ratio: 16 / 9; margin: 22px 0 0;
+    background: radial-gradient(130% 150% at 50% -10%, #16356f 0%, #0c2150 48%, #071433 100%);
+    color: #fff; font-family: var(--f-serif);
+    animation: cpCardFade .5s ease-out both;
   }
-  .cp-note b {
-    display: block; font-family: var(--f-sans); font-size: 10.5px;
-    letter-spacing: 1.4px; color: var(--gold-deep); margin-bottom: 2px; font-weight: 700;
+  .cp-master::after {
+    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: radial-gradient(100% 100% at 50% 50%, transparent 62%, rgba(3,9,26,.42) 100%);
   }
-  @keyframes cp-rise { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+  .cp-master-photo {
+    position: absolute; inset: 0; z-index: 0; background: #0a1a40;
+    clip-path: polygon(50% 21.1%, 100% 100%, 0% 100%);
+    animation: cpTriOpen .9s var(--ease) .85s both;
+  }
+  .cp-master-photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%;
+    filter: grayscale(1) contrast(1.08) brightness(.7);
+  }
+  .cp-master-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(12,33,80,.9) 0%, rgba(12,33,80,.38) 50%, rgba(7,20,51,.9) 100%);
+  }
+  .cp-master-tri { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; overflow: visible; }
+  .cp-master-tri line {
+    stroke: rgba(176,200,255,.85); stroke-width: .3; stroke-linecap: round;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    animation: cpDraw .8s cubic-bezier(.2,.7,.2,1) .5s both;
+  }
+  .cp-ring {
+    position: absolute; z-index: 4; left: 50%; top: calc(6% + 8.5cqw);
+    width: 17%; aspect-ratio: 1; border-radius: 50%;
+    border: 1px solid rgba(196,216,255,.85); pointer-events: none;
+    animation: cpRing 1.2s var(--ease) .3s both;
+  }
+  .cp-master-badge {
+    position: absolute; z-index: 5; left: 50%; top: 6%;
+    width: 17%; aspect-ratio: 1; border-radius: 50%;
+    filter: drop-shadow(0 0 18px rgba(190,212,255,.55));
+    animation: cpBadgePop .7s var(--ease) .15s both;
+  }
+  .cp-master-uni { position: absolute; z-index: 5; left: 4%; top: 5.5%; animation: cpFadeLeft .6s var(--ease) .35s both; }
+  .cp-master-uni .cn { font-size: max(3.9cqw, 17px); letter-spacing: .5cqw; font-weight: 700; line-height: 1.3; }
+  .cp-master-uni .en { font-family: var(--f-sans); font-size: max(1.15cqw, 10px); letter-spacing: .12cqw; color: rgba(255,255,255,.72); margin-top: .3cqw; }
+  .cp-master-fig {
+    position: absolute; z-index: 4; left: 5%; bottom: 0; height: 90%;
+    display: flex; align-items: flex-end;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 76%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 76%, transparent 100%);
+    animation: cpFigIn .9s var(--ease) 1s both;
+  }
+  .cp-master-img { display: block; height: 100%; width: auto; filter: grayscale(1) contrast(1.06); }
+  /* 在世人物不使用黑白影调（黑白影像在中国语境易被读作遗照），保留自然色彩并稍作调和以融入深色版面 */
+  .cp-master-fig.is-living .cp-master-img { filter: saturate(.88) contrast(1.04) brightness(1.03); }
+  .cp-master-id { position: absolute; z-index: 5; left: 0; bottom: 6.5%; }
+  .cp-master-name {
+    background: rgba(5,13,34,.8); padding: 1cqw 2.4cqw 1cqw 4.5cqw;
+    font-size: max(5.4cqw, 22px); letter-spacing: .9cqw; font-weight: 700; line-height: 1.3;
+    animation: cpWipe .55s var(--ease) 1.35s both;
+  }
+  .cp-master-name .yr {
+    font-family: var(--f-sans); font-size: max(1.5cqw, 11px); letter-spacing: .15cqw;
+    color: rgba(255,255,255,.62); margin-left: 1.4cqw; font-weight: 400;
+  }
+  .cp-master-role {
+    margin-top: .9cqw; background: rgba(5,13,34,.6); padding: .75cqw 2.4cqw .75cqw 4.5cqw;
+    font-family: var(--f-sans); font-size: max(1.75cqw, 12px); letter-spacing: .25cqw;
+    color: rgba(255,255,255,.9); line-height: 1.5;
+    animation: cpWipe .55s var(--ease) 1.5s both;
+  }
+  .cp-quote-box {
+    position: absolute; z-index: 5; right: 4%; top: 8.5%; width: 27%; text-align: right;
+    animation: cpFadeUp .6s var(--ease) 1.25s both;
+  }
+  .cp-quote {
+    margin: 0; font-size: max(1.95cqw, 12px); line-height: 1.9; color: rgba(255,255,255,.94);
+    text-shadow: 0 1px 10px rgba(0,0,0,.45);
+  }
+  .cp-quote-by {
+    margin-top: .9cqw; font-family: var(--f-sans); font-size: max(1.25cqw, 11px);
+    line-height: 1.6; color: rgba(255,255,255,.6);
+  }
+  .cp-master-motto { position: absolute; z-index: 5; right: 4%; bottom: 7%; }
+  .cp-master-motto .lb {
+    display: flex; align-items: center; gap: 1cqw; margin-bottom: .7cqw;
+    font-family: var(--f-sans); font-size: max(1.5cqw, 11px); letter-spacing: 1.1cqw;
+    color: rgba(255,255,255,.72); animation: cpFadeUp .5s var(--ease) 1.55s both;
+  }
+  .cp-master-motto .lb::before { content: ""; width: 2.6cqw; height: 1px; background: rgba(255,255,255,.6); }
+  .cp-master-motto .ln {
+    font-size: max(7.2cqw, 28px); letter-spacing: .6cqw; line-height: 1.34; font-weight: 700;
+    text-shadow: 0 2px 18px rgba(0,0,0,.5); animation: cpFadeUp .6s var(--ease) both;
+  }
+  .cp-master-motto .ln:nth-child(2) { animation-delay: 1.65s; }
+  .cp-master-motto .ln:nth-child(3) { animation-delay: 1.8s; }
+  @keyframes cpCardFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes cpBadgePop { from { opacity: 0; transform: translateX(-50%) scale(.55); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
+  @keyframes cpRing { from { opacity: .9; transform: translate(-50%,-50%) scale(1); } to { opacity: 0; transform: translate(-50%,-50%) scale(2.6); } }
+  @keyframes cpDraw { to { stroke-dashoffset: 0; } }
+  @keyframes cpTriOpen {
+    from { clip-path: polygon(50% 21.1%, 50% 21.1%, 50% 21.1%); opacity: 0; }
+    to { clip-path: polygon(50% 21.1%, 100% 100%, 0% 100%); opacity: 1; }
+  }
+  @keyframes cpFigIn { from { opacity: 0; transform: translateX(-7%); } to { opacity: 1; transform: none; } }
+  @keyframes cpFadeLeft { from { opacity: 0; transform: translateX(-12%); } to { opacity: 1; transform: none; } }
+  @keyframes cpWipe { from { clip-path: inset(0 100% 0 0); opacity: 0; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+  @keyframes cpFadeUp { from { opacity: 0; transform: translateY(14%); } to { opacity: 1; transform: none; } }
   .cp-foot {
     display: flex; align-items: center; justify-content: space-between;
     gap: 14px; margin-top: 22px; min-height: 34px;
@@ -204,10 +303,27 @@
     .cp-result h2 { font-size: 30px; }
     .cp-bar { grid-template-columns: 104px minmax(0, 1fr); gap: 8px; font-size: 11.5px; }
     .cp-actions .cp-btn { flex: 1 1 auto; text-align: center; }
+    /* 窄屏改竖向构图：校徽与三角顶点保持在同一高度比例上 */
+    .cp-master { aspect-ratio: 10 / 11; }
+    .cp-master-badge { top: 14.7%; width: 14%; }
+    .cp-ring { top: calc(14.7% + 7cqw); width: 14%; }
+    .cp-master-uni { top: 4.5%; }
+    .cp-master-uni .en { display: none; }
+    .cp-quote-box { top: 30%; width: 37%; }
+    .cp-quote { font-size: 12px; line-height: 1.7; }
+    .cp-quote-by { display: none; }
+    .cp-master-motto { top: 53%; bottom: auto; right: 5%; }
+    .cp-master-motto .ln { font-size: 25px; }
+    .cp-master-fig { left: 4%; height: 62%; }
+    .cp-master-role { max-width: 78cqw; }
   }
   @media (prefers-reduced-motion: reduce) {
     .cp-compass .needle, .cp-bar .fill, .cp-progress i { transition: none; }
-    .cp-note { animation: none; }
+    .cp-master, .cp-master-photo, .cp-master-tri line, .cp-ring, .cp-master-badge,
+    .cp-master-uni, .cp-master-fig, .cp-master-name, .cp-master-role,
+    .cp-quote-box, .cp-master-motto .lb, .cp-master-motto .ln { animation: none; }
+    .cp-master-tri line { stroke-dashoffset: 0; }
+    .cp-ring { display: none; }
   }
 </style>
 </head>
@@ -217,11 +333,9 @@
 
   <section class="cp-hero">
     <div>
-      <div class="eyebrow">学脉罗盘 · 十二题</div>
-      <h1>你的第一反应，靠近哪条学脉？</h1>
-      <p class="cp-lede">
-        不是性格测试，也不给你贴标签。十二道具体的选择题，问的都是中文系日常里真实发生的事：拿到一部旧书、听到一个陌生句子、下一次田野、报一个课题。答完，你会得到一条学脉、三位可以点开的人，以及一条能继续追的师承边。
-      </p>
+      <div class="eyebrow">学术兴趣测试 · 十二题</div>
+      <h1>如果我在师大中文系……</h1>
+      <p class="cp-lede">学术兴趣小测试，仅供参考。</p>
       <p class="cp-meta">约 3 分钟<i>·</i>12 题<i>·</i>结果可存图<i>·</i>不采集任何个人信息</p>
     </div>
     <svg class="cp-compass" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
@@ -281,60 +395,100 @@
       desc: "以字词为起点，向上追问语言系统，向下落实文献与教学。库内的章黄一脉——章太炎、黄侃、陆宗达、王宁——把「点书、系联、训释」一代代传成了可操作的方法。",
       tags: ["训诂学", "文字学", "古汉语", "汉字标准化"],
       people: ["bnu-001", "bnu-119", "bnu-008"],
+      master: { name: "章太炎", img: "assets/portraits/cut/zhang_taiyan.png", cut: "assets/portraits/cut/zhang_taiyan.png",
+        years: "1869—1936", role: "国学大师 · 北师大中文系早期师资多出其门", raw: false, oval: false,
+        quote: "用国粹激动种性，增进爱国的热肠。",
+        src: "《东京留学生欢迎会演说录》，1906" },
     },
     gd: {
       name: "中国古代文学", disc: "中国古代文学", color: "#2f6fb0", angle: 36,
       desc: "从先秦到明清，把作品放回它自己的时代读，也读后人怎么读它。诗、文、小说、戏曲都在范围内，版本与文献是绕不开的基本功。",
       tags: ["唐宋文学", "明清小说", "诗文批评", "文献"],
       people: ["bnu-054", "bnu-189", "bnu-055"],
+      master: { name: "顾随", img: "assets/portraits/m010.jpg", cut: "assets/portraits/cut/m010.png",
+        years: "1897—1960", role: "曾任辅仁大学（今北京师范大学）中文系系主任", raw: false,
+        quote: "不要留恋过去，虽然过去确可留恋；不要希冀将来，虽然将来确可希冀。我们要努力现在。",
+        src: "评晏殊《浣溪沙》语，据顾之京《我的父亲顾随》" },
     },
     xd: {
       name: "中国现当代文学", disc: "中国现当代文学", color: "#b5533c", angle: 72,
       desc: "从晚清到今天，文学始终在回应社会。这里既做文学史与作家研究，也做批评、影视与科幻等正在发生的新对象。",
       tags: ["现代文学史", "当代批评", "影视", "科幻"],
       people: ["bnu-069", "bnu-070", "bnu-072"],
+      master: { name: "鲁迅", img: "assets/portraits/m001.jpg", cut: "assets/portraits/cut/m001.png",
+        years: "1881—1936", role: "文学家、思想家、教育家 · 1920 年起执教高师国文部", raw: false,
+        quote: "无穷的远方，无数的人们，都和我有关。",
+        src: "《这也是生活》，1936，收入《且介亭杂文附集》" },
     },
     yy: {
       name: "语言学及应用语言学", disc: "语言学及应用语言学", color: "#4f7a80", angle: 108,
       desc: "关心语言本身怎么运作：语法、语用、方言、历史演变；也关心语言怎么被使用、教学和计算。",
       tags: ["语法", "语用", "方言", "语言智能"],
       people: ["bnu-025", "bnu-028", "bnu-031"],
+      master: { name: "许嘉璐", img: "assets/portraits/m036.jpg", cut: "assets/portraits/cut/m036.png",
+        years: "1937—", living: true, role: "训诂学家 · 曾任北京师范大学副校长", raw: false,
+        quote: "语言是民族的标记，是文化的重要载体，是与其他民族交流的心灵之桥。",
+        src: "2006 年欧洲华文传媒协会研讨会致辞（中新社报道）" },
     },
     wy: {
       name: "文艺学", disc: "文艺学", color: "#8b7bb0", angle: 144,
       desc: "追问文学为什么成立：形式、修辞、文体、理论。既读作品，也读解释作品的那些概念。",
       tags: ["文学理论", "文体学", "《文心雕龙》", "批评"],
       people: ["bnu-033", "bnu-035", "bnu-036"],
+      master: { name: "童庆炳", img: "assets/portraits/m022.jpg", cut: "assets/portraits/cut/m022.png",
+        years: "1936—2015", role: "文艺理论家 · 北京师范大学资深教授", raw: false,
+        quote: "文学是显现在话语蕴藉中的审美意识形态。",
+        src: "《文学理论教程》对文学本质的界定" },
     },
     bj: {
       name: "比较文学与世界文学", disc: "比较文学与世界文学", color: "#1f8a66", angle: 180,
       desc: "把中国文学放进世界文学的坐标里，做跨语言、跨文化的比较与翻译研究。",
       tags: ["比较诗学", "世界文学", "翻译", "跨文化"],
       people: ["bnu-044", "bnu-047", "bnu-046"],
+      master: { name: "陶德臻", img: "assets/portraits/m033.jpg", cut: "assets/portraits/cut/m033.png",
+        years: "1926—2000", role: "东方文学与比较文学学者 · 北师大中文系教授", raw: true,
+        quote: "著有《东方文学讲稿》，主编《东方文学简史》《世界文学史》",
+        src: "代表著作，据中国作家网" },
     },
     ms: {
       name: "民俗学（民间文学）", disc: "民俗学（民间文学）", color: "#c9a227", angle: 216,
       desc: "走向田野，记录还在发生的口头传统、仪式与生活世界，也回到文献里追踪它们的来路。",
       tags: ["民间文学", "民俗史", "田野调查", "非遗"],
       people: ["bnu-099", "bnu-100", "bnu-101"],
+      master: { name: "钟敬文", img: "assets/portraits/m008.jpg", cut: "assets/portraits/cut/m008.png",
+        years: "1903—2002", role: "中国民俗学之父 · 1949 年起任北师大中文系教授", raw: false,
+        quote: "我死了以后，也要把骨灰撒在自己热爱的学科上。",
+        src: "生前常语，据央视网《钟敬文：伟大的人生》" },
     },
     wx: {
       name: "文献学", disc: "文献学", color: "#8a6d3b", angle: 252,
       desc: "从版本、目录、校勘、辑佚入手，先把材料弄对，再谈解释。库内可见启功→李山的博士师承，这条学问从这里生根。",
       tags: ["版本", "目录", "校勘", "古籍整理"],
       people: ["bnu-086", "bnu-088", "bnu-089"],
+      master: { name: "余嘉锡", img: "assets/portraits/extra/yujiaxi.png", cut: null,
+        years: "1884—1955", role: "目录学家 · 曾任辅仁大学国文系主任、文学院院长", raw: false,
+        quote: "治学之士，无不先窥目录以为津逮，较其他学术，尤为重要。",
+        src: "《目录学发微》卷一" },
     },
     cy: {
       name: "创意写作", disc: "其他（创意写作）", color: "#7b4b6e", angle: 288,
       desc: "把写作本身当作研究对象，也当作实践。小说、诗歌、剧本，在写与改中理解文学。",
       tags: ["小说", "诗歌", "剧本", "工作坊"],
       people: ["bnu-093", "bnu-095", "bnu-096"],
+      master: { name: "沈从文", img: "assets/portraits/m013.jpg", cut: "assets/portraits/cut/m013.png",
+        years: "1902—1988", role: "现代作家、历史文物研究家", raw: false,
+        quote: "要贴到人物来写。",
+        src: "语见汪曾祺《沈从文先生在西南联大》" },
     },
     yw: {
       name: "语文教育", disc: "其他（语文教育）", color: "#3c6e71", angle: 324,
       desc: "把文学与语言研究的成果，转化成课堂上真实发生的学习。课程、教材、评价、教师发展都在范围内。",
       tags: ["语文课程", "教材", "阅读教学", "教师发展"],
       people: ["bnu-108", "bnu-111", "bnu-112"],
+      master: { name: "黎锦熙", img: "assets/portraits/m006.jpg", cut: "assets/portraits/cut/m006.png",
+        years: "1889—1978", role: "语言文字学家、教育家 · 执教师大近半个世纪", raw: false,
+        quote: "知术欲圆，行旨须直。",
+        src: "1947 年为国立西北师范学院毕业生题词" },
     },
   };
 
@@ -537,14 +691,13 @@
             <span class="k">${LETTERS[j]}</span><span>${o.t}</span>
           </button>`).join("")}
       </div>
-      ${picked !== null ? `<div class="cp-note"><b>为什么这样问</b>${q.opts[picked].n}</div>` : ""}
       <div class="cp-foot">
         <div>${state.i > 0
           ? '<button class="cp-btn" type="button" id="cp-back">← 上一题</button>'
           : '<span class="cp-kbd">按 1–4 选择</span>'}</div>
         <div>${picked !== null
           ? `<button class="cp-btn primary" type="button" id="cp-next">${state.i === TOTAL - 1 ? "看结果" : "下一题"} →</button>`
-          : '<span class="cp-kbd">选择后显示提示</span>'}</div>
+          : '<span class="cp-kbd">选择后按 Enter 继续</span>'}</div>
       </div>`;
 
     if (focus === "q") {
@@ -585,7 +738,7 @@
       : (gap === 0
         ? `与「${S.name}」几乎并列；总分相同，主选分布略有不同。`
         : (gap <= 2
-          ? `次近：${S.name}；两者只差 ${gap} 分，不必急着二选一。`
+          ? `次近：${S.name}，两者只差 ${gap} 分。`
           : `另一条可能的路：${S.name}。`));
 
     const edge = findEdge(top.k);
@@ -622,14 +775,39 @@
 
         <p class="cp-desc">${D.desc}</p>
         <div class="cp-tags">${D.tags.map(t => `<span>${t}</span>`).join("")}</div>
+        ${D.master ? `
+        <figure class="cp-master" aria-label="${D.master.name}人物卡">
+          <div class="cp-master-photo"><img src="assets/campus_bnu.jpg" alt="" loading="lazy"></div>
+          <svg class="cp-master-tri" viewBox="0 0 160 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <line x1="80" y1="19" x2="0" y2="90" pathLength="1"/>
+            <line x1="80" y1="19" x2="160" y2="90" pathLength="1"/>
+          </svg>
+          <span class="cp-ring" aria-hidden="true"></span>
+          <img class="cp-master-badge" src="assets/bnu_emblem.png" alt="北京师范大学校徽" loading="lazy">
+          <div class="cp-master-uni"><div class="cn">北京师范大学</div><div class="en">BEIJING NORMAL UNIVERSITY</div></div>
+          <span class="cp-master-fig${D.master.living ? " is-living" : ""}" style="${D.master.figStyle || ""}"><img class="cp-master-img" src="${D.master.cut || D.master.img}" alt="${D.master.name}肖像" loading="lazy"></span>
+          <div class="cp-master-id">
+            <div class="cp-master-name">${D.master.name}<span class="yr">${D.master.years}</span></div>
+            <div class="cp-master-role">${D.master.role}</div>
+          </div>
+          <div class="cp-quote-box">
+            <blockquote class="cp-quote">${D.master.raw ? D.master.quote : "「" + D.master.quote + "」"}</blockquote>
+            <div class="cp-quote-by">—— ${D.master.name}　${D.master.src}</div>
+          </div>
+          <div class="cp-master-motto">
+            <div class="lb">校训</div>
+            <div class="ln">学为人师</div>
+            <div class="ln">行为世范</div>
+          </div>
+        </figure>` : ""}
 
         <div class="cp-grid">
           <section class="cp-panel">
-            <h3>三位可以点开的人</h3>
+            <h3>本专业学者（部分）</h3>
             ${D.people.map(scholarRow).join("")}
           </section>
           <section class="cp-panel">
-            <h3>从这条学脉往里走</h3>
+            <h3>本专业学者谱系（部分）</h3>
             ${edgeHtml}
           </section>
         </div>
@@ -649,7 +827,7 @@
         </div>
 
         <p class="cp-fine">
-          结果只由这 12 道题的选择累加而来：主选记 2 分，邻近方向记 1 分；条形只表示相对倾向，不是百分比，也不代表能力或水平。推荐仅基于库内 ${coveredCount()} 位有学科归属的学者，外源导师与未标学科者不计入。这是一个兴趣索引，不构成专业分流建议；真正的研究方向，要和读书、上课、写论文一起长出来。
+          结果只由这 12 道题的选择累加而来：主选记 3 分，邻近方向记 1 分；条形只表示相对倾向，不是百分比，也不代表能力或水平。推荐仅基于库内 ${coveredCount()} 位有学科归属的学者，外源导师与未标学科者不计入。这是一个兴趣索引，不构成专业分流建议。先贤影像引自文学院官网「先贤名师」等栏目及维基共享资源（公有领域），校徽与校园照片引自北师大官网及英文官网；人物剪影系对原影像做背景分离（非生成、不修图），仅作人物见证，不作师承证据；名言与身份出处随人物标注。
         </p>
       </div>`;
 
@@ -747,7 +925,7 @@
     x.strokeStyle = "#dcded7"; x.lineWidth = 1; x.strokeRect(36.5, 36.5, 1007, 1367);
 
     x.fillStyle = "#171916"; x.font = `700 38px ${serif}`; x.fillText("京师学林", 96, 128);
-    x.fillStyle = "#6d726a"; x.font = `22px ${sans}`; x.fillText("学脉罗盘 · 十二题", 96, 168);
+    x.fillStyle = "#6d726a"; x.font = `22px ${sans}`; x.fillText("学术兴趣测试 · 十二题", 96, 168);
     x.textAlign = "right"; x.fillText("BNU SCHOLARS", 984, 128); x.textAlign = "left";
 
     x.strokeStyle = "#171916"; x.lineWidth = 2; x.beginPath(); x.moveTo(96, 202); x.lineTo(984, 202); x.stroke();
@@ -777,11 +955,18 @@
     x.fillStyle = "#6d726a"; x.font = `20px ${sans}`;
     x.fillText(D.tags.map(t => "# " + t).join("    "), 96, y);
 
+    if (D.master) {
+      x.fillStyle = "#40453e"; x.font = `26px ${serif}`;
+      const qlines = wrapText(x, (D.master.raw ? D.master.quote : "「" + D.master.quote + "」") + "—— " + D.master.name, 882).slice(0, 2);
+      qlines.forEach((ln, i) => x.fillText(ln, 96, y + 48 + i * 42));
+      y += 48 + qlines.length * 42;
+    }
+
     y += 58;
     x.strokeStyle = "#e8e9e4"; x.lineWidth = 1; x.beginPath(); x.moveTo(96, y); x.lineTo(984, y); x.stroke();
 
     y += 46;
-    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("三 位 可 以 点 开 的 人", 96, y);
+    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("本 专 业 学 者（部 分）", 96, y);
     y += 48;
     const names = D.people.map(id => {
       const s = data.scholars.find(v => v.id === id);
@@ -791,7 +976,7 @@
     x.fillText(names.join("　·　"), 96, y);
 
     y += 58;
-    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("从 这 条 学 脉 往 里 走", 96, y);
+    x.fillStyle = "#8a6d3b"; x.font = `700 21px ${sans}`; x.fillText("本 专 业 学 者 谱 系（部 分）", 96, y);
     y += 42;
     const edge = findEdge(top.k);
     x.fillStyle = "#40453e"; x.font = `28px ${serif}`;
@@ -823,7 +1008,7 @@
     x.fillStyle = "#fdf9f3"; x.font = `700 52px ${serif}`; x.textAlign = "center";
     x.fillText("学", 930, 1340); x.textAlign = "left";
 
-    const filename = `京师学林_学脉罗盘_${D.name}.png`;
+    const filename = `京师学林_学术兴趣测试_${D.name}.png`;
     c.toBlob(blob => {
       if (!blob) return;
       const a = document.createElement("a");

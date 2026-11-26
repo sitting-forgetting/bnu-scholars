@@ -1836,7 +1836,7 @@
     const color = n.kind === "master" ? "#b08d3f" : (n.kind === "external" ? "#9aa0a6" : BNU.disciplineColor(n.discipline));
     const portrait = BNU.portrait(id);
     const avatar = portrait
-      ? `<div class="avatar has-img" style="--focus:${esc(portrait.focus)}" title="肖像来源见「先贤影像」页"><img src="${esc(portrait.file)}" alt="${esc(n.name)}肖像"></div>`
+      ? `<div class="avatar has-img" style="--focus:${esc(portrait.focus)}" title="肖像来源见「先贤名师」影像节"><img src="${esc(portrait.file)}" alt="${esc(n.name)}肖像"></div>`
       : `<div class="avatar" style="background:${color}">${esc(n.name.slice(0, 1))}</div>`;
     const kindLabel = n.kind === "master" ? "先贤" : (n.kind === "external" ? "外源导师" : "本库学者");
     const meta = [n.title, n.org, n.discipline].filter(Boolean).map(esc).join(" · ") || "—";
@@ -1997,6 +1997,28 @@
     view.k = Math.max(0.30, Math.min(1.05, kFit));
     view.x = w / 2 - (minX + maxX) / 2 * view.k;
     view.y = h / 2 - (minY + maxY) / 2 * view.k;
+    applyView();
+  }
+
+  // 家族高亮：把视野框选到「导师 + 直接门下」这一整支，并用净空矩形避开右侧抽屉。
+  // 不这么做的话，卡片照常画在长卷上，但那一支往往在画布之外，看起来就是「点了没显示」。
+  function fitToFamily(mid) {
+    const ids = [mid, ...childrenOf[mid]];
+    const xs = [], ys = [];
+    ids.forEach(id => {
+      if (X[id] != null) xs.push(X[id]);
+      if (Y[id] != null) ys.push(Y[id]);
+    });
+    if (!xs.length || !ys.length) return;
+    const cr = clearRect();
+    const availW = cr.r - cr.l, availH = cr.b - cr.t;
+    const padX = 36, padTop = 24, padBottom = 40;
+    const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + CW + padX;
+    const minY = Math.min(...ys) - padTop, maxY = Math.max(...ys) + CH + TOG_H + padBottom;
+    const kFit = Math.min(availW / (maxX - minX), availH / (maxY - minY));
+    view.k = Math.max(0.30, Math.min(1.05, kFit));
+    view.x = cr.l + (availW - (maxX - minX) * view.k) / 2 - minX * view.k;
+    view.y = cr.t + (availH - (maxY - minY) * view.k) / 2 - minY * view.k;
     applyView();
   }
 
@@ -2513,6 +2535,7 @@
     relayout();
     render();
     syncFamChips();
+    if (familyMentor) fitToFamily(id);    // 把这一支框进视野，否则卡片画在画布外看起来像没显示
   });
 
   [q, onlyDirect, hideWeak, showColleague].forEach(elx => elx.addEventListener("input", render));

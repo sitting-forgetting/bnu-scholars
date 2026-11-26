@@ -211,7 +211,7 @@
   const portrait = BNU.portrait(id);
   const heroFace = portrait
     ? `<a class="face-big" style="--focus:${BNU.esc(portrait.focus)}" href="masters.html#sec-portraits"
-          title="肖像出处与许可见「先贤影像」页"><img src="${BNU.esc(portrait.file)}" alt="${BNU.esc(s.name)}肖像"></a>`
+          title="肖像出处与许可见「先贤名师」影像节"><img src="${BNU.esc(portrait.file)}" alt="${BNU.esc(s.name)}肖像"></a>`
     : `<div class="seal-big" style="--c:${color}">${BNU.esc(s.name.slice(0, 1))}</div>`;
 
   box.innerHTML = `
